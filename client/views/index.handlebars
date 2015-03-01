@@ -9,16 +9,19 @@
     <script type="text/javascript" src="assets/vendor/jquery-ui-1.10.0.custom.min.js"></script>
     <script type="text/javascript" src="assets/vendor/jquery-csv.js"></script>
 
-    <script type="text/javascript" src="assets/js/csvupload.js"></script>
+    <script type="text/javascript" src="assets/js/csvtools.js"></script>
     <script type="text/javascript" src="assets/js/index.js"></script>
 </head>
 <body>
  
-    <p>Hello World (finally)</p>
+    <div id="dropzone">
+        <p>Drop your csv file here :)</p>
+        <div id="fileInfo"></div>
+    </div>
 
-    <div id="dropzone">Drop your csv file here :)</div>
-    <div id="fileInfo"></div>
-    <table><tbody id="content"></tbody></table>
+    <div id="fileContent"></div>
+
+    
  
 </body>
 </html>
