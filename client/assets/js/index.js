@@ -33,8 +33,3 @@ $(document).ready(function() {
     }
 
 });
-
-
-
-
-
