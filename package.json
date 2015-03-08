@@ -16,6 +16,7 @@
     "mongoose": "*",
     "express3-handlebars": "*",
     "connect": "1.X",
-    "less-middleware": "*"
+    "less-middleware": "*",
+    "handlebars": "*"
   }
 }

@@ -1,18 +1,34 @@
+@font-face {
+    font-family: 'Lato';
+    src: url(../vendor/fonts/Lato/Lato-Hairline.ttf);
+    weight: 100;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url(../vendor/fonts/Lato/Lato-Light.ttf);
+    weight: 300;
+}
+
 body {
 
+    font-family: 'Lato';
+
     #dropzone {
-        position: absolute;
-        left: 0;
-        width: 50%;
-        height: 90%;
+        width: 100%;
+        height: 300px;
         border: 1px solid orange;
     }
 
-    #fileContent {
-        position: absolute;
-        right: 0;
-        width: 50%;
-        height: 100%;
+    #navbar {
+        width: 100%;
+        height: 50px;
+        background: #2D3539 url("../img/logo.png") no-repeat 10px center;
+        padding: 10px 75px;
+        color: white;
+        font-size: 30px;
+        line-height: 30px;
+        font-weight: 100;
     }
 
 }

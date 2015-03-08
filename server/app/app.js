@@ -4,8 +4,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var utils = require('connect').utils;
-var routes = require('./routes/index');
-var users = require('./routes/users');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var lessMiddleware = require('less-middleware');
@@ -27,7 +25,12 @@ app.use(function(req,res,next){
     next();
 });
 
+var routes = require('./routes/index');
+var users = require('./routes/users');
+var groupify = require('./routes/groupify');
+
 app.use('/', routes);
 app.use('/users', users);
+app.use('/groupify', groupify);
 
 module.exports = app;
