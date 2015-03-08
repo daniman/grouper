@@ -1,14 +1,12 @@
-To compile the Handlebars templates:
-handlebars client/templates -f client/assets/js/templates.js
+<p> To compile the <b>Handlebars</b> templates: <br>
+    handlebars client/templates -f client/assets/js/templates.js </p>
 
-To run the Server:
-npm install
-npm start
 
-To run Mongo:
-first shell -
-   cd /path/to/mongo/.../bin
-   ./mongod --dbpath /path/to/data/folder
-second shell -
-   cd /path/to/mongo/.../bin
-   ./mongo
+<p> To run the <b>Server</b>: <br>
+    npm install <br>
+    npm start </p>
+
+<p> To run <b>Mongo</b>: <br>
+   cd /path/to/mongo/.../bin <br>
+   ./mongod --dbpath /path/to/data/folder <i>(first shell)</i><br>
+   ./mongo <i>(second shell)</i></p>
