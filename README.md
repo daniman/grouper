@@ -1,3 +1,5 @@
+<p>Project <b>Wiki</b>: https://wikis.mit.edu/confluence/display/6DOT813sp15/Grouper</p>
+
 <p> To compile the <b>Handlebars</b> templates: <br>
     handlebars client/templates -f client/assets/js/templates.js </p>
 
