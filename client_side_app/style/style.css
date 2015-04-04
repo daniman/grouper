@@ -1,4 +1,52 @@
-div {
+html,body {
+    height:100%;
+    padding:0;
+    margin:0;
+    font-family: Lato;
+    font-weight: 300;
+}
+
+#bubbleContainer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    height: calc(100% - 90px);
+    width: calc(100% - 308px);
+}
+
+#navbar {
+    font-size: 30px;
+    background-color: #ccc;
+    width: 100%;
+    padding: 5px 15px;
+    line-height: 40px;
+    font-weight: 300;
+    color: black;
+}
+
+#logoImg {
+    top: -3px;
+    position: relative;
+}
+
+#filters {
+    height: calc(100% - 92px);
+    width: 250px;
+    border: 1px solid #ccc;
+    margin: 20px;
+}
+
+.filterType {
+    padding: 20px;
+    line-height: 18px;
+}
+
+.filterTypeTitle {
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+.bubble {
     opacity: .7; 
     position: absolute;
     border-radius: 40px;
@@ -6,5 +54,4 @@ div {
     text-align: center;
     vertical-align: middle;
     line-height: 80px;
-    font-weight: 200;
 }

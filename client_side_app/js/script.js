@@ -6,7 +6,6 @@ var wI = window.innerWidth,
     r = 80,
     padding = 6,
     fill = d3.scale.category10(),
-    foci = [{x: 200, y: window.innerHeight/2}, {x: window.innerWidth/2, y: window.innerHeight/2}, {x: window.innerWidth-200, y: window.innerHeight/2}],
     nodes = [{group:0}, {group:1}, {group:2}, {group:0}, {group:1}, {group:2}, {group:0}, {group:1}, {group:2}, {group:0}];
 
 var nearest = function(n, range){
@@ -14,9 +13,13 @@ var nearest = function(n, range){
 };
 
 
-var vis = d3.select("body").select("#container")
-    .style("width", w)
-    .style("height", h);
+var vis = d3.select("body").select("#bubbleContainer");
+
+var foci = [
+  {x: 100, y: $("#bubbleContainer").height()/3}, 
+  {x: $("#bubbleContainer").width()/2, y: $("#bubbleContainer").height()/3}, 
+  {x: $("#bubbleContainer").width()-200, y: $("#bubbleContainer").height()/3}
+]
 
 /* Force paramettring */
 var force = d3.layout.force()
@@ -30,14 +33,14 @@ var force = d3.layout.force()
     .start();
 
 /*Associate the divs with the node objects. */
-var node = vis.selectAll("div")
+var node = vis.selectAll(".bubble")
     .data(nodes)
-    .attr("class", function(d, i){return 'node' + i;})
+    .attr("class", function(d, i){return 'bubble node' + i;})
     .style("left", function(d) { return d.x + 50 + "px"; }) //x
     .style("top", function(d) { return d.y + 50 + "px"; }) //y
     .style("width", r + "px")
     .style("height", r + "px")
-    .style("background-color", '#ff8c17')
+    .style("background-color", '#ccc')
     .call(force.drag);
 
 /* Start transition */

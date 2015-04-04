@@ -12,6 +12,8 @@
     <script type="text/javascript" src="assets/vendor/csvtools.js"></script>
     <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.2-dist/css/bootstrap.min.css">
     <script src="assets/vendor/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+    <link href="assets/vendor/bootstrap-switch.css" rel="stylesheet">
+    <script src="assets/vendor/bootstrap-switch.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
 
     <!-- Scripts -->
@@ -22,21 +24,59 @@
 </head>
 
 <body>
+
+    <div id="navbar">
+      <img id="logoImg" src="assets/img/logo.png" height="26" width="50">
+      Grouper
+    </div>
+
+    <div id="pageNav"></div>
+
+    <div id="filters">
+
+      <div class="filterType">
+        <div class="filterTypeTitle">
+          Data Labels:
+        </div>
+        Course Number <input type="checkbox" name="my-checkbox" checked> Name
+      </div>
+
+      <div class="filterType">
+        <div class="filterTypeTitle">
+          Data Filters:
+        </div>
+        <input type="checkbox"> Gender<br>
+        <input type="checkbox" name="filter"> Year<br>
+        <input type="checkbox" name="filter"> Sports Team<br>
+        <input type="checkbox" name="filter"> Living Group<br>
+        <input type="checkbox" name="filter"> Greek Affiliation
+      </div>
+    
+    </div>
  
-    <div id = "container">
-      <div>0</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>4</div>
-      <div>5</div>
-      <div>6</div>
-      <div>7</div>
-      <div>8</div>
-      <div>9</div>
+    <div id = "bubbleContainer">
+      <div class="bubble">0</div>
+      <div class="bubble">1</div>
+      <div class="bubble">2</div>
+      <div class="bubble">3</div>
+      <div class="bubble">4</div>
+      <div class="bubble">5</div>
+      <div class="bubble">6</div>
+      <div class="bubble">7</div>
+      <div class="bubble">8</div>
+      <div class="bubble">9</div>
     </div>
 
     <script type="text/javascript" src="js/script.js"></script>
+    <script>
+    $("[name='my-checkbox']").bootstrapSwitch({
+      size: 'small',
+      onText: '',
+      offText: '',
+      onColor: 'info',
+      offColor: 'info'
+    });
+    </script>
  
 </body>
 </html>
