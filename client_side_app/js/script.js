@@ -4,6 +4,7 @@ var wI = window.innerWidth,
     w = wI + "px",
     h = hI + "px",
     r = 80,
+    padding = 6,
     fill = d3.scale.category10(),
     foci = [{x: 200, y: window.innerHeight/2}, {x: window.innerWidth/2, y: window.innerHeight/2}, {x: window.innerWidth-200, y: window.innerHeight/2}],
     nodes = [{group:0}, {group:1}, {group:2}, {group:0}, {group:1}, {group:2}, {group:0}, {group:1}, {group:2}, {group:0}];
@@ -65,7 +66,7 @@ function tick(e) {
 }
 
 function collide(nodey) {
-  var r = 60,
+  var r = 80 + padding,
       nx1 = nodey.x - r,
       nx2 = nodey.x + r,
       ny1 = nodey.y - r,
@@ -75,11 +76,13 @@ function collide(nodey) {
        var x = nodey.x - quad.point.x,
          y = nodey.y - quad.point.y,
          l = Math.sqrt(x * x + y * y),
-         r = 90;
+         r = 80 + padding;
        if (l < r) {
          l = (l - r) / l * .5;
          nodey.x -= x *= l;
          nodey.y -= y *= l;
+         quad.point.x += x;
+         quad.point.y += y;
        } 
      }
     return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
