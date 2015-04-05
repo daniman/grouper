@@ -1,13 +1,13 @@
-var node; // global var (so filter.js can access)
+var nodes; // global var (so filter.js can access)
 
 $(document).ready(function() {
 
     for (var i=0; i<students.length; i++) {
-        $('#bubbleContainer').append('<div class="bubble">' + i + '</div>');
+        $('#bubbleContainer').append('<div class="bubble">' + students[i]['course_number'] + '</div>');
     }
 
     /* container */
-    var radius = 70,
+    var radius = 60,
         padding = 6,
         vis = d3.select("body").select("#bubbleContainer");
 
@@ -34,11 +34,10 @@ $(document).ready(function() {
         .start();
 
     /*Associate the divs with the node objects. */
-    node = vis.selectAll(".bubble")
+    nodes = vis.selectAll(".bubble")
       .data(students)
       .attr({
         'id': function(d,i) {return 'node' + i},
-        'class': 'bubble'
       })
       .style({
         'width': radius + 'px',
@@ -73,7 +72,7 @@ $(document).ready(function() {
         o.x += (foci[o.group].x - o.x) * k;
       });
 
-      node.style({
+      nodes.style({
         'left': function(d,i) {
           return d.x + 'px';
         },

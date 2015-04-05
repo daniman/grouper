@@ -34,6 +34,7 @@ html,body {
     width: 250px;
     border: 1px solid #ccc;
     margin: 20px;
+    padding: 20px;
 }
 
 .filterType {
