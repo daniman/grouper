@@ -25,7 +25,7 @@ $(document).ready(function() {
     /* Force paramettring */
     var force = d3.layout.force()
         .size([$("#bubbleContainer").width(), $("#bubbleContainer").height()]) // gravity field's size
-        .friction(.001) // 1 = frictionless
+        //.friction(1) // 1 = frictionless
         .charge(0)
         .gravity(0) 
         .nodes(students) 
@@ -39,17 +39,19 @@ $(document).ready(function() {
       .attr({
         'id': function(d,i) {return 'node_' + i},
       })
+      
       .style({
         'width': radius + 'px',
         'height': radius + 'px',
         'background-color': '#ccc',
         'border-radius': radius/2 + 'px',
         'font-size': radius-20 + 'px',
+        
         'left': function(d) {
-          return d.x + radius/2 + "px"; //x
+          return d.x + radius + "px"; //x
         },
         'top': function(d) {
-          return d.y + radius/2 + "px"; //y
+          return d.y + radius + "px"; //y
         }
       })
       .call(force.drag);
@@ -61,16 +63,32 @@ $(document).ready(function() {
         .style("opacity", 1);
 
     function tick(e) {  
-      var q = d3.geom.quadtree(students);
+      //everything collide with everything else
+      
+      //var q = d3.geom.quadtree(students);
+      /*
       for (var i = 0; i<students.length; i++) {
-        q.visit(collide(students[i]))
-      }
+        collide2(.5)(students[i]);
+      }*/
+      var q = d3.geom.quadtree(students);
+            for (var i = 0; i<students.length; i++) {
+              q.visit(collide(students[i]))
+            }
+      //nodes.each(collide2(.5));
        
-      var k = .6 * e.alpha;
-      students.forEach(function(o, i) {
+      //gravity towards foci
+      /*
+      var k = .2 * e.alpha;
+      nodes.each(
         o.y += (foci[o.group].y - o.y) * k;
         o.x += (foci[o.group].x - o.x) * k;
-      });
+      );
+*/
+      //console.log(nodes);
+      nodes.each(gravity(.2 * e.alpha));
+      nodes
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
 
       nodes.style({
         'left': function(d,i) {
@@ -80,6 +98,14 @@ $(document).ready(function() {
           return d.y + 'px';
         }
       });
+
+    }
+    // Move nodes toward cluster focus.
+    function gravity(alpha) {
+      return function(d) {
+        d.y += (foci[d.group].y - d.y) * alpha;
+        d.x += (foci[d.group].x - d.x) * alpha;
+      };
     }
 
     function collide(nodey) {
@@ -103,6 +129,36 @@ $(document).ready(function() {
            } 
          }
         return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+      };
+    }
+    function collide2(alpha) {
+      quadtree = d3.geom.quadtree(students);
+      return function(d) {
+        var r = radius + padding,
+            nx1 = d.x - r,
+            nx2 = d.x + r,
+            ny1 = d.y - r,
+            ny2 = d.y + r;
+        quadtree.visit(function(quad, x1, y1, x2, y2) {
+          //console.log(quad);
+          if (quad.point && (quad.point !== d)) {
+            //console.log("collision");
+            from = d;
+            to = quad;
+            var x = d.x - quad.point.x,
+                y = d.y - quad.point.y,
+                l = Math.sqrt(x * x + y * y),
+                r = d.radius + padding;
+            if (l < r) {
+              l = (l - r) / l * alpha;
+              d.x -= x *= l;
+              d.y -= y *= l;
+              quad.point.x += x;
+              quad.point.y += y;
+            }
+          }
+          return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+        });
       };
     }
 });

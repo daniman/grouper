@@ -1,7 +1,7 @@
 /**
  * This object would in theory be made by the algorithm...
  */
-var students = [{   
+students = [{   
     name: 'Catwoman',
     course_number: 16,
     gender: 'F',
