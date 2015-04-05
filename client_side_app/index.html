@@ -12,9 +12,14 @@
     <script type="text/javascript" src="assets/vendor/csvtools.js"></script>
     <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.2-dist/css/bootstrap.min.css">
     <script src="assets/vendor/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <link href="assets/vendor/bootstrap-switch.css" rel="stylesheet">
+    <script src="assets/vendor/bootstrap-switch.js"></script>
+    <script src="assets/vendor/d3.js"></script>
 
     <!-- Scripts -->
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/bubbles.js"></script>
+    <script type="text/javascript" src="js/filter.js"></script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="style/font.css" />
@@ -22,21 +27,25 @@
 </head>
 
 <body>
- 
-    <div id = "container">
-      <div>0</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>4</div>
-      <div>5</div>
-      <div>6</div>
-      <div>7</div>
-      <div>8</div>
-      <div>9</div>
+
+    <div id="navbar">
+      <img id="logoImg" src="assets/img/logo.png" height="26" width="50">
+      Grouper
     </div>
 
-    <script type="text/javascript" src="js/script.js"></script>
+    <div id="filterContainer">
+         <div class="filterTypeTitle">
+             Data Labels:
+         </div>
+         Number  <input type="checkbox" name="toggle" value="name">  Name
+
+      <div class="filterTypeTitle">
+        Data Filters:
+      </div>
+      <ul id="filters"></ul>
+    </div>
+ 
+    <div id = "bubbleContainer"></div>
  
 </body>
 </html>
