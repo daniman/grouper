@@ -8,12 +8,7 @@ $(document).ready(function() {
     });
 
 
-    // <div class="filterType">
-    //     <div class="filterTypeTitle">
-    //         Data Labels:
-    //     </div>
-    //     Student Course Number <input type="checkbox" name="toggle" checked> Student Name
-    // </div>
+    // 
 
     // <div class="filterType">
     //     <input type="checkbox" value="gender"> Gender<br>
@@ -24,14 +19,40 @@ $(document).ready(function() {
     // </div>
 
     for (var i=0; i<filters.length; i++) {
-        $('#filters').append('<div>' +
-            '<input class="filterCat" type="radio" name="filters" value="' + filters[i] + '">' + filters[i] + '<br>' +
-            '</div>');
+        $('#filters').append('<li>' +
+            '<input class="filter_cat" type="radio" name="filters" value="' + filters[i] + '">' + filters[i] + '<br>' +
+            '</li>');
     }
 
-    $('.filterCat').click(function(event) {
+    $('.filter_cat').click(function(event) {
         filter(event.target.value, nodes);
     })
+
+    $('input[name="toggle"]').on('switchChange.bootstrapSwitch', function(event, state) {
+        if (state) {
+            $('.bubble').each(function() {
+                var id = this.id.split('_')[1];
+                $(this).children().html(students[id]['name']);
+
+                $(this).children().css({
+                    'font-size': '15px'
+                });
+                // Don't combine these, they're separate on purpose for timing
+                $(this).children().css({
+                    'margin-top': ($(this).height()-$(this).children().height())/2 + 'px'
+                });
+            });
+        } else {
+            $('.bubble').each(function() {
+                var id = this.id.split('_')[1];
+                $(this).children().html(students[id]['course_number']);
+                $('.bubble_text').css({
+                    'font-size': $('.bubble').height()-20 + 'px',
+                    'margin-top': ($(this).height()-$(this).children().height())/2 + 'px'
+                });
+            });
+        }
+    });
 
     
 

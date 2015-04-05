@@ -6,6 +6,15 @@ html,body {
     font-weight: 300;
 }
 
+ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+input[type='radio'] {
+    margin-right: 5px;
+}
+
 #bubbleContainer {
     position: absolute;
     bottom: 20px;
@@ -29,7 +38,7 @@ html,body {
     position: relative;
 }
 
-#filters {
+#filterContainer {
     height: calc(100% - 92px);
     width: 250px;
     border: 1px solid #ccc;
@@ -50,7 +59,10 @@ html,body {
 .bubble {
     opacity: .7; 
     position: absolute;
-    font-size: 40px;
     text-align: center;
     vertical-align: middle;
+}
+
+.bubble_text {
+    position: relative;
 }

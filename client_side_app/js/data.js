@@ -214,19 +214,19 @@ var students = [{
 }];
 
 /**
-     * Build parameters object.
-     */
-    var parameters = {}; // need to guarantee that every student object has the same parameters
-    var filters = Object.keys(students[0]);
-    for (var i=0; i<filters.length; i++) {
+ * Build parameters object.
+ */
+var parameters = {}; // need to guarantee that every student object has the same parameters (in alg output)
+var filters = Object.keys(students[0]);
+for (var i=0; i<filters.length; i++) {
         parameters[filters[i]] = [];
-    }
-    for (var i=0; i<students.length; i++) {
-        for (var j=0; j<filters.length; j++) {
-            var filter = filters[j];
-            var category = students[i][filter];
-            if (parameters[filter].indexOf(category) < 0) {
-                parameters[filter].push(category);
-            }
+}
+for (var i=0; i<students.length; i++) {
+    for (var j=0; j<filters.length; j++) {
+        var filter = filters[j];
+        var category = students[i][filter];
+        if (parameters[filter].indexOf(category) < 0) {
+            parameters[filter].push(category);
         }
     }
+}
