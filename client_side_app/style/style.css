@@ -21,6 +21,7 @@ input[type='radio'] {
     right: 20px;
     height: calc(100% - 90px);
     width: calc(100% - 308px);
+    overflow: hidden;
 }
 
 #navbar {

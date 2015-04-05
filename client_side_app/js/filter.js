@@ -68,7 +68,7 @@ $(document).ready(function() {
         }
     });
 
-    $('input[value="gender"').click();
+    $('input[value="group"').click();
 
 
 });

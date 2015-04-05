@@ -12,14 +12,19 @@ $(document).ready(function() {
         vis = d3.select("body").select("#bubbleContainer");
 
     // TODO: set foci intelligently, based on num of groups -- parameters['group'].length --
+    var height = $("#bubbleContainer").height();
+    var width = $("#bubbleContainer").width();
+    console.log(height);
+    console.log(width);
+
     var foci = [
-      {x: 100, y: $("#bubbleContainer").height()/3}, 
-      {x: $("#bubbleContainer").width()/2, y: $("#bubbleContainer").height()/3}, 
-      {x: $("#bubbleContainer").width()-200, y: $("#bubbleContainer").height()/3},
-      {x: 100, y: $("#bubbleContainer").height()/3}, 
-      {x: $("#bubbleContainer").width()/2, y: $("#bubbleContainer").height()/3}, 
-      {x: $("#bubbleContainer").width()-200, y: $("#bubbleContainer").height()/3},
-      {x: 100, y: $("#bubbleContainer").height()/3}
+      {x: width/4, y: height/4}, 
+      {x: 3*width/4, y: height/4}, 
+      {x: width/12, y: height/2},
+      {x: width/2, y: height/2}, 
+      {x: 11*width/12, y: height/2}, 
+      {x: width/4, y: 3*height/4},
+      {x: 3*width/4, y: 3*height/4}
     ];
 
     /* Force paramettring */
