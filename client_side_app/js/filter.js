@@ -7,21 +7,10 @@ $(document).ready(function() {
       offColor: 'info'
     });
 
-
-    // 
-
-    // <div class="filterType">
-    //     <input type="checkbox" value="gender"> Gender<br>
-    //     <input type="checkbox" value="year"> Year<br>
-    //     <input type="checkbox" value="sports_team"> Sports Team<br>
-    //     <input type="checkbox" value="living_group"> Living Group<br>
-    //     <input type="checkbox" value="greek_affiliation"> Greek Affiliation
-    // </div>
-
     for (var i=0; i<filters.length; i++) {
         if (filters[i] != 'name') {
             $('#filters').append('<li>' +
-                '<input class="filter_cat" type="radio" name="filters" value="' + filters[i] + '">' + filters[i] + '<br>' +
+                '<input class="filter_cat" type="radio" name="filters" value="' + filters[i] + '">' + filters[i].split('_').map(function(elem) {return capitalize(elem)}).join(' ') + '<br>' +
                 '</li>');
         }
     }
@@ -72,6 +61,10 @@ $(document).ready(function() {
 
 
 });
+
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function filter(attr, nodes) {
     // var colors = generateColors(parameters[attr].length);

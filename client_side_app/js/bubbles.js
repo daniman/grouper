@@ -7,7 +7,7 @@ $(document).ready(function() {
     }
 
     /* container */
-    var radius = 70,
+    var radius = 50,
         padding = 6,
         vis = d3.select("body").select("#bubbleContainer");
 
@@ -22,7 +22,7 @@ $(document).ready(function() {
       {x: 3*width/4, y: height/4}, 
       {x: width/12, y: height/2},
       {x: width/2, y: height/2}, 
-      {x: 11*width/12, y: height/2}, 
+      {x: 5*width/6, y: height/2}, 
       {x: width/4, y: 3*height/4},
       {x: 3*width/4, y: 3*height/4}
     ];

@@ -26,17 +26,23 @@ input[type='radio'] {
 
 #navbar {
     font-size: 30px;
-    background-color: #ccc;
     width: 100%;
     padding: 5px 15px;
     line-height: 40px;
     font-weight: 300;
-    color: black;
+    color: #FFA000;
+    border-bottom: 1px solid #ccc;
 }
 
 #logoImg {
     top: -3px;
     position: relative;
+}
+
+#fishImg {
+    top: 3px;
+    position: relative;
+    float: right;
 }
 
 #filterContainer {
