@@ -3,7 +3,7 @@ var wI = window.innerWidth,
     hI = window.innerHeight,
     w = wI + "px",
     h = hI + "px",
-    r = 80,
+    radius = 80,
     padding = 6,
     fill = d3.scale.category10(),
     foci = [{x: 200, y: window.innerHeight/2}, {x: window.innerWidth/2, y: window.innerHeight/2}, {x: window.innerWidth-200, y: window.innerHeight/2}],
@@ -35,8 +35,8 @@ var node = vis.selectAll("div")
     .attr("class", function(d, i){return 'node' + i;})
     .style("left", function(d) { return d.x + 50 + "px"; }) //x
     .style("top", function(d) { return d.y + 50 + "px"; }) //y
-    .style("width", r + "px")
-    .style("height", r + "px")
+    .style("width", radius + "px")
+    .style("height", radius + "px")
     .style("background-color", '#ff8c17')
     .call(force.drag);
 
@@ -46,12 +46,14 @@ vis.style("opacity", 1e-6)
     .duration(1000)
     .style("opacity", 1)
 
-function tick(e) {  
+function tick(e) {
+
   var q = d3.geom.quadtree(nodes);
   for (var i = 0; i<nodes.length; i++) {
     q.visit(collide(nodes[i]))
   }
    
+  //gravity
   var k = .6 * e.alpha;
   nodes.forEach(function(o, i) {
     o.y += (foci[o.group].y - o.y) * k;
@@ -66,7 +68,7 @@ function tick(e) {
 }
 
 function collide(nodey) {
-  var r = 80 + padding,
+  var r = radius + padding,
       nx1 = nodey.x - r,
       nx2 = nodey.x + r,
       ny1 = nodey.y - r,
@@ -76,7 +78,7 @@ function collide(nodey) {
        var x = nodey.x - quad.point.x,
          y = nodey.y - quad.point.y,
          l = Math.sqrt(x * x + y * y),
-         r = 80 + padding;
+         r = radius + padding;
        if (l < r) {
          l = (l - r) / l * .5;
          nodey.x -= x *= l;
