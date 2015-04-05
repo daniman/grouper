@@ -57,7 +57,7 @@ input[type='radio'] {
 }
 
 .bubble {
-    opacity: .7; 
+    opacity: .9; 
     position: absolute;
     text-align: center;
     vertical-align: middle;

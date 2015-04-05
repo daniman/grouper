@@ -3,15 +3,15 @@ var nodes; // global var (so filter.js can access)
 $(document).ready(function() {
 
     for (var i=0; i<students.length; i++) {
-        $('#bubbleContainer').append('<div class="bubble"><div class="bubble_text">' + students[i]['course_number'] + '</div></div>');
+        $('#bubbleContainer').append('<div class="bubble"><div class="bubble_text">' + ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
     }
 
     /* container */
-    var radius = 50,
+    var radius = 70,
         padding = 6,
         vis = d3.select("body").select("#bubbleContainer");
 
-    // TODO: set foci intelligently
+    // TODO: set foci intelligently, based on num of groups -- parameters['group'].length --
     var foci = [
       {x: 100, y: $("#bubbleContainer").height()/3}, 
       {x: $("#bubbleContainer").width()/2, y: $("#bubbleContainer").height()/3}, 
@@ -44,7 +44,8 @@ $(document).ready(function() {
         'height': radius + 'px',
         'background-color': '#ccc',
         'border-radius': radius/2 + 'px',
-        'font-size': radius-20 + 'px',
+        'font-size': '30px',
+        'line-height': radius + 'px',
         'left': function(d) {
           return d.x + radius/2 + "px"; //x
         },
