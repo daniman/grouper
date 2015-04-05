@@ -3,7 +3,7 @@ var nodes; // global var (so filter.js can access)
 $(document).ready(function() {
 
     for (var i=0; i<students.length; i++) {
-        $('#bubbleContainer').append('<div class="bubble"><div class="bubble_text">' + students[i]['course_number'] + '</div></div>');
+        $('#bubbleContainer').append('<div class="bubble"><div class="bubble_text">' + ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
     }
 
     /* container */
@@ -11,15 +11,20 @@ $(document).ready(function() {
         padding = 6,
         vis = d3.select("body").select("#bubbleContainer");
 
-    // TODO: set foci intelligently
+    // TODO: set foci intelligently, based on num of groups -- parameters['group'].length --
+    var height = $("#bubbleContainer").height();
+    var width = $("#bubbleContainer").width();
+    console.log(height);
+    console.log(width);
+
     var foci = [
-      {x: 100, y: $("#bubbleContainer").height()/3}, 
-      {x: $("#bubbleContainer").width()/2, y: $("#bubbleContainer").height()/3}, 
-      {x: $("#bubbleContainer").width()-200, y: $("#bubbleContainer").height()/3},
-      {x: 100, y: $("#bubbleContainer").height()/3}, 
-      {x: $("#bubbleContainer").width()/2, y: $("#bubbleContainer").height()/3}, 
-      {x: $("#bubbleContainer").width()-200, y: $("#bubbleContainer").height()/3},
-      {x: 100, y: $("#bubbleContainer").height()/3}
+      {x: width/4, y: height/4}, 
+      {x: 3*width/4, y: height/4}, 
+      {x: width/12, y: height/2},
+      {x: width/2, y: height/2}, 
+      {x: 5*width/6, y: height/2}, 
+      {x: width/4, y: 3*height/4},
+      {x: 3*width/4, y: 3*height/4}
     ];
 
     /* Force paramettring */
@@ -45,8 +50,8 @@ $(document).ready(function() {
         'height': radius + 'px',
         'background-color': '#ccc',
         'border-radius': radius/2 + 'px',
-        'font-size': radius-20 + 'px',
-        
+        'font-size': '30px',
+        'line-height': radius + 'px',
         'left': function(d) {
           return d.x + radius + "px"; //x
         },
