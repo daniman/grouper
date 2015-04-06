@@ -17,22 +17,6 @@ $(document).ready(function() {
         padding = 6,
         vis = d3.select("body").select("#bubbleContainer");
 
-    // TODO: set foci intelligently, based on num of groups -- parameters['group'].length --
-    var height = $("#bubbleContainer").height();
-    var width = $("#bubbleContainer").width();
-    console.log(height);
-    console.log(width);
-
-    var foci = [
-      {x: width/4, y: height/4}, 
-      {x: 3*width/4, y: height/4}, 
-      {x: width/12, y: height/2},
-      {x: width/2, y: height/2}, 
-      {x: 11*width/12, y: height/2}, 
-      {x: width/4, y: 3*height/4},
-      {x: 3*width/4, y: 3*height/4}
-    ];
-
     /* Force paramettring */
     var force = d3.layout.force()
         .size([$("#bubbleContainer").width(), $("#bubbleContainer").height()]) // gravity field's size
@@ -43,6 +27,31 @@ $(document).ready(function() {
         .links([])
         .on("tick", tick)
         .start();
+
+    // TODO: set foci intelligently, based on num of groups -- parameters['group'].length --
+    var height;
+    var width;
+    var foci;
+
+    $(window).resize(function(){
+      height = $("#bubbleContainer").height();
+      width = $("#bubbleContainer").width();
+
+      foci = [
+        {x: width/4, y: height/4}, 
+        {x: 3*width/4, y: height/4}, 
+        {x: width/12, y: height/2},
+        {x: width/2, y: height/2}, 
+        {x: 11*width/12, y: height/2}, 
+        {x: width/4, y: 3*height/4},
+        {x: 3*width/4, y: 3*height/4}
+      ];
+
+      force.stop();
+      force.start();
+    });
+
+    $(window).trigger('resize');
 
     /*Associate the divs with the node objects. */
     nodes = vis.selectAll(".bubble")
