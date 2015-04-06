@@ -267,5 +267,4 @@ for (var i=0; i<students.length; i++) {
 }
 for (i in filters) {
     parameters[filters[i]].sort(function(a, b){return a-b});
-    console.log(parameters[filters[i]]);
 }

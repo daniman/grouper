@@ -9,7 +9,6 @@ $(document).ready(function() {
 
     $('.filter_cat').click(function(event) {
         filter(event.target.value, nodes);
-        console.log($(this));
         $('.color_map').remove();
         var color_map = '<ul class="color_map">'; 
         var categories = parameters[event.target.value];
