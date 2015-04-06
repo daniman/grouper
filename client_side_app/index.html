@@ -12,8 +12,7 @@
     <script type="text/javascript" src="assets/vendor/csvtools.js"></script>
     <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.2-dist/css/bootstrap.min.css">
     <script src="assets/vendor/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
-    <link href="assets/vendor/bootstrap-switch.css" rel="stylesheet">
-    <script src="assets/vendor/bootstrap-switch.js"></script>
+    <link href="assets/vendor/css-toggle-switch-source/css/style.css" rel="stylesheet">
     <script src="assets/vendor/d3.js"></script>
 
     <!-- Scripts -->
@@ -29,16 +28,23 @@
 <body>
 
     <div id="navbar">
-      <img id="logoImg" src="assets/img/logo.png" height="26" width="50">
+      <img id="logoImg" src="assets/img/logoNew.png" height="26" width="50">
       Grouper
       <img id="fishImg" src="assets/img/fish.png" height="35" width="58">
     </div>
 
     <div id="filterContainer">
-         <div class="filterTypeTitle">
-             Data Labels:
-         </div>
-         Number  <input type="checkbox" name="toggle" value="name">  Name
+          <div class="filterTypeTitle">
+            Data Labels:
+          </div>
+          <div>
+            Number  
+            <div class="switch">
+              <input id="cmn-toggle-6" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+              <label for="cmn-toggle-6"></label>
+            </div> 
+            Name
+          </div>
 
       <div class="filterTypeTitle">
         Data Filters:

@@ -15,6 +15,18 @@ input[type='radio'] {
     margin-right: 5px;
 }
 
+.switch {
+    display: inline-block;
+}
+
+.switch > label {
+    margin-bottom: 0px !important;
+}
+
+div > .switch {
+    vertical-align: middle;
+}
+
 #bubbleContainer {
     position: absolute;
     bottom: 20px;
@@ -22,6 +34,7 @@ input[type='radio'] {
     height: calc(100% - 90px);
     width: calc(100% - 308px);
     overflow: hidden;
+    border: 1px solid #ccc;
 }
 
 #navbar {
@@ -30,7 +43,7 @@ input[type='radio'] {
     padding: 5px 15px;
     line-height: 40px;
     font-weight: 300;
-    color: #FFA000;
+    color: #00BCD4;
     border-bottom: 1px solid #ccc;
 }
 

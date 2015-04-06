@@ -1,14 +1,6 @@
 $(document).ready(function() {
-    $("[name='toggle']").bootstrapSwitch({
-      size: 'small',
-      onText: '',
-      offText: '',
-      onColor: 'info',
-      offColor: 'info'
-    });
-
     for (var i=0; i<filters.length; i++) {
-        if (filters[i] != 'name') {
+        if (filters[i] != 'name' && filters[i] != 'group') {
             $('#filters').append('<li>' +
                 '<input class="filter_cat" type="radio" name="filters" value="' + filters[i] + '">' + filters[i].split('_').map(function(elem) {return capitalize(elem)}).join(' ') + '<br>' +
                 '</li>');
@@ -29,8 +21,8 @@ $(document).ready(function() {
         $(this).parent().append(color_map);
     })
 
-    $('input[name="toggle"]').on('switchChange.bootstrapSwitch', function(event, state) {
-        if (state) {
+    $('.switch').on('click', function(event, state) {
+        if (event.target.checked) {
             $('.bubble').each(function() {
                 var id = this.id.split('_')[1];
                 $(this).children().html(students[id]['name']);
@@ -57,7 +49,7 @@ $(document).ready(function() {
         }
     });
 
-    $('input[value="group"').click();
+    $('input[value="sports_team"').click();
 
 
 });
