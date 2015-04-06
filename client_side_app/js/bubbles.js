@@ -180,6 +180,7 @@ $(document).ready(function() {
     });
 */
 
+    //Make it so that when you drag something it doesn't interpret it as clicked
 
     var nothingSelected = function(evt){
       console.log("nothingSelected");
@@ -199,11 +200,24 @@ $(document).ready(function() {
       var tmpGroup = student_dict[$(this).attr("student_id")].group;
       student_dict[$(this).attr("student_id")].group = student_dict[$(".selected").attr("student_id")].group;
       student_dict[$(".selected").attr("student_id")].group = tmpGroup;
+      $(".selected").removeClass("selected");
       //unhookup second function
       $(".bubble").unbind("click");
       $(document).unbind("click");
       //hookup first function
       $(".bubble").click(nothingSelected);
+      /*var q = d3.geom.quadtree(students);
+            for (var i = 0; i<students.length; i++) {
+              q.visit(collide(students[i]))
+            }*/
+      /*
+      var ething = {};
+      ething.alpha = .5;
+      tick(ething);
+      */
+      //get them to move
+      force.stop();
+      force.start();
     }
 
     var deselect = function(evt){
