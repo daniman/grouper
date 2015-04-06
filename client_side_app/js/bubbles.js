@@ -116,10 +116,6 @@ $(document).ready(function() {
       return function(d) {
         d.y += (foci[d.group].y-(radius/2) - d.y) * alpha;
         d.x += (foci[d.group].x-(radius/2) - d.x) * alpha;
-        if (d.name == "Dale") {
-          console.log('x: ' + d.x);
-          console.log('y: ' + d.y);
-        }
       };
     }
 
