@@ -4,6 +4,7 @@ html,body {
     margin:0;
     font-family: Lato;
     font-weight: 300;
+    color: black;
 }
 
 ul {
@@ -77,8 +78,9 @@ div > .switch {
 
 .filterTypeTitle {
     font-size: 18px;
-    text-decoration: underline;
+    /*text-decoration: underline;*/
     margin-top: 20px;
+    font-weight: 400;
 }
 
 .bubble {
