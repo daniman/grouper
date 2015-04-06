@@ -9,7 +9,6 @@ $(document).ready(function() {
 
     $('.filter_cat').click(function(event) {
         filter(event.target.value, nodes);
-        console.log($(this));
         $('.color_map').remove();
         var color_map = '<ul class="color_map">'; 
         var categories = parameters[event.target.value];
@@ -25,8 +24,7 @@ $(document).ready(function() {
         if (event.target.checked) {
             $('.bubble').each(function() {
                 var id = this.id.split('_')[1];
-                $(this).children().html(students[id]['name']);
-
+                $(this).children().html(students[id]['name'].split(' ').join('<br>'));
                 $(this).children().css({
                     'font-size': '15px',
                     'line-height': '15px'
@@ -51,25 +49,22 @@ $(document).ready(function() {
 
     $('input[value="sports_team"').click();
 
-
 });
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function filter(attr, nodes) {
-    // var colors = generateColors(parameters[attr].length);
+function filter(category, nodes) {
     nodes.selectAll().forEach(function(d,i) {
-        var cat = students[i][attr];
+        var attr = students[i][category];
         $(d.parentNode).animate({
-            // 'background-color': colors[parameters[attr].indexOf(cat)]
-            'background-color': getColor(attr, cat)
+            'background-color': getColor(category, attr)
         }, 1000);
     });
 }
 
-function getColor(attr, cat) {
+function getColor(category, attr) {
     var colorPool = [
         '#FFC107', // amber
         '#00BCD4', // cyan
@@ -90,6 +85,25 @@ function getColor(attr, cat) {
         '#607D8B', // blue grey
         '#795548' // brown
     ];
-
-    return colorPool[parameters[attr].indexOf(cat) % colorPool.length];
+    var colorPoolLight = [
+        '#FFD54F', // amber
+        '#4DD0E1', // cyan
+        '#E57373', // red
+        '#7986CB', // indigo
+        '#BA68C8', // deep purple
+        '#7986CB', // pink
+        '#81C784', // green
+        '#FFB74D', // orange
+        '#DCE775', // lime
+        '#DCE775', // deep orange
+        '#BA68C8', // purple
+        '#4FC3F7', // light blue
+        '#FFF176', // yellow
+        '#64B5F6', // blue
+        '#AED581', // light green
+        '#4DB6AC', // teal
+        '#90A4AE', // blue grey
+        '#A1887F' // brown
+    ];
+    return colorPool[parameters[category].indexOf(attr) % colorPool.length];
 }

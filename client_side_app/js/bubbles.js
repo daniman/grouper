@@ -28,7 +28,7 @@ $(document).ready(function() {
       {x: 3*width/4, y: height/4}, 
       {x: width/12, y: height/2},
       {x: width/2, y: height/2}, 
-      {x: 5*width/6, y: height/2}, 
+      {x: 11*width/12, y: height/2}, 
       {x: width/4, y: 3*height/4},
       {x: 3*width/4, y: 3*height/4}
     ];
@@ -114,8 +114,8 @@ $(document).ready(function() {
     // Move nodes toward cluster focus.
     function gravity(alpha) {
       return function(d) {
-        d.y += (foci[d.group].y - d.y) * alpha;
-        d.x += (foci[d.group].x - d.x) * alpha;
+        d.y += (foci[d.group].y-(radius/2) - d.y) * alpha;
+        d.x += (foci[d.group].x-(radius/2) - d.x) * alpha;
       };
     }
 
