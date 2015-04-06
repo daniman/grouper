@@ -29,13 +29,11 @@ $(document).ready(function() {
         .start();
 
     // TODO: set foci intelligently, based on num of groups -- parameters['group'].length --
-    var height;
-    var width;
     var foci;
 
     $(window).resize(function(){
-      height = $("#bubbleContainer").height();
-      width = $("#bubbleContainer").width();
+      var height = $("#bubbleContainer").height();
+      var width = $("#bubbleContainer").width();
 
       foci = [
         {x: width/4, y: height/4}, 

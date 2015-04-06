@@ -28,6 +28,11 @@ input[type='radio'] {
     margin-bottom: 0px !important;
 }
 
+label {
+    font-weight: 300;
+    cursor: pointer;
+}
+
 div > .switch {
     vertical-align: middle;
 }

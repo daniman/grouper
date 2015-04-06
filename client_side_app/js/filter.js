@@ -2,7 +2,10 @@ $(document).ready(function() {
     for (var i=0; i<filters.length; i++) {
         if (filters[i] != 'name' && filters[i] != 'group') {
             $('#filters').append('<li>' +
-                '<input class="filter_cat" type="radio" name="filters" value="' + filters[i] + '">' + filters[i].split('_').map(function(elem) {return capitalize(elem)}).join(' ') + '<br>' +
+                '<input id="' + filters[i] + '_filter" class="filter_cat" type="radio" name="filters" value="' + filters[i] + '">'
+                    + '<label for="' + filters[i] + '_filter">' 
+                        + filters[i].split('_').map(function(elem) {return capitalize(elem)}).join(' ') 
+                    + '</label><br>' +
                 '</li>');
         }
     }
