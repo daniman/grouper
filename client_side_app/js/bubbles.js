@@ -1,11 +1,17 @@
 var nodes; // global var (so filter.js can access)
 
 $(document).ready(function() {
-
+    student_dict = {}
     for (var i=0; i<students.length; i++) {
-        $('#bubbleContainer').append('<div class="bubble"><div class="bubble_text">' + ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
+      student_dict[i] = students[i];
+        $('#bubbleContainer').append('<div class="bubble" student_id="' + i + '""><div class="bubble_text">' + 
+          ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
     }
 
+    var bubbles = $('.bubble');
+    for (var i=0; i<students.length; i++) {
+      bubbles[i].setAttribute("student_id",i);
+    }
     /* container */
     var radius = 50,
         padding = 6,
@@ -166,4 +172,52 @@ $(document).ready(function() {
         });
       };
     }
+
+    ////SWAPPING STUFF////
+    /*
+    $(".bubble").click(function(evt){
+      console.log("dog");
+    });
+*/
+
+
+    var nothingSelected = function(evt){
+      console.log("nothingSelected");
+      //First check if it's not the last thing in a group
+      //add selected class
+      $(this).addClass("selected");
+      //add listener to click on everything else for swap
+      $(".bubble").unbind("click");
+      $(".bubble").click(bubbleSelected);
+      evt.stopPropagation();
+      //add listener to click on background to deselect
+      $(document).click(deselect);
+    }
+
+    var bubbleSelected = function(evt){
+      console.log("bubbleSelected");
+      var tmpGroup = student_dict[$(this).attr("student_id")].group;
+      student_dict[$(this).attr("student_id")].group = student_dict[$(".selected").attr("student_id")].group;
+      student_dict[$(".selected").attr("student_id")].group = tmpGroup;
+      //unhookup second function
+      $(".bubble").unbind("click");
+      $(document).unbind("click");
+      //hookup first function
+      $(".bubble").click(nothingSelected);
+    }
+
+    var deselect = function(evt){
+      console.log("deselect");
+      $(".selected").removeClass("selected");
+      //unhookup second function
+      $(".bubble").unbind("click");
+      $(document).unbind("click");
+      //hookup first function
+      $(".bubble").click(nothingSelected);
+    }
+
+    $(".bubble").click(nothingSelected);
+
+
+    
 });
