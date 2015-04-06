@@ -8,11 +8,15 @@ html,body {
 
 ul {
     list-style-type: none;
-    padding-left: 10px;
+    padding-left: 18px;
 }
 
 input[type='radio'] {
     margin-right: 5px;
+}
+
+.selected {
+    box-shadow: 2px 5px 5px 2px #888888;
 }
 
 .switch {
@@ -43,7 +47,7 @@ div > .switch {
     padding: 5px 15px;
     line-height: 40px;
     font-weight: 300;
-    color: #00BCD4;
+    color: #009688;
     border-bottom: 1px solid #ccc;
 }
 
@@ -63,7 +67,7 @@ div > .switch {
     width: 250px;
     border: 1px solid #ccc;
     margin: 20px;
-    padding: 20px;
+    padding: 0px 20px;
 }
 
 .filterType {
@@ -74,6 +78,7 @@ div > .switch {
 .filterTypeTitle {
     font-size: 18px;
     text-decoration: underline;
+    margin-top: 20px;
 }
 
 .bubble {
@@ -85,4 +90,7 @@ div > .switch {
 
 .bubble_text {
     position: relative;
+    margin-left: -20%;
+    margin-right: -20%;
+    text-align: center;
 }
