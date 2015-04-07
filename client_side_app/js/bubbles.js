@@ -31,9 +31,7 @@ $(document).ready(function() {
 
     var foci;
     $(window).resize(function(){
-      var height = $("#bubbleContainer").height();
-      var width = $("#bubbleContainer").width();
-      foci = hexpac(7, 3*radius, $('#bubbleContainer').width(), $('#bubbleContainer').height());
+      foci = hexpac(parameters['group'].length, 3*radius, $('#bubbleContainer').width(), $('#bubbleContainer').height());
       force.stop();
       force.start();
     });
