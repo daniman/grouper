@@ -4,7 +4,7 @@ $(document).ready(function() {
     student_dict = {}
     for (var i=0; i<students.length; i++) {
       student_dict[i] = students[i];
-        $('#bubbleContainer').append('<div class="bubble" student_id="' + i + '""><div class="bubble_text">' + 
+        $('#bubbleContainer').append('<div class="bubble" student_id="' + i + '"><div class="bubble_text">' + 
           ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
     }
 
@@ -20,7 +20,7 @@ $(document).ready(function() {
     /* Force paramettring */
     var force = d3.layout.force()
         .size([$("#bubbleContainer").width(), $("#bubbleContainer").height()]) // gravity field's size
-        //.friction(1) // 1 = frictionless
+        // .friction(.2) // 1 = frictionless
         .charge(0)
         .gravity(0) 
         .nodes(students) 
@@ -28,23 +28,11 @@ $(document).ready(function() {
         .on("tick", tick)
         .start();
 
-    // TODO: set foci intelligently, based on num of groups -- parameters['group'].length --
     var foci;
-
     $(window).resize(function(){
       var height = $("#bubbleContainer").height();
       var width = $("#bubbleContainer").width();
-
-      foci = [
-        {x: width/4, y: height/4}, 
-        {x: 3*width/4, y: height/4}, 
-        {x: width/12, y: height/2},
-        {x: width/2, y: height/2}, 
-        {x: 11*width/12, y: height/2}, 
-        {x: width/4, y: 3*height/4},
-        {x: 3*width/4, y: 3*height/4}
-      ];
-
+      foci = hexpac(7, 3*radius, $('#bubbleContainer').width(), $('#bubbleContainer').height());
       force.stop();
       force.start();
     });

@@ -37,6 +37,14 @@ div > .switch {
     vertical-align: middle;
 }
 
+#canvas {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    border: 1px solid pink;
+    pointer-events: none;
+}
+
 #bubbleContainer {
     position: absolute;
     bottom: 20px;
