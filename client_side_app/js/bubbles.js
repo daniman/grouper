@@ -12,6 +12,7 @@ $(document).ready(function() {
     for (var i=0; i<students.length; i++) {
       bubbles[i].setAttribute("student_id",i);
     }
+
     /* container */
     var radius = 50,
         padding = 6,
