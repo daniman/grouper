@@ -101,7 +101,7 @@ div > .switch {
     margin-right: -20%;
     text-align: center;
 }
-groupsContainer {
+#groupsContainer {
     height: calc(100% - 90px);
     width: calc(100% - 40px);
     margin: 20px;
