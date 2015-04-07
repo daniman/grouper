@@ -101,3 +101,34 @@ div > .switch {
     margin-right: -20%;
     text-align: center;
 }
+groupsContainer {
+    height: calc(100% - 90px);
+    width: calc(100% - 40px);
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+#groups{
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+#importButton {
+    position: absolute;
+    left: 195px;
+    top: 150px;
+}
+#groupifySelections {
+    position: relative;
+    left: 20px;
+}
+
+#sortable li { 
+    font-size: 1.2em; 
+    background-color: #F8F8F8;
+    width: 60%;
+}
+.glyphicon-sort {
+    width: 10%;
+}
