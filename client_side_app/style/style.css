@@ -132,3 +132,19 @@ div > .switch {
 .glyphicon-sort {
     width: 10%;
 }
+#fileDrag
+{
+    border:2px dotted #0B85A1;
+    width:400px;
+    height:200px;
+    color:#92AAB0;
+    vertical-align:middle;
+    padding:10px 10px 10 10px;
+    margin-bottom:10px;
+    font-size:150%;
+    text-align: center;
+    line-height: 200px;
+}
+#studentData {
+    text-align: center;
+}
