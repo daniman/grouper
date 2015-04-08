@@ -239,6 +239,8 @@ $(document).ready(function() {
 
     $(".bubble").click(nothingSelected);
 
-
+    $(".bubble").dblclick(function(){
+      $("#studentModal").modal("show");
+    });
     
 });
