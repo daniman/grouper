@@ -54,7 +54,7 @@ div > .switch {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    height: calc(100% - 90px);
+    height: calc(100% - 128px);
     width: calc(100% - 308px);
     overflow: hidden;
     border: 1px solid #ccc;
@@ -82,7 +82,7 @@ div > .switch {
 }
 
 #filterContainer {
-    height: calc(100% - 92px);
+    height: calc(100% - 128px);
     width: 250px;
     border: 1px solid #ccc;
     margin: 20px;
@@ -115,7 +115,7 @@ div > .switch {
     text-align: center;
 }
 #groupsContainer {
-    height: calc(100% - 90px);
+    height: calc(100% - 128px);
     width: calc(100% - 40px);
     margin: 20px;
     padding: 20px;
