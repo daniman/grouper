@@ -24,6 +24,22 @@ $(document).ready(function() {
 		  $(this).trigger("enterKey");
 		}
 	});
+	$('#importModal').on('show.bs.modal', function () {
+	  $('#importDataModal').modal('hide');
+	});
+	$('#importDataModal').on('show.bs.modal', function () {
+	  $('#importModal').modal('hide');
+	  $('#editDataModal').modal('hide');
+	});
+	$('#editDataModal').on('show.bs.modal', function () {
+	  console.log("show!")
+	  $('#importDataModal').modal('hide');
+	  $('#groupifyModal').modal('hide');
+	});
+	$('#groupifyModal').on('show.bs.modal', function () {
+	  console.log("show!")
+	  $('#editDataModal').modal('hide');
+	});
 
 	//sortable list for priorities
 	$(function() {

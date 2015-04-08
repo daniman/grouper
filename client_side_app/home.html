@@ -51,9 +51,11 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">Create Group - Step 0</h4>
           </div>
+          <br>
           <div class="modal-body">
-            <p>Group name: <input type="text" id="newGroupName"></input></p>
+            <h5>Enter group name: <input type="text" id="newGroupName"></input></h5>
           </div>
+          <br>
           <ol class="progtrckr" data-progtrckr-steps="4">
                 <li class="progtrckr-todo">Group Name</li><li class="progtrckr-todo">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Groupify</li>
             </ol>
@@ -82,14 +84,14 @@
             </ol>
             <br>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#newModal1">Next</button>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importModal">Back</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editDataModal">Next</button>
           </div>
         </div>
       </div>
     </div>
     <!-- Edit Student Data - Step 2 Modal -->
-    <div class="modal fade" id="newModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -112,7 +114,7 @@
             </ol>
             <br>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importDataModal">Back</button>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#groupifyModal">Next</button>
           </div>
         </div>
@@ -128,6 +130,7 @@
           </div>
           <div class="modal-body">
             <h5>Please Select Groupification By:</h5>
+            <br>
             <div id="groupifySelections">
               <form>
                 <input type="radio" name="max" id="maxPeople" checked> Max number of people in a group
@@ -146,7 +149,7 @@
             </ol>
             <br>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editDataModal">Back</button>
             <a href="index.html" type="button" class="btn btn-warning" id="groupifyButton">Groupify!</a>
           </div>
         </div>
