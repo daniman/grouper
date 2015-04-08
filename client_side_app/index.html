@@ -21,6 +21,7 @@
     <script type="text/javascript" src="js/data.js"></script>
     <script type="text/javascript" src="js/bubbles.js"></script>
     <script type="text/javascript" src="js/filter.js"></script>
+    <script type="text/javascript" src="js/modals.js"></script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="style/font.css" />
@@ -40,6 +41,8 @@
       <li><a href="home.html">my_username</a></li> 
       <li class="active">my_class_spr15</li>
     </ol>
+
+    <div id="buttons"><button id="export" type="button" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#exportModal">Export</button></div>
 
     <div id="filterContainer">
       <div class="filterTypeTitle">
@@ -96,7 +99,7 @@
       </div>
     </div>
 
-        <!-- Student Modal -->
+        <!-- Group Modal -->
     <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -121,6 +124,36 @@
         </div>
       </div>
     </div>
-    
+
+    <!-- Export Modal -->
+    <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Export Groups</h4>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <h4>Preview your groups:</h4>
+              </div>
+              <div id="groupPreview" style="height:200px;width:100%;border:1px solid #ccc; overflow:auto;"> 
+              </div>
+              <br>
+              <div>Select file format:<select class="selectpicker">
+                <option>.csv</option>
+                <option>.xlc</option>
+                <option>.pdf</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Export</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

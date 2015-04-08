@@ -68,6 +68,7 @@ div > .switch {
     font-weight: 300;
     color: #009688;
     border-bottom: 1px solid #ccc;
+    background: #424242;
 }
 
 #logoImg {
@@ -120,6 +121,7 @@ div > .switch {
     margin: 20px;
     padding: 20px;
     border: 1px solid #ccc;
+    background-color: white;
 }
 
 #groups{
@@ -139,7 +141,7 @@ div > .switch {
 
 #sortable li { 
     font-size: 1.2em; 
-    background-color: #F8F8F8;
+    background-color: #F4F4F5;
     width: 60%;
 }
 .glyphicon-sort {
@@ -147,10 +149,10 @@ div > .switch {
 }
 #fileDrag
 {
-    border:2px dotted #0B85A1;
+    border:2px dotted #5F6364;
     width: 100%;
     height:200px;
-    color:#92AAB0;
+    color: silver;
     vertical-align:middle;
     padding:10px 10px 10 10px;
     margin-bottom:10px;
@@ -210,7 +212,9 @@ ol.progtrckr li.progtrckr-todo:before {
 img.sortable{
     margin: 5px;
 }
-.mouseOn{
-/*  background-color: #bcd5eb !important;*/
-  outline: 2px solid #ccc !important;
+#buttons{
+    position: absolute;
+    top: 113px;
+    right: 25px;
+    z-index: 10000;
 }

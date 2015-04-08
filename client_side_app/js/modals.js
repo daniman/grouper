@@ -60,9 +60,48 @@ $(document).ready(function() {
 	});
 
 	$(".category").hover(function(e){
-        $(e.target).css("outline", "2px solid #ccc");
+        $(e.target).css("outline", "2px solid #5F6364");
         },function(){
         $(".category").css("outline", "none");
     });
+    
+    var groupNumber = 7;
+    var categories = ['name','course_number','gender','year','sports_team'];
+
+	$("#export").click(function(){
+		var groupings = '';
+		var sorted = students.sort(function(a,b) { return parseFloat(b.group) - parseFloat(a.group)});
+
+		for (var i = 0; i < groupNumber; i++) {
+			groupings = groupings.concat('<h4>Group '+i+':</h4>');
+			for (var j = students.length - 1; j >= 0; j--) {
+				
+				if(students[j]['group']==i){
+					// console.log(stringify(students[j]));
+					groupings = groupings.concat(stringify(students[j]));
+					groupings = groupings.concat("<br>");
+				}
+			};
+			groupings = groupings.concat("<br>");
+		};
+
+		$("#groupPreview").html(groupings);
+	})
+
+	var stringify = function(json){
+		var string = '';
+
+		for (var i = 0; i < categories.length; i++){
+			var key = categories[i];
+		  if (json.hasOwnProperty(key)) {
+		    string = string.concat('<b>'+key+"</b>: "+json[key]+", ");
+		  }
+		}
+		string = string.concat('\n');
+		return string;
+	}
+	
+
+
 
 });
