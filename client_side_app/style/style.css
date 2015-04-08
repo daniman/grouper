@@ -17,7 +17,12 @@ input[type='radio'] {
 }
 
 .selected {
-    box-shadow: 2px 5px 5px 2px #888888;
+    box-shadow: 0 0 3px 2px #888888;
+    z-index: 100;
+    height: 60px !important;
+    width: 60px !important;
+    border-radius: 30px !important;
+    line-height: 60px !important;
 }
 
 .switch {
@@ -35,6 +40,14 @@ label {
 
 div > .switch {
     vertical-align: middle;
+}
+
+#canvas {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    border: 1px solid pink;
+    pointer-events: none;
 }
 
 #bubbleContainer {
@@ -132,6 +145,7 @@ div > .switch {
 .glyphicon-sort {
     width: 10%;
 }
+<<<<<<< HEAD
 #fileDrag
 {
     border:2px dotted #0B85A1;
@@ -148,3 +162,5 @@ div > .switch {
 #studentData {
     text-align: center;
 }
+=======
+>>>>>>> ce4dfbdaebe6e992baf1bb9468d984c5ff94243b

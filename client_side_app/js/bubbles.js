@@ -6,6 +6,7 @@ $(document).ready(function() {
       student_dict[i] = students[i];
         $('#bubbleContainer').append('<div class="bubble" student_id="' + i + '""><div class="bubble_text">' + 
           ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
+        console.log()
     }
 
     var bubbles = $('.bubble');
@@ -239,8 +240,6 @@ $(document).ready(function() {
 
     $(".bubble").click(nothingSelected);
 
-    $(".bubble").dblclick(function(){
-      $("#studentModal").modal("show");
-    });
+
     
 });
