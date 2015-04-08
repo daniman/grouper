@@ -54,6 +54,10 @@
           <div class="modal-body">
             <p>Group name: <input type="text" id="newGroupName"></input></p>
           </div>
+          <ol class="progtrckr" data-progtrckr-steps="4">
+                <li class="progtrckr-todo">Group Name</li><li class="progtrckr-todo">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Groupify</li>
+            </ol>
+            <br>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#importDataModal">Next</button>
@@ -73,6 +77,10 @@
             <p><h5>Select file: </h5><input type="file" id="fileslect" name="fileselect"></p>
             <div id="fileDrag">or drop files here</div>
           </div>
+          <ol class="progtrckr" data-progtrckr-steps="4">
+                <li class="progtrckr-done">Group Name</li><li class="progtrckr-todo">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Groupify</li>
+            </ol>
+            <br>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#newModal1">Next</button>
@@ -98,6 +106,11 @@
               <li class="ui-state-default"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Living Group</li>
             </ul>
           </div>
+
+          <ol class="progtrckr" data-progtrckr-steps="4">
+                <li class="progtrckr-done">Group Name</li><li class="progtrckr-done">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Groupify</li>
+            </ol>
+            <br>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#groupifyModal">Next</button>
@@ -121,12 +134,17 @@
                 <br>
                 <input type="text" id="numberOfPeople">
                 <br>
+                <br>
                 <input type="radio" name="max" id="maxGroups"> Max number of groups
                 <br>
                 <input type="text" id="numberOfGroups" disabled>
               </form>
             </div>
           </div>
+          <ol class="progtrckr" data-progtrckr-steps="4">
+                <li class="progtrckr-done">Group Name</li><li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-todo">Groupify</li>
+            </ol>
+            <br>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
             <a href="index.html" type="button" class="btn btn-warning" id="groupifyButton">Groupify!</a>
