@@ -32,12 +32,10 @@ $(document).ready(function() {
 	  $('#editDataModal').modal('hide');
 	});
 	$('#editDataModal').on('show.bs.modal', function () {
-	  console.log("show!")
 	  $('#importDataModal').modal('hide');
 	  $('#groupifyModal').modal('hide');
 	});
 	$('#groupifyModal').on('show.bs.modal', function () {
-	  console.log("show!")
 	  $('#editDataModal').modal('hide');
 	});
 
@@ -60,10 +58,11 @@ $(document).ready(function() {
 	  e.preventDefault();
 	  obj.css('border', '2px dotted #0B85A1');
 	});
-	$(document).on('drop', function (e) 
-	{
-	    e.stopPropagation();
-	    e.preventDefault();
-	});
+
+	$(".category").hover(function(e){
+        $(e.target).css("outline", "2px solid #ccc");
+        },function(){
+        $(".category").css("outline", "none");
+    });
 
 });

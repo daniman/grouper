@@ -44,7 +44,7 @@
     </button>
 
     <!-- Create Group - Step 0 Modal -->
-    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade out" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -68,7 +68,7 @@
       </div>
     </div>
     <!-- Import Data - Step 1 Modal -->
-    <div class="modal fade" id="importDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal" id="importDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -91,7 +91,7 @@
       </div>
     </div>
     <!-- Edit Student Data - Step 2 Modal -->
-    <div class="modal fade" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -101,11 +101,11 @@
           <div class="modal-body">
             <h5>Please drag the categories in order of descending importances (i.e. top is most important, bottom is least important) </h5>
             <ul id="sortable">
-              <li class="ui-state-default"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Course Number</li>
-              <li class="ui-state-default"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Sports Team</li>
-              <li class="ui-state-default"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Year</li>
-              <li class="ui-state-default"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Greek Affiliation</li>
-              <li class="ui-state-default"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Living Group</li>
+              <li class="category"><img class="sortable" src="assets/img/drag.png" height="25" width="20">Course Number</li>
+              <li class="category"><img class="sortable" src="assets/img/drag.png" height="25" width="20">Sports Team</li>
+              <li class="category"><img class="sortable" src="assets/img/drag.png" height="25" width="20">Year</li>
+              <li class="category"><img class="sortable" src="assets/img/drag.png" height="25" width="20">Greek Affiliation</li>
+              <li class="category"><img class="sortable" src="assets/img/drag.png" height="25" width="20">Living Group</li>
             </ul>
           </div>
 
@@ -121,7 +121,7 @@
       </div>
     </div>
     <!-- Edit Groupify - Step 3 Modal -->
-    <div class="modal fade" id="groupifyModal" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal" id="groupifyModal" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">

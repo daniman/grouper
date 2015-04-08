@@ -174,7 +174,7 @@ ol.progtrckr li{
 }
 ol.progtrckr li.progtrckr-done {
   color: black;
-  border-bottom: 3px solid yellowgreen;
+  border-bottom: 3px solid orange;
 }
 ol.progtrckr li.progtrckr-todo {
   color: silver; 
@@ -193,7 +193,7 @@ ol.progtrckr li:before {
 ol.progtrckr li.progtrckr-done:before {
     content: "\2713";
     color: white;
-    background-color: yellowgreen;
+    background-color: orange;
     height: 1em;
     width: 1em;
     line-height: 1em;
@@ -206,4 +206,11 @@ ol.progtrckr li.progtrckr-todo:before {
     background-color: white;
     font-size: 1em;
     bottom: -1.8em;
+}
+img.sortable{
+    margin: 5px;
+}
+.mouseOn{
+/*  background-color: #bcd5eb !important;*/
+  outline: 2px solid #ccc !important;
 }
