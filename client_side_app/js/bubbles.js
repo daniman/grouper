@@ -36,15 +36,7 @@ $(document).ready(function() {
       var height = $("#bubbleContainer").height();
       var width = $("#bubbleContainer").width();
 
-      foci = [
-        {x: width/4, y: height/4}, 
-        {x: 3*width/4, y: height/4}, 
-        {x: width/12, y: height/2},
-        {x: width/2, y: height/2}, 
-        {x: 11*width/12, y: height/2}, 
-        {x: width/4, y: 3*height/4},
-        {x: 3*width/4, y: 3*height/4}
-      ];
+      foci = hexpac(parameters['group'].length, radius*3, width, height);
 
       force.stop();
       force.start();
@@ -58,7 +50,6 @@ $(document).ready(function() {
       .attr({
         'id': function(d,i) {return 'node_' + i},
       })
-      
       .style({
         'width': radius + 'px',
         'height': radius + 'px',
