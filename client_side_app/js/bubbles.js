@@ -171,15 +171,47 @@ $(document).ready(function() {
         });
       };
     }
-
-    ////SWAPPING STUFF////
-    /*
-    $(".bubble").click(function(evt){
-      console.log("dog");
+    ////UNDO and REDO////
+    var undoStack = [];
+    var redoStack = [];
+    $(window).keydown(function(e) {
+      //modified from http://stackoverflow.com/questions/3902635/how-does-one-capture-a-macs-command-key-via-javascript
+      //z undo
+      if(e.metaKey){
+        //y redo
+        if (e.keyCode == 90 && e.shiftKey) {
+          console.log("redo");
+          if(redoStack.length > 0){
+            var toBeRedone = redoStack.pop();
+            var tmpGroup = student_dict[toBeRedone[0].attr("student_id")].group;
+            student_dict[toBeRedone[0].attr("student_id")].group = student_dict[toBeRedone[1].attr("student_id")].group;
+            student_dict[toBeRedone[1].attr("student_id")].group = tmpGroup;
+            undoStack.push(toBeRedone);
+            //get them to move
+            force.stop();
+            force.start();
+          }
+        }
+        else if (e.keyCode == 90) {
+          console.log("undo");
+          if(undoStack.length > 0){
+            var toBeUndone = undoStack.pop();
+            console.log(toBeUndone);
+            var tmpGroup = student_dict[toBeUndone[0].attr("student_id")].group;
+            student_dict[toBeUndone[0].attr("student_id")].group = student_dict[toBeUndone[1].attr("student_id")].group;
+            student_dict[toBeUndone[1].attr("student_id")].group = tmpGroup;
+            redoStack.push(toBeUndone);
+            //get them to move
+            force.stop();
+            force.start();
+          }
+        }
+        
+      }
     });
-*/
+    ////SWAPPING STUFF////
 
-    //Make it so that when you drag something it doesn't interpret it as clicked
+    //TODO: Make it so that when you drag something it doesn't interpret it as clicked
 
     var nothingSelected = function(evt){
       console.log("nothingSelected");
@@ -196,7 +228,11 @@ $(document).ready(function() {
 
     var bubbleSelected = function(evt){
       console.log("bubbleSelected");
+      undoStack.push([$(this),$(".selected")]);
+      console.log([$(this),$(".selected")]);
+      redoStack = [];
       var tmpGroup = student_dict[$(this).attr("student_id")].group;
+
       student_dict[$(this).attr("student_id")].group = student_dict[$(".selected").attr("student_id")].group;
       student_dict[$(".selected").attr("student_id")].group = tmpGroup;
       $(".selected").removeClass("selected");
@@ -230,6 +266,8 @@ $(document).ready(function() {
     }
 
     $(".bubble").click(nothingSelected);
+
+
 
     $(".bubble").dblclick(function(){
       $("#studentModal").modal("show");
