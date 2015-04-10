@@ -1,6 +1,11 @@
 var nodes; // global var (so filter.js can access)
 
 $(document).ready(function() {
+
+  $('#logo').click(function() {
+    document.location.href = 'home.html';
+  });
+
     student_dict = {}
     for (var i=0; i<students.length; i++) {
       student_dict[i] = students[i];

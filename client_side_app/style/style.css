@@ -23,6 +23,10 @@ input[type='radio'] {
     font-family: 'Oxygen';
 }
 
+#logo {
+    cursor: pointer;
+}
+
 .selected {
     box-shadow: 0 0 3px 2px #888888;
     z-index: 100;
@@ -155,7 +159,7 @@ div > .switch {
     text-align: center;
 }
 #groupsContainer {
-    height: calc(100% - 90px);
+    height: calc(100% - 91px);
     width: calc(100% - 40px);
     margin: 20px;
     padding: 20px;
@@ -265,7 +269,7 @@ img.sortable{
 }
 #buttons{
     position: absolute;
-    top: 93px;
+    top: 92px;
     right: 25px;
     z-index: 10000;
 }
