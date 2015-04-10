@@ -3,7 +3,7 @@ $(document).ready(function() {
         if (filters[i] != 'name' && filters[i] != 'group') {
             $('#filters').append('<li>' +
                 '<input id="' + filters[i] + '_filter" class="filter_cat" type="radio" name="filters" value="' + filters[i] + '">'
-                    + '<label for="' + filters[i] + '_filter">' 
+                    + '<label class="filter_cat_label" for="' + filters[i] + '_filter">' 
                         + filters[i].split('_').map(function(elem) {return capitalize(elem)}).join(' ') 
                     + '</label><br>' +
                 '</li>');
@@ -17,9 +17,9 @@ $(document).ready(function() {
         var categories = parameters[event.target.value];
 
         for (var i=0; i<categories.length-1; i++) {
-            color_map += '<span style="color: ' + getColor(event.target.value, categories[i]) + '">' + categories[i] + '</span>, ';
+            color_map += '<span style="color: ' + getColor(event.target.value, categories[i]) + '">' + capitalize(categories[i]) + '</span>, ';
         }
-        color_map += '<span style="color: ' + getColor(event.target.value, categories[categories.length-1]) + '">' + categories[categories.length-1] + '</span></ul>'
+        color_map += '<span style="color: ' + getColor(event.target.value, categories[categories.length-1]) + '">' + capitalize(categories[categories.length-1]) + '</span></ul>'
         $(this).parent().append(color_map);
     })
 
@@ -30,7 +30,8 @@ $(document).ready(function() {
                 $(this).children().html(students[id]['name'].split(' ').join('<br>'));
                 $(this).children().css({
                     'font-size': '15px',
-                    'line-height': '15px'
+                    'line-height': '15px',
+                    'font-weight': '400'
                 });
                 // Don't combine these, they're separate on purpose for timing
                 $(this).children().css({
@@ -44,7 +45,8 @@ $(document).ready(function() {
                 $('.bubble_text').css({
                     'font-size': '30px',
                     'margin-top': ($(this).height()-$(this).children().height())/2 + 'px',
-                    'line-height': $('.bubble').height() + 'px'
+                    'line-height': $('.bubble').height() + 'px',
+                    'font-weight': '300'
                 });
             });
         }
@@ -55,7 +57,12 @@ $(document).ready(function() {
 });
 
 function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    string = string.toString();
+    if (string.length == 1) {
+        return string.toUpperCase();
+    } else {
+        return string.charAt(0).toUpperCase() + string.slice(1)
+    }
 }
 
 function filter(category, nodes) {

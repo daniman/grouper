@@ -3,8 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Grouper Home</title>
-
+    <title>Grouper</title>
+    <link rel="icon" type="image/png" href="assets/img/fish_favicon.png" />
+    
     <!-- Vendor -->
     <script type="text/javascript" src="assets/vendor/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="assets/vendor/jquery-ui-1.10.0.custom.min.js"></script>
@@ -16,17 +17,15 @@
     <script src="assets/vendor/d3.js"></script>
 
     <!-- Scripts -->
+    <script type="text/javascript" src="js/hexpac.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/bubbles.js"></script>
+    <script type="text/javascript" src="js/filter.js"></script>
     <script type="text/javascript" src="js/modals.js"></script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="style/font.css" />
     <link rel="stylesheet" type="text/css" href="style/style.css" />
-    <style type="text/css">
-   /*body { background: #3D4C53; }*/
-
-</style>
-
 </head>
 
 <body>
@@ -37,15 +36,10 @@
       <img id="fishImg" src="assets/img/fish.png" height="35" width="58">
     </div>
 
-    <ol class="breadcrumb">
-      <!-- <li><a href="#">Home</a></li> -->
+    <!-- <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
       <li class="active">my_username</li>
-    </ol>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#importModal" id="importButton">
-      +
-    </button>
+    </ol> -->
 
     <!-- Create Group - Step 0 Modal -->
     <div class="modal fade out" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -161,12 +155,16 @@
     </div>
 
     <div id = "groupsContainer">
-      <h2 style="text-decoration: underline;"> <font color="#424242">My Groups </font></h2> 
-      <p id="groups"><a href="index.html">my_class_f14</a></br>
-      <a href="index.html">my_class_f13</a></br>
-      <a href="index.html">my_class_spr14</a></br>
-      <a href="index.html">my_class_spr13</a></br>
-      </p>
+      <div id="groups_container_title">My Groups 
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#importModal" id="importButton">+</button>
+      </div> 
+      <ul id="groups">
+        <li><a href="index.html">my_class_f14</a></li>
+        <li><a href="index.html">my_class_spr14</a></li>
+        <li><a href="index.html">my_class_f13</a></li>
+        <li><a href="index.html">my_class_spr13</a></li>
+      </ul>
     </div>
 
 </body>

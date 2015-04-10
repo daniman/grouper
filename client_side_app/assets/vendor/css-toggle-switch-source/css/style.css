@@ -50,7 +50,7 @@ input.cmn-toggle-round + label {
   padding: 2px;
   width: 120px;
   height: 60px;
-  background-color: #ccc;
+  background-color: #a3a3a3;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
   -ms-border-radius: 60px;
@@ -95,7 +95,7 @@ input.cmn-toggle-round + label:after {
   transition: margin 0.4s;
 }
 input.cmn-toggle-round:checked + label:before {
-  background-color: #ccc;
+  background-color: #a3a3a3;
 }
 input.cmn-toggle-round:checked + label:after {
   margin-left: 60px;
@@ -108,7 +108,7 @@ input.cmn-toggle-round-flat + label {
   padding: 2px;
   width: 35px;
   height: 20px;
-  background-color: #ccc;
+  background-color: #a3a3a3;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
   -ms-border-radius: 60px;
@@ -145,7 +145,7 @@ input.cmn-toggle-round-flat + label:after {
   left: 4px;
   bottom: 4px;
   width: 12px;
-  background-color: #ccc;
+  background-color: #a3a3a3;
   -webkit-border-radius: 52px;
   -moz-border-radius: 52px;
   -ms-border-radius: 52px;
@@ -157,11 +157,11 @@ input.cmn-toggle-round-flat + label:after {
   transition: margin 0.4s, background 0.4s;
 }
 input.cmn-toggle-round-flat:checked + label {
-  background-color: #ccc;
+  background-color: #a3a3a3;
 }
 input.cmn-toggle-round-flat:checked + label:after {
   margin-left: 15px;
-  background-color: #ccc;
+  background-color: #a3a3a3;
 }
 
 /* ============================================================
@@ -186,7 +186,7 @@ input.cmn-toggle-yes-no + label:before, input.cmn-toggle-yes-no + label:after {
   line-height: 60px;
 }
 input.cmn-toggle-yes-no + label:before {
-  background-color: #ccc;
+  background-color: #a3a3a3;
   content: attr(data-off);
   -webkit-transition: -webkit-transform 0.5s;
   -moz-transition: -moz-transform 0.5s;
@@ -199,7 +199,7 @@ input.cmn-toggle-yes-no + label:before {
   backface-visibility: hidden;
 }
 input.cmn-toggle-yes-no + label:after {
-  background-color: #ccc;
+  background-color: #a3a3a3;
   content: attr(data-on);
   -webkit-transition: -webkit-transform 0.5s;
   -moz-transition: -moz-transform 0.5s;
