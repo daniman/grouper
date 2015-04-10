@@ -84,7 +84,8 @@ $(document).ready(function() {
 			};
 			groupings = groupings.concat("<br>");
 		};
-
+		
+		$('#exportModal').modal('show');
 		$("#groupPreview").html(groupings);
 	})
 
