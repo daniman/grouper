@@ -19,9 +19,8 @@
     <!-- Scripts -->
     <script type="text/javascript" src="js/hexpac.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
-    <script type="text/javascript" src="js/bubbles.js"></script>
-    <script type="text/javascript" src="js/filter.js"></script>
     <script type="text/javascript" src="js/modals.js"></script>
+    <script type="text/javascript" src="js/dropzone.js"></script>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="style/font.css" />
@@ -42,7 +41,7 @@
     </ol> -->
 
     <!-- Create Group - Step 0 Modal -->
-    <div class="modal fade out" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -75,7 +74,10 @@
           </div>
           <div class="modal-body">
             <p><h5>Select file: </h5><input type="file" id="fileslect" name="fileselect"></p>
-            <div id="fileDrag">or drop files here</div>
+            <!-- <div id="fileDrag">or drop files here</div> -->
+            <form action="/file-upload"
+              class="dropzone"
+              id="fileDrag"></form>
           </div>
           <ol class="progtrckr" data-progtrckr-steps="4">
                 <li class="progtrckr-done">Group Name</li><li class="progtrckr-todo">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Groupify</li>

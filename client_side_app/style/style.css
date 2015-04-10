@@ -273,3 +273,6 @@ img.sortable{
     right: 25px;
     z-index: 10000;
 }
+.groupShow{
+    padding: 5px;
+}

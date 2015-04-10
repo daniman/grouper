@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	//radio buttons for step 3
+///////////////GROUPIFY PARAMS SELECTOR///////////////////////
 	$("#maxPeople").click(function() {
 		$("#numberOfPeople").prop("disabled", false);
 		$("#numberOfGroups").val('');
@@ -12,7 +12,8 @@ $(document).ready(function() {
 		$("#numberOfGroups").prop("disabled", false);
 	});
 
-	//texbox in step 0
+//////////////////STEP 0 ENTER////////////////////////
+
 	$('#newGroupName').bind("enterKey",function(e){
 		console.log("wow");
 		$('#importDataModal').modal('show');
@@ -24,6 +25,8 @@ $(document).ready(function() {
 		  $(this).trigger("enterKey");
 		}
 	});
+
+////////////////////////MODAL TRANSITIONS/////////////////////
 	$('#importModal').on('show.bs.modal', function () {
 	  $('#importDataModal').modal('hide');
 	});
@@ -39,11 +42,7 @@ $(document).ready(function() {
 	  $('#editDataModal').modal('hide');
 	});
 
-	//sortable list for priorities
-	$(function() {
-	    $( "#sortable" ).sortable();
-	    $( "#sortable" ).disableSelection();
-  	});
+//////////////////////////FILE DRAG AND DROP ///////////////////////
 
   	//prevent drag and drop for browser to avoid issues with file drag and drop for step 1
 	$(document).on('dragenter', function (e) 
@@ -64,7 +63,22 @@ $(document).ready(function() {
         },function(){
         $(".category").css("outline", "none");
     });
-    
+//////////////////DRAGGABLE SORTING CATEGORIES////////////////////    
+
+	//sortable list for priorities
+	$(function() {
+	    $( "#sortable" ).sortable();
+	    $( "#sortable" ).disableSelection();
+  	});
+
+	//on sortable adds a highlight when hovering
+	$(".category").hover(function(e){
+        $(e.target).css("outline", "2px solid #5F6364");
+        },function(){
+        $(".category").css("outline", "none");
+    });
+
+////////////////////////EXPORT MODAL//////////////////////////
     var groupNumber = 7;
     var categories = ['name','course_number','gender','year','sports_team'];
 
@@ -74,32 +88,43 @@ $(document).ready(function() {
 
 		for (var i = 0; i < groupNumber; i++) {
 			groupings = groupings.concat('<h4>Group '+i+':</h4>');
+			groupings = groupings.concat('<table class="groupShow" style="width:100%"><tbody>');
+			groupings = groupings.concat(addCategories());
 			for (var j = students.length - 1; j >= 0; j--) {
 				
 				if(students[j]['group']==i){
 					// console.log(stringify(students[j]));
+					groupings = groupings.concat("<tr>");
 					groupings = groupings.concat(stringify(students[j]));
-					groupings = groupings.concat("<br>");
+					groupings = groupings.concat("</tr>");
 				}
-			};
+			}
+			groupings = groupings.concat("</tbody></table>");
 			groupings = groupings.concat("<br>");
 		};
-		
+
 		$('#exportModal').modal('show');
 		$("#groupPreview").html(groupings);
 	})
-
+	var addCategories = function(){
+		var headerString = "<tr>";
+		for (var k = 0; k < categories.length; k++) {
+			headerString = headerString.concat("<th>"+categories[k]+"</th>");
+		};
+		headerString = headerString.concat("</tr>");
+		return headerString;
+	}
 	var stringify = function(json){
-		var string = '';
+		var dataString = '';
 
 		for (var i = 0; i < categories.length; i++){
 			var key = categories[i];
 		  if (json.hasOwnProperty(key)) {
-		    string = string.concat('<b>'+key+"</b>: "+json[key]+", ");
+		    dataString = dataString.concat('<td>'+json[key]+'</td>');
 		  }
 		}
-		string = string.concat('\n');
-		return string;
+	
+		return dataString;
 	}
 	
 
