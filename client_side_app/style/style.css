@@ -137,7 +137,7 @@ div > .switch {
     margin-left: 15px;
 }
 
-#export {
+.mainButton {
     background-color: #FF9800;
     color: white;
     font-family: 'Oxygen';
@@ -264,15 +264,16 @@ ol.progtrckr li.progtrckr-todo:before {
     font-size: 1em;
     bottom: -1.8em;
 }
-img.sortable{
+img.sortableI{
     margin: 5px;
 }
 #buttons{
     position: absolute;
     top: 92px;
     right: 25px;
-    z-index: 10000;
+    z-index: 10;
 }
-.groupShow{
-    padding: 5px;
+#buttons button{
+    margin-left: 5px;
 }
+

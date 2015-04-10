@@ -83,6 +83,7 @@ $(document).ready(function() {
     var categories = ['name','course_number','gender','year','sports_team'];
 
 	$("#export").click(function(){
+
 		var groupings = '';
 		var sorted = students.sort(function(a,b) { return parseFloat(b.group) - parseFloat(a.group)});
 

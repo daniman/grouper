@@ -41,7 +41,7 @@
       <li class="active">my_class_spr15</li>
     </ol>
 
-    <div id="buttons"><button id="export" type="button" class="btn btn-md">Export</button></div>
+    <div id="buttons"><button id="edit" type="button" class="btn btn-md mainButton" data-toggle="modal" data-target="#editModal">Edit</button><button id="export" type="button" class="btn btn-md mainButton">Export</button></div>
 
     <div id="filterContainer">
       <div class="filterTypeTitle">
@@ -119,6 +119,48 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Groupify Alg Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Edit Groupify Settings</h4>
+          </div>
+          
+          <div class="modal-body">
+            <b style="font-size:110%">Edit priorities:</b>
+            <br>
+            <ul id="sortable">
+              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Course Number</li>
+              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Sports Team</li>
+              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Year</li>
+              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Greek Affiliation</li>
+              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Living Group</li>
+            </ul>
+            <br>
+            <b style="font-size:110%">Edit method how groups are formed:</b>
+            <br>
+            <div id="groupifySelections">
+              <form>
+                <input type="radio" name="max" id="maxPeople" checked> Max number of people in a group
+                <br>
+                <input type="text" id="numberOfPeople">
+                <br>
+                <br>
+                <input type="radio" name="max" id="maxGroups"> Max number of groups
+                <br>
+                <input type="text" id="numberOfGroups" disabled>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Re-Groupify</button>
           </div>
         </div>
       </div>
