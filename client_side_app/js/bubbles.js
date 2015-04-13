@@ -233,31 +233,47 @@ $(document).ready(function() {
 
     var bubbleSelected = function(evt){
       console.log("bubbleSelected");
-      undoStack.push([$(this),$(".selected")]);
-      console.log([$(this),$(".selected")]);
-      redoStack = [];
-      var tmpGroup = student_dict[$(this).attr("student_id")].group;
+      if(student_dict[$(this).attr("student_id")].group !== student_dict[$(".selected").attr("student_id")].group){
+        undoStack.push([$(this),$(".selected")]);
+        redoStack = [];
 
-      student_dict[$(this).attr("student_id")].group = student_dict[$(".selected").attr("student_id")].group;
-      student_dict[$(".selected").attr("student_id")].group = tmpGroup;
-      $(".selected").removeClass("selected");
-      //unhookup second function
-      $(".bubble").unbind("click");
-      $(document).unbind("click");
-      //hookup first function
-      $(".bubble").click(nothingSelected);
-      /*var q = d3.geom.quadtree(students);
-            for (var i = 0; i<students.length; i++) {
-              q.visit(collide(students[i]))
-            }*/
-      /*
-      var ething = {};
-      ething.alpha = .5;
-      tick(ething);
-      */
-      //get them to move
-      force.stop();
-      force.start();
+        var tmpGroup = student_dict[$(this).attr("student_id")].group;
+
+        student_dict[$(this).attr("student_id")].group = student_dict[$(".selected").attr("student_id")].group;
+        student_dict[$(".selected").attr("student_id")].group = tmpGroup;
+        $(".selected").removeClass("selected");
+        //unhookup second function
+        $(".bubble").unbind("click");
+        $(document).unbind("click");
+        //hookup first function
+        $(".bubble").click(nothingSelected);
+        /*var q = d3.geom.quadtree(students);
+              for (var i = 0; i<students.length; i++) {
+                q.visit(collide(students[i]))
+              }*/
+        /*
+        var ething = {};
+        ething.alpha = .5;
+        tick(ething);
+        */
+        //get them to move
+        force.stop();
+        force.start();
+      }else if($(this).hasClass("selected")){//gotta check if it's the same one in which case deselect
+        $(".selected").removeClass("selected");
+        //unhookup second function
+        $(".bubble").unbind("click");
+        $(document).unbind("click");
+        //hookup first function
+        $(".bubble").click(nothingSelected);
+        evt.stopPropagation();
+      }else{
+        console.log("got here");
+        $(".selected").removeClass("selected");
+        $(this).addClass("selected");
+        evt.stopPropagation();
+      }
+      
     }
 
     var deselect = function(evt){
