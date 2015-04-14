@@ -128,7 +128,9 @@ $(document).ready(function() {
 		return dataString;
 	}
 	
-
+	$("#edit").click(function(){
+		$('#editModal').modal('show');
+	})
 
 
 });
