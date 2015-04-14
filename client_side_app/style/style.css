@@ -152,6 +152,13 @@ div > .switch {
     vertical-align: middle;
 }
 
+.hull {
+  fill: steelblue;
+  stroke: steelblue;
+  stroke-width: 60px;
+  stroke-linejoin: round;
+}
+
 .bubble_text {
     position: relative;
     margin-left: -20%;

@@ -23,6 +23,10 @@ $(document).ready(function() {
         padding = 6,
         vis = d3.select("body").select("#bubbleContainer");
 
+    var svg = d3.select("#bubbleContainer").append("svg")
+        .attr("width", $("#bubbleContainer").width())
+        .attr("height", $("#bubbleContainer").height());
+
     /* Force paramettring */
     var force = d3.layout.force()
         .size([$("#bubbleContainer").width(), $("#bubbleContainer").height()]) // gravity field's size
@@ -48,6 +52,12 @@ $(document).ready(function() {
     });
 
     $(window).trigger('resize');
+
+    //EXPERIMENT
+    var hull = svg.append("path")
+        .attr("class", "hull");
+    /////////
+
 
     /*Associate the divs with the node objects. */
     nodes = vis.selectAll(".bubble")
@@ -76,7 +86,7 @@ $(document).ready(function() {
         .transition()
         .duration(1000)
         .style("opacity", 1);
-
+    points = [];
     function tick(e) {  
       //everything collide with everything else
       
@@ -104,7 +114,12 @@ $(document).ready(function() {
       nodes
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
-
+        
+      points = [];
+      for (var i = students.length - 1; i >= 0; i--) {
+        points.push([students[i].px + radius/2,students[i].py + radius/2]);
+      };
+      redraw();
       nodes.style({
         'left': function(d,i) {
           return d.x + 'px';
@@ -113,6 +128,7 @@ $(document).ready(function() {
           return d.y + 'px';
         }
       });
+
 
     }
     // Move nodes toward cluster focus.
@@ -181,9 +197,8 @@ $(document).ready(function() {
     var redoStack = [];
     $(window).keydown(function(e) {
       //modified from http://stackoverflow.com/questions/3902635/how-does-one-capture-a-macs-command-key-via-javascript
-      //z undo
       if(e.metaKey){
-        //y redo
+        //shift+z
         if (e.keyCode == 90 && e.shiftKey) {
           console.log("redo");
           if(redoStack.length > 0){
@@ -197,6 +212,7 @@ $(document).ready(function() {
             force.start();
           }
         }
+        //z
         else if (e.keyCode == 90) {
           console.log("undo");
           if(undoStack.length > 0){
@@ -293,5 +309,11 @@ $(document).ready(function() {
     $(".bubble").dblclick(function(){
       $("#studentModal").modal("show");
     });
+
+
+    function redraw() {
+      hull.datum(d3.geom.hull(points)).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
+    }
+
     
 });
