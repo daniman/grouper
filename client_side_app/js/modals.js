@@ -74,8 +74,10 @@ $(document).ready(function() {
 	//on sortable adds a highlight when hovering
 	$(".category").hover(function(e){
         $(e.target).css("outline", "2px solid #5F6364");
+        $(e.target).css("cursor", "pointer");
         },function(){
         $(".category").css("outline", "none");
+        $(".category").css("cursor", "default");
     });
 
 ////////////////////////EXPORT MODAL//////////////////////////
@@ -131,16 +133,39 @@ $(document).ready(function() {
 	$("#edit").click(function(){
 		$('#editModal').modal('show');
 	})
-
-	$(".bubble").dblclick(function(e){
-		var id = parseInt($(e.target).parent().attr('id').split('_')[1]);
+////////////////////////STUDENT/GROUP MODAL//////////////////////////
+	//displays the correct student information for the bubble clicked
+	$(".bubble").dblclick(function(evt){
+		var id = parseInt($(evt.target).parent().attr('id').split('_')[1]);
 
 	  $('#studentName').html(students[id]['name']);
 	  $('#studentSex').html(students[id]['gender']);
 	  $('#studentCourseNumber').html("Course "+students[id]['course_number']);
 	  $('#studentYear').html(students[id]['year']);
       $("#studentModal").modal("show");
+
+      evt.stopPropagation();
     });
 
+	//displays the correct group information for the hull clicked
+	$(".hull").dblclick(function(evt){
+
+		var studentList = '<table class="groupShow" style="width:100%"><tbody>';
+		var idGroup = $(evt.target).attr('group');
+		studentList = studentList.concat(addCategories());
+		
+		for (var j = students.length - 1; j >= 0; j--) {
+			if(students[j]['group']==idGroup){
+				studentList = studentList.concat("<tr>");
+				studentList = studentList.concat(stringify(students[j]));
+				studentList = studentList.concat("</tr>");
+			}
+		}
+		$('#groupNumber').html(idGroup);
+		$('#groupStudents').html(studentList);
+		$("#groupModal").modal("show");
+
+		evt.stopPropagation();
+	});
 
 });

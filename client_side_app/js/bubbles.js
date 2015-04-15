@@ -68,7 +68,7 @@ $(document).ready(function() {
     //EXPERIMENT
     var hulls = []; 
     for (var i = parameters['group'].length - 1; i >= 0; i--) {
-      hulls.push(svg.append("path").attr("class", "hull"));
+      hulls.push(svg.append("path").attr("class", "hull").attr("group",parameters['group'].length - i - 1));
     };
     /////////
 
@@ -212,37 +212,63 @@ $(document).ready(function() {
     ////UNDO and REDO////
     var undoStack = [];
     var redoStack = [];
+    var undo = function(e){
+      if(undoStack.length > 0){
+        //show redo, take away undo if it is length 0 
+        $("#redo").remove();
+        $("#undo").remove();
+        if(undoStack.length > 1){
+          $("#buttons").prepend("<a id=undo class='btn btn-md'>undo</a>");
+          $("#undo").click(undo);
+        }
+        $("#buttons").prepend("<a id=redo class='btn'>redo</a>");
+        $("#redo").click(redo);
+        var toBeUndone = undoStack.pop();
+        console.log(toBeUndone);
+        var tmpGroup = student_dict[toBeUndone[0].attr("student_id")].group;
+        student_dict[toBeUndone[0].attr("student_id")].group = student_dict[toBeUndone[1].attr("student_id")].group;
+        student_dict[toBeUndone[1].attr("student_id")].group = tmpGroup;
+        redoStack.push(toBeUndone);
+        //get them to move
+        force.stop();
+        force.start();
+      }
+    }
+    var redo = function(e){
+      if(redoStack.length > 0){
+        //show undo, take away redo if it is length 0 
+        $("#redo").remove();
+        $("#undo").remove();
+        $("#buttons").prepend("<a id=undo class='btn btn-md'>undo</a>");
+        $("#undo").click(undo);
+        if(redoStack.length > 1){
+          $("#buttons").prepend("<a id=redo class='btn'>redo</a>");
+          $("#redo").click(redo);
+        }
+        
+        var toBeRedone = redoStack.pop();
+        var tmpGroup = student_dict[toBeRedone[0].attr("student_id")].group;
+        student_dict[toBeRedone[0].attr("student_id")].group = student_dict[toBeRedone[1].attr("student_id")].group;
+        student_dict[toBeRedone[1].attr("student_id")].group = tmpGroup;
+        undoStack.push(toBeRedone);
+        //get them to move
+        force.stop();
+        force.start();
+      }
+    }
     $(window).keydown(function(e) {
       //modified from http://stackoverflow.com/questions/3902635/how-does-one-capture-a-macs-command-key-via-javascript
       if(e.metaKey){
         //shift+z
         if (e.keyCode == 90 && e.shiftKey) {
           console.log("redo");
-          if(redoStack.length > 0){
-            var toBeRedone = redoStack.pop();
-            var tmpGroup = student_dict[toBeRedone[0].attr("student_id")].group;
-            student_dict[toBeRedone[0].attr("student_id")].group = student_dict[toBeRedone[1].attr("student_id")].group;
-            student_dict[toBeRedone[1].attr("student_id")].group = tmpGroup;
-            undoStack.push(toBeRedone);
-            //get them to move
-            force.stop();
-            force.start();
-          }
+          redo(e)
         }
         //z
         else if (e.keyCode == 90) {
+          undo(e)
           console.log("undo");
-          if(undoStack.length > 0){
-            var toBeUndone = undoStack.pop();
-            console.log(toBeUndone);
-            var tmpGroup = student_dict[toBeUndone[0].attr("student_id")].group;
-            student_dict[toBeUndone[0].attr("student_id")].group = student_dict[toBeUndone[1].attr("student_id")].group;
-            student_dict[toBeUndone[1].attr("student_id")].group = tmpGroup;
-            redoStack.push(toBeUndone);
-            //get them to move
-            force.stop();
-            force.start();
-          }
+          
         }
         
       }
@@ -267,6 +293,11 @@ $(document).ready(function() {
     var bubbleSelected = function(evt){
       console.log("bubbleSelected");
       if(student_dict[$(this).attr("student_id")].group !== student_dict[$(".selected").attr("student_id")].group){
+        //display undo, undisplay redo
+        $("#redo").remove();
+        $("#undo").remove();
+        $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
+        $("#undo").click(undo);
         undoStack.push([$(this),$(".selected")]);
         redoStack = [];
 

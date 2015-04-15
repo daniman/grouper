@@ -115,6 +115,13 @@ div > .switch {
     margin: 0px 20px 20px 20px;
     padding: 0px 20px;
     background-color: white;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .filterType {
@@ -151,6 +158,9 @@ div > .switch {
     text-align: center;
     vertical-align: middle;
 }
+.bubble:hover{
+    cursor: pointer;
+}
 
 .bubble:hover {
     cursor: pointer;
@@ -160,7 +170,7 @@ div > .switch {
 .hull {/*
   fill: steelblue;
   stroke: steelblue;*/
-  stroke-width: 60px;
+  stroke-width: 80px;
   stroke-linejoin: round;
 }
 
@@ -169,6 +179,13 @@ div > .switch {
     margin-left: -20%;
     margin-right: -20%;
     text-align: center;
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 #groupsContainer {
     height: calc(100% - 91px);
@@ -284,6 +301,13 @@ img.sortableI{
     top: 92px;
     right: 25px;
     z-index: 10;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 #buttons button{
     margin-left: 5px;
