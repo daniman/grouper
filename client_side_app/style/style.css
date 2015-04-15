@@ -158,7 +158,7 @@ div > .switch {
 .hull {/*
   fill: steelblue;
   stroke: steelblue;*/
-  stroke-width: 60px;
+  stroke-width: 80px;
   stroke-linejoin: round;
 }
 
