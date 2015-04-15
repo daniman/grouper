@@ -44,7 +44,9 @@ $(document).ready(function() {
     $(window).resize(function(){
       var height = $("#bubbleContainer").height();
       var width = $("#bubbleContainer").width();
-
+      //resize hull container as well
+      svg.attr("width", $("#bubbleContainer").width())
+          .attr("height", $("#bubbleContainer").height());
       foci = hexpac(parameters['group'].length, radius*3, width, height);
 
       force.stop();
@@ -53,9 +55,21 @@ $(document).ready(function() {
 
     $(window).trigger('resize');
 
+    //Find the number of groups
+    totalGroups = parameters['group'].length;
+    /*
+    for (var i = students.length - 1; i >= 0; i--) {
+      if(students[i].group > totalGroups){
+        totalGroups = students[i].group;
+      }
+    };
+    totalGroups += 1
+*/
     //EXPERIMENT
-    var hull = svg.append("path")
-        .attr("class", "hull");
+    var hulls = []; 
+    for (var i = parameters['group'].length - 1; i >= 0; i--) {
+      hulls.push(svg.append("path").attr("class", "hull"));
+    };
     /////////
 
 
@@ -116,8 +130,11 @@ $(document).ready(function() {
         .attr("cy", function(d) { return d.y; });
         
       points = [];
+      for (var i = parameters['group'].length - 1; i >= 0; i--) {
+        points.push([]);
+      };
       for (var i = students.length - 1; i >= 0; i--) {
-        points.push([students[i].px + radius/2,students[i].py + radius/2]);
+        points[students[i].group].push([students[i].px + radius/2,students[i].py + radius/2]);
       };
       redraw();
       nodes.style({
@@ -312,7 +329,11 @@ $(document).ready(function() {
 
 
     function redraw() {
-      hull.datum(d3.geom.hull(points)).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
+      for (var i = parameters['group'].length - 1; i >= 0; i--) {
+        hulls[i].datum(d3.geom.hull(points[i])).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
+        hulls[i].attr("fill", getHullColor(i))
+        hulls[i].attr("stroke", getHullColor(i))
+      };
     }
 
     

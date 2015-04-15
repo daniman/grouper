@@ -152,9 +152,9 @@ div > .switch {
     vertical-align: middle;
 }
 
-.hull {
+.hull {/*
   fill: steelblue;
-  stroke: steelblue;
+  stroke: steelblue;*/
   stroke-width: 60px;
   stroke-linejoin: round;
 }
