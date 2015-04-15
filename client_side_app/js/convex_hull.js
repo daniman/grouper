@@ -19,7 +19,7 @@ var getHullColor = function(group_num) {
             if (group[i]['sports_team'] == group[j]['sports_team']) { pts ++; }
         }
     }
-    console.log(group_size*pts/possible_pts);
+    //console.log(group_size*pts/possible_pts);
     return getColorForPercentage(group_size*pts/possible_pts);
 }
 
