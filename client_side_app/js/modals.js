@@ -148,7 +148,10 @@ $(document).ready(function() {
     });
 
 	//displays the correct group information for the hull clicked
+	$('.hull').mousedown(function(){ return false; })
 	$(".hull").dblclick(function(evt){
+		evt.stopPropagation();
+		ClearSelection();
 
 		var studentList = '<table class="groupShow" style="width:100%"><tbody>';
 		var idGroup = $(evt.target).attr('group');
@@ -164,8 +167,13 @@ $(document).ready(function() {
 		$('#groupNumber').html(idGroup);
 		$('#groupStudents').html(studentList);
 		$("#groupModal").modal("show");
-
-		evt.stopPropagation();
 	});
 
 });
+
+function ClearSelection() {
+    if (window.getSelection)
+        window.getSelection().removeAllRanges();
+    else if (document.selection)
+        document.selection.empty();
+}

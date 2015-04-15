@@ -116,12 +116,12 @@ div > .switch {
     padding: 0px 20px;
     background-color: white;
 
-    -webkit-touch-callout: none;
+/*    -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
+    user-select: none;*/
 }
 
 .filterType {
@@ -164,7 +164,7 @@ div > .switch {
 
 .bubble:hover {
     cursor: pointer;
-    border: 3px solid #ccc;
+    /*border: 3px solid #ccc;*/
 }
 
 .hull {/*
@@ -180,12 +180,12 @@ div > .switch {
     margin-right: -20%;
     text-align: center;
     
-    -webkit-touch-callout: none;
+/*    -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
+    user-select: none;*/
 }
 #groupsContainer {
     height: calc(100% - 91px);
@@ -302,12 +302,8 @@ img.sortableI{
     right: 25px;
     z-index: 10;
 
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+/*
+*/
 }
 #buttons button{
     margin-left: 5px;
