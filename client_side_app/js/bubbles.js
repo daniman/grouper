@@ -218,10 +218,10 @@ $(document).ready(function() {
         $("#redo").remove();
         $("#undo").remove();
         if(undoStack.length > 1){
-          $("#buttons").prepend("<a id=undo>undo</a>");
+          $("#buttons").prepend("<a id=undo class='btn btn-md'>undo</a>");
           $("#undo").click(undo);
         }
-        $("#buttons").prepend("<a id=redo>redo</a>");
+        $("#buttons").prepend("<a id=redo class='btn'>redo</a>");
         $("#redo").click(redo);
         var toBeUndone = undoStack.pop();
         console.log(toBeUndone);
@@ -239,10 +239,10 @@ $(document).ready(function() {
         //show undo, take away redo if it is length 0 
         $("#redo").remove();
         $("#undo").remove();
-        $("#buttons").prepend("<a id=undo>undo</a>");
+        $("#buttons").prepend("<a id=undo class='btn btn-md'>undo</a>");
         $("#undo").click(undo);
         if(redoStack.length > 1){
-          $("#buttons").prepend("<a id=redo>redo</a>");
+          $("#buttons").prepend("<a id=redo class='btn'>redo</a>");
           $("#redo").click(redo);
         }
         
@@ -296,7 +296,7 @@ $(document).ready(function() {
         //display undo, undisplay redo
         $("#redo").remove();
         $("#undo").remove();
-        $("#buttons").prepend("<a id=undo>undo</a>");
+        $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
         $("#undo").click(undo);
         undoStack.push([$(this),$(".selected")]);
         redoStack = [];
