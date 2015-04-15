@@ -152,6 +152,11 @@ div > .switch {
     vertical-align: middle;
 }
 
+.bubble:hover {
+    cursor: pointer;
+    border: 3px solid #ccc;
+}
+
 .hull {/*
   fill: steelblue;
   stroke: steelblue;*/
