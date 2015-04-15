@@ -132,5 +132,15 @@ $(document).ready(function() {
 		$('#editModal').modal('show');
 	})
 
+	$(".bubble").dblclick(function(e){
+		var id = parseInt($(e.target).parent().attr('id').split('_')[1]);
+
+	  $('#studentName').html(students[id]['name']);
+	  $('#studentSex').html(students[id]['gender']);
+	  $('#studentCourseNumber').html("Course "+students[id]['course_number']);
+	  $('#studentYear').html(students[id]['year']);
+      $("#studentModal").modal("show");
+    });
+
 
 });
