@@ -135,14 +135,16 @@ $(document).ready(function() {
 	})
 ////////////////////////STUDENT/GROUP MODAL//////////////////////////
 	//displays the correct student information for the bubble clicked
-	$(".bubble").dblclick(function(e){
-		var id = parseInt($(e.target).parent().attr('id').split('_')[1]);
+	$(".bubble").dblclick(function(evt){
+		var id = parseInt($(evt.target).parent().attr('id').split('_')[1]);
 
 	  $('#studentName').html(students[id]['name']);
 	  $('#studentSex').html(students[id]['gender']);
 	  $('#studentCourseNumber').html("Course "+students[id]['course_number']);
 	  $('#studentYear').html(students[id]['year']);
       $("#studentModal").modal("show");
+
+      evt.stopPropagation();
     });
 
 	//displays the correct group information for the hull clicked
@@ -162,6 +164,8 @@ $(document).ready(function() {
 		$('#groupNumber').html(idGroup);
 		$('#groupStudents').html(studentList);
 		$("#groupModal").modal("show");
+
+		evt.stopPropagation();
 	});
 
 });
