@@ -146,21 +146,20 @@ $(document).ready(function() {
     });
 
 	//displays the correct group information for the hull clicked
-	$(".hull").dblclick(function(e){
+	$(".hull").dblclick(function(evt){
 
 		var studentList = '<table class="groupShow" style="width:100%"><tbody>';
-		var idGroup = 0;
+		var idGroup = $(evt.target).attr('group');
 		studentList = studentList.concat(addCategories());
 		
 		for (var j = students.length - 1; j >= 0; j--) {
-				console.log(students[j]['group']);
 			if(students[j]['group']==idGroup){
-				console.log("here");
 				studentList = studentList.concat("<tr>");
 				studentList = studentList.concat(stringify(students[j]));
 				studentList = studentList.concat("</tr>");
 			}
 		}
+		$('#groupNumber').html(idGroup);
 		$('#groupStudents').html(studentList);
 		$("#groupModal").modal("show");
 	});
