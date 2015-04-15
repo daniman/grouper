@@ -172,13 +172,15 @@ div > .switch {
   stroke: steelblue;*/
   stroke-width: 80px;
   stroke-linejoin: round;
+  opacity: 0.5;
 }
 
 .bubble_text {
     position: relative;
-    margin-left: -20%;
-    margin-right: -20%;
+    /*margin-left: -20%;*/
+    /*margin-right: -20%;*/
     text-align: center;
+    /*word-wrap: break-word;*/
     
 /*    -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -187,6 +189,7 @@ div > .switch {
     -ms-user-select: none;
     user-select: none;*/
 }
+
 #groupsContainer {
     height: calc(100% - 91px);
     width: calc(100% - 40px);

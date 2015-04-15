@@ -95,6 +95,11 @@ $(document).ready(function() {
       })
       .call(force.drag);
 
+      console.log(vis.selectAll('#node_0').style({
+        'width': (radius+10) + 'px',
+        'height': (radius+10) + 'px'
+      }));
+
     /* Start transition */
     vis.style("opacity", 1e-6)
         .transition()
@@ -362,8 +367,10 @@ $(document).ready(function() {
     function redraw() {
       for (var i = parameters['group'].length - 1; i >= 0; i--) {
         hulls[i].datum(d3.geom.hull(points[i])).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
-        hulls[i].attr("fill", getHullColor(i))
-        hulls[i].attr("stroke", getHullColor(i))
+        // hulls[i].attr("fill", getHullColor(i))
+        // hulls[i].attr("stroke", getHullColor(i))
+        hulls[i].attr("fill", '#8d8d8d')
+        hulls[i].attr("stroke", '#8d8d8d')
       };
     }
 
