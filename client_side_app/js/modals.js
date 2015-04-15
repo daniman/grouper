@@ -74,8 +74,10 @@ $(document).ready(function() {
 	//on sortable adds a highlight when hovering
 	$(".category").hover(function(e){
         $(e.target).css("outline", "2px solid #5F6364");
+        $(e.target).css("cursor", "pointer");
         },function(){
         $(".category").css("outline", "none");
+        $(".category").css("cursor", "default");
     });
 
 ////////////////////////EXPORT MODAL//////////////////////////
@@ -131,7 +133,8 @@ $(document).ready(function() {
 	$("#edit").click(function(){
 		$('#editModal').modal('show');
 	})
-
+////////////////////////STUDENT/GROUP MODAL//////////////////////////
+	//displays the correct student information for the bubble clicked
 	$(".bubble").dblclick(function(e){
 		var id = parseInt($(e.target).parent().attr('id').split('_')[1]);
 
@@ -142,5 +145,24 @@ $(document).ready(function() {
       $("#studentModal").modal("show");
     });
 
+	//displays the correct group information for the hull clicked
+	$(".hull").dblclick(function(e){
+
+		var studentList = '<table class="groupShow" style="width:100%"><tbody>';
+		var idGroup = 0;
+		studentList = studentList.concat(addCategories());
+		
+		for (var j = students.length - 1; j >= 0; j--) {
+				console.log(students[j]['group']);
+			if(students[j]['group']==idGroup){
+				console.log("here");
+				studentList = studentList.concat("<tr>");
+				studentList = studentList.concat(stringify(students[j]));
+				studentList = studentList.concat("</tr>");
+			}
+		}
+		$('#groupStudents').html(studentList);
+		$("#groupModal").modal("show");
+	});
 
 });
