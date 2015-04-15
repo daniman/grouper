@@ -68,7 +68,7 @@ $(document).ready(function() {
     //EXPERIMENT
     var hulls = []; 
     for (var i = parameters['group'].length - 1; i >= 0; i--) {
-      hulls.push(svg.append("path").attr("class", "hull").attr("group",i));
+      hulls.push(svg.append("path").attr("class", "hull").attr("group",parameters['group'].length - i - 1));
     };
     /////////
 
