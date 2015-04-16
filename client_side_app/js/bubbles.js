@@ -38,6 +38,8 @@ $(document).ready(function() {
         .on("tick", tick)
         .start();
 
+    // console.log(force.nodes());
+
     // TODO: set foci intelligently, based on num of groups -- parameters['group'].length --
     var foci;
 
@@ -94,11 +96,6 @@ $(document).ready(function() {
         }
       })
       .call(force.drag);
-
-      console.log(vis.selectAll('#node_0').style({
-        'width': (radius+10) + 'px',
-        'height': (radius+10) + 'px'
-      }));
 
     /* Start transition */
     vis.style("opacity", 1e-6)
