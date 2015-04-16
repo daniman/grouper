@@ -155,6 +155,11 @@ div > .switch {
     font-size: 18px;
 }
 
+.mainButton:hover {
+    color: white !important;
+    opacity: 0.6;
+}
+
 .bubble {
     opacity: .85; 
     position: absolute;
