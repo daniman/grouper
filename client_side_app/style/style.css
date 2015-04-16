@@ -156,10 +156,14 @@ div > .switch {
 }
 
 .bubble {
-    opacity: .9; 
+    opacity: .85; 
     position: absolute;
     text-align: center;
     vertical-align: middle;
+}
+
+.tooltip.top {
+    margin-top: -40px !important;
 }
 
 .bubble:hover{
@@ -178,11 +182,13 @@ div > .switch {
   stroke-width: 80px;
   stroke-linejoin: round;
   opacity: 0.5;
+  transition: 1s;
 }
 
 .hull:hover {
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0.8;
+    /*transition: 1s;*/
 }
 
 .bubble_text {
