@@ -135,13 +135,13 @@ $(document).ready(function() {
 	})
 ////////////////////////STUDENT/GROUP MODAL//////////////////////////
 	$('.bubble').tooltip({'placement': 'top', 'delay': 750});
-	$('.hull').tooltip({'placement': 'top', 'container':'body', 'html':'true', 'delay': 250});
+	$('.hull').tooltip({'placement': 'right', 'container':'body', 'html':'true', 'delay': 250});
 
 	$('.bubble').attr('data-toggle', 'tooltip');
-	$('.bubble').attr('data-original-title', 'double click for information');
+	$('.bubble').attr('data-original-title', 'Double Click for Information.');
 
 	$('.hull').attr('data-toggle', 'tooltip');
-	$('.hull').attr('data-original-title', 'double click for information');
+	$('.hull').attr('data-original-title', 'Double Click for More Information.');
 
 	//displays the correct student information for the bubble clicked
 	$(".bubble").dblclick(function(evt){

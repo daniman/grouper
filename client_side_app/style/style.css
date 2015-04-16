@@ -162,8 +162,8 @@ div > .switch {
     vertical-align: middle;
 }
 
-.tooltip.top {
-    margin-top: -40px !important;
+.tooltip.right {
+    margin-left: 35px;
 }
 
 .bubble:hover{
