@@ -138,10 +138,10 @@ $(document).ready(function() {
 	$('.hull').tooltip({'placement': 'right', 'container':'body', 'html':'true', 'delay': 250});
 
 	$('.bubble').attr('data-toggle', 'tooltip');
-	$('.bubble').attr('data-original-title', 'Double Click for Information.');
+	$('.bubble').attr('data-original-title', 'Double Click for Information');
 
 	$('.hull').attr('data-toggle', 'tooltip');
-	$('.hull').attr('data-original-title', 'Double Click for More Information.');
+	$('.hull').attr('data-original-title', 'Double Click for Information');
 
 	//displays the correct student information for the bubble clicked
 	$(".bubble").dblclick(function(evt){
