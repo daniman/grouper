@@ -134,6 +134,15 @@ $(document).ready(function() {
 		$('#editModal').modal('show');
 	})
 ////////////////////////STUDENT/GROUP MODAL//////////////////////////
+	$('.bubble').tooltip({'placement': 'top'});
+	$('.hull').tooltip({'placement': 'bottom'});
+
+	$('.bubble').attr('data-toggle', 'tooltip');
+	$('.bubble').attr('data-original-title', 'double click for information');
+
+	$('.hull').attr('data-toggle', 'tooltip');
+	$('.hull').attr('data-original-title', 'double click for information');
+
 	//displays the correct student information for the bubble clicked
 	$(".bubble").dblclick(function(evt){
 		var id = parseInt($(evt.target).parent().attr('id').split('_')[1]);
