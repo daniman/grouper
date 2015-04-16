@@ -3,7 +3,7 @@ var nodes; // global var (so filter.js can access)
 $(document).ready(function() {
 
   $('#logo').click(function() {
-    document.location.href = 'home.html';
+    document.location.href = 'index.html';
   });
 
     student_dict = {}
