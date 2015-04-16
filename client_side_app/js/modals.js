@@ -134,8 +134,8 @@ $(document).ready(function() {
 		$('#editModal').modal('show');
 	})
 ////////////////////////STUDENT/GROUP MODAL//////////////////////////
-	$('.bubble').tooltip({'placement': 'top', 'delay': 750});
-	$('.hull').tooltip({'placement': 'right', 'container':'body', 'html':'true', 'delay': 250});
+	$('.bubble').tooltip({'placement': 'top', 'delay': 1050});
+	$('.hull').tooltip({'placement': 'right', 'container':'body', 'html':'true', 'delay': 550});
 
 	$('.bubble').attr('data-toggle', 'tooltip');
 	$('.bubble').attr('data-original-title', 'Double Click for Information.');
