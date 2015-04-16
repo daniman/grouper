@@ -164,6 +164,7 @@ div > .switch {
 
 .bubble:hover{
     cursor: pointer;
+    opacity: 1;
 }
 
 .bubble:hover {
@@ -177,6 +178,11 @@ div > .switch {
   stroke-width: 80px;
   stroke-linejoin: round;
   opacity: 0.5;
+}
+
+.hull:hover {
+    cursor: pointer;
+    opacity: 0.7;
 }
 
 .bubble_text {
