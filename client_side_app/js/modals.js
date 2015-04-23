@@ -1,46 +1,78 @@
 $(document).ready(function() {
 
+	$('.dropdown-toggle').dropdown()
+
 ///////////////GROUPIFY PARAMS SELECTOR///////////////////////
 	$("#maxPeople").click(function() {
 		$("#numberOfPeople").prop("disabled", false);
-		$("#numberOfGroups").val('');
+		$("#numberOfPeople").val(Grouper.user_preferences.group_by.group_size);
+
 		$("#numberOfGroups").prop("disabled", true);
+		$("#numberOfGroups").val('');
+		Grouper.user_preferences.group_by.pref = 'num_groups';
 	});
+
 	$("#maxGroups").click(function() {
+		$("#numberOfGroups").prop("disabled", false);
+		$("#numberOfGroups").val(Grouper.user_preferences.group_by.num_groups);
+
 		$("#numberOfPeople").prop("disabled", true);
 		$("#numberOfPeople").val('');
-		$("#numberOfGroups").prop("disabled", false);
+		Grouper.user_preferences.group_by.pref = 'group_size';
+	});
+
+	$('#numberOfPeople').change(function(event) {
+		Grouper.user_preferences.group_by.group_size = parseInt($('#numberOfPeople').val());
+	});
+
+	$('#numberOfGroups').change(function(event) {
+		Grouper.user_preferences.group_by.num_groups = parseInt($('#numberOfGroups').val());
 	});
 
 //////////////////STEP 0 ENTER////////////////////////
-
-	$('#newGroupName').bind("enterKey",function(e){
-		console.log("wow");
-		$('#importDataModal').modal('show');
-	});
 	
 	$('#newGroupName').keyup(function(e){
-		if(e.keyCode == 13)
-		{
-		  $(this).trigger("enterKey");
+		if(e.keyCode == 13) {
+		  	$('#importDataModal').modal('show');
 		}
 	});
 
+	$('#newGroupName').change(function(event) {
+		Grouper.user_preferences.group_name = $('#newGroupName').val();
+	})
+
 ////////////////////////MODAL TRANSITIONS/////////////////////
 	$('#importModal').on('show.bs.modal', function () {
+		console.log('showing step 0');
 	  $('#importDataModal').modal('hide');
 	});
 	$('#importDataModal').on('show.bs.modal', function () {
+		console.log('showing step 1');
 	  $('#importModal').modal('hide');
 	  $('#editDataModal').modal('hide');
 	});
 	$('#editDataModal').on('show.bs.modal', function () {
+		console.log('showing step 2');
 	  $('#importDataModal').modal('hide');
 	  $('#groupifyModal').modal('hide');
 	});
 	$('#groupifyModal').on('show.bs.modal', function () {
+		console.log('showing step 3');
 	  $('#editDataModal').modal('hide');
 	});
+
+	$('#groupifyButton').click(function() {
+		console.log('click');
+
+		$.ajax({
+		    type: 'GET',
+		    url: 'main.html',
+		    success: function (file_html) {
+		        // success
+		        alert('success : ' + file_html);
+		    }
+		});
+	})
 
 //////////////////////////FILE DRAG AND DROP ///////////////////////
 
@@ -67,7 +99,15 @@ $(document).ready(function() {
 
 	//sortable list for priorities
 	$(function() {
-	    $( "#sortable" ).sortable();
+	    $("#sortable").sortable({
+	    	update: function(event) {
+	    		Grouper.user_preferences.priorities = [];
+	    		var list = $('#sortable').children();
+	    		list.each(function(index) {
+	    			Grouper.user_preferences.priorities.push(this.innerText);
+	    		})
+	    	}
+	    });
 	    $( "#sortable" ).disableSelection();
   	});
 

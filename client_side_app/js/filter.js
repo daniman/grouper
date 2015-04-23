@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    $('.breadcrumb .active').html(Grouper.user_preferences.group_name);
+    
     for (var i=0; i<filters.length; i++) {
         if (filters[i] != 'name' && filters[i] != 'group') {
             $('#filters').append('<li>' +
