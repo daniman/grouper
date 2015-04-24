@@ -1,32 +1,33 @@
 $(document).ready(function() {
 
 ///////////////GROUPIFY PARAMS SELECTOR///////////////////////
-	$("#maxPeople").click(function() {
-		$("#numberOfPeople").prop("disabled", false);
-		$("#numberOfPeople").val(Grouper.user_preferences.group_by.group_size);
-		$("#numberOfPeople").css({'color': 'black'});
+	$(".maxPeople").click(function() {
+		console.log('click');
+		$(".numberOfPeople").prop("disabled", false);
+		$(".numberOfPeople").val(Grouper.user_preferences.group_by.group_size);
+		$(".numberOfPeople").css({'color': 'black'});
 
-		$("#numberOfGroups").prop("disabled", true);
-		$("#numberOfGroups").css({'color': '#a3a3a3'});
+		$(".numberOfGroups").prop("disabled", true);
+		$(".numberOfGroups").css({'color': '#a3a3a3'});
 		Grouper.user_preferences.group_by.pref = 'num_groups';
 	});
 
-	$("#maxGroups").click(function() {
-		$("#numberOfGroups").prop("disabled", false);
-		$("#numberOfGroups").val(Grouper.user_preferences.group_by.num_groups);
-		$("#numberOfGroups").css({'color': 'black'});
+	$(".maxGroups").click(function() {
+		$(".numberOfGroups").prop("disabled", false);
+		$(".numberOfGroups").val(Grouper.user_preferences.group_by.num_groups);
+		$(".numberOfGroups").css({'color': 'black'});
 
-		$("#numberOfPeople").prop("disabled", true);
-		$("#numberOfPeople").css({'color': '#a3a3a3'});
+		$(".numberOfPeople").prop("disabled", true);
+		$(".numberOfPeople").css({'color': '#a3a3a3'});
 		Grouper.user_preferences.group_by.pref = 'group_size';
 	});
 
-	$('#numberOfPeople').change(function(event) {
-		Grouper.user_preferences.group_by.group_size = parseInt($('#numberOfPeople').val());
+	$('.numberOfPeople').change(function(event) {
+		Grouper.user_preferences.group_by.group_size = parseInt($(this).val());
 	});
 
-	$('#numberOfGroups').change(function(event) {
-		Grouper.user_preferences.group_by.num_groups = parseInt($('#numberOfGroups').val());
+	$('.numberOfGroups').change(function(event) {
+		Grouper.user_preferences.group_by.num_groups = parseInt($(this).val());
 	});
 
 //////////////////STEP 0 ENTER////////////////////////
