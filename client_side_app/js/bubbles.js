@@ -331,7 +331,7 @@ $(document).ready(function() {
         $(".selected").removeClass("selected");
         //unhookup second function
         $(".bubble").unbind("click");
-        $(document).unbind("click");
+        // $(document).unbind("click");
         //hookup first function
         $(".bubble").click(nothingSelected);
         evt.stopPropagation();
