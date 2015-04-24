@@ -308,9 +308,11 @@ $(document).ready(function() {
         student_dict[$(this).attr("student_id")].group = student_dict[$(".selected").attr("student_id")].group;
         student_dict[$(".selected").attr("student_id")].group = tmpGroup;
         $(".selected").removeClass("selected");
+
         //unhookup second function
         $(".bubble").unbind("click");
-        $(document).unbind("click");
+        // $(document).unbind("click");
+
         //hookup first function
         $(".bubble").click(nothingSelected);
         /*var q = d3.geom.quadtree(students);
@@ -346,8 +348,10 @@ $(document).ready(function() {
       console.log("deselect");
       $(".selected").removeClass("selected");
       //unhookup second function
+
       $(".bubble").unbind("click");
-      $(document).unbind("click");
+      // $(document).unbind("click");
+
       //hookup first function
       $(".bubble").click(nothingSelected);
     }

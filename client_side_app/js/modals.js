@@ -1,23 +1,23 @@
 $(document).ready(function() {
 
-	$('.dropdown-toggle').dropdown()
-
 ///////////////GROUPIFY PARAMS SELECTOR///////////////////////
 	$("#maxPeople").click(function() {
 		$("#numberOfPeople").prop("disabled", false);
 		$("#numberOfPeople").val(Grouper.user_preferences.group_by.group_size);
+		$("#numberOfPeople").css({'color': 'black'});
 
 		$("#numberOfGroups").prop("disabled", true);
-		$("#numberOfGroups").val('');
+		$("#numberOfGroups").css({'color': '#a3a3a3'});
 		Grouper.user_preferences.group_by.pref = 'num_groups';
 	});
 
 	$("#maxGroups").click(function() {
 		$("#numberOfGroups").prop("disabled", false);
 		$("#numberOfGroups").val(Grouper.user_preferences.group_by.num_groups);
+		$("#numberOfGroups").css({'color': 'black'});
 
 		$("#numberOfPeople").prop("disabled", true);
-		$("#numberOfPeople").val('');
+		$("#numberOfPeople").css({'color': '#a3a3a3'});
 		Grouper.user_preferences.group_by.pref = 'group_size';
 	});
 
@@ -62,17 +62,14 @@ $(document).ready(function() {
 	});
 
 	$('#groupifyButton').click(function() {
-		console.log('click');
-
-		$.ajax({
-		    type: 'GET',
-		    url: 'main.html',
-		    success: function (file_html) {
-		        // success
-		        alert('success : ' + file_html);
-		    }
-		});
+		console.log(Grouper.user_preferencesexp);
+		$('#groupifyModal').modal('hide');
 	})
+
+	$('#importModalNext').on('click', function () {
+		$('#importModal').modal('hide');
+	 	$('#importDataModal').modal('show');
+	});
 
 //////////////////////////FILE DRAG AND DROP ///////////////////////
 
@@ -173,6 +170,17 @@ $(document).ready(function() {
 	$("#edit").click(function(){
 		$('#editModal').modal('show');
 	})
+
+	$('#importButtonLabel').click(function() {
+		console.log('clicked');
+		$('#importModal').modal('show');
+		// $('.classlist .dropdown-menu').toggle();
+	})
+
+	$('.classlist .dropdown-menu').click(function() {
+		$('.dropdown-toggle').dropdown();
+	})
+
 ////////////////////////STUDENT/GROUP MODAL//////////////////////////
 	$('.bubble').tooltip({'placement': 'top', 'delay': 1050});
 	$('.hull').tooltip({'placement': 'right', 'container':'body', 'html':'true', 'delay': 550});

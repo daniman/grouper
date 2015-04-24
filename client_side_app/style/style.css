@@ -18,6 +18,28 @@ input[type='radio'] {
     cursor: pointer;
 }
 
+#groupPreview {
+    padding: 0px 20px;
+}
+
+#numberOfPeople, #numberOfGroups {
+    margin-left: 20px;
+}
+
+#newGroupName {
+    margin-left: 10px;
+}
+
+.btn-info {
+    background-color: #00BCD4 !important;
+    border-color: #00BCD4 !important;
+    font-family: 'Source Sans Pro'
+}
+
+.btn-info:hover {
+    opacity: .6;
+}
+
 .dropdown {
     display: inline-block;
     text-transform: none;
@@ -260,11 +282,15 @@ div > .switch {
     background-color: #FF9800;
     color: white;
     font-size: 20px;
-    line-height: 1;
-    padding: 1px 6px;
-    margin-top: -6px;
+    line-height: 18px;
+    padding: 0px 3px;
     margin-left: 10px;
+    margin-top: -4px;
     display: inline-block;
+}
+
+#importButton:focus {
+    outline: none;
 }
 
 #groups > li {
