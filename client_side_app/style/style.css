@@ -26,6 +26,13 @@ input[type='radio'] {
     margin-left: 10px;
 }
 
+#edit, #export {
+    line-height: 1.42857143;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
 #numberOfPeople, #numberOfGroups {
     margin-left: 20px;
 }
@@ -391,11 +398,4 @@ img.sortableI{
     top: 77px;
     right: 25px;
     z-index: 10;
-
-/*
-*/
 }
-#buttons button{
-    margin-left: 5px;
-}
-
