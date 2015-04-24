@@ -22,6 +22,10 @@ input[type='radio'] {
     padding: 0px 20px;
 }
 
+.selectpicker {
+    margin-left: 10px;
+}
+
 #numberOfPeople, #numberOfGroups {
     margin-left: 20px;
 }
@@ -33,6 +37,12 @@ input[type='radio'] {
 .btn-info {
     background-color: #00BCD4 !important;
     border-color: #00BCD4 !important;
+    font-family: 'Source Sans Pro'
+}
+
+.btn-warning {
+    background-color: #FF9800 !important;
+    border-color: #FF9800 !important;
     font-family: 'Source Sans Pro'
 }
 
