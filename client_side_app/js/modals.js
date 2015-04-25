@@ -72,27 +72,6 @@ $(document).ready(function() {
 	 	$('#importDataModal').modal('show');
 	});
 
-//////////////////////////FILE DRAG AND DROP ///////////////////////
-
-  	//prevent drag and drop for browser to avoid issues with file drag and drop for step 1
-	$(document).on('dragenter', function (e) 
-	{
-	    e.stopPropagation();
-	    e.preventDefault();
-	});
-
-	$(document).on('dragover', function (e) 
-	{
-	  e.stopPropagation();
-	  e.preventDefault();
-	  obj.css('border', '2px dotted #0B85A1');
-	});
-
-	$(".category").hover(function(e){
-        $(e.target).css("outline", "2px solid #5F6364");
-        },function(){
-        $(".category").css("outline", "none");
-    });
 //////////////////DRAGGABLE SORTING CATEGORIES////////////////////    
 
 	//sortable list for priorities
@@ -128,7 +107,7 @@ $(document).ready(function() {
 		var sorted = students.sort(function(a,b) { return parseFloat(b.group) - parseFloat(a.group)});
 
 		for (var i = 0; i < groupNumber; i++) {
-			groupings = groupings.concat('<h4>Group '+i+':</h4>');
+			groupings = groupings.concat('<h4>Group '+(i+1)+':</h4>');
 			groupings = groupings.concat('<table class="groupShow" style="width:100%"><tbody>');
 			groupings = groupings.concat(addCategories());
 			for (var j = students.length - 1; j >= 0; j--) {
@@ -183,14 +162,14 @@ $(document).ready(function() {
 	})
 
 ////////////////////////STUDENT/GROUP MODAL//////////////////////////
-	$('.bubble').tooltip({'placement': 'top', 'delay': 1050});
-	$('.hull').tooltip({'placement': 'right', 'container':'body', 'html':'true', 'delay': 550});
+	// $('.bubble').tooltip({'placement': 'top', 'delay': 1050});
+	// $('.hull').tooltip({'placement': 'right', 'container':'body', 'html':'true', 'delay': 550});
 
-	$('.bubble').attr('data-toggle', 'tooltip');
-	$('.bubble').attr('data-original-title', 'Double Click for Information');
+	// $('.bubble').attr('data-toggle', 'tooltip');
+	// $('.bubble').attr('data-origpinal-title', 'Double Click for Information');
 
-	$('.hull').attr('data-toggle', 'tooltip');
-	$('.hull').attr('data-original-title', 'Double Click for Information');
+	// $('.hull').attr('data-toggle', 'tooltip');
+	// $('.hull').attr('data-original-title', 'Double Click for Information');
 
 	//displays the correct student information for the bubble clicked
 	$(".bubble").dblclick(function(evt){
@@ -212,7 +191,7 @@ $(document).ready(function() {
 		ClearSelection();
 
 		var studentList = '<table class="groupShow" style="width:100%"><tbody>';
-		var idGroup = $(evt.target).attr('group');
+		var idGroup = parseInt($(evt.target).attr('group'));
 		studentList = studentList.concat(addCategories());
 		
 		for (var j = students.length - 1; j >= 0; j--) {
@@ -222,7 +201,7 @@ $(document).ready(function() {
 				studentList = studentList.concat("</tr>");
 			}
 		}
-		$('#groupNumber').html(idGroup);
+		$('#groupNumber').html(idGroup+1);
 		$('#groupStudents').html(studentList);
 		$("#groupModal").modal("show");
 	});

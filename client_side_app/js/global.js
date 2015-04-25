@@ -1,5 +1,4 @@
 var Grouper = {};
-console.log('grouper instantiated');
 
 (function() {
 

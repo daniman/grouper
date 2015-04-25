@@ -1,7 +1,6 @@
 var csvtools = {};
 
 csvtools.upload = {
-
 	bytesToSize: function(bytes, precision) {  
 	    var kilobyte = 1024;
 	    var megabyte = kilobyte * 1024;
@@ -22,63 +21,56 @@ csvtools.upload = {
 	    }
 	},
 
-	//provides file information in bullet point
-	nameFile: function(file, targetId) {
-		var listElement = 
-			"<strong>" + file.name + "</strong>" +
-			" (" + file.type +") - " + 
-			csvtools.upload.bytesToSize(file.size, 2) +
-			", last modified: " + file.lastModifiedDate.toLocaleDateString();
+	nameFile: function(file, targetId, err) {
+		if (file.type.split('/')[1] == 'csv') {
+			if(!err) {
+				listElement = "<p><strong>" + file.name + "</strong>" +
+								" (" + file.type +") - " + csvtools.upload.bytesToSize(file.size, 2) +
+								", last modified: " + file.lastModifiedDate.toLocaleDateString() + 
+							"<br>" + "Number of students:" + Grouper.students.length  + 
+							"<br>" + "Headers: " + Object.keys(Grouper.students[0]) + "</p>";
+								$('#importModalNextButton').removeClass('disabled');
+			} else {
+				listElement = "<span class='error_message'>We're sorry, we've encountered a problem reading your file: <br>" + err + "</span>";
+				$('#importModalNextButton').addClass('disabled');
+			}
+		} else {
+			listElement = "<span class='error_message'>" + "<strong>" + file.name + "</strong> is not a csv file. <br>" +
+							"Please input a <strong>.csv</strong> formatted file.</span>";
+			$('#importModalNextButton').addClass('disabled');
+		}
 		$(targetId).html(listElement);
 	},
 
-	// tests for the end of a line
-	testForLineBreak: function(char) {
-		var lineEnd = new RegExp('\n');
-		return lineEnd.test(char);
-	},
-
-	// $.csv.toArrays function comes from jquery-csv.js library and is only used here to translate data into array
-	parseStringToArray: function(string) {
-		return $.csv.toArrays(string);
-	},
-
-	// called when file is draged over drop zone
 	dragOverHandler: function(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		if (e.type == 'dragover') {
-			$('#' + e.target.id).addClass('dragover');
+			if (e.target.id == 'dropzone' || $('#'+e.target.id).parent().attr('id')) {
+				$('#dropzone').addClass('dragover');
+			}
 		} else if (e.type == 'dragleave' || e.type == 'drop') {
 			$('#' + e.target.id).removeClass('dragover');
 		}
 	},
 
-	readFile: function(file, endOfLineAction) {
-		var csvString = ''; // keeps track of one line at a time
-		var rowNumber = 0; // counter for keeping track of the row numbers in the file
+	readFile: function(file) {
 		var reader = new FileReader();
 		reader.onloadend = function(e) {
 			if (e.target.readyState == FileReader.DONE) {
-				var contents = e.target.result;
-				for (byte in contents) {
-					if (csvtools.upload.testForLineBreak(contents[byte])) {
-						var row = csvtools.upload.parseStringToArray(csvString)[0];
-						endOfLineAction(row, rowNumber);
-						csvString = ''; rowNumber ++;
-					} else {
-						csvString = csvString.concat(contents[byte]);
-					}
-				}
-				var lastRow = csvtools.upload.parseStringToArray(csvString);
-				if (lastRow.length > 0) {
-					endOfLineAction(lastRow[0], rowNumber);
+				try {
+					$.csv.toObjects(e.target.result, {}, function(err,data) {
+						console.log(data);
+						Grouper.students = data;
+						csvtools.upload.nameFile(file, '#fileInfo', false);
+					});
+				} catch(err) {
+					csvtools.upload.nameFile(file, '#fileInfo', err.message);
 				}
 			}
 		}
 		reader.readAsBinaryString(file);
 	}
-
 };
 
 $.extend(csvtools.upload, csvtools);

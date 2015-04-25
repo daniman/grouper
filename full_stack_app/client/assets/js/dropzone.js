@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-    loadPage('index');
-
     if (!(window.File && window.FileList && window.FileReader && window.Blob)) {
         alert('The File APIs are not fully supported in this browser. The Drag and Drop feature is disabled.');
     }

@@ -1,0 +1,36 @@
+name,course_number,gender,year,group,sports_team
+Catwoman,16,F,2016,6,villian
+Mystique,6,F,2016,6,villian
+Bane,6,M,2016,6,villian
+The Riddler,16,M,2016,6,villian
+Sandman,2,M,2016,6,villian
+Joker,2,M,2015,5,villian
+Doctor Doom,6,M,2015,5,villian
+Lex Luther,1,M,2016,5,villian
+Galactus,16,M,2016,5,villian
+Loki,6,M,2015,5,villian
+Ironman,7,M,2016,4,hero
+Aquaman,8,M,2106,4,hero
+Hercules,22,M,2015,4,hero
+Wolverine,2,M,2016,4,hero
+Magneto,2,M,2016,4,hero
+Thor,29,M,2016,3,hero
+Hal Jordan,16,M,2017,3,hero
+Wonder Woman,6,F,2016,3,hero
+Captain America,6,M,2018,3,hero
+Hlk,7,M,2016,3,hero
+Dale,6,M,2016,2,disney
+Batman,3,M,2016,2,hero
+Robin,9,M,2016,2,hero
+Superman,18,M,2015,2,hero
+Spiderman,16,M,2016,2,hero
+Pluto,6,M,2016,1,disney
+Scrooge,2,M,2017,1,disney
+Tom,2,M,2018,1,disney
+Jerry,5,M,2016,1,disney
+Chip,10,M,2015,1,disney
+Mickey Mouse,6,M,2016,0,disney
+Minnie Mouse,6,F,2015,0,disney
+Donald Duck,2,M,2015,0,disney
+Daisy Duck,3,F,2016,0,disney
+Goofy,1,M,2017,0,disney
