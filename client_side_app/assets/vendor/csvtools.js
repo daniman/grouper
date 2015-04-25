@@ -22,22 +22,23 @@ csvtools.upload = {
 	},
 
 	nameFile: function(file, targetId, err) {
+		var listElement = '<hr>'
 		if (file.type.split('/')[1] == 'csv') {
 			if(!err) {
-				listElement = "<p><strong>" + file.name + "</strong>" +
+				listElement += "<p><strong>" + file.name + "</strong>" +
 								" (" + file.type +") - " + csvtools.upload.bytesToSize(file.size, 2) +
 								", last modified: " + file.lastModifiedDate.toLocaleDateString() + 
-							"<br>" + "Number of students:" + Grouper.students.length  + 
-							"<br>" + "Headers: " + Object.keys(Grouper.students[0]) + "</p>";
-								$('#importModalNextButton').removeClass('disabled');
+							"<br>" + "We have detected <strong>" + Grouper.students.length + "</strong> students and <strong>" + 
+									Object.keys(Grouper.students[0]).length + "</strong> different data category headers.</p>";
+				$('#importModalNext').removeClass('disabled');
 			} else {
-				listElement = "<span class='error_message'>We're sorry, we've encountered a problem reading your file: <br>" + err + "</span>";
-				$('#importModalNextButton').addClass('disabled');
+				listElement += "<span class='error_message'>We're sorry, we've encountered a problem reading your file: <br>" + err + "</span>";
+				$('#importModalNext').addClass('disabled');
 			}
 		} else {
-			listElement = "<span class='error_message'>" + "<strong>" + file.name + "</strong> is not a csv file. <br>" +
+			listElement += "<span class='error_message'>" + "<strong>" + file.name + "</strong> is not a csv file. <br>" +
 							"Please input a <strong>.csv</strong> formatted file.</span>";
-			$('#importModalNextButton').addClass('disabled');
+			$('#importModalNext').addClass('disabled');
 		}
 		$(targetId).html(listElement);
 	},
@@ -60,7 +61,6 @@ csvtools.upload = {
 			if (e.target.readyState == FileReader.DONE) {
 				try {
 					$.csv.toObjects(e.target.result, {}, function(err,data) {
-						console.log(data);
 						Grouper.students = data;
 						csvtools.upload.nameFile(file, '#fileInfo', false);
 					});

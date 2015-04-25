@@ -43,6 +43,9 @@ $(document).ready(function() {
 	})
 
 ////////////////////////MODAL TRANSITIONS/////////////////////
+	$('#importModal').on('hidden.bs.modal', function () {
+	    // $('#fileInfo').html('');
+	})
 	$('#importModal').on('show.bs.modal', function () {
 		console.log('showing step 0');
 	  $('#importDataModal').modal('hide');
@@ -51,6 +54,14 @@ $(document).ready(function() {
 		console.log('showing step 1');
 	  $('#importModal').modal('hide');
 	  $('#editDataModal').modal('hide');
+
+	  var headers = Object.keys(Grouper.students[0]);
+	  var headers_html = '';
+	  for (var i=0; i<headers.length; i++) {
+	  	headers_html += "<li>" + headers[i] + " <a>edit</a> <a>remove</a></li>"
+	  }
+	  $('#edit_data_categories').html(headers_html);
+
 	});
 	$('#editDataModal').on('show.bs.modal', function () {
 		console.log('showing step 2');
@@ -70,6 +81,10 @@ $(document).ready(function() {
 	$('#importModalNext').on('click', function () {
 		$('#importModal').modal('hide');
 	 	$('#importDataModal').modal('show');
+	});
+
+	$('#importModalNext').on('mousedown', function () {
+		console.log('test');
 	});
 
 //////////////////DRAGGABLE SORTING CATEGORIES////////////////////    

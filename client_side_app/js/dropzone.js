@@ -12,8 +12,7 @@ $(document).ready(function() {
         document.getElementById('file_select').addEventListener('change', FileSelectHandler, false)
     }
 
-    $('#importButtonLabel').click()
-    $('#importModalNext').click()
+    // $('#importButtonLabel').click()
 
 });
 

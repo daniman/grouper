@@ -106,20 +106,30 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Step 1: <i>Create Group</i></h4>
+            <h4 class="modal-title" id="myModalLabel">Step 1: <i>Import Data</i></h4>
           </div>
           <br>
           <div class="modal-body">
-            <h5>Enter group name: <input type="text" id="newGroupName"></input></h5>
+
+            <h5 class="groupName">Name Your Group: <input type="text" id="newGroupName"></input></h5>
+            <!-- <h5 class="groupNameAnd">and</h5> -->
+            <div id="dropzone">
+              <h4>Drag a CSV file here</h4>
+              <p>or if you prefer...</p>
+              <input type="file" id="file_select" name="fileselect" size="40">
+              <div id="fileInfo"></div>
+            </div>
+            <div id="fileContent"></div>
+
           </div>
           <br>
           <ol class="progtrckr" data-progtrckr-steps="4">
-                <li class="progtrckr-done">Group Name</li><li class="progtrckr-todo">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Groupify</li>
+                <li class="progtrckr-done">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
             </ol>
             <br>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-info" id="importModalNext">Next</button>
+            <button type="button" class="btn btn-info disabled" id="importModalNext">Next</button>
           </div>
         </div>
       </div>
@@ -131,26 +141,21 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Step 2: <i>Import Student Data</i></h4>
+            <h4 class="modal-title" id="myModalLabel">Step 2: <i>Edit Data Categories</i></h4>
           </div>
           <div class="modal-body">
             
-            <div id="dropzone">
-              <h4>Drag a CSV file here</h4>
-              <p>or if you prefer...</p>
-              <input type="file" id="file_select" name="fileselect" size="40">
-              <div id="fileInfo"></div>
-            </div>
-
-            <div id="fileContent"></div>
+            <h5>message... </h5>
+            <ul id="edit_data_categories"></ul>
+            
           </div>
           <ol class="progtrckr" data-progtrckr-steps="4">
-                <li class="progtrckr-done">Group Name</li><li class="progtrckr-done">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Groupify</li>
+                <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-todo">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
             </ol>
             <br>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importModal">Back</button>
-            <button id="importModalNextButton" type="button" class="btn btn-info disabled" data-toggle="modal" data-target="#editDataModal">Next</button>
+            <button id="importModalNextButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#editDataModal">Next</button>
           </div>
         </div>
       </div>
@@ -162,7 +167,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Step 3: <i>Prioritize Student Data Categories</i></h4>
+            <h4 class="modal-title" id="myModalLabel">Step 3: <i>Prioritize Data Categories</i></h4>
           </div>
           <div class="modal-body">
             <h5>Please drag the categories in order of descending importances (i.e. top is most important, bottom is least important) </h5>
@@ -176,7 +181,7 @@
           </div>
 
           <ol class="progtrckr" data-progtrckr-steps="4">
-                <li class="progtrckr-done">Group Name</li><li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-todo">Groupify</li>
+                <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-done">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
             </ol>
             <br>
           <div class="modal-footer">
@@ -193,7 +198,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Step 4: <i>Edit Groupify</i></h4>
+            <h4 class="modal-title" id="myModalLabel">Step 4: <i>Groupify</i></h4>
           </div>
           <div class="modal-body">
             <h5>Please Select Groupification By:</h5>
@@ -212,7 +217,7 @@
             </div>
           </div>
           <ol class="progtrckr" data-progtrckr-steps="4">
-                <li class="progtrckr-done">Group Name</li><li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-done">Groupify</li>
+                <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-done">Prioritize Data</li><li class="progtrckr-done">Groupify</li>
             </ol>
             <br>
           <div class="modal-footer">

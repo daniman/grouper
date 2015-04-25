@@ -41,8 +41,27 @@ input[type='radio'] {
     margin-left: 20px;
 }
 
+.groupName {
+    line-height: 24px;
+}
+
+hr {
+    width: 80%;
+    margin: 5px 0px;
+    margin-left: 10%;
+}
+
 #newGroupName {
     margin-left: 10px;
+    width: calc(100% - 150px);
+    position: absolute;
+    right: 15px;
+    line-height: normal;
+    padding-left: 5px;
+}
+
+.groupNameAnd {
+    text-align: center;
 }
 
 .error_message {
@@ -329,7 +348,7 @@ div > .switch {
     border: 2px dotted #ccc;
     text-align: center;
     position: relative;
-    padding-top: 25px;
+    padding-top: 20px;
     transition: .5s;
 }
 
