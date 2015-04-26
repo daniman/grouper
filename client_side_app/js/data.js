@@ -288,7 +288,7 @@ Grouper.groups.push({
         }
     },
     data: fa14_students,
-    filters: buildFilters(fa14_students)
+    filters: buildFilterObject(fa14_students)
 });
 
 Grouper.groups.push({
@@ -309,7 +309,7 @@ Grouper.groups.push({
 /**
  * Build parameters object.
  */
-function buildFilters(data) {
+function buildFilterObject(data) {
     var parameters = {};
     var filters = Object.keys(data[0]);
     for (var i=0; i<filters.length; i++) {

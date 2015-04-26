@@ -25,6 +25,9 @@ $(document).ready(function() {
     $('#class_dropdown').prepend(groups_html);
     $('#group_dropdown_label').prepend(Grouper.active_group['name']);
 
+    /**
+     * Build main page.
+     */
     buildBubbles(Grouper.active_group);
     buildFilters(Grouper.active_group);
 });

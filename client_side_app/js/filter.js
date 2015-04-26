@@ -1,7 +1,31 @@
-$(document).ready(function() {
+function buildFilters(active_group) {
 
     var students = Grouper.active_group['data'];
     var filters = Grouper.active_group['filters'];
+    
+    function capitalize(string) {
+        string = string.toString();
+        if (string.length == 1) {
+            return string.toUpperCase();
+        } else {
+            return string.charAt(0).toUpperCase() + string.slice(1)
+        }
+    }
+
+    /**
+     * Build filter HTML menu.
+     */
+    var filters_list = Object.keys(active_group['filters']);
+    for (var i=0; i<filters_list.length; i++) {
+        if (filters_list[i] != 'group') {
+            $('#filters').append('<li>' +
+                    '<input id="' + filters_list[i] + '_filter" class="filter_cat" type="radio" name="filters" value="' + filters_list[i] + '">' +
+                    '<label class="filter_cat_label" for="' + filters_list[i] + '_filter">' +
+                        Grouper.active_group.settings.labels[filters_list[i]] +
+                    '</label><br>' +
+                '</li>');
+        }
+    }
 
     $('.filter_cat').click(function(event) {
         var category = event.target.value;
@@ -57,30 +81,4 @@ $(document).ready(function() {
      */
     $('input[value="' + Grouper.active_group.settings.priorities[0] + '"').click();
 
-});
-
-/**
- * Build filter menu.
- */
-function buildFilters(active_group) {
-    var filters = Object.keys(active_group['filters']);
-    for (var i=0; i<filters.length; i++) {
-        if (filters[i] != 'group') {
-            $('#filters').append('<li>' +
-                    '<input id="' + filters[i] + '_filter" class="filter_cat" type="radio" name="filters" value="' + filters[i] + '">' +
-                    '<label class="filter_cat_label" for="' + filters[i] + '_filter">' +
-                        Grouper.active_group.settings.labels[filters[i]] +
-                    '</label><br>' +
-                '</li>');
-        }
-    }
-}
-
-function capitalize(string) {
-    string = string.toString();
-    if (string.length == 1) {
-        return string.toUpperCase();
-    } else {
-        return string.charAt(0).toUpperCase() + string.slice(1)
-    }
-}
+};

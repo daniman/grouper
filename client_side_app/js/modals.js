@@ -170,8 +170,15 @@ $(document).ready(function() {
 		} else {
 			console.log(Grouper.group_setup);
 			$('#groupifyModal').modal('hide');
+
 			Grouper.active_group = Grouper.group_setup;
 			Grouper.group_setup = {};
+
+			$('#filters').html('');
+			$('#bubbleContainer').html('');
+			buildBubbles(Grouper.active_group);
+    		buildFilters(Grouper.active_group);
+			
 		}
 	})
 

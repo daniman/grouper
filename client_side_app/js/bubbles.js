@@ -1,6 +1,4 @@
-// $(document).ready(function() {
-
-  function buildBubbles(active_group) {
+function buildBubbles(active_group) {
 
     var nodes;
     var foci;
@@ -357,5 +355,4 @@
       };
     }
 
-    };
-// });
+};
