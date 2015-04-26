@@ -14,6 +14,7 @@
     <script src="assets/vendor/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
     <link href="assets/vendor/css-toggle-switch-source/css/style.css" rel="stylesheet">
     <script src="assets/vendor/d3.js"></script>
+    <script type="text/javascript" src="assets/vendor/Highcharts-4.1.5/js/highcharts.js"></script>
 
     <!-- Scripts -->
     <script type="text/javascript" src="js/global.js"></script>
@@ -133,8 +134,16 @@
             <h4 class="modal-title" id="myModalLabel">Step 2: <i>Edit Data Categories</i></h4>
           </div>
           <div class="modal-body">
+<!-- <<<<<<< HEAD -->
             <h5><strong>Edit</strong> your data category labels as you would like them to appear in Grouper. <strong>Remove</strong> categories that will not be relevant to your student groupings.</h5>
             <ul id="edit_data_categories"></ul>            
+<!-- =======
+            
+            <h4>Delete or edit categories: </h4>
+            <h5>Message explaining categories?</h5>
+            <ul id="edit_data_categories" style="font-size: 1.1em;"></ul>
+            
+>>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893 -->
           </div>
           <ol class="progtrckr" data-progtrckr-steps="4">
                 <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-todo">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
@@ -160,7 +169,11 @@
             <h4>Drag in order: </h4>
             <hr>
             <h5>More important to be diverse</h5>
+<!-- <<<<<<< HEAD -->
             <ul id="inputModalSortable"></ul>
+<!-- ======= -->
+            <!-- <ul id="sortable"></ul> -->
+<!-- >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893 -->
             <h5>Less important to be diverse</h5>
           </div>
 
@@ -186,8 +199,13 @@
           </div>
           <div class="modal-body">
             <h4>Please Select Groupification By:</h4>
+<!-- <<<<<<< HEAD -->
             <div class="inputError"></div>
             
+<!-- ======= -->
+            <!-- <div id="alert"><br></div> -->
+
+<!-- >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893 -->
             <div id="groupifySelections">
               <form>
                 <input type="radio" name="max" class="maxPeople" checked> Max number of people in a group
@@ -261,6 +279,10 @@
               <div class="row" id="groupData">
                   <h5><b>Number of students: </b><span id="groupNumStudents"> 5</span></h5>
                   <div id="groupStudents"></div>
+                  <br>
+                  <h4>Graphical Dispalys</h4>
+                  <div id="genderChart" style="height: 200px; width: 50%;"></div>
+                  <div id="yearChart" style="height: 200px; width: 50%;"></div>
               </div>
             </div>
           </div>

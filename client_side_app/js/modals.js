@@ -81,11 +81,34 @@ $(document).ready(function() {
 	  var headers = Object.keys(Grouper.group_setup['data'][0]);
 	  var headers_html = '';
 	  for (var i=0; i<headers.length; i++) {
-	  	headers_html += "<input class='cat_label_conf' type='text' value='" + headers[i] + "'> " +
-	  					"<span class='glyphicon glyphicon-remove' aria-hidden='true'></span><br>"
+	  	// headers_html += "<input class='cat_label_conf' type='text' value='" + headers[i] + "'> " +
+	  	// 				"<span class='glyphicon glyphicon-remove delete' aria-hidden='true'></span><br>"
+	  	headers_html += "<li class='category'><span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove delete'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + headers[i] + "</li>";
 	  }
 	  $('#edit_data_categories').html(headers_html);
 	});
+
+// =======
+// ///////////////GROUPIFY PARAMS SELECTOR///////////////////////
+// 	$(".maxPeople").click(function() {
+// 		peopleSet();
+// 	});
+// 	$('.numberOfPeople').change(function(event) {
+// 		Grouper.user_preferences.group_by.group_size = parseInt($(this).val());
+// 	});
+// 	$('.numberOfPeople').keypress(function(key) {
+//         if(key.charCode < 48 || key.charCode > 57){
+//         	$("#alert").html("<div class='alert alert-danger alert-dismissible' role='alert'>You must enter a number<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+//         	return false;
+//         }
+//     });
+
+//     $(".maxGroups").click(function() {
+// 		groupSet();
+// 	});
+// 	$('.numberOfGroups').change(function(event) {
+// 		Grouper.user_preferences.group_by.num_groups = parseInt($(this).val());
+// >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893
 
 /********************************** Import Modal: STEP 3 **********************************/
 
@@ -94,6 +117,11 @@ $(document).ready(function() {
 	 */
 	$('#prioritizeDataModal').on('show.bs.modal', function () {
 	  $('#editDataModal').modal('hide');
+// =======
+// 	$('#editDataModal').on('show.bs.modal', function () {
+// 		console.log('showing step 3');
+// 	  $('#importDataModal').modal('hide');
+// >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893
 	  $('#groupifyModal').modal('hide');
 
         var prioritize_html = '';
@@ -130,6 +158,31 @@ $(document).ready(function() {
 	$('#groupifyModal').on('show.bs.modal', function () {
 	  $('#prioritizeDataModal').modal('hide');
 	});
+
+	// =======
+//     function groupSet(){
+//     	$(".numberOfGroups").prop("disabled", false);
+// 		$(".numberOfGroups").val(Grouper.user_preferences.group_by.num_groups);
+// 		$(".numberOfGroups").css({'color': 'black'});
+
+// 		$(".numberOfPeople").prop("disabled", true);
+// 		$(".numberOfPeople").css({'color': '#a3a3a3'});
+// 		Grouper.user_preferences.group_by.pref = 'group_size';
+//     }
+
+//     function peopleSet(){
+//     	console.log('click');
+// 		$(".numberOfPeople").prop("disabled", false);
+// 		$(".numberOfPeople").val(Grouper.user_preferences.group_by.group_size);
+// 		$(".numberOfPeople").css({'color': 'black'});
+
+// 		$(".numberOfGroups").prop("disabled", true);
+// 		$(".numberOfGroups").css({'color': '#a3a3a3'});
+// 		Grouper.user_preferences.group_by.pref = 'num_groups';
+//     }
+
+// //////////////////STEP 1 ENTER////////////////////////
+// >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893
 
 	$(".maxPeople").click(function() {
 		console.log('click');
@@ -212,6 +265,53 @@ $(document).ready(function() {
 
 		var groupNumber = Grouper.active_group.filters['group'].length;
 	    var categories = Object.keys(Grouper.active_group.filters);
+// =======
+// //////////////////EDIT OR DELETE CATEGORIES///////////////////////
+	
+// 	$("#edit_data_categories").on('click', '.clearitem a', function(){
+//     	$(this).closest('li').remove();
+// 	});
+// 	$("#edit_data_categories").on('click', '.edit a', function(){
+// 		var headers = Object.keys(Grouper.students[0]);
+// 		var oldName = $(this).closest('li').text();
+// 		var index = headers.indexOf(oldName);
+
+//     	$(this).closest('li').html('<input id="new" type="text" text='+oldName+'><span class="ok"><a href="#"><span class="glyphicon glyphicon-ok"></span></a></span>');
+//     	$("#new").val(oldName);
+    	
+//     	$("#edit_data_categories").on('click', '.ok a', function(){
+//     		var newName = $("#new").val();
+//     		headers[index] = newName;
+//     		$(this).closest('li').html("<span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + newName);
+//     	});
+// 	});
+
+// //////////////////DRAGGABLE SORTING CATEGORIES////////////////////    
+	
+
+// 	//sortable list for priorities
+// 	$(function() {
+// 	    $("#sortable").sortable({
+// 	    	update: function(event) {
+// 	    		Grouper.user_preferences.priorities = [];
+// 	    		var list = $('#sortable').children();
+// 	    		list.each(function(index) {
+// 	    			Grouper.user_preferences.priorities.push(this.innerText);
+// 	    		})
+// 	    	}
+// 	    });
+// 	    $( "#sortable" ).disableSelection();
+//   	});
+
+// 	//on sortable adds a highlight when hovering
+// 	$(".category").hover(function(e){
+//         $(e.target).css("outline", "2px solid #FF9800");
+//         $(e.target).css("cursor", "pointer");
+//         },function(){
+//         $(".category").css("outline", "none");
+//         $(".category").css("cursor", "default");
+//     });
+// >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893
 
 	    var group_map = {};
 	    for (var i=0; i<groupNumber; i++) {
@@ -275,8 +375,18 @@ $(document).ready(function() {
 	//displays the correct group information for the hull clicked
 	$('.hull').mousedown(function(){ return false; })
 	$(".hull").dblclick(function(evt){
+
+		console.log('clicked');
+
 		evt.stopPropagation();
 		ClearSelection();
+
+		var numFemales = 0;
+		var numMales = 0;
+		var num15 = 0;
+		var num16 = 0;
+		var num17 = 0;
+		var num18 = 0;
 
 		var studentList = '<table class="groupShow" style="width:100%"><tbody>';
 		var idGroup = parseInt($(evt.target).attr('group'));
@@ -284,11 +394,85 @@ $(document).ready(function() {
 		
 		for (var j = students.length - 1; j >= 0; j--) {
 			if(students[j]['group']==idGroup){
+				if(students[j]['gender']=="M"){
+					numMales ++;
+				}
+				else{
+					numFemales ++;
+				}
+				if(students[j]['year']=="2015"){
+					num15 ++;
+				}
+				else if(students[j]['year']=="2016"){
+					num16 ++;
+				}
+				else if(students[j]['year']=="2017"){
+					num17 ++;
+				}
+				else{
+					num18 ++;
+				}
 				studentList = studentList.concat("<tr>");
 				studentList = studentList.concat(stringify(students[j]));
 				studentList = studentList.concat("</tr>");
 			}
 		}
+
+		$('#genderChart').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'Male/Female Ratio',
+	            style: {
+	                fontSize: '15px'
+	            }
+	        },
+	        xAxis: {
+	            categories: ['Males', 'Females']
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'Number of Students'
+	            }
+	        },
+	        legend: {
+	                    enabled: false
+	        },
+	        series: [{
+	            name: 'Group '+(idGroup+1),
+	            colorByPoint: true,
+	            data: [numMales, numFemales]
+	        }]
+    	});
+
+		$('#yearChart').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'Graduation Year',
+	            style: {
+	                fontSize: '15px'
+	            }
+	        },
+	        xAxis: {
+	            categories: ['2015','2016','2017','2018']
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'Number of Students'
+	            }
+	        },
+	        legend: {
+	                    enabled: false
+	        },
+	        series: [{
+	            name: 'Group '+(idGroup+1),
+	            colorByPoint: true,
+	            data: [num15,num16,num17,num18]
+	        }]
+    	});
 		$('#groupNumber').html(idGroup+1);
 		$('#groupStudents').html(studentList);
 		$("#groupModal").modal("show");
