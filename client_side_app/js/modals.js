@@ -76,7 +76,7 @@ $(document).ready(function() {
 	  var headers = Object.keys(Grouper.students[0]);
 	  var headers_html = '';
 	  for (var i=0; i<headers.length; i++) {
-	  	headers_html += "<li class='category'><a href='#' class='clearitem'><span class='glyphicon glyphicon-remove delete'></span></a><span class='glyphicon glyphicon-pencil edit'></span> " + headers[i] + " </li>"
+	  	headers_html += "<li class='category'><span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove delete'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil edit'></span></a></span>" + headers[i] + " </li>";
 	  }
 	  $('#edit_data_categories').html(headers_html);
 
@@ -113,9 +113,18 @@ $(document).ready(function() {
 //////////////////EDIT OR DELETE CATEGORIES///////////////////////
 
 	$("#edit_data_categories").on('click', '.clearitem a', function(){
-		console.log('here');
     	$(this).closest('li').remove()
-	})
+	});
+	$("#edit_data_categories").on('click', '.edit a', function(){
+		var oldName = $(this).closest('li').text();
+    	$(this).closest('li').html('<input id="new" type="text" text='+oldName+'><span class="ok"><a href="#">ok</a></span>');
+    	$("#new").val(oldName);
+    	
+    	$("#edit_data_categories").on('click', '.ok a', function(){
+    		var newName = $("#new").val();
+    		$(this).closest('li').html("<span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove delete'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil edit'></span></a></span>" + newName);
+    	});
+	});
 
 //////////////////DRAGGABLE SORTING CATEGORIES////////////////////    
 
