@@ -1,28 +1,25 @@
 $(document).ready(function() {
 
-    $('.breadcrumb .active').html(Grouper.user_preferences.group_name);
-
-    for (var i=0; i<filters.length; i++) {
-        if (filters[i] != 'name' && filters[i] != 'group') {
-            $('#filters').append('<li>' +
-                '<input id="' + filters[i] + '_filter" class="filter_cat" type="radio" name="filters" value="' + filters[i] + '">'
-                    + '<label class="filter_cat_label" for="' + filters[i] + '_filter">' 
-                        + filters[i].split('_').map(function(elem) {return capitalize(elem)}).join(' ') 
-                    + '</label><br>' +
-                '</li>');
-        }
-    }
+    var students = Grouper.active_group['data'];
+    var filters = Grouper.active_group['filters'];
 
     $('.filter_cat').click(function(event) {
-        filter(event.target.value, nodes);
+        var category = event.target.value;
+        $('.bubble').each(function(i,bubble) {
+            var attr = students[i][category];
+            $(bubble).animate({
+                'background-color': Grouper.colors.get_color(category, attr, filters)
+            }, 1000);
+        })
+
         $('.color_map').remove();
         var color_map = '<ul class="color_map">'; 
-        var categories = parameters[event.target.value];
+        var categories = filters[event.target.value];
 
         for (var i=0; i<categories.length-1; i++) {
-            color_map += '<span style="color: ' + getColor(event.target.value, categories[i]) + '">' + capitalize(categories[i]) + '</span>, ';
+            color_map += '<span style="color: ' + Grouper.colors.get_color(event.target.value, categories[i], filters) + '">' + capitalize(categories[i]) + '</span>, ';
         }
-        color_map += '<span style="color: ' + getColor(event.target.value, categories[categories.length-1]) + '">' + capitalize(categories[categories.length-1]) + '</span></ul>'
+        color_map += '<span style="color: ' + Grouper.colors.get_color(event.target.value, categories[categories.length-1], filters) + '">' + capitalize(categories[categories.length-1]) + '</span></ul>'
         $(this).parent().append(color_map);
     })
 
@@ -54,10 +51,30 @@ $(document).ready(function() {
             });
         }
     });
-
-    $('input[value="sports_team"').click();
+    
+    /**
+     * Set the active filter to be the one who ahs the highest priority.
+     */
+    $('input[value="' + Grouper.active_group.settings.priorities[0] + '"').click();
 
 });
+
+/**
+ * Build filter menu.
+ */
+function buildFilters(active_group) {
+    var filters = Object.keys(active_group['filters']);
+    for (var i=0; i<filters.length; i++) {
+        if (filters[i] != 'group') {
+            $('#filters').append('<li>' +
+                    '<input id="' + filters[i] + '_filter" class="filter_cat" type="radio" name="filters" value="' + filters[i] + '">' +
+                    '<label class="filter_cat_label" for="' + filters[i] + '_filter">' +
+                        Grouper.active_group.settings.labels[filters[i]] +
+                    '</label><br>' +
+                '</li>');
+        }
+    }
+}
 
 function capitalize(string) {
     string = string.toString();
@@ -66,57 +83,4 @@ function capitalize(string) {
     } else {
         return string.charAt(0).toUpperCase() + string.slice(1)
     }
-}
-
-function filter(category, nodes) {
-    nodes.selectAll().forEach(function(d,i) {
-        var attr = students[i][category];
-        $(d.parentNode).animate({
-            'background-color': getColor(category, attr)
-        }, 1000);
-    });
-}
-
-function getColor(category, attr) {
-    var colorPool = [
-        '#FFC107', // amber
-        '#00BCD4', // cyan
-        '#F44336', // red
-        '#3F51B5', // indigo
-        '#673AB7', // deep purple
-        '#E91E63', // pink
-        '#4CAF50', // green
-        '#FF9800', // orange
-        '#CDDC39', // lime
-        '#FF5722', // deep orange
-        '#9C27B0', // purple
-        '#03A9F4', // light blue
-        '#FFEB3B', // yellow
-        '#2196F3', // blue
-        '#8BC34A', // light green
-        '#009688', // teal
-        '#607D8B', // blue grey
-        '#795548' // brown
-    ];
-    var colorPoolLight = [
-        '#FFD54F', // amber
-        '#4DD0E1', // cyan
-        '#E57373', // red
-        '#7986CB', // indigo
-        '#BA68C8', // deep purple
-        '#7986CB', // pink
-        '#81C784', // green
-        '#FFB74D', // orange
-        '#DCE775', // lime
-        '#DCE775', // deep orange
-        '#BA68C8', // purple
-        '#4FC3F7', // light blue
-        '#FFF176', // yellow
-        '#64B5F6', // blue
-        '#AED581', // light green
-        '#4DB6AC', // teal
-        '#90A4AE', // blue grey
-        '#A1887F' // brown
-    ];
-    return colorPool[parameters[category].indexOf(attr) % colorPool.length];
 }

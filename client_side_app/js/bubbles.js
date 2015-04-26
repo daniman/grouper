@@ -1,11 +1,15 @@
-var nodes; // global var (so filter.js can access)
+// $(document).ready(function() {
 
-$(document).ready(function() {
+  function buildBubbles(active_group) {
 
-  $('#logo').click(function() {
-    document.location.href = 'index.html';
-  });
+    var nodes;
+    var foci;
+    var students = active_group['data'];
+    var totalGroups = active_group['filters']['group'].length;
 
+     /**
+     * Build bubbles.
+     */
     student_dict = {}
     for (var i=0; i<students.length; i++) {
       student_dict[i] = students[i];
@@ -13,11 +17,10 @@ $(document).ready(function() {
           ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
         console.log()
     }
-
-    var bubbles = $('.bubble');
     for (var i=0; i<students.length; i++) {
-      bubbles[i].setAttribute("student_id",i);
+      $('.bubble')[i].setAttribute("student_id",i);
     }
+
     /* container */
     var radius = 50,
         padding = 6,
@@ -30,7 +33,6 @@ $(document).ready(function() {
     /* Force paramettring */
     var force = d3.layout.force()
         .size([$("#bubbleContainer").width(), $("#bubbleContainer").height()]) // gravity field's size
-        //.friction(1) // 1 = frictionless
         .charge(0)
         .gravity(0) 
         .nodes(students) 
@@ -38,39 +40,19 @@ $(document).ready(function() {
         .on("tick", tick)
         .start();
 
-    // console.log(force.nodes());
-
-    // TODO: set foci intelligently, based on num of groups -- parameters['group'].length --
-    var foci;
-
     $(window).resize(function(){
-      var height = $("#bubbleContainer").height();
-      var width = $("#bubbleContainer").width();
-      //resize hull container as well
-      svg.attr("width", $("#bubbleContainer").width())
-          .attr("height", $("#bubbleContainer").height());
-      foci = hexpac(parameters['group'].length, radius*3, width, height);
-
-      force.stop();
-      force.start();
+      var h = $("#bubbleContainer").height();
+      var w = $("#bubbleContainer").width();
+      svg.attr("width", w).attr("height", h);
+      foci = hexpac(totalGroups, radius*3, w, h);
+      force.stop().start();
     });
-
     $(window).trigger('resize');
-
-    //Find the number of groups
-    totalGroups = parameters['group'].length;
-    /*
-    for (var i = students.length - 1; i >= 0; i--) {
-      if(students[i].group > totalGroups){
-        totalGroups = students[i].group;
-      }
-    };
-    totalGroups += 1
-*/
+    
     //EXPERIMENT
     var hulls = []; 
-    for (var i = parameters['group'].length - 1; i >= 0; i--) {
-      hulls.push(svg.append("path").attr("class", "hull").attr("group",parameters['group'].length - i - 1));
+    for (var i = totalGroups - 1; i >= 0; i--) {
+      hulls.push(svg.append("path").attr("class", "hull").attr("group",totalGroups - i - 1));
     };
     /////////
 
@@ -132,7 +114,7 @@ $(document).ready(function() {
         .attr("cy", function(d) { return d.y; });
         
       points = [];
-      for (var i = parameters['group'].length - 1; i >= 0; i--) {
+      for (var i = totalGroups - 1; i >= 0; i--) {
         points.push([]);
       };
       for (var i = students.length - 1; i >= 0; i--) {
@@ -366,7 +348,7 @@ $(document).ready(function() {
 
 
     function redraw() {
-      for (var i = parameters['group'].length - 1; i >= 0; i--) {
+      for (var i = totalGroups - 1; i >= 0; i--) {
         hulls[i].datum(d3.geom.hull(points[i])).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
         // hulls[i].attr("fill", getHullColor(i))
         // hulls[i].attr("stroke", getHullColor(i))
@@ -375,5 +357,5 @@ $(document).ready(function() {
       };
     }
 
-    
-});
+    };
+// });

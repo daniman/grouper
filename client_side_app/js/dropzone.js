@@ -12,8 +12,6 @@ $(document).ready(function() {
         document.getElementById('file_select').addEventListener('change', FileSelectHandler, false)
     }
 
-    // $('#importButtonLabel').click()
-
 });
 
 var FileSelectHandler = function(event) {

@@ -1,7 +1,18 @@
-/**
- * This object would in theory be made by the algorithm...
- */
-students = [{   
+/********************************** Dummy Data **********************************/
+
+// TODO: remove this, create settings dynamically in modal
+var placeholder_settings = {
+    labels: {},
+    priorities: [],
+    group_by: {
+        pref: '',
+        num_groups: '',
+        group_size: ''
+    }
+};
+
+// TODO: upload this from the modals
+fa14_students = [{   
     name: 'Catwoman',
     course_number: 16,
     gender: 'F',
@@ -248,23 +259,73 @@ students = [{
     sports_team: 'disney',
 }];
 
+/********************************** Dummy Data Setup **********************************/
+
+Grouper.username = 'my_username';
+// Grouper.groups.push({
+//     name: 'my_class_spr15',
+//     settings: placeholder_settings,
+//     data: students,
+//     filters: buildFilters(students)
+// });
+
+Grouper.groups.push({
+    name: 'my_class_fa14',
+    settings: {
+        labels: {
+            name: 'Name',
+            course_number: 'Course Number',
+            gender: 'Gender',
+            year: 'Year',
+            group: 'Group',
+            sports_team: 'Sports Team'
+        },
+        priorities: ['course_number', 'gender', 'year', 'sports_team'],
+        group_by: {
+            pref: 'num_groups',
+            num_groups: '7',
+            group_size: ''
+        }
+    },
+    data: fa14_students,
+    filters: buildFilters(fa14_students)
+});
+
+Grouper.groups.push({
+    name: 'my_class_spr14',
+    settings: placeholder_settings,
+    data: [],
+    filters: []
+});
+
+Grouper.groups.push({
+    name: 'my_class_fa13',
+    settings: placeholder_settings,
+    data: [],
+    filters: []
+});
+
+
 /**
  * Build parameters object.
  */
-var parameters = {}; // need to guarantee that every student object has the same parameters (in alg output)
-var filters = Object.keys(students[0]);
-for (var i=0; i<filters.length; i++) {
-        parameters[filters[i]] = [];
-}
-for (var i=0; i<students.length; i++) {
-    for (var j=0; j<filters.length; j++) {
-        var filter = filters[j];
-        var category = students[i][filter];
-        if (parameters[filter].indexOf(category) < 0) {
-            parameters[filter].push(category);
+function buildFilters(data) {
+    var parameters = {};
+    var filters = Object.keys(data[0]);
+    for (var i=0; i<filters.length; i++) {
+            parameters[filters[i]] = [];
+    }
+    for (var i=0; i<data.length; i++) {
+        for (var j=0; j<filters.length; j++) {
+            var filter = filters[j];
+            var category = data[i][filter];
+            if (parameters[filter].indexOf(category) < 0) {
+                parameters[filter].push(category);
+            }
         }
     }
-}
-for (i in filters) {
-    parameters[filters[i]].sort(function(a, b){return a-b});
+    for (i in filters) {
+        parameters[filters[i]].sort(function(a, b){return a-b});
+    }
+    return parameters;
 }

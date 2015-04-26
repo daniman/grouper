@@ -1,15 +1,56 @@
 var Grouper = {};
 
-(function() {
+Grouper.username = '';
+Grouper.groups = [];
+Grouper.active_group = {};
+Grouper.group_setup = {}; // for holding variables while you set up a group in the modal
 
-    Grouper.user_preferences = {
-        group_name: '',
-        priorities: [],
-        group_by: {
-            pref: '',
-            num_groups: '',
-            group_size: ''
-        }
-    };
-
-})();
+Grouper.colors = {
+    get_color: function(category, attr, filters) {
+        var color_pool = Grouper['colors']['color_schemes'][Grouper['colors']['color_scheme_pref']];
+        return color_pool[filters[category].indexOf(attr) % color_pool.length];
+    },
+    color_scheme_pref: 'bright',
+    color_schemes: {
+        bright: [
+            '#FFC107', // amber
+            '#00BCD4', // cyan
+            '#F44336', // red
+            '#3F51B5', // indigo
+            '#673AB7', // deep purple
+            '#E91E63', // pink
+            '#4CAF50', // green
+            '#FF9800', // orange
+            '#CDDC39', // lime
+            '#FF5722', // deep orange
+            '#9C27B0', // purple
+            '#03A9F4', // light blue
+            '#FFEB3B', // yellow
+            '#2196F3', // blue
+            '#8BC34A', // light green
+            '#009688', // teal
+            '#607D8B', // blue grey
+            '#795548' // brown
+        ],
+        light: [
+            '#FFD54F', // amber
+            '#4DD0E1', // cyan
+            '#E57373', // red
+            '#7986CB', // indigo
+            '#BA68C8', // deep purple
+            '#7986CB', // pink
+            '#81C784', // green
+            '#FFB74D', // orange
+            '#DCE775', // lime
+            '#DCE775', // deep orange
+            '#BA68C8', // purple
+            '#4FC3F7', // light blue
+            '#FFF176', // yellow
+            '#64B5F6', // blue
+            '#AED581', // light green
+            '#4DB6AC', // teal
+            '#90A4AE', // blue grey
+            '#A1887F' // brown
+        ]
+    }
+}

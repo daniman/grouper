@@ -10,7 +10,6 @@
     <script type="text/javascript" src="assets/vendor/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="assets/vendor/jquery-ui-1.10.0.custom.min.js"></script>
     <script type="text/javascript" src="assets/vendor/jquery.csv-0.71.js"></script>
-    <script type="text/javascript" src="assets/vendor/csvtools.js"></script>
     <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.2-dist/css/bootstrap.min.css">
     <script src="assets/vendor/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
     <link href="assets/vendor/css-toggle-switch-source/css/style.css" rel="stylesheet">
@@ -18,10 +17,16 @@
 
     <!-- Scripts -->
     <script type="text/javascript" src="js/global.js"></script>
-    <script type="text/javascript" src="js/hexpac.js"></script>
-    <script type="text/javascript" src="js/data.js"></script>
-    <script type="text/javascript" src="js/convex_hull.js"></script>
+    <script type="text/javascript" src="js/data.js"></script> <!-- remove this eventually -->
+
     <script type="text/javascript" src="js/bubbles.js"></script>
+
+    <script type="text/javascript" src="js/build.js"></script>
+    <script type="text/javascript" src="js/csvtools.js"></script>
+    <script type="text/javascript" src="js/hexpac.js"></script>
+
+    <!-- <script type="text/javascript" src="js/bubbles.js"></script> -->
+    
     <script type="text/javascript" src="js/filter.js"></script>
     <script type="text/javascript" src="js/modals.js"></script>
     <script type="text/javascript" src="js/dropzone.js"></script>
@@ -38,14 +43,10 @@
       GROUPER</span>
 
       <div class="classlist dropdown">
-        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="main.html">
-          my_class_spr15
+        <a class="dropdown-toggle" id="group_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="main.html">
           <b class="caret"></b>
         </a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-          <li role="presentation"><a role="menuitem" tabindex="1" href="#">my_class_fa14</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="1" href="#">my_class_spr14</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="1" href="#">my_class_fa13</a></li>
+        <ul id="class_dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
           <li role="presentation" class="divider"></li>
           <li role="presentation">
             <a role="menuitem" tabindex="1" href="#" id="importButtonLabel">
@@ -57,22 +58,16 @@
       </div>
 
       <div class="username dropdown">
-        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/main.html">
-          my_username
+        <a class="dropdown-toggle" id="username_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="/main.html">
           <b class="caret"></b>
         </a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <ul class="dropdown-menu" role="menu" aria-labelledby="usernameLabel">
           <li role="presentation"><a role="menuitem" tabindex="1" href="#">Logout</a></li>
         </ul>
       </div>
 
       <img id="fishImg" src="assets/img/fish.png" height="35" width="58">
     </div>
-
-    <!-- <ol class="breadcrumb">
-      <li><a href="index.html">my_username</a></li> 
-      <li class="active">my_class_spr15</li>
-    </ol> -->
 
     <div id="buttons">
       <button id="edit" type="button" class="btn btn-sm mainButton" style="background-color: rgb(0, 188, 212);">Edit</button>
@@ -109,9 +104,9 @@
             <h4 class="modal-title" id="myModalLabel">Step 1: <i>Import Data</i></h4>
           </div>
           <div class="modal-body">
+            <div class="inputError"></div>
 
-            <h5 class="groupName">Name Your Group: <input type="text" id="newGroupName"></input></h5>
-            <!-- <h5 class="groupNameAnd">and</h5> -->
+            <h5 class="groupName">Name Your Class: <input type="text" id="newGroupName"></input></h5>
             <div id="dropzone">
               <h4>Drag a CSV file here</h4>
               <p>or if you prefer...</p>
@@ -128,14 +123,14 @@
             <br>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-info disabled" id="importModalNext">Next</button>
+            <button type="button" class="btn btn-info inactive" id="importModalNext">Next</button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Edit Data - Step 2 Modal -->
-    <div class="modal" id="importDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -143,10 +138,8 @@
             <h4 class="modal-title" id="myModalLabel">Step 2: <i>Edit Data Categories</i></h4>
           </div>
           <div class="modal-body">
-            
-            <h4>Categories by which to gauge group diversity: </h4>
-            <ul id="edit_data_categories" style="font-size: 1.1em;"></ul>
-            
+            <h5><strong>Edit</strong> your data category labels as you would like them to appear in Grouper. <strong>Remove</strong> categories that will not be relevant to your student groupings.</h5>
+            <ul id="edit_data_categories"></ul>            
           </div>
           <ol class="progtrckr" data-progtrckr-steps="4">
                 <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-todo">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
@@ -154,14 +147,14 @@
             <br>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importModal">Back</button>
-            <button id="importModalNextButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#editDataModal">Next</button>
+            <button id="importModalNextButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#prioritizeDataModal">Next</button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Prioritize Categories - Step 3 Modal -->
-    <div class="modal" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal" id="prioritizeDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -172,13 +165,7 @@
             <h4>Drag in order: </h4>
             <hr>
             <h5>More important to be diverse</h5>
-            <ul id="sortable">
-              <li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Course Number</li>
-              <li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Sports Team</li>
-              <li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Year</li>
-              <li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Greek Affiliation</li>
-              <li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Living Group</li>
-            </ul>
+            <ul id="inputModalSortable"></ul>
             <h5>Less important to be diverse</h5>
           </div>
 
@@ -187,7 +174,7 @@
             </ol>
             <br>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importDataModal">Back</button>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editDataModal">Back</button>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#groupifyModal">Next</button>
           </div>
         </div>
@@ -204,18 +191,18 @@
           </div>
           <div class="modal-body">
             <h4>Please Select Groupification By:</h4>
-            <div id="alert"><br></div>
+            <div class="inputError"></div>
             
             <div id="groupifySelections">
               <form>
                 <input type="radio" name="max" class="maxPeople" checked> Max number of people in a group
                 <br>
-                <input type="text" class="numberOfPeople">
+                <input type="number" class="numberOfPeople">
                 <br>
                 <br>
                 <input type="radio" name="max" class="maxGroups"> Max number of groups
                 <br>
-                <input type="text" class="numberOfGroups" disabled>
+                <input type="number" class="numberOfGroups" disabled>
               </form>
             </div>
           </div>
@@ -224,7 +211,7 @@
             </ol>
             <br>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editDataModal">Back</button>
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#prioritizeDataModal">Back</button>
             <!-- <a href="main.html" type="button" class="btn btn-info" id="groupifyButton">Groupify!</a> -->
             <button type="button" class="btn btn-info" id="groupifyButton">Groupify!</button>
           </div>

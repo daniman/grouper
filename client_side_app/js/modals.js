@@ -1,123 +1,107 @@
 $(document).ready(function() {
 
-///////////////GROUPIFY PARAMS SELECTOR///////////////////////
-	$(".maxPeople").click(function() {
-		console.log('click');
-		$(".numberOfPeople").prop("disabled", false);
-		$(".numberOfPeople").val(Grouper.user_preferences.group_by.group_size);
-		$(".numberOfPeople").css({'color': 'black'});
-
-		$(".numberOfGroups").prop("disabled", true);
-		$(".numberOfGroups").css({'color': '#a3a3a3'});
-		Grouper.user_preferences.group_by.pref = 'num_groups';
+	/**
+	 * Remove input error messages between modal transitions.
+	 */
+	$('.modal').on('hidden.bs.modal', function () {
+	    $('.inputError').html('');
 	});
 
-	$(".maxGroups").click(function() {
-		$(".numberOfGroups").prop("disabled", false);
-		$(".numberOfGroups").val(Grouper.user_preferences.group_by.num_groups);
-		$(".numberOfGroups").css({'color': 'black'});
+/********************************** Import Modal: STEP 1 **********************************/
 
-		$(".numberOfPeople").prop("disabled", true);
-		$(".numberOfPeople").css({'color': '#a3a3a3'});
-		Grouper.user_preferences.group_by.pref = 'group_size';
+	/**
+	 * On modal build.
+	 */
+	$('#importModal').on('show.bs.modal', function () {
+	  $('#editDataModal').modal('hide');
 	});
-
-	$('.numberOfPeople').change(function(event) {
-		Grouper.user_preferences.group_by.group_size = parseInt($(this).val());
-	});
-	$('.numberOfPeople').keypress(function(key) {
-        if(key.charCode < 48 || key.charCode > 57){
-        	$("#alert").html("<div class='alert alert-danger alert-dismissible' role='alert'>You must enter a number<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
-        	return false;
-        }
-    });
-	$('.numberOfGroups').change(function(event) {
-		Grouper.user_preferences.group_by.num_groups = parseInt($(this).val());
-	});
-	$('.numberOfGroups').keypress(function(key) {
-        if(key.charCode < 48 || key.charCode > 57){
-        	$("#alert").html("<div class='alert alert-danger alert-dismissible' role='alert'>You must enter a number<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
-        	return false;
-        }	
-    });
-
-//////////////////STEP 1 ENTER////////////////////////
 	
+	/** 
+	 * Safety logic for the import modal group name input (step 1).
+	 */
 	$('#newGroupName').keyup(function(e){
-		if(e.keyCode == 13) {
-		  	$('#importDataModal').modal('show');
+		if (Grouper.group_setup['data'] && $(this).val().length > 0) {
+			$('#importModalNext').removeClass('inactive');
+			Grouper.group_setup['name'] = $(this).val();
+			if(e.keyCode == 13) {
+			  	$('#editDataModal').modal('show');
+			}
+		} else {
+			$('#importModalNext').addClass('inactive');
 		}
 	});
 
-	$('#newGroupName').change(function(event) {
-		Grouper.user_preferences.group_name = $('#newGroupName').val();
-	})
-
-////////////////////////MODAL TRANSITIONS/////////////////////
-	$('#importModal').on('hidden.bs.modal', function () {
-	    // $('#fileInfo').html('');
-	})
-	$('#importModal').on('show.bs.modal', function () {
-		console.log('showing step 0');
-	  $('#importDataModal').modal('hide');
+	/**
+	 * Safety logic for the import modal next button (step 1).
+	 */
+	$('#importModalNext').on('click', function () {
+		if ($(this).hasClass('inactive')) {
+			if ($('#newGroupName').val().length > 0) {
+				$('.inputError').html(alertMessage('Import your class data!'));
+				$('#file_select').focus();
+			} else {
+				$('.inputError').html(alertMessage('Enter a name for your class!'));
+				$('#newGroupName').focus();
+			}
+			return false;
+		} else {
+			$('#importModal').modal('hide');
+	 		$('#editDataModal').modal('show');
+		}
 	});
-	$('#importDataModal').on('show.bs.modal', function () {
-		console.log('showing step 1');
-	  $('#importModal').modal('hide');
-	  $('#editDataModal').modal('hide');
 
-	  var headers = Object.keys(Grouper.students[0]);
+/********************************** Import Modal: STEP 2 **********************************/
+
+	/**
+	 * On modal build.
+	 */
+	$('#editDataModal').on('show.bs.modal', function () {
+	  $('#importModal').modal('hide');
+	  $('#prioritizeDataModal').modal('hide');
+
+	  var headers = Object.keys(Grouper.group_setup['data'][0]);
 	  var headers_html = '';
 	  for (var i=0; i<headers.length; i++) {
-	  	headers_html += "<li>" + headers[i] + " <a>edit</a> <a>remove</a></li>"
+	  	headers_html += "<input class='cat_label_conf' type='text' value='" + headers[i] + "'> " +
+	  					"<span class='glyphicon glyphicon-remove' aria-hidden='true'></span><br>"
 	  }
 	  $('#edit_data_categories').html(headers_html);
+	});
 
-	});
-	$('#editDataModal').on('show.bs.modal', function () {
-		console.log('showing step 2');
-	  $('#importDataModal').modal('hide');
-	  $('#groupifyModal').modal('hide');
-	});
-	$('#groupifyModal').on('show.bs.modal', function () {
-		console.log('showing step 3');
+/********************************** Import Modal: STEP 3 **********************************/
+
+	/**
+	 * On modal build.
+	 */
+	$('#prioritizeDataModal').on('show.bs.modal', function () {
 	  $('#editDataModal').modal('hide');
+	  $('#groupifyModal').modal('hide');
+
+        var prioritize_html = '';
+        var cats = Object.keys(Grouper.group_setup.settings.labels);
+        for (var i=0; i<cats.length; i++) {
+        	prioritize_html += '<li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>' + Grouper.group_setup.settings.labels[cats[i]] + '</li>'
+        }
+	  	$('#inputModalSortable').html(prioritize_html)
 	});
-
-	$('#groupifyButton').click(function() {
-		if($('.numberOfGroups').val()=="" && $('.numberOfPeople').val()==""){
-			$("#alert").html("<div class='alert alert-danger alert-dismissible' role='alert'>Please choose an option and enter a number<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
-		}
-		else{
-			console.log(Grouper.user_preferencesexp);
-			$('#groupifyModal').modal('hide');
-		}
-	})
-
-	$('#importModalNext').on('click', function () {
-		$('#importModal').modal('hide');
-	 	$('#importDataModal').modal('show');
-	});
-
-	$('#importModalNext').on('mousedown', function () {
-		console.log('test');
-	});
-
-//////////////////DRAGGABLE SORTING CATEGORIES////////////////////    
 
 	//sortable list for priorities
-	$(function() {
-	    $("#sortable").sortable({
-	    	update: function(event) {
-	    		Grouper.user_preferences.priorities = [];
-	    		var list = $('#sortable').children();
-	    		list.each(function(index) {
-	    			Grouper.user_preferences.priorities.push(this.innerText);
-	    		})
-	    	}
-	    });
-	    $( "#sortable" ).disableSelection();
-  	});
+    $("#inputModalSortable").sortable({
+    	update: function(event) {
+    		Grouper.group_setup.settings.priorities = [];
+    		var list = $('#inputModalSortable').children();
+    		list.each(function(index) {
+    			var value = this.innerText;
+    			var keys = Object.keys(Grouper.group_setup.settings.labels);
+    			for (var i=0; i<keys.length; i++) {
+    				if (Grouper.group_setup.settings.labels[keys[i]] == value) {
+    					Grouper.group_setup.settings.priorities.push(keys[i]);
+    				}
+    			}
+    		})
+    	}
+    });
+    $( "#inputModalSortable" ).disableSelection();
 
 	//on sortable adds a highlight when hovering
 	$(".category").hover(function(e){
@@ -128,7 +112,71 @@ $(document).ready(function() {
         $(".category").css("cursor", "default");
     });
 
-////////////////////////EXPORT MODAL//////////////////////////
+/********************************** Import Modal: STEP 4 **********************************/
+
+	/**
+	 * On modal build.
+	 */
+	$('#groupifyModal').on('show.bs.modal', function () {
+	  $('#prioritizeDataModal').modal('hide');
+	});
+
+	$(".maxPeople").click(function() {
+		console.log('click');
+		$(".numberOfPeople").prop("disabled", false);
+		$(".numberOfPeople").val(Grouper.group_setup.settings.group_by.group_size);
+		$(".numberOfPeople").css({'color': 'black'});
+
+		$(".numberOfGroups").prop("disabled", true);
+		$(".numberOfGroups").css({'color': '#a3a3a3'});
+		Grouper.group_setup.settings.group_by.pref = 'num_groups';
+	});
+
+	$(".maxGroups").click(function() {
+		$(".numberOfGroups").prop("disabled", false);
+		$(".numberOfGroups").val(Grouper.user_prefgroup_setup.settingserences.group_by.num_groups);
+		$(".numberOfGroups").css({'color': 'black'});
+
+		$(".numberOfPeople").prop("disabled", true);
+		$(".numberOfPeople").css({'color': '#a3a3a3'});
+		Grouper.group_setup.settings.group_by.pref = 'group_size';
+	});
+
+	$('.numberOfPeople').keyup(function(key) {
+        if(key.keyCode < 48 || key.keyCode > 57){
+        	$(".inputError").html(alertMessage('You must enter a number.'));
+        	return false;
+        } else {
+       		Grouper.group_setup.settings.group_by.group_size = parseInt($(this).val());
+        }
+    });
+
+	$('.numberOfGroups').keyup(function(key) {
+        if(key.keyCode < 48 || key.keyCode > 57){
+        	$(".inputError").html(alertMessage('You must enter a number.'));
+        	return false;
+        } else {
+       		Grouper.group_setup.settings.group_by.num_groups = parseInt($(this).val());
+        }
+    });
+
+    /**
+	 * Safety logic for the groupify modal (step 4).
+	 */
+	// TODO: disable button logic
+	$('#groupifyButton').click(function() {
+		if($('.numberOfGroups').val()=="" && $('.numberOfPeople').val()==""){
+			$(".inputError").html(alertMessage('Please choose an option and enter a number.'));
+		} else {
+			console.log(Grouper.group_setup);
+			$('#groupifyModal').modal('hide');
+			Grouper.active_group = Grouper.group_setup;
+			Grouper.group_setup = {};
+		}
+	})
+
+/********************************** Export Modal **********************************/
+
     var groupNumber = 7;
     var categories = ['name','course_number','gender','year','sports_team'];
 
@@ -183,16 +231,15 @@ $(document).ready(function() {
 	})
 
 	$('#importButtonLabel').click(function() {
-		console.log('clicked');
 		$('#importModal').modal('show');
-		// $('.classlist .dropdown-menu').toggle();
 	})
 
 	$('.classlist .dropdown-menu').click(function() {
 		$('.dropdown-toggle').dropdown();
 	})
 
-////////////////////////STUDENT/GROUP MODAL//////////////////////////
+/********************************** Student/Group Modals **********************************/
+
 	// $('.bubble').tooltip({'placement': 'top', 'delay': 1050});
 	// $('.hull').tooltip({'placement': 'right', 'container':'body', 'html':'true', 'delay': 550});
 
@@ -238,6 +285,10 @@ $(document).ready(function() {
 	});
 
 });
+
+function alertMessage(message) {
+	return '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' + message;
+}
 
 function ClearSelection() {
     if (window.getSelection)

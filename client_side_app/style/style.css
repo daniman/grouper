@@ -64,6 +64,11 @@ hr {
     text-align: center;
 }
 
+.inputError {
+    color: #F44336;
+    text-align: center;
+}
+
 .error_message {
     color: #F44336;
 }
@@ -74,9 +79,25 @@ hr {
     font-family: 'Source Sans Pro'
 }
 
-.btn-info.disabled {
+.btn-info.inactive {
    background-color: #66d6e5 !important;
    border-color: #66d6e5 !important;
+}
+
+.btn-info.inactive:hover {
+   cursor: default;
+   background-color: #66d6e5 !important;
+   border-color: #66d6e5 !important;
+   opacity: 1;
+}
+
+.btn-info.inactive:focus {
+   outline: none;
+   cursor: default;
+   background-color: #66d6e5 !important;
+   border-color: #66d6e5 !important;
+   opacity: 1;
+   box-shadow: none;
 }
 
 .btn-warning {
@@ -352,6 +373,10 @@ div > .switch {
     transition: .5s;
 }
 
+.cat_label_conf {
+    margin-bottom: 5px;
+}
+
 #dropzone input {
     display: inline-block;
     width: 170px;
@@ -377,7 +402,7 @@ div > .switch {
     left: 20px;
 }
 
-#sortable li { 
+#inputModalSortable li { 
     font-size: 1.2em; 
     margin: 0 3px 3px;
     background-color: #F4F4F5;
