@@ -14,6 +14,15 @@ $(document).ready(function() {
 	 */
 	$('#importModal').on('show.bs.modal', function () {
 	  $('#editDataModal').modal('hide');
+
+	  $('#newGroupName').val((Grouper.group_setup['name'] != undefined ? Grouper.group_setup['name'] : ''));
+	  if (!Grouper.group_setup.data) {
+	  	$('#fileInfo').html('');
+	  }
+
+	  if (!Grouper.group_setup['data']) {
+	  	$('#importModalNext').addClass('inactive');
+	  }
 	});
 	
 	/** 
@@ -80,7 +89,7 @@ $(document).ready(function() {
         var prioritize_html = '';
         var cats = Object.keys(Grouper.group_setup.settings.labels);
         for (var i=0; i<cats.length; i++) {
-        	prioritize_html += '<li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>' + Grouper.group_setup.settings.labels[cats[i]] + '</li>'
+        	prioritize_html += '<li class="category" style=""><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>' + Grouper.group_setup.settings.labels[cats[i]] + '</li>'
         }
 	  	$('#inputModalSortable').html(prioritize_html)
 	});
@@ -102,15 +111,6 @@ $(document).ready(function() {
     	}
     });
     $( "#inputModalSortable" ).disableSelection();
-
-	//on sortable adds a highlight when hovering
-	$(".category").hover(function(e){
-        $(e.target).css("outline", "2px solid #FF9800");
-        $(e.target).css("cursor", "pointer");
-        },function(){
-        $(".category").css("outline", "none");
-        $(".category").css("cursor", "default");
-    });
 
 /********************************** Import Modal: STEP 4 **********************************/
 
