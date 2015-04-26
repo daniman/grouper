@@ -383,10 +383,33 @@ div > .switch {
     background-color: #F4F4F5;
     width: 60%;
 }
-.glyphicon-sort {
+
+#edit_data_categories li{
+    font-size: 1.1em; 
+    margin: 0 3px 3px;
+    background-color: #F4F4F5;
+    width: 60%;
+}
+.glyphicon-sort{
     margin: 10px;
     font-size: 13px;
 }
+.glyphicon-remove{
+    margin: 10px;
+    font-size: 13px;
+    color: #5F6364
+}
+.glyphicon-pencil{
+    margin-right: 10px;
+    font-size: 13px;
+    color: #5F6364;
+}
+
+.glyphicon-pencil:hover, .glyphicon-remove:hover {
+    cursor: pointer;
+    color: #000000;
+}
+
 #fileDrag
 {
     border:2px dotted #5F6364;

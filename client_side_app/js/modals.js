@@ -2,26 +2,8 @@ $(document).ready(function() {
 
 ///////////////GROUPIFY PARAMS SELECTOR///////////////////////
 	$(".maxPeople").click(function() {
-		console.log('click');
-		$(".numberOfPeople").prop("disabled", false);
-		$(".numberOfPeople").val(Grouper.user_preferences.group_by.group_size);
-		$(".numberOfPeople").css({'color': 'black'});
-
-		$(".numberOfGroups").prop("disabled", true);
-		$(".numberOfGroups").css({'color': '#a3a3a3'});
-		Grouper.user_preferences.group_by.pref = 'num_groups';
+		peopleSet();
 	});
-
-	$(".maxGroups").click(function() {
-		$(".numberOfGroups").prop("disabled", false);
-		$(".numberOfGroups").val(Grouper.user_preferences.group_by.num_groups);
-		$(".numberOfGroups").css({'color': 'black'});
-
-		$(".numberOfPeople").prop("disabled", true);
-		$(".numberOfPeople").css({'color': '#a3a3a3'});
-		Grouper.user_preferences.group_by.pref = 'group_size';
-	});
-
 	$('.numberOfPeople').change(function(event) {
 		Grouper.user_preferences.group_by.group_size = parseInt($(this).val());
 	});
@@ -31,6 +13,10 @@ $(document).ready(function() {
         	return false;
         }
     });
+
+    $(".maxGroups").click(function() {
+		groupSet();
+	});
 	$('.numberOfGroups').change(function(event) {
 		Grouper.user_preferences.group_by.num_groups = parseInt($(this).val());
 	});
@@ -40,6 +26,27 @@ $(document).ready(function() {
         	return false;
         }	
     });
+
+    function groupSet(){
+    	$(".numberOfGroups").prop("disabled", false);
+		$(".numberOfGroups").val(Grouper.user_preferences.group_by.num_groups);
+		$(".numberOfGroups").css({'color': 'black'});
+
+		$(".numberOfPeople").prop("disabled", true);
+		$(".numberOfPeople").css({'color': '#a3a3a3'});
+		Grouper.user_preferences.group_by.pref = 'group_size';
+    }
+
+    function peopleSet(){
+    	console.log('click');
+		$(".numberOfPeople").prop("disabled", false);
+		$(".numberOfPeople").val(Grouper.user_preferences.group_by.group_size);
+		$(".numberOfPeople").css({'color': 'black'});
+
+		$(".numberOfGroups").prop("disabled", true);
+		$(".numberOfGroups").css({'color': '#a3a3a3'});
+		Grouper.user_preferences.group_by.pref = 'num_groups';
+    }
 
 //////////////////STEP 1 ENTER////////////////////////
 	
@@ -69,7 +76,7 @@ $(document).ready(function() {
 	  var headers = Object.keys(Grouper.students[0]);
 	  var headers_html = '';
 	  for (var i=0; i<headers.length; i++) {
-	  	headers_html += "<li>" + headers[i] + " <a>edit</a> <a>remove</a></li>"
+	  	headers_html += "<li class='category'><a href='#' class='clearitem'><span class='glyphicon glyphicon-remove delete'></span></a><span class='glyphicon glyphicon-pencil edit'></span> " + headers[i] + " </li>"
 	  }
 	  $('#edit_data_categories').html(headers_html);
 
@@ -102,6 +109,13 @@ $(document).ready(function() {
 	$('#importModalNext').on('mousedown', function () {
 		console.log('test');
 	});
+
+//////////////////EDIT OR DELETE CATEGORIES///////////////////////
+
+	$("#edit_data_categories").on('click', '.clearitem a', function(){
+		console.log('here');
+    	$(this).closest('li').remove()
+	})
 
 //////////////////DRAGGABLE SORTING CATEGORIES////////////////////    
 
