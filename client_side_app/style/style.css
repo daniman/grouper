@@ -379,11 +379,13 @@ div > .switch {
 
 #sortable li { 
     font-size: 1.2em; 
+    margin: 0 3px 3px;
     background-color: #F4F4F5;
     width: 60%;
 }
 .glyphicon-sort {
-    width: 10%;
+    margin: 10px;
+    font-size: 13px;
 }
 #fileDrag
 {

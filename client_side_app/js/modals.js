@@ -25,12 +25,23 @@ $(document).ready(function() {
 	$('.numberOfPeople').change(function(event) {
 		Grouper.user_preferences.group_by.group_size = parseInt($(this).val());
 	});
-
+	$('.numberOfPeople').keypress(function(key) {
+        if(key.charCode < 48 || key.charCode > 57){
+        	$("#alert").html("<div class='alert alert-danger alert-dismissible' role='alert'>You must enter a number<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+        	return false;
+        }
+    });
 	$('.numberOfGroups').change(function(event) {
 		Grouper.user_preferences.group_by.num_groups = parseInt($(this).val());
 	});
+	$('.numberOfGroups').keypress(function(key) {
+        if(key.charCode < 48 || key.charCode > 57){
+        	$("#alert").html("<div class='alert alert-danger alert-dismissible' role='alert'>You must enter a number<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+        	return false;
+        }	
+    });
 
-//////////////////STEP 0 ENTER////////////////////////
+//////////////////STEP 1 ENTER////////////////////////
 	
 	$('#newGroupName').keyup(function(e){
 		if(e.keyCode == 13) {
@@ -74,8 +85,13 @@ $(document).ready(function() {
 	});
 
 	$('#groupifyButton').click(function() {
-		console.log(Grouper.user_preferencesexp);
-		$('#groupifyModal').modal('hide');
+		if($('.numberOfGroups').val()=="" && $('.numberOfPeople').val()==""){
+			$("#alert").html("<div class='alert alert-danger alert-dismissible' role='alert'>Please choose an option and enter a number<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+		}
+		else{
+			console.log(Grouper.user_preferencesexp);
+			$('#groupifyModal').modal('hide');
+		}
 	})
 
 	$('#importModalNext').on('click', function () {
@@ -105,7 +121,7 @@ $(document).ready(function() {
 
 	//on sortable adds a highlight when hovering
 	$(".category").hover(function(e){
-        $(e.target).css("outline", "2px solid #5F6364");
+        $(e.target).css("outline", "2px solid #FF9800");
         $(e.target).css("cursor", "pointer");
         },function(){
         $(".category").css("outline", "none");
