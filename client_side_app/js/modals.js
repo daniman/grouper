@@ -65,29 +65,30 @@ $(document).ready(function() {
 	    // $('#fileInfo').html('');
 	})
 	$('#importModal').on('show.bs.modal', function () {
-		console.log('showing step 0');
+		console.log('showing step 1');
 	  $('#importDataModal').modal('hide');
 	});
 	$('#importDataModal').on('show.bs.modal', function () {
-		console.log('showing step 1');
+		setHeaders();
+		console.log('showing step 2');
 	  $('#importModal').modal('hide');
 	  $('#editDataModal').modal('hide');
 
 	  var headers = Object.keys(Grouper.students[0]);
 	  var headers_html = '';
 	  for (var i=0; i<headers.length; i++) {
-	  	headers_html += "<li class='category'><span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove delete'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil edit'></span></a></span>" + headers[i] + " </li>";
+	  	headers_html += "<li class='category'><span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove delete'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + headers[i] + "</li>";
 	  }
 	  $('#edit_data_categories').html(headers_html);
 
 	});
 	$('#editDataModal').on('show.bs.modal', function () {
-		console.log('showing step 2');
+		console.log('showing step 3');
 	  $('#importDataModal').modal('hide');
 	  $('#groupifyModal').modal('hide');
 	});
 	$('#groupifyModal').on('show.bs.modal', function () {
-		console.log('showing step 3');
+		console.log('showing step 4');
 	  $('#editDataModal').modal('hide');
 	});
 
@@ -111,23 +112,35 @@ $(document).ready(function() {
 	});
 
 //////////////////EDIT OR DELETE CATEGORIES///////////////////////
-
+	
 	$("#edit_data_categories").on('click', '.clearitem a', function(){
-    	$(this).closest('li').remove()
+    	$(this).closest('li').remove();
 	});
 	$("#edit_data_categories").on('click', '.edit a', function(){
+		var headers = Object.keys(Grouper.students[0]);
 		var oldName = $(this).closest('li').text();
-    	$(this).closest('li').html('<input id="new" type="text" text='+oldName+'><span class="ok"><a href="#">ok</a></span>');
+		var index = headers.indexOf(oldName);
+
+    	$(this).closest('li').html('<input id="new" type="text" text='+oldName+'><span class="ok"><a href="#"><span class="glyphicon glyphicon-ok"></span></a></span>');
     	$("#new").val(oldName);
     	
     	$("#edit_data_categories").on('click', '.ok a', function(){
     		var newName = $("#new").val();
-    		$(this).closest('li').html("<span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove delete'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil edit'></span></a></span>" + newName);
+    		headers[index] = newName;
+    		$(this).closest('li').html("<span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + newName);
     	});
 	});
 
 //////////////////DRAGGABLE SORTING CATEGORIES////////////////////    
-
+	
+	function setHeaders(){
+		var headers = Object.keys(Grouper.students[0]);
+	  	var headers_html = '';
+	  	for (var i=0; i<headers.length; i++) {
+	  		headers_html += "<li class='category'><span class='glyphicon glyphicon-sort' aria-hidden='true'></span>"+headers[i]+"</li>";
+	  	}
+	  	$('#sortable').html(headers_html);
+	}
 	//sortable list for priorities
 	$(function() {
 	    $("#sortable").sortable({
@@ -244,17 +257,98 @@ $(document).ready(function() {
 		evt.stopPropagation();
 		ClearSelection();
 
+		var numFemales = 0;
+		var numMales = 0;
+		var num15 = 0;
+		var num16 = 0;
+		var num17 = 0;
+		var num18 = 0;
+
 		var studentList = '<table class="groupShow" style="width:100%"><tbody>';
 		var idGroup = parseInt($(evt.target).attr('group'));
 		studentList = studentList.concat(addCategories());
 		
 		for (var j = students.length - 1; j >= 0; j--) {
 			if(students[j]['group']==idGroup){
+				if(students[j]['gender']=="M"){
+					numMales ++;
+				}
+				else{
+					numFemales ++;
+				}
+				if(students[j]['year']=="2015"){
+					num15 ++;
+				}
+				else if(students[j]['year']=="2016"){
+					num16 ++;
+				}
+				else if(students[j]['year']=="2017"){
+					num17 ++;
+				}
+				else{
+					num18 ++;
+				}
 				studentList = studentList.concat("<tr>");
 				studentList = studentList.concat(stringify(students[j]));
 				studentList = studentList.concat("</tr>");
 			}
 		}
+
+		$('#genderChart').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'Male/Female Ratio',
+	            style: {
+	                fontSize: '15px'
+	            }
+	        },
+	        xAxis: {
+	            categories: ['Males', 'Females']
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'Number of Students'
+	            }
+	        },
+	        legend: {
+	                    enabled: false
+	        },
+	        series: [{
+	            name: 'Group '+(idGroup+1),
+	            colorByPoint: true,
+	            data: [numMales, numFemales]
+	        }]
+    	});
+
+		$('#yearChart').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'Graduation Year',
+	            style: {
+	                fontSize: '15px'
+	            }
+	        },
+	        xAxis: {
+	            categories: ['2015','2016','2017','2018']
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'Number of Students'
+	            }
+	        },
+	        legend: {
+	                    enabled: false
+	        },
+	        series: [{
+	            name: 'Group '+(idGroup+1),
+	            colorByPoint: true,
+	            data: [num15,num16,num17,num18]
+	        }]
+    	});
 		$('#groupNumber').html(idGroup+1);
 		$('#groupStudents').html(studentList);
 		$("#groupModal").modal("show");

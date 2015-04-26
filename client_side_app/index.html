@@ -15,6 +15,7 @@
     <script src="assets/vendor/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
     <link href="assets/vendor/css-toggle-switch-source/css/style.css" rel="stylesheet">
     <script src="assets/vendor/d3.js"></script>
+    <script type="text/javascript" src="assets/vendor/Highcharts-4.1.5/js/highcharts.js"></script>
 
     <!-- Scripts -->
     <script type="text/javascript" src="js/global.js"></script>
@@ -174,11 +175,6 @@
             <hr>
             <h5>More important to be diverse</h5>
             <ul id="sortable">
-              <li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Course Number</li>
-              <li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Sports Team</li>
-              <li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Year</li>
-              <li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Greek Affiliation</li>
-              <li class="category"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>Living Group</li>
             </ul>
             <h5>Less important to be diverse</h5>
           </div>
@@ -280,6 +276,10 @@
               <div class="row" id="groupData">
                   <h5><b>Number of students: </b><span id="groupNumStudents"> 5</span></h5>
                   <div id="groupStudents"></div>
+                  <br>
+                  <h4>Graphical Dispalys</h4>
+                  <div id="genderChart" style="height: 200px; width: 50%;"></div>
+                  <div id="yearChart" style="height: 200px; width: 50%;"></div>
               </div>
             </div>
           </div>
