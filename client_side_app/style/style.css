@@ -37,6 +37,10 @@ input[type='radio'] {
     font-weight: 400;
 }
 
+#export:focus {
+    color: white;
+}
+
 .numberOfPeople, .numberOfGroups {
     margin-left: 20px;
 }

@@ -15,7 +15,7 @@ function buildFilters() {
     /**
      * Build filter HTML menu.
      */
-    var filters_list = Object.keys(Grouper.active_group['filters']);
+    var filters_list = Grouper.active_group.settings['priorities'];
     for (var i=0; i<filters_list.length; i++) {
         if (filters_list[i] != 'group') {
             $('#filters').append('<li>' +

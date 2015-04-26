@@ -103,12 +103,14 @@ csvtools.upload = {
 			if (e.target.readyState == FileReader.DONE) {
 				try {
 					$.csv.toObjects(e.target.result, {}, function(err,data) {
+						console.log(Grouper.group_setup['name']);
+						var name = (Grouper.group_setup['name'] ? Grouper.group_setup['name'] : '')
 
 						/**
 						 * Group object skeleton.
 						 */
 						Grouper.group_setup = {
-						    name: '',
+						    name: name,
 						    settings: {},
 						    data: [],
 						    filters: []

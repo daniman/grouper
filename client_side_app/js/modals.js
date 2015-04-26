@@ -7,6 +7,14 @@ $(document).ready(function() {
 	    $('.inputError').html('');
 	});
 
+	$('#importButtonLabel').click(function() {
+		$('#importModal').modal('show');
+	});
+
+	$("#edit").click(function(){
+		$('#editModal').modal('show');
+	});
+
 /********************************** Import Modal: STEP 1 **********************************/
 
 	/**
@@ -29,8 +37,10 @@ $(document).ready(function() {
 	 * Safety logic for the import modal group name input (step 1).
 	 */
 	$('#newGroupName').keyup(function(e){
-		if (Grouper.group_setup['data'] && $(this).val().length > 0) {
-			$('#importModalNext').removeClass('inactive');
+		if ($(this).val().length > 0) {
+			if (Grouper.group_setup['data']) {
+				$('#importModalNext').removeClass('inactive');
+			}
 			Grouper.group_setup['name'] = $(this).val();
 			if(e.keyCode == 13) {
 			  	$('#editDataModal').modal('show');
@@ -163,7 +173,7 @@ $(document).ready(function() {
     /**
 	 * Safety logic for the groupify modal (step 4).
 	 */
-	// TODO: disable button logic
+	// TODO: logic for disabling button when number isn't entered
 	$('#groupifyButton').click(function() {
 		if($('.numberOfGroups').val()=="" && $('.numberOfPeople').val()==""){
 			$(".inputError").html(alertMessage('Please choose an option and enter a number.'));
@@ -171,7 +181,11 @@ $(document).ready(function() {
 			$('#groupifyModal').modal('hide');
 
 			Grouper.active_group = Grouper.group_setup;
+			Grouper.groups.push(Grouper.active_group);
 			Grouper.group_setup = {};
+
+			$('#class_dropdown').prepend('<li role="presentation"><a class="classlist_item" role="menuitem" tabindex="1" href="#">' + Grouper.active_group['name'] + '</a></li>');
+       		$('a#group_dropdown_label').html(Grouper.active_group['name'] + ' <b class="caret"></b>');
 
 			$('#filters').html('');
 			$('#bubbleContainer').html('');
@@ -183,66 +197,56 @@ $(document).ready(function() {
 
 /********************************** Export Modal **********************************/
 
-    var groupNumber = 7;
-    var categories = ['name','course_number','gender','year','sports_team'];
-
 	$("#export").click(function(){
 
+		var stringify = function(json){
+			var dataString = '';
+			for (var i = 0; i < categories.length; i++){
+				var key = categories[i];
+			  if (json.hasOwnProperty(key)) {
+			    dataString = dataString.concat('<td>'+json[key]+'</td>');
+			  }
+			}
+			return dataString;
+		}
+
+		var groupNumber = Grouper.active_group.filters['group'].length;
+	    var categories = Object.keys(Grouper.active_group.filters);
+
+	    var group_map = {};
+	    for (var i=0; i<groupNumber; i++) {
+	    	group_map[i] = [];
+	    }
+
+	    Grouper.active_group.data.map(function(student) {
+	    	group_map[student.group].push(student);
+	    })
+
 		var groupings = '';
-		var sorted = students.sort(function(a,b) { return parseFloat(b.group) - parseFloat(a.group)});
 
 		for (var i = 0; i < groupNumber; i++) {
-			groupings = groupings.concat('<h4>Group '+(i+1)+':</h4>');
-			groupings = groupings.concat('<table class="groupShow" style="width:100%"><tbody>');
-			groupings = groupings.concat(addCategories());
-			for (var j = students.length - 1; j >= 0; j--) {
-				
-				if(students[j]['group']==i){
-					// console.log(stringify(students[j]));
-					groupings = groupings.concat("<tr>");
-					groupings = groupings.concat(stringify(students[j]));
-					groupings = groupings.concat("</tr>");
-				}
-			}
-			groupings = groupings.concat("</tbody></table>");
-			groupings = groupings.concat("<br>");
+			groupings += '<h4>Group ' + (i+1) + ':</h4>';
+			groupings += '<table class="groupShow" style="width:100%"><tbody>';
+
+			var headers = categories.map(function(cat) { return '<th>' + Grouper.active_group.settings.labels[cat] + '</th>'; });
+			groupings += '<tr>' + headers.join('') + '</tr>';
+
+			var students = Grouper.active_group.data.filter(function(student) {
+		        return student.group == i;
+		    })[0];
+
+		    for (var j=0; j<group_map[i].length; j++) { // for each student in group
+		    	groupings += '<tr>' + stringify(group_map[i][j]) + '</tr>';
+		    }
+
+			groupings += "</tbody></table>";
+			groupings += "<br>";
 		};
 
 		$('#exportModal').modal('show');
 		$("#groupPreview").html(groupings);
-	})
-	var addCategories = function(){
-		var headerString = "<tr>";
-		for (var k = 0; k < categories.length; k++) {
-			headerString = headerString.concat("<th>"+categories[k]+"</th>");
-		};
-		headerString = headerString.concat("</tr>");
-		return headerString;
-	}
-	var stringify = function(json){
-		var dataString = '';
-
-		for (var i = 0; i < categories.length; i++){
-			var key = categories[i];
-		  if (json.hasOwnProperty(key)) {
-		    dataString = dataString.concat('<td>'+json[key]+'</td>');
-		  }
-		}
+	});
 	
-		return dataString;
-	}
-	
-	$("#edit").click(function(){
-		$('#editModal').modal('show');
-	})
-
-	$('#importButtonLabel').click(function() {
-		$('#importModal').modal('show');
-	})
-
-	$('.classlist .dropdown-menu').click(function() {
-		$('.dropdown-toggle').dropdown();
-	})
 
 /********************************** Student/Group Modals **********************************/
 

@@ -293,16 +293,46 @@ Grouper.groups.push({
 
 Grouper.groups.push({
     name: 'my_class_spr14',
-    settings: placeholder_settings,
-    data: [],
-    filters: []
+    settings: {
+        labels: {
+            name: 'Name',
+            course_number: 'Course Number',
+            gender: 'Gender',
+            year: 'Year',
+            group: 'Group',
+            sports_team: 'Sports Team'
+        },
+        priorities: ['course_number', 'gender', 'year', 'sports_team'],
+        group_by: {
+            pref: 'num_groups',
+            num_groups: '7',
+            group_size: ''
+        }
+    },
+    data: fa14_students,
+    filters: buildFilterObject(fa14_students)
 });
 
 Grouper.groups.push({
     name: 'my_class_fa13',
-    settings: placeholder_settings,
-    data: [],
-    filters: []
+    settings: {
+        labels: {
+            name: 'Name',
+            course_number: 'Course Number',
+            gender: 'Gender',
+            year: 'Year',
+            group: 'Group',
+            sports_team: 'Sports Team'
+        },
+        priorities: ['course_number', 'gender', 'year', 'sports_team'],
+        group_by: {
+            pref: 'num_groups',
+            num_groups: '7',
+            group_size: ''
+        }
+    },
+    data: fa14_students,
+    filters: buildFilterObject(fa14_students)
 });
 
 
