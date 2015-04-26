@@ -91,7 +91,6 @@ function hexpac(clusters, cluster_diameter, width, height) {
         if ((a/k)%1==0) {
             n=a/k;
             var cols = 2*n;
-            console.log('meow ' + cols);
 
             if (roomy(cols)) {
                 var foci = [];
@@ -114,7 +113,6 @@ function hexpac(clusters, cluster_diameter, width, height) {
                 }
                 return foci;
             } else if (n==1) {
-                console.log('a: ' + a + '; k:' + k);
                 var foci = [];
                 for (j=1; j<=k; j++) {
                         foci.push({

@@ -28,6 +28,6 @@ $(document).ready(function() {
     /**
      * Build main page.
      */
-    buildBubbles(Grouper.active_group);
-    buildFilters(Grouper.active_group);
+    var student_dict = buildBubbles(Grouper.active_group);
+    buildFilters(Grouper.active_group, student_dict);
 });

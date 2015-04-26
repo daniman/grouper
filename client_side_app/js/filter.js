@@ -1,4 +1,4 @@
-function buildFilters(active_group) {
+function buildFilters() {
 
     var students = Grouper.active_group['data'];
     var filters = Grouper.active_group['filters'];
@@ -15,7 +15,7 @@ function buildFilters(active_group) {
     /**
      * Build filter HTML menu.
      */
-    var filters_list = Object.keys(active_group['filters']);
+    var filters_list = Object.keys(Grouper.active_group['filters']);
     for (var i=0; i<filters_list.length; i++) {
         if (filters_list[i] != 'group') {
             $('#filters').append('<li>' +
@@ -48,10 +48,11 @@ function buildFilters(active_group) {
     })
 
     $('.switch').on('click', function(event, state) {
-        if (event.target.checked) {
+        var student_dict = Grouper.active_group.map;
+        if (event.target.checked) {            
             $('.bubble').each(function() {
                 var id = this.id.split('_')[1];
-                $(this).children().html(students[id]['name'].split(' ').join('<br>'));
+                $(this).children().html(student_dict[id]['name'].split(' ').join('<br>'));
                 $(this).children().css({
                     'font-size': '15px',
                     'line-height': '15px',
@@ -65,7 +66,7 @@ function buildFilters(active_group) {
         } else {
             $('.bubble').each(function() {
                 var id = this.id.split('_')[1];
-                $(this).children().html(students[id]['course_number']);
+                $(this).children().html(student_dict[id]['course_number']);
                 $('.bubble_text').css({
                     'font-size': '30px',
                     'margin-top': ($(this).height()-$(this).children().height())/2 + 'px',

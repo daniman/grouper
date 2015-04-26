@@ -168,7 +168,6 @@ $(document).ready(function() {
 		if($('.numberOfGroups').val()=="" && $('.numberOfPeople').val()==""){
 			$(".inputError").html(alertMessage('Please choose an option and enter a number.'));
 		} else {
-			console.log(Grouper.group_setup);
 			$('#groupifyModal').modal('hide');
 
 			Grouper.active_group = Grouper.group_setup;
@@ -176,8 +175,8 @@ $(document).ready(function() {
 
 			$('#filters').html('');
 			$('#bubbleContainer').html('');
-			buildBubbles(Grouper.active_group);
-    		buildFilters(Grouper.active_group);
+			buildBubbles();
+    		buildFilters();
 			
 		}
 	})

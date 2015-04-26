@@ -1,20 +1,20 @@
-function buildBubbles(active_group) {
+function buildBubbles() {
 
     var nodes;
     var foci;
-    var students = active_group['data'];
-    var totalGroups = active_group['filters']['group'].length;
+    var students = Grouper.active_group['data'];
+    var totalGroups = Grouper.active_group['filters']['group'].length;
 
      /**
      * Build bubbles.
      */
-    student_dict = {}
+    var student_dict = {}
     for (var i=0; i<students.length; i++) {
       student_dict[i] = students[i];
         $('#bubbleContainer').append('<div class="bubble" student_id="' + i + '""><div class="bubble_text">' + 
           ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
-        console.log()
     }
+    Grouper.active_group.map = student_dict;
     for (var i=0; i<students.length; i++) {
       $('.bubble')[i].setAttribute("student_id",i);
     }
@@ -354,5 +354,7 @@ function buildBubbles(active_group) {
         hulls[i].attr("stroke", '#8d8d8d')
       };
     }
+
+    return student_dict;
 
 };
