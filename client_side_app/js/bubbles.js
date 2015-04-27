@@ -270,6 +270,10 @@ function buildBubbles() {
       evt.stopPropagation();
       //add listener to click on background to deselect
       $(document).click(deselect);
+      
+      force.stop();
+      force.start();
+  
     }
 
     var bubbleSelected = function(evt){
@@ -330,7 +334,7 @@ function buildBubbles() {
       //unhookup second function
 
       $(".bubble").unbind("click");
-      // $(document).unbind("click");
+      $(document).unbind("click", deselect);
 
       //hookup first function
       $(".bubble").click(nothingSelected);

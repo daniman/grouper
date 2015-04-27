@@ -161,6 +161,7 @@ hr {
     margin-left: -5px;
     margin-top: -5px;
     padding-top: 5px;
+    /*commented out because it makes bubbles too laggy*/
     /*transition: .15s;*/
     border-radius: 30px !important;
 }
