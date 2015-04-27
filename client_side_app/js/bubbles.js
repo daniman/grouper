@@ -1,9 +1,10 @@
 function buildBubbles() {
 
     var nodes;
-    foci=null;
+    var foci=null;
     var students = Grouper.active_group['data'];
     var totalGroups = Grouper.active_group['filters']['group'].length;
+    console.log(students);
 
      /**
      * Build bubbles.
@@ -77,6 +78,11 @@ function buildBubbles() {
       })
       .call(force.drag);
 
+      // console.log(nodes);
+      // nodes.each(function(d) {
+      //   console.log(d);
+      // })
+
     /* Start transition */
     vis.style("opacity", 1e-6)
         .transition()
@@ -106,6 +112,7 @@ function buildBubbles() {
       );
 */
       //console.log(nodes);
+
       nodes.each(gravity(.2 * e.alpha));
       nodes
         .attr("cx", function(d) { return d.x; })
