@@ -1,7 +1,7 @@
 function buildBubbles() {
 
     var nodes;
-    var foci;
+    foci=null;
     var students = Grouper.active_group['data'];
     var totalGroups = Grouper.active_group['filters']['group'].length;
 
@@ -111,6 +111,7 @@ function buildBubbles() {
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
         
+      //remake the points list for the hull
       points = [];
       for (var i = totalGroups - 1; i >= 0; i--) {
         points.push([]);
@@ -118,7 +119,9 @@ function buildBubbles() {
       for (var i = students.length - 1; i >= 0; i--) {
         points[students[i].group].push([students[i].px + radius/2,students[i].py + radius/2]);
       };
+      //redraw the hull
       redraw();
+
       nodes.style({
         'left': function(d,i) {
           return d.x + 'px';
@@ -260,20 +263,34 @@ function buildBubbles() {
     //TODO: Make it so that when you drag something it doesn't interpret it as clicked
 
     var nothingSelected = function(evt){
-      console.log("nothingSelected");
+      console.log(evt);
+      var point = {'x':evt.pageX - $("#bubbleContainer").position().left
+      , 'y':evt.pageY - $("#bubbleContainer").position().top};
+      var focus = closestFocus(point);
       //First check if it's not the last thing in a group
-      //add selected class
-      $(this).addClass("selected");
-      //add listener to click on everything else for swap
-      $(".bubble").unbind("click");
-      $(".bubble").click(bubbleSelected);
-      evt.stopPropagation();
-      //add listener to click on background to deselect
-      $(document).click(deselect);
-      
-      force.stop();
-      force.start();
-  
+
+      if(focus == student_dict[$(this).attr("student_id")].group){
+        //if just clicking
+        //add selected class
+        $(this).addClass("selected");
+        //add listener to click on everything else for swap
+        $(".bubble").unbind("click");
+        $(".bubble").click(bubbleSelected);
+        evt.stopPropagation();
+        //add listener to click on background to deselect
+        $(document).click(deselect);
+        
+        force.stop();
+        force.start();
+      }
+      else{
+        //TODO: add some undo redo shit
+
+        console.log("swapperoony");
+        student_dict[$(this).attr("student_id")].group = focus;
+        force.stop();
+        force.start();
+      }
     }
 
     var bubbleSelected = function(evt){
@@ -341,6 +358,23 @@ function buildBubbles() {
     }
 
     $(".bubble").click(nothingSelected);
+
+
+    var closestFocus = function(point){
+      var closest = 0;
+      closestDist = dist(foci[0],point);
+      for (var i = foci.length - 1; i >= 1; i--) {
+        if(dist(foci[i],point) < closestDist){
+          closest = i;
+          closestDist = dist(foci[i],point);
+        }
+      };
+      return closest;
+    }
+
+    var dist = function(p,p2){
+      return (p.x-p2.x)*(p.x-p2.x) + (p.y-p2.y)*(p.y-p2.y);
+    }
 
 
 
