@@ -83,32 +83,30 @@ $(document).ready(function() {
 	  for (var i=0; i<headers.length; i++) {
 	  	// headers_html += "<input class='cat_label_conf' type='text' value='" + headers[i] + "'> " +
 	  	// 				"<span class='glyphicon glyphicon-remove delete' aria-hidden='true'></span><br>"
-	  	headers_html += "<li class='category'><span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove delete'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + headers[i] + "</li>";
+	  	headers_html += "<li class='category'><span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove delete'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + Grouper.group_setup.settings.labels[headers[i]] + "</li>";
 	  }
 	  $('#edit_data_categories').html(headers_html);
 	});
 
-// =======
-// ///////////////GROUPIFY PARAMS SELECTOR///////////////////////
-// 	$(".maxPeople").click(function() {
-// 		peopleSet();
-// 	});
-// 	$('.numberOfPeople').change(function(event) {
-// 		Grouper.user_preferences.group_by.group_size = parseInt($(this).val());
-// 	});
-// 	$('.numberOfPeople').keypress(function(key) {
-//         if(key.charCode < 48 || key.charCode > 57){
-//         	$("#alert").html("<div class='alert alert-danger alert-dismissible' role='alert'>You must enter a number<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
-//         	return false;
-//         }
-//     });
+	$("#edit_data_categories").on('click', '.clearitem a', function(){
+    	$(this).closest('li').remove();
+	});
 
-//     $(".maxGroups").click(function() {
-// 		groupSet();
-// 	});
-// 	$('.numberOfGroups').change(function(event) {
-// 		Grouper.user_preferences.group_by.num_groups = parseInt($(this).val());
-// >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893
+	$("#edit_data_categories").on('click', '.edit a', function(){
+		var headers = Object.keys(Grouper.active_group.settings.labels);
+		var oldName = $(this).closest('li').text();
+		var index = headers.indexOf(oldName);
+
+    	$(this).closest('li').html('<input id="new" type="text" text='+oldName+'><span class="ok"><a href="#"><span class="glyphicon glyphicon-ok"></span></a></span>');
+    	$("#new").val(oldName);
+    	
+    	$("#edit_data_categories").on('click', '.ok a', function(){
+    		var newName = $("#new").val();
+    		headers[index] = newName;
+    		$(this).closest('li').html("<span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + newName);
+    		Grouper.group_setup.settings.labels[oldName] = newName;
+    	});
+	});
 
 /********************************** Import Modal: STEP 3 **********************************/
 
@@ -117,11 +115,6 @@ $(document).ready(function() {
 	 */
 	$('#prioritizeDataModal').on('show.bs.modal', function () {
 	  $('#editDataModal').modal('hide');
-// =======
-// 	$('#editDataModal').on('show.bs.modal', function () {
-// 		console.log('showing step 3');
-// 	  $('#importDataModal').modal('hide');
-// >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893
 	  $('#groupifyModal').modal('hide');
 
         var prioritize_html = '';
@@ -158,31 +151,6 @@ $(document).ready(function() {
 	$('#groupifyModal').on('show.bs.modal', function () {
 	  $('#prioritizeDataModal').modal('hide');
 	});
-
-	// =======
-//     function groupSet(){
-//     	$(".numberOfGroups").prop("disabled", false);
-// 		$(".numberOfGroups").val(Grouper.user_preferences.group_by.num_groups);
-// 		$(".numberOfGroups").css({'color': 'black'});
-
-// 		$(".numberOfPeople").prop("disabled", true);
-// 		$(".numberOfPeople").css({'color': '#a3a3a3'});
-// 		Grouper.user_preferences.group_by.pref = 'group_size';
-//     }
-
-//     function peopleSet(){
-//     	console.log('click');
-// 		$(".numberOfPeople").prop("disabled", false);
-// 		$(".numberOfPeople").val(Grouper.user_preferences.group_by.group_size);
-// 		$(".numberOfPeople").css({'color': 'black'});
-
-// 		$(".numberOfGroups").prop("disabled", true);
-// 		$(".numberOfGroups").css({'color': '#a3a3a3'});
-// 		Grouper.user_preferences.group_by.pref = 'num_groups';
-//     }
-
-// //////////////////STEP 1 ENTER////////////////////////
-// >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893
 
 	$(".maxPeople").click(function() {
 		console.log('click');
@@ -265,53 +233,6 @@ $(document).ready(function() {
 
 		var groupNumber = Grouper.active_group.filters['group'].length;
 	    var categories = Object.keys(Grouper.active_group.filters);
-// =======
-// //////////////////EDIT OR DELETE CATEGORIES///////////////////////
-	
-// 	$("#edit_data_categories").on('click', '.clearitem a', function(){
-//     	$(this).closest('li').remove();
-// 	});
-// 	$("#edit_data_categories").on('click', '.edit a', function(){
-// 		var headers = Object.keys(Grouper.students[0]);
-// 		var oldName = $(this).closest('li').text();
-// 		var index = headers.indexOf(oldName);
-
-//     	$(this).closest('li').html('<input id="new" type="text" text='+oldName+'><span class="ok"><a href="#"><span class="glyphicon glyphicon-ok"></span></a></span>');
-//     	$("#new").val(oldName);
-    	
-//     	$("#edit_data_categories").on('click', '.ok a', function(){
-//     		var newName = $("#new").val();
-//     		headers[index] = newName;
-//     		$(this).closest('li').html("<span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + newName);
-//     	});
-// 	});
-
-// //////////////////DRAGGABLE SORTING CATEGORIES////////////////////    
-	
-
-// 	//sortable list for priorities
-// 	$(function() {
-// 	    $("#sortable").sortable({
-// 	    	update: function(event) {
-// 	    		Grouper.user_preferences.priorities = [];
-// 	    		var list = $('#sortable').children();
-// 	    		list.each(function(index) {
-// 	    			Grouper.user_preferences.priorities.push(this.innerText);
-// 	    		})
-// 	    	}
-// 	    });
-// 	    $( "#sortable" ).disableSelection();
-//   	});
-
-// 	//on sortable adds a highlight when hovering
-// 	$(".category").hover(function(e){
-//         $(e.target).css("outline", "2px solid #FF9800");
-//         $(e.target).css("cursor", "pointer");
-//         },function(){
-//         $(".category").css("outline", "none");
-//         $(".category").css("cursor", "default");
-//     });
-// >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893
 
 	    var group_map = {};
 	    for (var i=0; i<groupNumber; i++) {
@@ -346,7 +267,6 @@ $(document).ready(function() {
 		$('#exportModal').modal('show');
 		$("#groupPreview").html(groupings);
 	});
-	
 
 /********************************** Student/Group Modals **********************************/
 
