@@ -1,10 +1,9 @@
 function buildBubbles() {
 
     var nodes;
-    var foci=null;
+    foci=null;
     var students = Grouper.active_group['data'];
     var totalGroups = Grouper.active_group['filters']['group'].length;
-    console.log(students);
 
      /**
      * Build bubbles.
@@ -78,11 +77,6 @@ function buildBubbles() {
       })
       .call(force.drag);
 
-      // console.log(nodes);
-      // nodes.each(function(d) {
-      //   console.log(d);
-      // })
-
     /* Start transition */
     vis.style("opacity", 1e-6)
         .transition()
@@ -112,7 +106,6 @@ function buildBubbles() {
       );
 */
       //console.log(nodes);
-
       nodes.each(gravity(.2 * e.alpha));
       nodes
         .attr("cx", function(d) { return d.x; })
@@ -426,6 +419,10 @@ function buildBubbles() {
           list = [[hackytmp,points[i][0][1]]].concat(points[i].concat(points[i]));
           hulls[i].datum(d3.geom.hull(list)).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
 
+        }else{
+          //again, hacky-basically I just want to draw it with nothing
+          //but I'm not sure how to do that so I draw with all same point
+          hulls[i].datum(d3.geom.hull([[1,1],[1,1],[1,1]])).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
         }
         // hulls[i].attr("fill", getHullColor(i))
         // hulls[i].attr("stroke", getHullColor(i))
