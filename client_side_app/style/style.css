@@ -161,7 +161,7 @@ hr {
     margin-left: -5px;
     margin-top: -5px;
     padding-top: 5px;
-    transition: .15s;
+    /*transition: .15s;*/
     border-radius: 30px !important;
 }
 

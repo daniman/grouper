@@ -38,12 +38,12 @@ $(document).ready(function() {
 	 */
 	$('#newGroupName').keyup(function(e){
 		if ($(this).val().length > 0) {
+			Grouper.group_setup['name'] = $(this).val();
 			if (Grouper.group_setup['data']) {
 				$('#importModalNext').removeClass('inactive');
-			}
-			Grouper.group_setup['name'] = $(this).val();
-			if(e.keyCode == 13) {
-			  	$('#editDataModal').modal('show');
+				if(e.keyCode == 13) {
+				  	$('#editDataModal').modal('show');
+				}
 			}
 		} else {
 			$('#importModalNext').addClass('inactive');
@@ -83,27 +83,53 @@ $(document).ready(function() {
 	  for (var i=0; i<headers.length; i++) {
 	  	// headers_html += "<input class='cat_label_conf' type='text' value='" + headers[i] + "'> " +
 	  	// 				"<span class='glyphicon glyphicon-remove delete' aria-hidden='true'></span><br>"
-	  	headers_html += "<li class='category'><span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove delete'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + Grouper.group_setup.settings.labels[headers[i]] + "</li>";
+	  	headers_html += "<li class='category'>" +
+	  						"<span class='clearitem'>" +
+	  							"<a href='#'>" +
+	  								"<span class='glyphicon glyphicon-remove delete'></span>" +
+	  							"</a>" +
+	  						"</span>" +
+	  						"<span class='edit'>" +
+	  							"<a href='#'>" +
+	  								"<span class='glyphicon glyphicon-pencil'></span>" +
+	  							"</a>" +
+	  						"</span>" + 
+	  						Grouper.group_setup.settings.labels[headers[i]] + 
+	  					"</li>";
 	  }
 	  $('#edit_data_categories').html(headers_html);
 	});
 
 	$("#edit_data_categories").on('click', '.clearitem a', function(){
-    	$(this).closest('li').remove();
+    	$(this).closest('li').fadeOut();
 	});
 
-	$("#edit_data_categories").on('click', '.edit a', function(){
+	$("#edit_data_categories").on('click', '.edit a', function(event){
+
+		console.log($(this));
+
 		var headers = Object.keys(Grouper.active_group.settings.labels);
-		var oldName = $(this).closest('li').text();
+		var oldName = $(this).parent().parent().text();
 		var index = headers.indexOf(oldName);
 
-    	$(this).closest('li').html('<input id="new" type="text" text='+oldName+'><span class="ok"><a href="#"><span class="glyphicon glyphicon-ok"></span></a></span>');
-    	$("#new").val(oldName);
+		console.log(oldName);
+		console.log(index);
+
+		var parent = $(this).parent().parent();
+    	parent.html('<input type="text" text='+oldName+'>' +
+    				'<span class="ok">' +
+    					'<a href="#">' +
+    						'<span class="glyphicon glyphicon-ok"></span>' +
+    					'</a>' +
+    				'</span>');
+    	parent.children('input').val(oldName);
     	
     	$("#edit_data_categories").on('click', '.ok a', function(){
-    		var newName = $("#new").val();
+    		console.log($(this));
+    		console.log($(this).parent().siblings('input'));
+    		var newName = $(this).parent().siblings('input').val();
     		headers[index] = newName;
-    		$(this).closest('li').html("<span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + newName);
+    		parent.html("<span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + newName);
     		Grouper.group_setup.settings.labels[oldName] = newName;
     	});
 	});
