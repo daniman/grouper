@@ -220,17 +220,6 @@ $(document).ready(function() {
 
 	$("#export").click(function(){
 
-		var stringify = function(json){
-			var dataString = '';
-			for (var i = 0; i < categories.length; i++){
-				var key = categories[i];
-			  if (json.hasOwnProperty(key)) {
-			    dataString = dataString.concat('<td>'+json[key]+'</td>');
-			  }
-			}
-			return dataString;
-		}
-
 		var groupNumber = Grouper.active_group.filters['group'].length;
 	    var categories = Object.keys(Grouper.active_group.filters);
 
@@ -257,7 +246,7 @@ $(document).ready(function() {
 		    })[0];
 
 		    for (var j=0; j<group_map[i].length; j++) { // for each student in group
-		    	groupings += '<tr>' + stringify(group_map[i][j]) + '</tr>';
+		    	groupings += '<tr>' + stringify(group_map[i][j], categories) + '</tr>';
 		    }
 
 			groupings += "</tbody></table>";
@@ -282,21 +271,20 @@ $(document).ready(function() {
 	//displays the correct student information for the bubble clicked
 	$(".bubble").dblclick(function(evt){
 		var id = parseInt($(evt.target).parent().attr('id').split('_')[1]);
+		var student = Grouper.active_group.map[id];
 
-	  $('#studentName').html(students[id]['name']);
-	  $('#studentSex').html(students[id]['gender']);
-	  $('#studentCourseNumber').html("Course "+students[id]['course_number']);
-	  $('#studentYear').html(students[id]['year']);
-      $("#studentModal").modal("show");
+		$('#studentName').html(student['name']);
+		$('#studentSex').html(student['gender']);
+		$('#studentCourseNumber').html("Course "+student['course_number']);
+		$('#studentYear').html(student['year']);
+	    $("#studentModal").modal("show");
 
-      evt.stopPropagation();
+	    evt.stopPropagation();
     });
 
 	//displays the correct group information for the hull clicked
 	$('.hull').mousedown(function(){ return false; })
 	$(".hull").dblclick(function(evt){
-
-		console.log('clicked');
 
 		evt.stopPropagation();
 		ClearSelection();
@@ -310,7 +298,10 @@ $(document).ready(function() {
 
 		var studentList = '<table class="groupShow" style="width:100%"><tbody>';
 		var idGroup = parseInt($(evt.target).attr('group'));
-		studentList = studentList.concat(addCategories());
+		var categories = Object.keys(Grouper.active_group.filters);
+		var students = Grouper.active_group.data;
+
+		studentList = studentList.concat(addCategories(categories));
 		
 		for (var j = students.length - 1; j >= 0; j--) {
 			if(students[j]['group']==idGroup){
@@ -333,7 +324,7 @@ $(document).ready(function() {
 					num18 ++;
 				}
 				studentList = studentList.concat("<tr>");
-				studentList = studentList.concat(stringify(students[j]));
+				studentList = studentList.concat(stringify(students[j], categories));
 				studentList = studentList.concat("</tr>");
 			}
 		}
@@ -399,6 +390,26 @@ $(document).ready(function() {
 	});
 
 });
+
+var addCategories = function(categories){
+	var headerString = "<tr>";
+	for (var k = 0; k < categories.length; k++) {
+		headerString = headerString.concat("<th>"+categories[k]+"</th>");
+	};
+	headerString = headerString.concat("</tr>");
+	return headerString;
+}
+
+var stringify = function(json, categories){
+	var dataString = '';
+	for (var i = 0; i < categories.length; i++){
+		var key = categories[i];
+	  if (json.hasOwnProperty(key)) {
+	    dataString = dataString.concat('<td>'+json[key]+'</td>');
+	  }
+	}
+	return dataString;
+}
 
 function alertMessage(message) {
 	return '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' + message;
