@@ -1,7 +1,7 @@
 function buildBubbles() {
 
     var nodes;
-    foci=null;
+    var foci;
     var students = Grouper.active_group['data'];
     var totalGroups = Grouper.active_group['filters']['group'].length;
 
@@ -219,6 +219,7 @@ function buildBubbles() {
           force.stop();
           force.start();
         }else{
+          //drag redo
           redoStack.push(["drag",toBeUndone[1],student_dict[toBeUndone[1].attr("student_id")].group]);
           student_dict[toBeUndone[1].attr("student_id")].group = toBeUndone[2];
           //get them to move
@@ -249,6 +250,7 @@ function buildBubbles() {
           force.stop();
           force.start();
         }else{
+          //drag redo
           undoStack.push([toBeRedone[0],toBeRedone[1],student_dict[toBeRedone[1].attr("student_id")].group]);
           student_dict[toBeRedone[1].attr("student_id")].group = toBeRedone[2];
           //get them to move
@@ -283,7 +285,6 @@ function buildBubbles() {
       var point = {'x':evt.pageX - $("#bubbleContainer").position().left
       , 'y':evt.pageY - $("#bubbleContainer").position().top};
       var focus = closestFocus(point);
-      //First check if it's not the last thing in a group
 
       if(focus == student_dict[$(this).attr("student_id")].group){
         //if just clicking
@@ -300,18 +301,7 @@ function buildBubbles() {
         force.start();
       }
       else{
-        //TODO: add some undo redo shit
-        $("#redo").remove();
-        $("#undo").remove();
-        $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
-        $("#undo").click(undo);
-        undoStack.push(["drag",$(this),student_dict[$(this).attr("student_id")].group]);
-        redoStack = [];
-
-        console.log("swapperoony");
-        student_dict[$(this).attr("student_id")].group = focus;
-        force.stop();
-        force.start();
+        moveToGroup($(this),focus);
       }
     }
 
@@ -358,11 +348,36 @@ function buildBubbles() {
         //hookup first function
         $(".bubble").click(nothingSelected);
         evt.stopPropagation();
+
+        var point = {'x':evt.pageX - $("#bubbleContainer").position().left
+        , 'y':evt.pageY - $("#bubbleContainer").position().top};
+        var focus = closestFocus(point);
+
+        if(focus != student_dict[$(this).attr("student_id")].group){
+          moveToGroup($(this),focus);
+        }
       }else{
+        
+
         console.log("got here");
         $(".selected").removeClass("selected");
-        $(this).addClass("selected");
+
+        var point = {'x':evt.pageX - $("#bubbleContainer").position().left
+        , 'y':evt.pageY - $("#bubbleContainer").position().top};
+        var focus = closestFocus(point);
+        if(focus != student_dict[$(this).attr("student_id")].group){
+          moveToGroup($(this),focus);
+          //unhookup second function
+          $(".bubble").unbind("click");
+          $(document).unbind("click", deselect);
+          //hookup first function
+          $(".bubble").click(nothingSelected);
+        }else{
+          $(this).addClass("selected");
+
+        }
         evt.stopPropagation();
+
       }
       
     }
@@ -398,7 +413,19 @@ function buildBubbles() {
       return (p.x-p2.x)*(p.x-p2.x) + (p.y-p2.y)*(p.y-p2.y);
     }
 
+    var moveToGroup = function(bubble, focus){
+      $("#redo").remove();
+      $("#undo").remove();
+      $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
+      $("#undo").click(undo);
+      undoStack.push(["drag",bubble,student_dict[bubble.attr("student_id")].group]);
+      redoStack = [];
 
+      console.log("swapperoony");
+      student_dict[bubble.attr("student_id")].group = focus;
+      force.stop();
+      force.start();
+    }
 
     $(".bubble").dblclick(function(){
       $("#studentModal").modal("show");
