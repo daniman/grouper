@@ -109,6 +109,25 @@ $(document).ready(function() {
     	priorities.splice(priorities.indexOf(val), 1);
 	});
 
+	$("#edit_data_categories").on('dblclick', '.category', function(event){
+		event.stopPropagation();
+		ClearSelection();
+
+		var headers = Grouper.active_group.settings.priorities;
+		var oldName = $(this).text();
+		var index = headers.indexOf(oldName);
+
+		var parent = $(this);
+    	parent.html('<input type="text" text='+oldName+'>' +
+    				'<span class="ok">' +
+    					'<a href="#">' +
+    						'<span class="glyphicon glyphicon-ok"></span>' +
+    					'</a>' +
+    				'</span>');
+    	parent.children('input').val(oldName);
+
+	});
+
 	$("#edit_data_categories").on('click', '.edit a', function(event){
 		var headers = Grouper.active_group.settings.priorities;
 		var oldName = $(this).parent().parent().text();
@@ -435,7 +454,10 @@ var stringify = function(json, categories){
 	for (var i = 0; i < categories.length; i++){
 		var key = categories[i];
 	  if (json.hasOwnProperty(key)) {
-	    dataString = dataString.concat('<td>'+json[key]+'</td>');
+	  	if(key=="group"){
+	  		dataString = dataString.concat('<td>'+(json[key]+1)+'</td>');
+	  	}
+	  	else{dataString = dataString.concat('<td>'+json[key]+'</td>');} 
 	  }
 	}
 	return dataString;
@@ -443,4 +465,11 @@ var stringify = function(json, categories){
 
 function alertMessage(message) {
 	return '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' + message;
+}
+
+function ClearSelection() {
+    if (window.getSelection)
+        window.getSelection().removeAllRanges();
+    else if (document.selection)
+        document.selection.empty();
 }
