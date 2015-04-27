@@ -17,7 +17,7 @@ function buildFilters() {
      */
     var filters_list = Grouper.active_group.settings['priorities'];
     for (var i=0; i<filters_list.length; i++) {
-        if (filters_list[i] != 'group') {
+        if (filters_list[i]) {
             $('#filters').append('<li>' +
                     '<input id="' + filters_list[i] + '_filter" class="filter_cat" type="radio" name="filters" value="' + filters_list[i] + '">' +
                     '<label class="filter_cat_label" for="' + filters_list[i] + '_filter">' +

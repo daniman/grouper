@@ -245,6 +245,7 @@ div > .switch {
     margin: 20px;
     padding: 0px 20px;
     background-color: white;
+    overflow: scroll;
 
 /*    -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -432,7 +433,12 @@ div > .switch {
 .glyphicon-remove{
     margin: 10px;
     font-size: 13px;
-    color: #5F6364
+    color: #5F6364;
+}
+.glyphicon-ok{
+    margin: 10px;
+    font-size: 13px;
+    color: rgb(0, 188, 212);
 }
 .glyphicon-pencil{
     margin-right: 10px;

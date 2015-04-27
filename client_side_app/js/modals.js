@@ -109,6 +109,25 @@ $(document).ready(function() {
     	priorities.splice(priorities.indexOf(val), 1);
 	});
 
+	$("#edit_data_categories").on('dblclick', '.category', function(event){
+		event.stopPropagation();
+		ClearSelection();
+
+		var headers = Grouper.active_group.settings.priorities;
+		var oldName = $(this).text();
+		var index = headers.indexOf(oldName);
+
+		var parent = $(this);
+    	parent.html('<input type="text" text='+oldName+'>' +
+    				'<span class="ok">' +
+    					'<a href="#">' +
+    						'<span class="glyphicon glyphicon-ok"></span>' +
+    					'</a>' +
+    				'</span>');
+    	parent.children('input').val(oldName);
+
+	});
+
 	$("#edit_data_categories").on('click', '.edit a', function(event){
 		var headers = Grouper.active_group.settings.priorities;
 		var oldName = $(this).parent().parent().text();
@@ -303,8 +322,8 @@ $(document).ready(function() {
 	// $('.hull').attr('data-original-title', 'Double Click for Information');
 
 	//displays the correct student information for the bubble clicked
-	$(".bubble").dblclick(function(evt){
-		var id = parseInt($(evt.target).parent().attr('id').split('_')[1]);
+	$(document).on('dblclick', '.bubble', function(evt){
+		var id = parseInt($(evt.target).parent()[0].getAttribute('student_id'));
 		var student = Grouper.active_group.map[id];
 
 		$('#studentName').html(student['name']);
@@ -312,16 +331,12 @@ $(document).ready(function() {
 		$('#studentCourseNumber').html("Course "+student['course_number']);
 		$('#studentYear').html(student['year']);
 	    $("#studentModal").modal("show");
-
-	    evt.stopPropagation();
     });
 
 	//displays the correct group information for the hull clicked
-	$('.hull').mousedown(function(){ return false; })
-	$(".hull").dblclick(function(evt){
 
-		evt.stopPropagation();
-		ClearSelection();
+	$(document).on('mousedown', '.hull', function(){ return false; })
+	$(document).on('dblclick', '.hull', function(evt) {
 
 		var numFemales = 0;
 		var numMales = 0;
@@ -421,7 +436,7 @@ $(document).ready(function() {
 		$('#groupNumber').html(idGroup+1);
 		$('#groupStudents').html(studentList);
 		$("#groupModal").modal("show");
-	});
+	})
 
 });
 
@@ -439,7 +454,10 @@ var stringify = function(json, categories){
 	for (var i = 0; i < categories.length; i++){
 		var key = categories[i];
 	  if (json.hasOwnProperty(key)) {
-	    dataString = dataString.concat('<td>'+json[key]+'</td>');
+	  	if(key=="group"){
+	  		dataString = dataString.concat('<td>'+(json[key]+1)+'</td>');
+	  	}
+	  	else{dataString = dataString.concat('<td>'+json[key]+'</td>');} 
 	  }
 	}
 	return dataString;
