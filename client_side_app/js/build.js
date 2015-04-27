@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     // TODO: set with localstorage
     Grouper.active_group = Grouper.groups.filter(function(obj) {
-        return obj.name == 'my_class_fa14';
+        return obj.name == 'my_class_fa13';
     })[0];
 
     Grouper.colors.color_scheme_pref = 'bright';
