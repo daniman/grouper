@@ -407,7 +407,19 @@ function buildBubbles() {
 
     function redraw() {
       for (var i = totalGroups - 1; i >= 0; i--) {
-        hulls[i].datum(d3.geom.hull(points[i])).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
+        if(points[i].length >= 3){
+          hulls[i].datum(d3.geom.hull(points[i])).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
+        }else if(points[i].length === 2){
+          //I just use my 2 points multiple times so that it is willing to draw a line
+          hulls[i].datum(d3.geom.hull(points[i].concat(points[i]))).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
+        }else if(points[i].length === 1){
+          //I made one point very slightly different so that it will draw
+          //I'm sorry mike bostock :(
+          hackytmp = points[i][0][0] + .01;
+          list = [[hackytmp,points[i][0][1]]].concat(points[i].concat(points[i]));
+          hulls[i].datum(d3.geom.hull(list)).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
+
+        }
         // hulls[i].attr("fill", getHullColor(i))
         // hulls[i].attr("stroke", getHullColor(i))
         hulls[i].attr("fill", '#8d8d8d')
