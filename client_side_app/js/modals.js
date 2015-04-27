@@ -78,13 +78,16 @@ $(document).ready(function() {
 	  $('#importModal').modal('hide');
 	  $('#prioritizeDataModal').modal('hide');
 
-	  var headers = Object.keys(Grouper.group_setup['data'][0]);
-	  var headers_html = '';
-	  for (var i=0; i<headers.length; i++) {
-	  	// headers_html += "<input class='cat_label_conf' type='text' value='" + headers[i] + "'> " +
-	  	// 				"<span class='glyphicon glyphicon-remove delete' aria-hidden='true'></span><br>"
-	  	headers_html += "<li class='category'>" +
-	  						"<span class='clearitem'>" +
+	    var headers = Grouper.group_setup.settings.priorities;
+	    var headers_html = '';
+	    for (var i=0; i<headers.length; i++) {
+	  		headers_html += "<li class='category'></li>";
+	  	}
+		$('#edit_data_categories').html(headers_html);
+
+		$('.category').each(function(index, element) {
+		  	element.setAttribute('value', headers[index]);
+		  	$(element).html("<span class='clearitem'>" +
 	  							"<a href='#'>" +
 	  								"<span class='glyphicon glyphicon-remove delete'></span>" +
 	  							"</a>" +
@@ -94,26 +97,22 @@ $(document).ready(function() {
 	  								"<span class='glyphicon glyphicon-pencil'></span>" +
 	  							"</a>" +
 	  						"</span>" + 
-	  						Grouper.group_setup.settings.labels[headers[i]] + 
-	  					"</li>";
-	  }
-	  $('#edit_data_categories').html(headers_html);
+	  						Grouper.group_setup.settings.labels[headers[index]]);
+		});
 	});
 
 	$("#edit_data_categories").on('click', '.clearitem a', function(){
-    	$(this).closest('li').fadeOut();
+    	$(this).parent().parent().fadeOut();
+    	var val = $(this).parent().parent()[0].getAttribute('value');
+    	console.log(val);
+    	var priorities = Grouper.group_setup.settings.priorities;
+    	priorities.splice(priorities.indexOf(val), 1);
 	});
 
 	$("#edit_data_categories").on('click', '.edit a', function(event){
-
-		console.log($(this));
-
-		var headers = Object.keys(Grouper.active_group.settings.labels);
+		var headers = Grouper.active_group.settings.priorities;
 		var oldName = $(this).parent().parent().text();
 		var index = headers.indexOf(oldName);
-
-		console.log(oldName);
-		console.log(index);
 
 		var parent = $(this).parent().parent();
     	parent.html('<input type="text" text='+oldName+'>' +
@@ -123,15 +122,24 @@ $(document).ready(function() {
     					'</a>' +
     				'</span>');
     	parent.children('input').val(oldName);
-    	
-    	$("#edit_data_categories").on('click', '.ok a', function(){
-    		console.log($(this));
-    		console.log($(this).parent().siblings('input'));
-    		var newName = $(this).parent().siblings('input').val();
-    		headers[index] = newName;
-    		parent.html("<span class='clearitem'><a href='#'><span class='glyphicon glyphicon-remove'></span></a></span><span class='edit'><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></span>" + newName);
-    		Grouper.group_setup.settings.labels[oldName] = newName;
-    	});
+    	console.log(parent[0].getAttribute('value'));
+	});
+
+	$("#edit_data_categories").on('click', '.ok a', function(){
+		var newName = $(this).parent().siblings('input').val();
+		var value = $(this).parent().parent()[0].getAttribute('value');
+		Grouper.group_setup.settings.labels[value] = newName;
+		$(this).parent().parent().html("<span class='clearitem'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='edit'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-pencil'></span>" +
+						"</a>" +
+					"</span>" + 
+					newName);
 	});
 
 /********************************** Import Modal: STEP 3 **********************************/
@@ -140,30 +148,30 @@ $(document).ready(function() {
 	 * On modal build.
 	 */
 	$('#prioritizeDataModal').on('show.bs.modal', function () {
-	  $('#editDataModal').modal('hide');
-	  $('#groupifyModal').modal('hide');
+	    $('#editDataModal').modal('hide');
+	    $('#groupifyModal').modal('hide');
 
         var prioritize_html = '';
-        var cats = Object.keys(Grouper.group_setup.settings.labels);
-        for (var i=0; i<cats.length; i++) {
-        	prioritize_html += '<li class="category" style=""><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>' + Grouper.group_setup.settings.labels[cats[i]] + '</li>'
+        var headers = Grouper.group_setup.settings.priorities;
+        for (var i=0; i<headers.length; i++) {
+        	prioritize_html += '<li class="sortable_category"></li>';
         }
-	  	$('#inputModalSortable').html(prioritize_html)
+        $('#inputModalSortable').html(prioritize_html)
+
+        $('.sortable_category').each(function(index, element) {
+		  	element.setAttribute('value', headers[index]);
+		  	$(element).html('<span class="glyphicon glyphicon-sort" aria-hidden="true"></span>' + 
+        							Grouper.group_setup.settings.labels[headers[index]]);
+		});
 	});
 
 	//sortable list for priorities
     $("#inputModalSortable").sortable({
     	update: function(event) {
-    		Grouper.group_setup.settings.priorities = [];
     		var list = $('#inputModalSortable').children();
-    		list.each(function(index) {
-    			var value = this.innerText;
-    			var keys = Object.keys(Grouper.group_setup.settings.labels);
-    			for (var i=0; i<keys.length; i++) {
-    				if (Grouper.group_setup.settings.labels[keys[i]] == value) {
-    					Grouper.group_setup.settings.priorities.push(keys[i]);
-    				}
-    			}
+    		list.each(function(index, element) {
+    			var value = $(element).text();
+    			Grouper.group_setup.settings.priorities[index] = element.getAttribute('value');
     		})
     	}
     });
