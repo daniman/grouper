@@ -303,8 +303,8 @@ $(document).ready(function() {
 	// $('.hull').attr('data-original-title', 'Double Click for Information');
 
 	//displays the correct student information for the bubble clicked
-	$(".bubble").dblclick(function(evt){
-		var id = parseInt($(evt.target).parent().attr('id').split('_')[1]);
+	$(document).on('dblclick', '.bubble', function(evt){
+		var id = parseInt($(evt.target).parent()[0].getAttribute('student_id'));
 		var student = Grouper.active_group.map[id];
 
 		$('#studentName').html(student['name']);
@@ -312,16 +312,12 @@ $(document).ready(function() {
 		$('#studentCourseNumber').html("Course "+student['course_number']);
 		$('#studentYear').html(student['year']);
 	    $("#studentModal").modal("show");
-
-	    evt.stopPropagation();
     });
 
 	//displays the correct group information for the hull clicked
-	$('.hull').mousedown(function(){ return false; })
-	$(".hull").dblclick(function(evt){
 
-		evt.stopPropagation();
-		ClearSelection();
+	$(document).on('mousedown', '.hull', function(){ return false; })
+	$(document).on('dblclick', '.hull', function(evt) {
 
 		var numFemales = 0;
 		var numMales = 0;
@@ -421,7 +417,7 @@ $(document).ready(function() {
 		$('#groupNumber').html(idGroup+1);
 		$('#groupStudents').html(studentList);
 		$("#groupModal").modal("show");
-	});
+	})
 
 });
 
@@ -447,11 +443,4 @@ var stringify = function(json, categories){
 
 function alertMessage(message) {
 	return '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' + message;
-}
-
-function ClearSelection() {
-    if (window.getSelection)
-        window.getSelection().removeAllRanges();
-    else if (document.selection)
-        document.selection.empty();
 }

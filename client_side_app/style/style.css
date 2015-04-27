@@ -245,6 +245,7 @@ div > .switch {
     margin: 20px;
     padding: 0px 20px;
     background-color: white;
+    overflow: scroll;
 
 /*    -webkit-touch-callout: none;
     -webkit-user-select: none;

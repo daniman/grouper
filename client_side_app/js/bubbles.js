@@ -1,7 +1,7 @@
 function buildBubbles() {
 
     var nodes;
-    foci=null;
+    var foci = null;
     var students = Grouper.active_group['data'];
     var totalGroups = Grouper.active_group['filters']['group'].length;
 
