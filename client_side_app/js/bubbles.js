@@ -210,13 +210,21 @@ function buildBubbles() {
         $("#redo").click(redo);
         var toBeUndone = undoStack.pop();
         console.log(toBeUndone);
-        var tmpGroup = student_dict[toBeUndone[0].attr("student_id")].group;
-        student_dict[toBeUndone[0].attr("student_id")].group = student_dict[toBeUndone[1].attr("student_id")].group;
-        student_dict[toBeUndone[1].attr("student_id")].group = tmpGroup;
-        redoStack.push(toBeUndone);
-        //get them to move
-        force.stop();
-        force.start();
+        if(toBeUndone[0]!=="drag"){
+          var tmpGroup = student_dict[toBeUndone[0].attr("student_id")].group;
+          student_dict[toBeUndone[0].attr("student_id")].group = student_dict[toBeUndone[1].attr("student_id")].group;
+          student_dict[toBeUndone[1].attr("student_id")].group = tmpGroup;
+          redoStack.push(toBeUndone);
+          //get them to move
+          force.stop();
+          force.start();
+        }else{
+          redoStack.push(["drag",toBeUndone[1],student_dict[toBeUndone[1].attr("student_id")].group]);
+          student_dict[toBeUndone[1].attr("student_id")].group = toBeUndone[2];
+          //get them to move
+          force.stop();
+          force.start();
+        }
       }
     }
     var redo = function(e){
@@ -230,15 +238,23 @@ function buildBubbles() {
           $("#buttons").prepend("<a id=redo class='btn'>redo</a>");
           $("#redo").click(redo);
         }
-        
         var toBeRedone = redoStack.pop();
-        var tmpGroup = student_dict[toBeRedone[0].attr("student_id")].group;
-        student_dict[toBeRedone[0].attr("student_id")].group = student_dict[toBeRedone[1].attr("student_id")].group;
-        student_dict[toBeRedone[1].attr("student_id")].group = tmpGroup;
-        undoStack.push(toBeRedone);
-        //get them to move
-        force.stop();
-        force.start();
+        console.log(toBeRedone);
+        if(toBeRedone[0] !== "drag"){
+          var tmpGroup = student_dict[toBeRedone[0].attr("student_id")].group;
+          student_dict[toBeRedone[0].attr("student_id")].group = student_dict[toBeRedone[1].attr("student_id")].group;
+          student_dict[toBeRedone[1].attr("student_id")].group = tmpGroup;
+          undoStack.push(toBeRedone);
+          //get them to move
+          force.stop();
+          force.start();
+        }else{
+          undoStack.push([toBeRedone[0],toBeRedone[1],student_dict[toBeRedone[1].attr("student_id")].group]);
+          student_dict[toBeRedone[1].attr("student_id")].group = toBeRedone[2];
+          //get them to move
+          force.stop();
+          force.start();
+        }
       }
     }
     $(window).keydown(function(e) {
@@ -285,6 +301,12 @@ function buildBubbles() {
       }
       else{
         //TODO: add some undo redo shit
+        $("#redo").remove();
+        $("#undo").remove();
+        $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
+        $("#undo").click(undo);
+        undoStack.push(["drag",$(this),student_dict[$(this).attr("student_id")].group]);
+        redoStack = [];
 
         console.log("swapperoony");
         student_dict[$(this).attr("student_id")].group = focus;
