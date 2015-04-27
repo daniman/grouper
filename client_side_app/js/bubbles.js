@@ -291,7 +291,7 @@ function buildBubbles() {
 
         //unhookup second function
         $(".bubble").unbind("click");
-        // $(document).unbind("click");
+        $(document).unbind("click", deselect);
 
         //hookup first function
         $(".bubble").click(nothingSelected);
@@ -311,7 +311,7 @@ function buildBubbles() {
         $(".selected").removeClass("selected");
         //unhookup second function
         $(".bubble").unbind("click");
-        // $(document).unbind("click");
+        $(document).unbind("click", deselect);
         //hookup first function
         $(".bubble").click(nothingSelected);
         evt.stopPropagation();
