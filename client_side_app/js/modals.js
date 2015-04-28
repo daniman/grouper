@@ -7,7 +7,7 @@ $(document).ready(function() {
 	    $('.inputError').html('');
 	});
 
-	$('#importButtonLabel').click(function() {
+	$('#importButtonLabel, #importButton').click(function() {
 		$('#importModal').modal('show');
 	});
 
@@ -113,7 +113,7 @@ $(document).ready(function() {
 		event.stopPropagation();
 		ClearSelection();
 
-		var headers = Grouper.active_group.settings.priorities;
+		var headers = Grouper.group_setup.settings.priorities;
 		var oldName = $(this).text();
 		var index = headers.indexOf(oldName);
 
@@ -129,7 +129,7 @@ $(document).ready(function() {
 	});
 
 	$("#edit_data_categories").on('click', '.edit a', function(event){
-		var headers = Grouper.active_group.settings.priorities;
+		var headers = Grouper.group_setup.settings.priorities;
 		var oldName = $(this).parent().parent().text();
 		var index = headers.indexOf(oldName);
 
@@ -255,17 +255,27 @@ $(document).ready(function() {
 			$('#groupifyModal').modal('hide');
 
 			Grouper.active_group = Grouper.group_setup;
-			Grouper.groups.push(Grouper.active_group);
+			Grouper.groups.unshift(Grouper.active_group);
 			Grouper.group_setup = {};
+
+			Parse.User.current().save({
+				'groups': Grouper.groups
+			}, {
+				success: function(obj) {
+				},
+				error: function(obj, error) {
+					console.log(error);
+				}
+			})
 
 			$('#class_dropdown').prepend('<li role="presentation"><a class="classlist_item" role="menuitem" tabindex="1" href="#">' + Grouper.active_group['name'] + '</a></li>');
        		$('a#group_dropdown_label').html(Grouper.active_group['name'] + ' <b class="caret"></b>');
 
 			$('#filters').html('');
 			$('#bubbleContainer').html('');
-			buildBubbles();
-    		buildFilters();
-			
+			// buildBubbles();
+    		// buildFilters();
+			buildPage();
 		}
 	})
 

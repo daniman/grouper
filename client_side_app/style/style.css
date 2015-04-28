@@ -6,8 +6,8 @@
 
 #buttons{
     position: absolute;
-    top: 77px;
-    right: 25px;
+    top: 5px;
+    right: 5px;
     z-index: 10;
 }
 
@@ -105,7 +105,8 @@
 
 .classlist {
     position: absolute;
-    margin-left: 20px;
+    left: 240px;
+    top: 5px;
 }
 
 .color_map {
@@ -391,6 +392,84 @@ input[type='radio'] {
     outline: 2px solid #FF9800;
 }
 
+#loginContainer {
+    background-color: white;
+    border: 1px solid #ccc;
+    width: calc(100% - 42px);
+    height: calc(100% - 93px);
+    margin: 20px;
+}
+
+#loginWrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+    margin-top: 100px;
+    text-align: center;
+}
+
+#loginWrapper a {
+    cursor: pointer;
+}
+
+#login_signup_button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px 12px;
+    box-shadow: none;
+    font-family: 'Oxygen';
+    color: white;
+}
+
+.login {
+    background-color: #FF9800;
+    border: 1px solid #FF9800;
+}
+
+.signup {
+    background-color: #00BCD4;
+    border: 1px solid #00BCD4;
+}
+
+#login_button:focus {
+    outline: none;
+}
+
+#login_error_message {
+    color: #F44336;
+    margin-bottom: 5px;
+}
+
+#login_email {
+    width: 100%;
+    padding: 8px 12px;
+    font-family: 'Oxygen';
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+#login_email:focus {
+    outline: none;
+    background-color: #FFF3E0;
+}
+
+#login_password:focus {
+    outline: none;
+    background-color: #FFF3E0;
+}
+
+#login_password {
+    width: 100%;
+    padding: 8px 12px;
+    font-family: 'Oxygen';
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    margin-top: -2px;
+}
+
 #logo {
     cursor: pointer;
 }
@@ -436,6 +515,14 @@ input[type='radio'] {
     right: 15px;
     line-height: normal;
     padding-left: 5px;
+}
+
+#newUser {
+    background-color: white;
+    border: 1px solid #ccc;
+    width: calc(100% - 42px);
+    height: calc(100% - 93px);
+    margin: 20px;
 }
 
 .numberOfPeople, .numberOfGroups {
@@ -545,6 +632,7 @@ div > .switch {
 .username {
     position: absolute;
     right: 100px;
+    top: 5px;
 }
 
 

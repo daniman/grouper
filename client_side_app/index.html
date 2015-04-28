@@ -14,11 +14,14 @@
     <script src="assets/vendor/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
     <link href="assets/vendor/css-toggle-switch-source/css/style.css" rel="stylesheet">
     <script src="assets/vendor/d3.js"></script>
+    <script src="assets/vendor/parse.js"></script>
+    <!-- <script src="//www.parsecdn.com/js/parse-1.4.2.min.js"></script> -->
     <script type="text/javascript" src="assets/vendor/Highcharts-4.1.5/js/highcharts.js"></script>
 
     <!-- Scripts -->
     <script type="text/javascript" src="js/global.js"></script>
-    <script type="text/javascript" src="js/data.js"></script> <!-- remove this eventually -->
+    <!-- <script type="text/javascript" src="js/data.js"></script> -->
+    <script type="text/javascript" src="js/login.js"></script>
     <script type="text/javascript" src="js/bubbles.js"></script>
     <script type="text/javascript" src="js/filter.js"></script>
     <script type="text/javascript" src="js/build.js"></script>
@@ -42,33 +45,33 @@
 
       <div class="classlist dropdown">
         <a class="dropdown-toggle" id="group_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="main.html"></a>
-        <ul id="class_dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-          <li role="presentation" class="divider"></li>
-          <li role="presentation">
-            <a role="menuitem" tabindex="1" href="#" id="importButtonLabel">
-              Add New Class
-              <button type="button" class="btn btn-sm" id="importButton">+</button>
-            </a>
-          </li>
-        </ul>
+        <ul id="class_dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul>
       </div>
 
       <div class="username dropdown">
-        <a class="dropdown-toggle" id="username_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="/main.html">
-          <b class="caret"></b>
-        </a>
+        <a class="dropdown-toggle" id="username_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="/main.html"></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="usernameLabel">
-          <li role="presentation"><a role="menuitem" tabindex="1" href="#">Logout</a></li>
+          <li id="logout_button" role="presentation"><a role="menuitem" tabindex="1" href="#">Logout</a></li>
         </ul>
       </div>
 
       <img id="fishImg" src="assets/img/fish.png" height="35" width="58">
     </div>
 
-    <div id="buttons">
-      <button id="edit" type="button" class="btn btn-sm mainButton" style="background-color: rgb(0, 188, 212);">Edit</button>
-      <button id="export" type="button" class="btn btn-md mainButton">Export</button>
+    <div id="loginContainer">
+      <div id="loginWrapper">
+        <div id="login_error_message"></div>
+        <input id="login_email" type="text" placeholder="Email"><br>
+        <input id="login_password" type="password" placeholder="Password"><br>
+        <button class="login" id="login_signup_button" type="button" >Login</button>
+        <a id="login_signup_toggle">Or Sign Up</a>
       </div>
+    </div>
+
+    <div id="newUser">
+      Start by adding a new class! <br>
+      <button type="button" class="btn btn-sm" id="importButton">+</button>
+    </div>
 
     <div id="filterContainer">
       <div class="filterTypeTitle">
@@ -89,7 +92,12 @@
       <ul id="filters"></ul>
     </div>
  
-    <div id = "bubbleContainer"></div>
+    <div id = "bubbleContainer">
+      <div id="buttons">
+      <button id="edit" type="button" class="btn btn-sm mainButton" style="background-color: rgb(0, 188, 212);">Edit</button>
+      <button id="export" type="button" class="btn btn-md mainButton">Export</button>
+      </div>
+    </div>
 
     <!-- Create Group - Step 1 Modal -->
     <div class="modal" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

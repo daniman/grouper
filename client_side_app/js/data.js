@@ -1,16 +1,5 @@
 /********************************** Dummy Data **********************************/
 
-// TODO: remove this, create settings dynamically in modal
-var placeholder_settings = {
-    labels: {},
-    priorities: [],
-    group_by: {
-        pref: '',
-        num_groups: '',
-        group_size: ''
-    }
-};
-
 // TODO: upload this from the modals
 fa14_students = [{   
     name: 'Catwoman',
@@ -442,14 +431,6 @@ fa13_students = [{
 }];
 
 /********************************** Dummy Data Setup **********************************/
-
-Grouper.username = 'my_username';
-// Grouper.groups.push({
-//     name: 'my_class_spr15',
-//     settings: placeholder_settings,
-//     data: students,
-//     filters: buildFilters(students)
-// });
 
 Grouper.groups.push({
     name: 'my_class_fa14',
