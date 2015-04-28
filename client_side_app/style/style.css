@@ -1,83 +1,4 @@
 
-
-
-.btn-info {
-    background-color: #00BCD4 !important;
-    border-color: #00BCD4 !important;
-    font-family: 'Source Sans Pro'
-}
-
-.btn-info.inactive {
-   background-color: #66d6e5 !important;
-   border-color: #66d6e5 !important;
-}
-
-.btn-info.inactive:hover {
-   cursor: default;
-   background-color: #66d6e5 !important;
-   border-color: #66d6e5 !important;
-   opacity: 1;
-}
-
-.btn-info.inactive:focus {
-   outline: none;
-   cursor: default;
-   background-color: #66d6e5 !important;
-   border-color: #66d6e5 !important;
-   opacity: 1;
-   box-shadow: none;
-}
-
-.btn-warning {
-    background-color: #FF9800 !important;
-    border-color: #FF9800 !important;
-    font-family: 'Source Sans Pro'
-}
-
-.btn-info:hover {
-    opacity: .6;
-}
-
-
-.bubble:hover{
-    cursor: pointer;
-    opacity: 1;
-}
-
-.bubble:hover {
-    cursor: pointer;
-
-}
-
-
-.bubble_text {
-    font-weight: 300;
-}
-
-.bubble_text {
-    position: relative;
-    text-align: center;
-
-}
-
-.bubble {
-    opacity: .85; 
-    position: absolute;
-    text-align: center;
-    vertical-align: middle;
-}
-
-#bubbleContainer {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    height: calc(100% - 92px);
-    width: calc(100% - 308px);
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: white;
-}
-
 .breadcrumb {
     padding-left: 20px;
     margin-bottom: 0px;
@@ -90,10 +11,82 @@
     z-index: 10;
 }
 
-
-.color_map {
-    margin-bottom: 5px;
+.btn-info {
+    background-color: #00BCD4 !important;
+    border-color: #00BCD4 !important;
+    font-family: 'Source Sans Pro'
 }
+
+.btn-info.inactive {
+   background-color: #66d6e5 !important;
+   border-color: #66d6e5 !important;
+}
+
+.btn-info.inactive:focus {
+   outline: none;
+   cursor: default;
+   background-color: #66d6e5 !important;
+   border-color: #66d6e5 !important;
+   opacity: 1;
+   box-shadow: none;
+}
+
+.btn-info.inactive:hover {
+   cursor: default;
+   background-color: #66d6e5 !important;
+   border-color: #66d6e5 !important;
+   opacity: 1;
+}
+
+.btn-info:hover {
+    opacity: .6;
+}
+
+.btn-warning {
+    background-color: #FF9800 !important;
+    border-color: #FF9800 !important;
+    font-family: 'Source Sans Pro'
+}
+
+
+#bubbleContainer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    height: calc(100% - 92px);
+    width: calc(100% - 308px);
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+.bubble {
+    opacity: .85; 
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.bubble:hover{
+    cursor: pointer;
+    opacity: 1;
+}
+
+.bubble:hover {
+    cursor: pointer;
+
+}
+
+.bubble_text {
+    font-weight: 300;
+}
+
+.bubble_text {
+    position: relative;
+    text-align: center;
+
+}
+
 
 
 #canvas {
@@ -103,7 +96,6 @@
     border: 1px solid pink;
     pointer-events: none;
 }
-
 
 
 .cat_label_conf {
@@ -116,14 +108,24 @@
     margin-left: 20px;
 }
 
-div > .switch {
-    vertical-align: middle;
+.color_map {
+    margin-bottom: 5px;
 }
+
 
 
 .dragover {
     background-color: #f5f5f5;
     border: 2px dotted #FF9800 !important;
+}
+
+.dropdown {
+    display: inline-block;
+    text-transform: none;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 40px;
+    
 }
 
 .dropdown a {
@@ -137,13 +139,16 @@ div > .switch {
     text-decoration: none;
 }
 
-.dropdown {
-    display: inline-block;
-    text-transform: none;
-    font-size: 18px;
-    font-weight: 200;
-    line-height: 40px;
-    
+
+
+#dropzone {
+    width: 100%;
+    height: 200px;
+    border: 2px dotted #ccc;
+    text-align: center;
+    position: relative;
+    padding-top: 20px;
+    transition: .5s;
 }
 
 #dropzone input {
@@ -158,15 +163,7 @@ div > .switch {
 
 
 
-#dropzone {
-    width: 100%;
-    height: 200px;
-    border: 2px dotted #ccc;
-    text-align: center;
-    position: relative;
-    padding-top: 20px;
-    transition: .5s;
-}
+
 
 #edit_data_categories li{
     font-size: 1.1em; 
@@ -192,53 +189,6 @@ div > .switch {
 }
 
 
-.filter_cat_label {
-    font-weight: 400;
-    cursor: pointer;
-    margin-left: -5px;
-    padding-left: 5px;
-}
-
-
-
-
-#fishImg {
-    top: 3px;
-    position: relative;
-    float: right;
-}
-
-#filterContainer {
-    height: calc(100% - 92px);
-    width: 250px;
-    border: 1px solid #ccc;
-    margin: 20px;
-    padding: 0px 20px;
-    background-color: white;
-    overflow: scroll;
-
-
-}
-
-.filterType {
-    padding: 20px;
-    line-height: 18px;
-}
-
-
-.filterTypeTitle {
-    font-size: 18px;
-    margin-top: 20px;
-    font-weight: 400;
-    font-family: 'Oxygen';
-}
-
-.filterTypeContent {
-    margin-left: 15px;
-}
-
-
-
 #fileDrag
 {
     border:2px dotted #5F6364;
@@ -253,15 +203,47 @@ div > .switch {
     line-height: 200px;
 }
 
-.glyphicon-sort{
-    margin: 10px;
-    font-size: 13px;
+.filter_cat_label {
+    font-weight: 400;
+    cursor: pointer;
+    margin-left: -5px;
+    padding-left: 5px;
 }
-.glyphicon-remove{
-    margin: 10px;
-    font-size: 13px;
-    color: #5F6364;
+
+#filterContainer {
+    height: calc(100% - 92px);
+    width: 250px;
+    border: 1px solid #ccc;
+    margin: 20px;
+    padding: 0px 20px;
+    background-color: white;
+    overflow: scroll;
 }
+
+.filterType {
+    padding: 20px;
+    line-height: 18px;
+}
+
+.filterTypeContent {
+    margin-left: 15px;
+}
+
+.filterTypeTitle {
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: 400;
+    font-family: 'Oxygen';
+}
+
+
+#fishImg {
+    top: 3px;
+    position: relative;
+    float: right;
+}
+
+
 .glyphicon-ok{
     margin: 10px;
     font-size: 13px;
@@ -278,6 +260,30 @@ div > .switch {
     color: #000000;
 }
 
+.glyphicon-remove{
+    margin: 10px;
+    font-size: 13px;
+    color: #5F6364;
+}
+
+.glyphicon-sort{
+    margin: 10px;
+    font-size: 13px;
+}
+
+
+
+
+#groups{
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+#groups > li {
+    font-size: 15px;
+    cursor: pointer;
+}
+
 #groupsContainer {
     height: calc(100% - 91px);
     width: calc(100% - 40px);
@@ -287,26 +293,9 @@ div > .switch {
     background-color: white;
 }
 
-#groups{
-    font-size: 20px;
-    padding-left: 20px;
-}
-
-
-#groups > li {
-    font-size: 15px;
-    cursor: pointer;
-}
-
 #groups_container_title {
     font-size: 20px;
     font-family: 'Oxygen';
-}
-
-
-#groupifySelections {
-    position: relative;
-    left: 20px;
 }
 
 #groupPreview {
@@ -324,6 +313,13 @@ div > .switch {
 .groupNameAnd {
     text-align: center;
 }
+
+
+#groupifySelections {
+    position: relative;
+    left: 20px;
+}
+
 
 hr {
     width: 80%;
@@ -355,19 +351,6 @@ html,body {
 
 }
 
-.inputError {
-    color: #F44336;
-    text-align: center;
-}
-
-img.sortableI{
-    margin: 5px;
-}
-
-input[type='radio'] {
-    margin-right: 5px;
-    cursor: pointer;
-}
 
 
 #importButton {
@@ -386,7 +369,15 @@ input[type='radio'] {
     outline: none;
 }
 
+.inputError {
+    color: #F44336;
+    text-align: center;
+}
 
+input[type='radio'] {
+    margin-right: 5px;
+    cursor: pointer;
+}
 
 #inputModalSortable li { 
     font-size: 1.2em; 
@@ -529,9 +520,18 @@ ol.progtrckr li.progtrckr-todo:before {
     margin-left: 10px;
 }
 
+img.sortableI{
+    margin: 5px;
+}
+
 #studentData {
     text-align: center;
 }
+
+div > .switch {
+    vertical-align: middle;
+}
+
 
 
 
