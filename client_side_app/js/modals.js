@@ -89,7 +89,7 @@ $(document).ready(function() {
 		  	element.setAttribute('value', headers[index]);
 		  	$(element).html("<span class='clearitem'>" +
 	  							"<a href='#'>" +
-	  								"<span class='glyphicon glyphicon-remove delete'></span>" +
+	  								"<span class='glyphicon glyphicon-remove'></span>" +
 	  							"</a>" +
 	  						"</span>" +
 	  						"<span class='edit'>" +
@@ -100,7 +100,7 @@ $(document).ready(function() {
 	  						Grouper.group_setup.settings.labels[headers[index]]);
 		});
 	});
-
+	var oldName = ''
 	$("#edit_data_categories").on('click', '.clearitem a', function(){
     	$(this).parent().parent().fadeOut();
     	var val = $(this).parent().parent()[0].getAttribute('value');
@@ -114,32 +114,42 @@ $(document).ready(function() {
 		// ClearSelection();
 
 		var headers = Grouper.group_setup.settings.priorities;
-		var oldName = $(this).text();
+		oldName = $(this).text();
 		var index = headers.indexOf(oldName);
 
 		var parent = $(this);
-    	parent.html('<input type="text" text='+oldName+'>' +
-    				'<span class="ok">' +
-    					'<a href="#">' +
-    						'<span class="glyphicon glyphicon-ok"></span>' +
-    					'</a>' +
-    				'</span>');
+    	parent.html("<span class='cancel'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='ok'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-ok'></span>" +
+						"</a>" +
+					"</span>" + 
+					'<input type="text" text='+oldName+'>');
     	parent.children('input').val(oldName);
 
 	});
 
 	$("#edit_data_categories").on('click', '.edit a', function(event){
 		var headers = Grouper.group_setup.settings.priorities;
-		var oldName = $(this).parent().parent().text();
+		oldName = $(this).parent().parent().text();
 		var index = headers.indexOf(oldName);
 
 		var parent = $(this).parent().parent();
-    	parent.html('<input type="text" text='+oldName+'>' +
-    				'<span class="ok">' +
-    					'<a href="#">' +
-    						'<span class="glyphicon glyphicon-ok"></span>' +
-    					'</a>' +
-    				'</span>');
+    	pparent.html("<span class='cancel'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='ok'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-ok'></span>" +
+						"</a>" +
+					"</span>" + 
+					'<input type="text" text='+oldName+'>');
     	parent.children('input').val(oldName);
     	console.log(parent[0].getAttribute('value'));
 	});
@@ -159,6 +169,19 @@ $(document).ready(function() {
 						"</a>" +
 					"</span>" + 
 					newName);
+	});
+	$("#edit_data_categories").on('click', '.cancel a', function(){
+		$(this).parent().parent().html("<span class='clearitem'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='edit'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-pencil'></span>" +
+						"</a>" +
+					"</span>" + 
+					oldName);
 	});
 
 /********************************** Import Modal: STEP 3 **********************************/
@@ -206,7 +229,6 @@ $(document).ready(function() {
 	});
 
 	$(".maxPeople").click(function() {
-		console.log('click');
 		$(".numberOfPeople").prop("disabled", false);
 		$(".numberOfPeople").val(Grouper.group_setup.settings.group_by.group_size);
 		$(".numberOfPeople").css({'color': 'black'});
@@ -274,7 +296,133 @@ $(document).ready(function() {
 			buildPage();
 		}
 	})
+/********************************** Edit Modal **********************************/
 
+$('#editModal').on('show.bs.modal', function () {
+		$("#editGroupName").val(Grouper.active_group.name);
+
+		var headers = Grouper.active_group.settings.priorities;
+	    var headers_html = '';
+	    for (var i=0; i<headers.length; i++) {
+	  		headers_html += "<li class='category'></li>";
+	  	}
+
+		$('#edit_data_current_categories').html(headers_html);
+
+		$('.category').each(function(index, element) {
+
+		  	element.setAttribute('value', headers[index]);
+		  	$(element).html("<span class='clearitem'>" +
+	  							"<a href='#'>" +
+	  								"<span class='glyphicon glyphicon-remove delete'></span>" +
+	  							"</a>" +
+	  						"</span>" +
+	  						"<span class='edit'>" +
+	  							"<a href='#'>" +
+	  								"<span class='glyphicon glyphicon-pencil'></span>" +
+	  							"</a>" +
+	  						"</span>" + 
+	  						Grouper.active_group.settings.labels[headers[index]]);
+
+		});
+
+		$('#editModal').on('hide.bs.modal', function(){
+			Grouper.active_group.name = $("#editGroupName").val();
+			Parse.User.current().save({
+                'groups': Grouper.groups
+            }, {
+                success: function(obj) {
+                },
+                error: function(obj, error) {
+                    console.log(error);
+                }
+            });
+			buildPage();
+		});
+	});
+	var oldName = '';
+	$("#edit_data_current_categories").on('click', '.clearitem a', function(){
+    	$(this).parent().parent().fadeOut();
+    	var val = $(this).parent().parent()[0].getAttribute('value');
+    	console.log(val);
+    	var priorities = Grouper.active_group.settings.priorities;
+    	priorities.splice(priorities.indexOf(val), 1);
+	});
+
+	$("#edit_data_current_categories").on('dblclick', '.category', function(event){
+		// event.stopPropagation();
+		ClearSelection();
+
+		var headers = Grouper.active_group.settings.priorities;
+		oldName = $(this).text();
+		var index = headers.indexOf(oldName);
+
+		var parent = $(this);
+    	parent.html("<span class='cancel'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='ok'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-ok'></span>" +
+						"</a>" +
+					"</span>" + 
+					'<input type="text" text='+oldName+'>');
+    	parent.children('input').val(oldName);
+
+	});
+
+	$("#edit_data_current_categories").on('click', '.edit a', function(event){
+		var headers = Grouper.active_group.settings.priorities;
+		oldName = $(this).parent().parent().text();
+		var index = headers.indexOf(oldName);
+
+		var parent = $(this).parent().parent();
+    	parent.html("<span class='cancel'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='ok'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-ok'></span>" +
+						"</a>" +
+					"</span>" + 
+					'<input type="text" text='+oldName+'>');
+    	parent.children('input').val(oldName);
+    	console.log(parent[0].getAttribute('value'));
+	});
+
+	$("#edit_data_current_categories").on('click', '.ok a', function(){
+		var newName = $(this).parent().siblings('input').val();
+		var value = $(this).parent().parent()[0].getAttribute('value');
+		Grouper.active_group.settings.labels[value] = newName;
+		$(this).parent().parent().html("<span class='clearitem'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='edit'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-pencil'></span>" +
+						"</a>" +
+					"</span>" + 
+					newName);
+	});
+	$("#edit_data_current_categories").on('click', '.cancel a', function(){
+		$(this).parent().parent().html("<span class='clearitem'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='edit'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-pencil'></span>" +
+						"</a>" +
+					"</span>" + 
+					oldName);
+	});
 /********************************** Export Modal **********************************/
 
 	$(document).on('click', '#export', function(){
