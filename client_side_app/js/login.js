@@ -27,6 +27,12 @@ $(document).ready(function() {
         });
     }
 
+    $('#loginWrapper > input').on('keyup', function(event) {
+        if (event.which == 13) {
+            $('#login_signup_button').click();
+        }
+    })
+
     $('#login_signup_button').click(function(event) {
         var email = $('#login_email').val();
         var password = $('#login_password').val();
