@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    console.log(navigator.userAgent);
     buildPage();
 });
 
@@ -21,7 +22,9 @@ var buildPage = function() {
         var buttons = $('#bubbleContainer').children('#buttons');
         $('#bubbleContainer').html(buttons);
 
-        Grouper.username = Parse.User.current().attributes.username;
+        $('.switch').children('input')[0].checked = false;
+
+        Grouper.username = Parse.User.current().attributes.username.split('@')[0];
         Grouper.groups = Parse.User.current().attributes.groups;
         $('#username_dropdown_label').html(Grouper.username + ' <b class="caret"></b>');    
 

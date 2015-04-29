@@ -146,7 +146,7 @@ $(document).ready(function() {
 		var index = headers.indexOf(oldName);
 
 		var parent = $(this).parent().parent();
-    	pparent.html("<span class='cancel'>" +
+    	parent.html("<span class='cancel'>" +
 						"<a href='#'>" +
 							"<span class='glyphicon glyphicon-remove'></span>" +
 						"</a>" +

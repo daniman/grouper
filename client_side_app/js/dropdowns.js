@@ -19,6 +19,8 @@ $(document).ready(function() {
         $('#bubbleContainer').html(buttons);
         buildBubbles();
         buildFilters();
+
+        $('.switch').children('input')[0].checked = false;
     });
 
 })

@@ -243,6 +243,7 @@
     top: 3px;
     position: relative;
     float: right;
+    /*box-shadow: 3px 3px 4px #444;*/
 }
 
 .glyphicon-chevron-left, .glyphicon-chevron-right {
@@ -401,20 +402,67 @@ input[type='radio'] {
     outline: 2px solid #FF9800;
 }
 
-#loginContainer {
+.welcome {
+    color: white;
+}
+
+/*body {
+    background-image: url(../assets/img/mountains.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     background-color: white;
-    border: 1px solid #ccc;
-    width: calc(100% - 42px);
-    height: calc(100% - 93px);
-    margin: 20px;
+}*/
+
+#login_signup_toggle {
+    color: white;
+    font-weight: 300;
+}
+
+#login_logo {
+    text-transform: uppercase;
+    font-size: 40px;
+    font-family: 'Oxygen';
+    color: white;
+}
+
+#login_tagline {
+    font-family: 'Oxygen';
+    color: white;
+    font-weight: 300;
+}
+
+#loginContainer {
+    background-image: url(../assets/img/mountains.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: white;
+    padding: 5px 15px;
+
+/*    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);*/
+
+    position: absolute;
+    height: 100%;
+    top: 0px;
+
+    /*margin-top: -1px;*/
+    width: 100%;
+    /*height: calc(100% - 50px);*/
+    /*top: 51px;*/
+    z-index: 0;
+    /*margin-top: -2px;*/
 }
 
 #loginWrapper {
-    margin-left: auto;
-    margin-right: auto;
-    width: 250px;
-    margin-top: 100px;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    width: 220pt;
+    margin: 10% 0px 0px 10%;
     text-align: center;
+    text-shadow: 3px 3px 4px #444;
 }
 
 #loginWrapper a {
@@ -425,19 +473,31 @@ input[type='radio'] {
     width: 100%;
     margin-top: 10px;
     padding: 8px 12px;
-    box-shadow: none;
+    /*box-shadow: none;*/
     font-family: 'Oxygen';
     color: white;
-}
-
-.login {
     background-color: #FF9800;
     border: 1px solid #FF9800;
+    box-shadow: 3px 3px 4px #444;
 }
+
+#login_signup_button:focus {
+    outline: none;
+}
+
+/*.login {
+    border: 1px solid #FF9800;
+    background-color: #f2b04d;
+    border: 1px solid #f2b04d;
+    -moz-box-shadow: 3px 3px 4px #444;
+    -webkit-box-shadow: 3px 3px 4px #444; 
+}*/
 
 .signup {
     background-color: #00BCD4;
     border: 1px solid #00BCD4;
+    /*background-color: #4eccc3;*/
+    /*border: 1px solid #4eccc3;*/
 }
 
 #login_button:focus {
@@ -445,7 +505,7 @@ input[type='radio'] {
 }
 
 #login_error_message {
-    color: #F44336;
+    color: #f2b04d;
     margin-bottom: 5px;
 }
 
@@ -456,6 +516,7 @@ input[type='radio'] {
     border-top: 1px solid #ccc;
     border-right: 1px solid #ccc;
     border-left: 1px solid #ccc;
+    box-shadow: 3px 3px 4px #444;
 }
 
 #login_email:focus {
@@ -477,6 +538,7 @@ input[type='radio'] {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
     margin-top: -2px;
+    box-shadow: 3px 3px 4px #444;
 }
 
 #logo {
@@ -511,10 +573,12 @@ input[type='radio'] {
     line-height: 40px;
     font-weight: 300;
     color: #00BCD4;
-    border-bottom: 1px solid #ccc;
+    /*border-bottom: 1px solid #ccc;*/
     background-color: #424242;
+    /*background-color: transparent;*/
     font-family: 'Oxygen';
     text-transform: uppercase;
+    z-index: 100;
 }
 
 #newGroupName {
