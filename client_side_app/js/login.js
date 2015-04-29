@@ -49,14 +49,20 @@ $(document).ready(function() {
     });
 
     $('#logout_button').click(function(event) {
+
+        Parse.User.current().save({
+                'groups': Grouper.groups
+            }, {
+                success: function(obj) {
+                },
+                error: function(obj, error) {
+                    console.log(error);
+                }
+            });
+
         var logged_out = Parse.User.logOut();
         if (logged_out._resolved) {
-            // $('#loginContainer').fadeIn();
-            // $('#filterContainer').hide();
-            // $('#bubbleContainer').hide();
-            // $('.dropdown').hide();
             buildPage()
-
             Grouper.username = '';
             Grouper.groups = [];
             Grouper.active_group = {};
