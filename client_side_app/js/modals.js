@@ -521,11 +521,13 @@ $('#editModal').on('show.bs.modal', function () {
 		displayStudentInfo(student);
 		$(".glyphicon-chevron-left").click(function(){
 			id = (id - 1)%(parseInt(Grouper.active_group.data.length)-1);
-			displayStudentInfo(Grouper.active_group.map[id]);
+			console.log(id);
+			displayStudentInfo(Grouper.active_group.map[Math.abs(id)]);
 		});
 		$(".glyphicon-chevron-right").click(function(){
-			id = (id +1)%(parseInt(Grouper.active_group.data.length)-1);;
-			displayStudentInfo(Grouper.active_group.map[id]);
+			id = (id +1)%(parseInt(Grouper.active_group.data.length)-1);
+			console.log(id);
+			displayStudentInfo(Grouper.active_group.map[Math.abs(id)]);
 		});
     });
 
