@@ -110,8 +110,8 @@ $(document).ready(function() {
 	});
 
 	$("#edit_data_categories").on('dblclick', '.category', function(event){
-		event.stopPropagation();
-		ClearSelection();
+		// event.stopPropagation();
+		// ClearSelection();
 
 		var headers = Grouper.group_setup.settings.priorities;
 		var oldName = $(this).text();

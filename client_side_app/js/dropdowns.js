@@ -13,7 +13,8 @@ $(document).ready(function() {
         $('a#group_dropdown_label').html(Grouper.active_group['name'] + ' <b class="caret"></b>');
 
         $('#filters').html('');
-        $('#bubbleContainer').html('');
+        var buttons = $('#bubbleContainer').children('#buttons');
+        $('#bubbleContainer').html(buttons);
         buildBubbles();
         buildFilters();
     });
