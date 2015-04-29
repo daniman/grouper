@@ -162,9 +162,10 @@
     pointer-events: none;
 }
 
-
-
-
+#editGroupName{
+    position: relative;
+    left: 25px;
+}
 
 #edit_data_categories li{
     font-size: 1.1em; 

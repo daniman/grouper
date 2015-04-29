@@ -245,9 +245,9 @@
               <div class="row">
                 <div class="col-md-1" id="studentImage"><img id="blankImage" class="img-rounded" src="assets/img/blank_person.jpg" height="110" width="110"></div>
                 <div class="col-md-11" id="studentData">
-                  <h3><span id="studentName">Morgan Voss</span> - <span id="studentSex">F</span></h3>
-                  <h4 id="studentCourseNumber">Course 6</h4>
-                  <h4 id="studentYear">2016</h4>
+                  <h3><span id="studentName"></span> - <span id="studentSex"></span></h3>
+                  <h4 id="studentCourseNumber"></h4>
+                  <h4 id="studentYear"></h4>
                 </div>
               </div>
               <br>
@@ -303,17 +303,11 @@
           </div>
           
           <div class="modal-body">
+            <b style="font-size:110%">Edit name:</b>
+            <br><input type="text" id="editGroupName"></input><br><br>
             <b style="font-size:110%">Edit priorities:</b>
-            <br>
-            <ul id="sortable">
-              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Course Number</li>
-              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Sports Team</li>
-              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Year</li>
-              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Greek Affiliation</li>
-              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Living Group</li>
-            </ul>
-            <br>
-            <b style="font-size:110%">Edit method how groups are formed:</b>
+            <br><ul id="edit_data_current_categories"></ul><br>
+            <b style="font-size:110%">Edit how groups are formed:</b>
             <br>
             <div id="groupifySelections">
               <form>
