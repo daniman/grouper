@@ -245,7 +245,15 @@
     float: right;
 }
 
-
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+    line-height: 150px;
+    color: #5F6364;
+    font-size: 18px;
+}
+.glyphicon-chevron-left:hover, .glyphicon-chevron-right:hover {
+    cursor: pointer;
+    color: rgb(0, 188, 212);
+}
 .glyphicon-ok{
     margin-right: 8px;
     font-size: 13px;
@@ -257,12 +265,12 @@
     color: #5F6364;
 }
 
-.glyphicon-pencil:hover, .glyphicon-remove:hover {
+.glyphicon-pencil:hover, .glyphicon-remove:hover, .glyphicon-trash:hover{
     cursor: pointer;
     color: #000000;
 }
 
-.glyphicon-remove{
+.glyphicon-remove, .glyphicon-trash{
     margin: 10px;
     font-size: 13px;
     color: #5F6364;

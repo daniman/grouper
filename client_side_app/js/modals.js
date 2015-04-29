@@ -89,7 +89,7 @@ $(document).ready(function() {
 		  	element.setAttribute('value', headers[index]);
 		  	$(element).html("<span class='clearitem'>" +
 	  							"<a href='#'>" +
-	  								"<span class='glyphicon glyphicon-remove'></span>" +
+	  								"<span class='glyphicon glyphicon-trash'></span>" +
 	  							"</a>" +
 	  						"</span>" +
 	  						"<span class='edit'>" +
@@ -99,6 +99,13 @@ $(document).ready(function() {
 	  						"</span>" + 
 	  						Grouper.group_setup.settings.labels[headers[index]]);
 		});
+	});
+	$("#edit_data_current_categories").on('keyup', 'input', function(e){
+		if(e.keyCode == 13)
+	    {
+	    	$("#edit_data_current_categories .ok a").trigger('click');
+	    }
+		
 	});
 	var oldName = ''
 	$("#edit_data_categories").on('click', '.clearitem a', function(){
@@ -160,7 +167,7 @@ $(document).ready(function() {
 		Grouper.group_setup.settings.labels[value] = newName;
 		$(this).parent().parent().html("<span class='clearitem'>" +
 						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-remove'></span>" +
+							"<span class='glyphicon glyphicon-trash'></span>" +
 						"</a>" +
 					"</span>" +
 					"<span class='edit'>" +
@@ -173,7 +180,7 @@ $(document).ready(function() {
 	$("#edit_data_categories").on('click', '.cancel a', function(){
 		$(this).parent().parent().html("<span class='clearitem'>" +
 						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-remove'></span>" +
+							"<span class='glyphicon glyphicon-trash'></span>" +
 						"</a>" +
 					"</span>" +
 					"<span class='edit'>" +
@@ -314,7 +321,7 @@ $('#editModal').on('show.bs.modal', function () {
 		  	element.setAttribute('value', headers[index]);
 		  	$(element).html("<span class='clearitem'>" +
 	  							"<a href='#'>" +
-	  								"<span class='glyphicon glyphicon-remove delete'></span>" +
+	  								"<span class='glyphicon glyphicon-trash'></span>" +
 	  							"</a>" +
 	  						"</span>" +
 	  						"<span class='edit'>" +
@@ -339,7 +346,9 @@ $('#editModal').on('show.bs.modal', function () {
             });
 			buildPage();
 		});
+
 	});
+
 	var oldName = '';
 	$("#edit_data_current_categories").on('click', '.clearitem a', function(){
     	$(this).parent().parent().fadeOut();
@@ -389,18 +398,26 @@ $('#editModal').on('show.bs.modal', function () {
 							"<span class='glyphicon glyphicon-ok'></span>" +
 						"</a>" +
 					"</span>" + 
-					'<input type="text" text='+oldName+'>');
+					'<input class="editText" type="text" text='+oldName+'>');
     	parent.children('input').val(oldName);
     	console.log(parent[0].getAttribute('value'));
-	});
 
+
+	});
+	$("#edit_data_current_categories").on('keyup', 'input', function(e){
+		if(e.keyCode == 13)
+	    {
+	    	$("#edit_data_current_categories .ok a").trigger('click');
+	    }
+		
+	});
 	$("#edit_data_current_categories").on('click', '.ok a', function(){
 		var newName = $(this).parent().siblings('input').val();
 		var value = $(this).parent().parent()[0].getAttribute('value');
 		Grouper.active_group.settings.labels[value] = newName;
 		$(this).parent().parent().html("<span class='clearitem'>" +
 						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-remove'></span>" +
+							"<span class='glyphicon glyphicon-trash'></span>" +
 						"</a>" +
 					"</span>" +
 					"<span class='edit'>" +
@@ -413,7 +430,7 @@ $('#editModal').on('show.bs.modal', function () {
 	$("#edit_data_current_categories").on('click', '.cancel a', function(){
 		$(this).parent().parent().html("<span class='clearitem'>" +
 						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-remove'></span>" +
+							"<span class='glyphicon glyphicon-trash'></span>" +
 						"</a>" +
 					"</span>" +
 					"<span class='edit'>" +
@@ -423,6 +440,7 @@ $('#editModal').on('show.bs.modal', function () {
 					"</span>" + 
 					oldName);
 	});
+
 /********************************** Export Modal **********************************/
 
 	$(document).on('click', '#export', function(){
@@ -500,12 +518,15 @@ $('#editModal').on('show.bs.modal', function () {
 	$(document).on('dblclick', '.bubble', function(evt){
 		var id = parseInt($(evt.target).parent()[0].getAttribute('student_id'));
 		var student = Grouper.active_group.map[id];
-
-		$('#studentName').html(student['name']);
-		$('#studentSex').html(student['gender']);
-		$('#studentCourseNumber').html("Course "+student['course_number']);
-		$('#studentYear').html(student['year']);
-	    $("#studentModal").modal("show");
+		displayStudentInfo(student);
+		$(".glyphicon-chevron-left").click(function(){
+			id = (id - 1)%(parseInt(Grouper.active_group.data.length)-1);
+			displayStudentInfo(Grouper.active_group.map[id]);
+		});
+		$(".glyphicon-chevron-right").click(function(){
+			id = (id +1)%(parseInt(Grouper.active_group.data.length)-1);;
+			displayStudentInfo(Grouper.active_group.map[id]);
+		});
     });
 
 	//displays the correct group information for the hull clicked
@@ -647,4 +668,17 @@ function ClearSelection() {
         window.getSelection().removeAllRanges();
     else if (document.selection)
         document.selection.empty();
+}
+function displayStudentInfo(student){
+	$('#studentName').html(student['name']);
+	$('#studentSex').html(student['gender']);
+	var headers = Grouper.active_group.settings.priorities;
+	var labels = Grouper.active_group.settings.labels;
+    var info = '';
+    for (var i=0; i<headers.length; i++) {
+    	if(headers[i]!='name' && headers[i]!='gender'){
+    		info += "<h4>"+labels[headers[i]]+": "+student[headers[i]]+"</h4>";
+    	} 		
+  	}
+	$('#otherInfo').html(info);
 }
