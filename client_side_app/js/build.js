@@ -22,6 +22,8 @@ var buildPage = function() {
         var buttons = $('#bubbleContainer').children('#buttons');
         $('#bubbleContainer').html(buttons);
 
+        $('.switch').children('input')[0].checked = false;
+
         Grouper.username = Parse.User.current().attributes.username;
         Grouper.groups = Parse.User.current().attributes.groups;
         $('#username_dropdown_label').html(Grouper.username + ' <b class="caret"></b>');    
