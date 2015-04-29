@@ -17,6 +17,10 @@ var buildPage = function() {
         $('.dropdown').fadeIn();
         $('#loginContainer').hide();
 
+        $('#filters').html('');
+        var buttons = $('#bubbleContainer').children('#buttons');
+        $('#bubbleContainer').html(buttons);
+
         Grouper.username = Parse.User.current().attributes.username;
         Grouper.groups = Parse.User.current().attributes.groups;
         $('#username_dropdown_label').html(Grouper.username + ' <b class="caret"></b>');    

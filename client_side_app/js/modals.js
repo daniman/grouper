@@ -7,11 +7,11 @@ $(document).ready(function() {
 	    $('.inputError').html('');
 	});
 
-	$('#importButtonLabel, #importButton').click(function() {
+	$(document).on('click', '#importButtonLabel, #importButton', function() {
 		$('#importModal').modal('show');
 	});
 
-	$("#edit").click(function(){
+	$(document).on('click', '#edit', function(){
 		$('#editModal').modal('show');
 	});
 
@@ -268,20 +268,16 @@ $(document).ready(function() {
 				}
 			})
 
-			$('#class_dropdown').prepend('<li role="presentation"><a class="classlist_item" role="menuitem" tabindex="1" href="#">' + Grouper.active_group['name'] + '</a></li>');
-       		$('a#group_dropdown_label').html(Grouper.active_group['name'] + ' <b class="caret"></b>');
+			// $('#class_dropdown').prepend('<li role="presentation"><a class="classlist_item" role="menuitem" tabindex="1" href="#">' + Grouper.active_group['name'] + '</a></li>');
+       		// $('a#group_dropdown_label').html(Grouper.active_group['name'] + ' <b class="caret"></b>');
 
-			$('#filters').html('');
-			$('#bubbleContainer').html('');
-			// buildBubbles();
-    		// buildFilters();
 			buildPage();
 		}
 	})
 
 /********************************** Export Modal **********************************/
 
-	$("#export").click(function(){
+	$(document).on('click', '#export', function(){
 
 		var groupNumber = Grouper.active_group.filters['group'].length;
 	    var categories = Object.keys(Grouper.active_group.filters);
