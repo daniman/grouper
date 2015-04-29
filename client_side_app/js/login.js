@@ -31,7 +31,7 @@ $(document).ready(function() {
         var email = $('#login_email').val();
         var password = $('#login_password').val();
 
-        if ($(this).hasClass('login')) {
+        if ($(this).html() == 'Login') {
             login(email.split('@')[0], password);
         } else {
             Parse.User.signUp(email.split('@')[0], password, {
@@ -73,10 +73,22 @@ $(document).ready(function() {
     $('#login_signup_toggle').click(function(event) {
         if ($(this).html() == 'Or Login') {
             $(this).html('Or Sign Up');
-            $('#login_signup_button').html('Login').removeClass('signup').addClass('login');
+            $('#login_signup_button').html('Login')
+            // .removeClass('signup').addClass('login');
+
+            $('#login_signup_button').animate({
+                'background-color': '#FF9800',
+                'border-color': '#FF9800'
+            });
+
         } else {
             $(this).html('Or Login');
-            $('#login_signup_button').html('Sign Up').removeClass('login').addClass('signup');
+            $('#login_signup_button').html('Sign Up')
+            // .removeClass('login').addClass('signup');
+            $('#login_signup_button').animate({
+                'background-color': '#00BCD4',
+                'border-color': '#00BCD4'
+            });
         }
     });
 });
