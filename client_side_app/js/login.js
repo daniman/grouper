@@ -2,8 +2,8 @@ Parse.initialize("lRtcO1f1WmMtYzBEpr7OAh2A5HnOTOdkeWRkcKPk", "KrZYA9yZ4u0qvswVop
 
 $(document).ready(function() {
 
-    function login(username, password) {
-        Parse.User.logIn(username, password, {
+    function login(email, password) {
+        Parse.User.logIn(email, password, {
               success: function(user) {
                 // $('#loginContainer').hide();
                 // $('#filterContainer').fadeIn();
@@ -38,14 +38,14 @@ $(document).ready(function() {
         var password = $('#login_password').val();
 
         if ($(this).html() == 'Login') {
-            login(email.split('@')[0], password);
+            login(email, password);
         } else {
-            Parse.User.signUp(email.split('@')[0], password, {
+            Parse.User.signUp(email, password, {
                 'email': email,
                 'groups': []
             }, {
               success: function(user) {
-                login(email.split('@')[0], password)
+                login(email, password)
               },
               error: function(user, error) {
                 $('#login_error_message').html('<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' + error.message);

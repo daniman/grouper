@@ -24,7 +24,7 @@ var buildPage = function() {
 
         $('.switch').children('input')[0].checked = false;
 
-        Grouper.username = Parse.User.current().attributes.username;
+        Grouper.username = Parse.User.current().attributes.username.split('@')[0];
         Grouper.groups = Parse.User.current().attributes.groups;
         $('#username_dropdown_label').html(Grouper.username + ' <b class="caret"></b>');    
 
