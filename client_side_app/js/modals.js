@@ -409,6 +409,27 @@ $('#editModal').on('show.bs.modal', function () {
 		$("#groupPreview").html(groupings);
 	});
 
+	$(document).on('click', '#export_data', function() {
+        var filename = Grouper.active_group['name'] + '.csv';
+
+        var data = Grouper.active_group['data'].map(function(student) {
+			var keys = Object.keys(Grouper.active_group['filters']);
+			var datum = [];
+			for (var i=0; i<keys.length; i++) {
+				datum.push(student[keys[i]]);
+			}
+			return datum
+		});
+		data.unshift(Object.keys(Grouper.active_group['filters']));
+
+        if (filename !== null) {
+        	csvtools.Export.exportTableToCSV.apply(this, [data, filename]);
+        }
+	});
+
+
+
+
 /********************************** Student/Group Modals **********************************/
 
 	// $('.bubble').tooltip({'placement': 'top', 'delay': 1050});
