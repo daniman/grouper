@@ -313,12 +313,14 @@ $('#editModal').on('show.bs.modal', function () {
 	    for (var i=0; i<headers.length; i++) {
 	  		headers_html += "<li class='category'></li>";
 	  	}
-
 		$('#edit_data_current_categories').html(headers_html);
 
-		$('.category').each(function(index, element) {
-
+		$('#edit_data_current_categories .category').each(function(index, element) {
+			var headers = Grouper.active_group.settings.priorities;
 		  	element.setAttribute('value', headers[index]);
+		  	console.log("index: "+index);
+		  	console.log("headers: "+headers);
+		  	console.log(Grouper.active_group.settings.labels[headers[index]]);
 		  	$(element).html("<span class='clearitem'>" +
 	  							"<a href='#'>" +
 	  								"<span class='glyphicon glyphicon-trash'></span>" +
@@ -333,7 +335,8 @@ $('#editModal').on('show.bs.modal', function () {
 
 		});
 
-		$('#editModal').on('hide.bs.modal', function(){
+		$('#editModal .btn').on('click', function(){
+			console.log('Re-Groupifying');
 			Grouper.active_group.name = $("#editGroupName").val();
 			Parse.User.current().save({
                 'groups': Grouper.groups
