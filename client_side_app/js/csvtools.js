@@ -132,3 +132,24 @@ csvtools.upload = {
 };
 
 $.extend(csvtools.upload, csvtools);
+
+
+// Function for downloading edited version of the table
+csvtools.Export = {
+
+// data is a 2D array of all the data in the table that you want to download into the new file
+    exportTableToCSV: function(data, filename) {
+        // Grab text from table into CSV formatted string
+        var csv = data.join('\r\n');
+        // Data URI
+        var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+        $(this)
+            .attr({
+            'download': filename,
+                'href': csvData,
+                'target': '_blank'
+        });
+    }
+};
+
+$.extend(csvtools.Export, csvtools);

@@ -89,7 +89,7 @@ $(document).ready(function() {
 		  	element.setAttribute('value', headers[index]);
 		  	$(element).html("<span class='clearitem'>" +
 	  							"<a href='#'>" +
-	  								"<span class='glyphicon glyphicon-remove delete'></span>" +
+	  								"<span class='glyphicon glyphicon-trash'></span>" +
 	  							"</a>" +
 	  						"</span>" +
 	  						"<span class='edit'>" +
@@ -100,7 +100,14 @@ $(document).ready(function() {
 	  						Grouper.group_setup.settings.labels[headers[index]]);
 		});
 	});
-
+	$("#edit_data_current_categories").on('keyup', 'input', function(e){
+		if(e.keyCode == 13)
+	    {
+	    	$("#edit_data_current_categories .ok a").trigger('click');
+	    }
+		
+	});
+	var oldName = ''
 	$("#edit_data_categories").on('click', '.clearitem a', function(){
     	$(this).parent().parent().fadeOut();
     	var val = $(this).parent().parent()[0].getAttribute('value');
@@ -114,32 +121,42 @@ $(document).ready(function() {
 		// ClearSelection();
 
 		var headers = Grouper.group_setup.settings.priorities;
-		var oldName = $(this).text();
+		oldName = $(this).text();
 		var index = headers.indexOf(oldName);
 
 		var parent = $(this);
-    	parent.html('<input type="text" text='+oldName+'>' +
-    				'<span class="ok">' +
-    					'<a href="#">' +
-    						'<span class="glyphicon glyphicon-ok"></span>' +
-    					'</a>' +
-    				'</span>');
+    	parent.html("<span class='cancel'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='ok'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-ok'></span>" +
+						"</a>" +
+					"</span>" + 
+					'<input type="text" text='+oldName+'>');
     	parent.children('input').val(oldName);
 
 	});
 
 	$("#edit_data_categories").on('click', '.edit a', function(event){
 		var headers = Grouper.group_setup.settings.priorities;
-		var oldName = $(this).parent().parent().text();
+		oldName = $(this).parent().parent().text();
 		var index = headers.indexOf(oldName);
 
 		var parent = $(this).parent().parent();
-    	parent.html('<input type="text" text='+oldName+'>' +
-    				'<span class="ok">' +
-    					'<a href="#">' +
-    						'<span class="glyphicon glyphicon-ok"></span>' +
-    					'</a>' +
-    				'</span>');
+    	parent.html("<span class='cancel'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='ok'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-ok'></span>" +
+						"</a>" +
+					"</span>" + 
+					'<input type="text" text='+oldName+'>');
     	parent.children('input').val(oldName);
     	console.log(parent[0].getAttribute('value'));
 	});
@@ -150,7 +167,7 @@ $(document).ready(function() {
 		Grouper.group_setup.settings.labels[value] = newName;
 		$(this).parent().parent().html("<span class='clearitem'>" +
 						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-remove'></span>" +
+							"<span class='glyphicon glyphicon-trash'></span>" +
 						"</a>" +
 					"</span>" +
 					"<span class='edit'>" +
@@ -159,6 +176,19 @@ $(document).ready(function() {
 						"</a>" +
 					"</span>" + 
 					newName);
+	});
+	$("#edit_data_categories").on('click', '.cancel a', function(){
+		$(this).parent().parent().html("<span class='clearitem'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-trash'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='edit'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-pencil'></span>" +
+						"</a>" +
+					"</span>" + 
+					oldName);
 	});
 
 /********************************** Import Modal: STEP 3 **********************************/
@@ -206,7 +236,6 @@ $(document).ready(function() {
 	});
 
 	$(".maxPeople").click(function() {
-		console.log('click');
 		$(".numberOfPeople").prop("disabled", false);
 		$(".numberOfPeople").val(Grouper.group_setup.settings.group_by.group_size);
 		$(".numberOfPeople").css({'color': 'black'});
@@ -274,6 +303,146 @@ $(document).ready(function() {
 			buildPage();
 		}
 	})
+/********************************** Edit Modal **********************************/
+
+$('#editModal').on('show.bs.modal', function () {
+		$("#editGroupName").val(Grouper.active_group.name);
+
+		var headers = Grouper.active_group.settings.priorities;
+	    var headers_html = '';
+	    for (var i=0; i<headers.length; i++) {
+	  		headers_html += "<li class='category'></li>";
+	  	}
+		$('#edit_data_current_categories').html(headers_html);
+
+		$('#edit_data_current_categories .category').each(function(index, element) {
+			var headers = Grouper.active_group.settings.priorities;
+		  	element.setAttribute('value', headers[index]);
+		  	console.log("index: "+index);
+		  	console.log("headers: "+headers);
+		  	console.log(Grouper.active_group.settings.labels[headers[index]]);
+		  	$(element).html("<span class='clearitem'>" +
+	  							"<a href='#'>" +
+	  								"<span class='glyphicon glyphicon-trash'></span>" +
+	  							"</a>" +
+	  						"</span>" +
+	  						"<span class='edit'>" +
+	  							"<a href='#'>" +
+	  								"<span class='glyphicon glyphicon-pencil'></span>" +
+	  							"</a>" +
+	  						"</span>" + 
+	  						Grouper.active_group.settings.labels[headers[index]]);
+
+		});
+
+		$('#editModal .btn').on('click', function(){
+			console.log('Re-Groupifying');
+			Grouper.active_group.name = $("#editGroupName").val();
+			Parse.User.current().save({
+                'groups': Grouper.groups
+            }, {
+                success: function(obj) {
+                },
+                error: function(obj, error) {
+                    console.log(error);
+                }
+            });
+			buildPage();
+		});
+
+	});
+
+	var oldName = '';
+	$("#edit_data_current_categories").on('click', '.clearitem a', function(){
+    	$(this).parent().parent().fadeOut();
+    	var val = $(this).parent().parent()[0].getAttribute('value');
+    	console.log(val);
+    	var priorities = Grouper.active_group.settings.priorities;
+    	priorities.splice(priorities.indexOf(val), 1);
+	});
+
+	$("#edit_data_current_categories").on('dblclick', '.category', function(event){
+		// event.stopPropagation();
+		ClearSelection();
+
+		var headers = Grouper.active_group.settings.priorities;
+		oldName = $(this).text();
+		var index = headers.indexOf(oldName);
+
+		var parent = $(this);
+    	parent.html("<span class='cancel'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='ok'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-ok'></span>" +
+						"</a>" +
+					"</span>" + 
+					'<input type="text" text='+oldName+'>');
+    	parent.children('input').val(oldName);
+
+	});
+
+	$("#edit_data_current_categories").on('click', '.edit a', function(event){
+		var headers = Grouper.active_group.settings.priorities;
+		oldName = $(this).parent().parent().text();
+		var index = headers.indexOf(oldName);
+
+		var parent = $(this).parent().parent();
+    	parent.html("<span class='cancel'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='ok'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-ok'></span>" +
+						"</a>" +
+					"</span>" + 
+					'<input class="editText" type="text" text='+oldName+'>');
+    	parent.children('input').val(oldName);
+    	console.log(parent[0].getAttribute('value'));
+
+
+	});
+	$("#edit_data_current_categories").on('keyup', 'input', function(e){
+		if(e.keyCode == 13)
+	    {
+	    	$("#edit_data_current_categories .ok a").trigger('click');
+	    }
+		
+	});
+	$("#edit_data_current_categories").on('click', '.ok a', function(){
+		var newName = $(this).parent().siblings('input').val();
+		var value = $(this).parent().parent()[0].getAttribute('value');
+		Grouper.active_group.settings.labels[value] = newName;
+		$(this).parent().parent().html("<span class='clearitem'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-trash'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='edit'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-pencil'></span>" +
+						"</a>" +
+					"</span>" + 
+					newName);
+	});
+	$("#edit_data_current_categories").on('click', '.cancel a', function(){
+		$(this).parent().parent().html("<span class='clearitem'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-trash'></span>" +
+						"</a>" +
+					"</span>" +
+					"<span class='edit'>" +
+						"<a href='#'>" +
+							"<span class='glyphicon glyphicon-pencil'></span>" +
+						"</a>" +
+					"</span>" + 
+					oldName);
+	});
 
 /********************************** Export Modal **********************************/
 
@@ -316,6 +485,33 @@ $(document).ready(function() {
 		$("#groupPreview").html(groupings);
 	});
 
+	$(document).on('click', '#export_data', function() {
+        var filename = Grouper.active_group['name'] + '.csv';
+
+        var data = Grouper.active_group['data'].map(function(student) {
+			var keys = Object.keys(Grouper.active_group['filters']);
+			var datum = [];
+			for (var i=0; i<keys.length; i++) {
+				datum.push(student[keys[i]]);
+			}
+			return datum
+		});
+		data.unshift(Object.keys(Grouper.active_group['filters']));
+
+        if (filename !== null) {
+        	csvtools.Export.exportTableToCSV.apply(this, [data, filename]);
+        }
+	});
+
+
+	$("#delete_group").click(function(){
+		console.log(Grouper.groups.indexOf(Grouper.active_group));
+		var index = Grouper.groups.indexOf(Grouper.active_group);
+		Grouper.groups.splice(index,1);
+		$('#editModal').modal('hide');
+
+	})
+
 /********************************** Student/Group Modals **********************************/
 
 	// $('.bubble').tooltip({'placement': 'top', 'delay': 1050});
@@ -331,12 +527,15 @@ $(document).ready(function() {
 	$(document).on('dblclick', '.bubble', function(evt){
 		var id = parseInt($(evt.target).parent()[0].getAttribute('student_id'));
 		var student = Grouper.active_group.map[id];
-
-		$('#studentName').html(student['name']);
-		$('#studentSex').html(student['gender']);
-		$('#studentCourseNumber').html("Course "+student['course_number']);
-		$('#studentYear').html(student['year']);
-	    $("#studentModal").modal("show");
+		displayStudentInfo(student);
+		$(".glyphicon-chevron-left").click(function(){
+			id = (id - 1)%(parseInt(Grouper.active_group.data.length)-1);
+			displayStudentInfo(Grouper.active_group.map[Math.abs(id)]);
+		});
+		$(".glyphicon-chevron-right").click(function(){
+			id = (id +1)%(parseInt(Grouper.active_group.data.length)-1);
+			displayStudentInfo(Grouper.active_group.map[Math.abs(id)]);
+		});
     });
 
 	//displays the correct group information for the hull clicked
@@ -344,101 +543,36 @@ $(document).ready(function() {
 	$(document).on('mousedown', '.hull', function(){ return false; })
 	$(document).on('dblclick', '.hull', function(evt) {
 
-		var numFemales = 0;
-		var numMales = 0;
-		var num15 = 0;
-		var num16 = 0;
-		var num17 = 0;
-		var num18 = 0;
 
 		var studentList = '<table class="groupShow" style="width:100%"><tbody>';
 		var idGroup = parseInt($(evt.target).attr('group'));
-		var categories = Object.keys(Grouper.active_group.filters);
+		var categories = Grouper.active_group.settings.priorities;
 		var students = Grouper.active_group.data;
+		var groupStudents = []
 
 		studentList = studentList.concat(addCategories(categories));
 		
 		for (var j = students.length - 1; j >= 0; j--) {
 			if(students[j]['group']==idGroup){
-				if(students[j]['gender']=="M"){
-					numMales ++;
-				}
-				else{
-					numFemales ++;
-				}
-				if(students[j]['year']=="2015"){
-					num15 ++;
-				}
-				else if(students[j]['year']=="2016"){
-					num16 ++;
-				}
-				else if(students[j]['year']=="2017"){
-					num17 ++;
-				}
-				else{
-					num18 ++;
-				}
+				groupStudents.push(students[j]);
 				studentList = studentList.concat("<tr>");
 				studentList = studentList.concat(stringify(students[j], categories));
 				studentList = studentList.concat("</tr>");
 			}
 		}
+		var id ='';
+		var types = [];
+		for (var i = 0; i <= categories.length - 1; i++) {
+			var results = [];
+			id = categories[i]+'Chart';
+			types = Grouper.active_group.filters[categories[i]];
+			$('#charts').append('<div id='+id+' class="charts"></div>');
 
-		$('#genderChart').highcharts({
-	        chart: {
-	            type: 'column'
-	        },
-	        title: {
-	            text: 'Male/Female Ratio',
-	            style: {
-	                fontSize: '15px'
-	            }
-	        },
-	        xAxis: {
-	            categories: ['Males', 'Females']
-	        },
-	        yAxis: {
-	            title: {
-	                text: 'Number of Students'
-	            }
-	        },
-	        legend: {
-	                    enabled: false
-	        },
-	        series: [{
-	            name: 'Group '+(idGroup+1),
-	            colorByPoint: true,
-	            data: [numMales, numFemales]
-	        }]
-    	});
-
-		$('#yearChart').highcharts({
-	        chart: {
-	            type: 'column'
-	        },
-	        title: {
-	            text: 'Graduation Year',
-	            style: {
-	                fontSize: '15px'
-	            }
-	        },
-	        xAxis: {
-	            categories: ['2015','2016','2017','2018']
-	        },
-	        yAxis: {
-	            title: {
-	                text: 'Number of Students'
-	            }
-	        },
-	        legend: {
-	                    enabled: false
-	        },
-	        series: [{
-	            name: 'Group '+(idGroup+1),
-	            colorByPoint: true,
-	            data: [num15,num16,num17,num18]
-	        }]
-    	});
+			for (var  k = 0; k <= types.length - 1; k++) {
+				results.push(numOccurences(types[k], groupStudents, categories[i]));
+			};
+			makeCharts(categories[i], id, types, results, idGroup);
+		};
 		$('#groupNumber').html(idGroup+1);
 		$('#groupStudents').html(studentList);
 		$("#groupModal").modal("show");
@@ -478,4 +612,50 @@ function ClearSelection() {
         window.getSelection().removeAllRanges();
     else if (document.selection)
         document.selection.empty();
+}
+function displayStudentInfo(student){
+	$('#studentName').html(student['name']);
+	$('#studentSex').html(student['gender']);
+	var headers = Grouper.active_group.settings.priorities;
+	var labels = Grouper.active_group.settings.labels;
+    var info = '';
+    for (var i=0; i<headers.length; i++) {
+    	if(headers[i]!='name' && headers[i]!='gender'){
+    		info += "<h4>"+labels[headers[i]]+": "+student[headers[i]]+"</h4>";
+    	} 		
+  	}
+	$('#otherInfo').html(info);
+}
+function numOccurences(target, arr, cat){ 
+	return $.grep(arr, function (elem) {return elem[cat] === target;}).length;
+}
+function makeCharts(title, chartID, categoryTypes, result, idGroup ){
+	$('#'+chartID).highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: title,
+            style: {
+                fontSize: '15px'
+            }
+        },
+        xAxis: {
+        	type: 'category',
+            categories: categoryTypes
+        },
+        yAxis: {
+            title: {
+                text: 'Number of Students'
+            }
+        },
+        legend: {
+                    enabled: false
+        },
+        series: [{
+            name: 'Group '+(idGroup+1),
+            colorByPoint: true,
+            data: result
+        }]
+	});
 }

@@ -59,7 +59,10 @@
     </div>
 
     <div id="loginContainer">
+      <!-- <img id="fishImg" src="assets/img/fish.png" height="35" width="58"> -->
       <div id="loginWrapper">
+        <span id="login_logo">Grouper.</span>
+        <div id="login_tagline">A simple solution to your group making needs.</div>
         <div id="login_error_message"></div>
         <input id="login_email" type="text" placeholder="Email"><br>
         <input id="login_password" type="password" placeholder="Password"><br>
@@ -243,17 +246,17 @@
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-md-1" id="studentImage"><img id="blankImage" class="img-rounded" src="assets/img/blank_person.jpg" height="110" width="110"></div>
-                <div class="col-md-11" id="studentData">
-                  <h3><span id="studentName">Morgan Voss</span> - <span id="studentSex">F</span></h3>
-                  <h4 id="studentCourseNumber">Course 6</h4>
-                  <h4 id="studentYear">2016</h4>
+                <div class="col-md-1"><span class='glyphicon glyphicon-chevron-left'></span></div>
+                <div class="col-md-10">
+                  <div class="col-md-1" id="studentImage"><img id="blankImage" class="img-rounded" src="assets/img/blank_person.jpg" height="110" width="110"></div>
+                  <div class="col-md-11" id="studentData">
+                  <h3><span id="studentName"></span> - <span id="studentSex"></span></h3>
+                  <div id="otherInfo"></div>
+                  </div>
                 </div>
+                <div class="col-md-1"><span class='glyphicon glyphicon-chevron-right'></span></div>
               </div>
               <br>
-              <div class="row">
-                <div class="col-md-12" id="studentOther"></div>
-              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -281,8 +284,7 @@
                   <div id="groupStudents"></div>
                   <br>
                   <h4>Graphical Displays</h4>
-                  <div id="genderChart" style="height: 200px; width: 50%;"></div>
-                  <div id="yearChart" style="height: 200px; width: 50%;"></div>
+                  <div id="charts"></div>
               </div>
             </div>
           </div>
@@ -303,17 +305,11 @@
           </div>
           
           <div class="modal-body">
+            <b style="font-size:110%">Edit name:</b>
+            <br><input type="text" id="editGroupName"></input><br><br>
             <b style="font-size:110%">Edit priorities:</b>
-            <br>
-            <ul id="sortable">
-              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Course Number</li>
-              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Sports Team</li>
-              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Year</li>
-              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Greek Affiliation</li>
-              <li class="category"><img class="sortableI" src="assets/img/drag.png" height="25" width="20">Living Group</li>
-            </ul>
-            <br>
-            <b style="font-size:110%">Edit method how groups are formed:</b>
+            <br><ul id="edit_data_current_categories"></ul><br>
+            <b style="font-size:110%">Edit how groups are formed:</b>
             <br>
             <div id="groupifySelections">
               <form>
@@ -327,9 +323,11 @@
                 <input type="text" class="numberOfGroups" disabled>
               </form>
             </div>
+            <br>
+            <button id="delete_group" type="button" class="btn btn-md btn-danger">Delete Group</button>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info" data-dismiss="modal">Re-Groupify</button>
+            <button id="re_groupify" type="button" class="btn btn-info" data-dismiss="modal">Re-Groupify</button>
           </div>
         </div>
       </div>
@@ -360,7 +358,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-warning" data-dismiss="modal">Export</button>
+            <!-- <button id="export_data" type="button" class="btn btn-warning" data-dismiss="modal">Export</button> -->
+            <a href="#" id="export_data" class="export btn btn-warning">Export</a>
           </div>
         </div>
       </div>

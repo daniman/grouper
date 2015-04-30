@@ -2,8 +2,8 @@ Parse.initialize("lRtcO1f1WmMtYzBEpr7OAh2A5HnOTOdkeWRkcKPk", "KrZYA9yZ4u0qvswVop
 
 $(document).ready(function() {
 
-    function login(username, password) {
-        Parse.User.logIn(username, password, {
+    function login(email, password) {
+        Parse.User.logIn(email, password, {
               success: function(user) {
                 // $('#loginContainer').hide();
                 // $('#filterContainer').fadeIn();
@@ -27,19 +27,25 @@ $(document).ready(function() {
         });
     }
 
+    $('#loginWrapper > input').on('keyup', function(event) {
+        if (event.which == 13) {
+            $('#login_signup_button').click();
+        }
+    })
+
     $('#login_signup_button').click(function(event) {
         var email = $('#login_email').val();
         var password = $('#login_password').val();
 
-        if ($(this).hasClass('login')) {
-            login(email.split('@')[0], password);
+        if ($(this).html() == 'Login') {
+            login(email, password);
         } else {
-            Parse.User.signUp(email.split('@')[0], password, {
+            Parse.User.signUp(email, password, {
                 'email': email,
                 'groups': []
             }, {
               success: function(user) {
-                login(email.split('@')[0], password)
+                login(email, password)
               },
               error: function(user, error) {
                 $('#login_error_message').html('<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' + error.message);
@@ -49,14 +55,20 @@ $(document).ready(function() {
     });
 
     $('#logout_button').click(function(event) {
+
+        Parse.User.current().save({
+                'groups': Grouper.groups
+            }, {
+                success: function(obj) {
+                },
+                error: function(obj, error) {
+                    console.log(error);
+                }
+            });
+
         var logged_out = Parse.User.logOut();
         if (logged_out._resolved) {
-            // $('#loginContainer').fadeIn();
-            // $('#filterContainer').hide();
-            // $('#bubbleContainer').hide();
-            // $('.dropdown').hide();
             buildPage()
-
             Grouper.username = '';
             Grouper.groups = [];
             Grouper.active_group = {};
@@ -67,10 +79,22 @@ $(document).ready(function() {
     $('#login_signup_toggle').click(function(event) {
         if ($(this).html() == 'Or Login') {
             $(this).html('Or Sign Up');
-            $('#login_signup_button').html('Login').removeClass('signup').addClass('login');
+            $('#login_signup_button').html('Login')
+            // .removeClass('signup').addClass('login');
+
+            $('#login_signup_button').animate({
+                'background-color': '#FF9800',
+                'border-color': '#FF9800'
+            });
+
         } else {
             $(this).html('Or Login');
-            $('#login_signup_button').html('Sign Up').removeClass('login').addClass('signup');
+            $('#login_signup_button').html('Sign Up')
+            // .removeClass('login').addClass('signup');
+            $('#login_signup_button').animate({
+                'background-color': '#00BCD4',
+                'border-color': '#00BCD4'
+            });
         }
     });
 });
