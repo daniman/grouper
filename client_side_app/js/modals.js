@@ -504,7 +504,13 @@ $('#editModal').on('show.bs.modal', function () {
 	});
 
 
+	$("#delete_group").click(function(){
+		console.log(Grouper.groups.indexOf(Grouper.active_group));
+		var index = Grouper.groups.indexOf(Grouper.active_group);
+		Grouper.groups.splice(index,1);
+		$('#editModal').modal('hide');
 
+	})
 
 /********************************** Student/Group Modals **********************************/
 
@@ -559,13 +565,12 @@ $('#editModal').on('show.bs.modal', function () {
 		for (var i = 0; i <= categories.length - 1; i++) {
 			var results = [];
 			id = categories[i]+'Chart';
-			$('#charts').append('<div id='+id+' class="charts"></div>');
 			types = Grouper.active_group.filters[categories[i]];
+			$('#charts').append('<div id='+id+' class="charts"></div>');
+
 			for (var  k = 0; k <= types.length - 1; k++) {
-				console.log("type: "+types[k]);
 				results.push(numOccurences(types[k], groupStudents, categories[i]));
 			};
-			console.log(results);
 			makeCharts(categories[i], id, types, results, idGroup);
 		};
 		$('#groupNumber').html(idGroup+1);
@@ -626,32 +631,31 @@ function numOccurences(target, arr, cat){
 }
 function makeCharts(title, chartID, categoryTypes, result, idGroup ){
 	$('#'+chartID).highcharts({
-	        chart: {
-	            type: 'column'
-	        },
-	        title: {
-	            text: title,
-	            style: {
-	                fontSize: '15px'
-	            }
-	        },
-	        xAxis: {
-	        	type: 'category',
-	            categories: categoryTypes
-	        },
-	        yAxis: {
-	            title: {
-	                text: 'Number of Students'
-	            }
-	        },
-	        legend: {
-	                    enabled: false
-	        },
-	        series: [{
-	            name: 'Group '+(idGroup+1),
-	            colorByPoint: true,
-	            data: result
-	        }]
-    	});
-
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: title,
+            style: {
+                fontSize: '15px'
+            }
+        },
+        xAxis: {
+        	type: 'category',
+            categories: categoryTypes
+        },
+        yAxis: {
+            title: {
+                text: 'Number of Students'
+            }
+        },
+        legend: {
+                    enabled: false
+        },
+        series: [{
+            name: 'Group '+(idGroup+1),
+            colorByPoint: true,
+            data: result
+        }]
+	});
 }

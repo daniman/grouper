@@ -101,7 +101,10 @@
 .cat_label_conf {
     margin-bottom: 5px;
 }
-
+.charts{
+    width: 50%;
+    height: 200px;
+}
 
 .classlist {
     position: absolute;
