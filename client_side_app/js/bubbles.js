@@ -1,9 +1,21 @@
 function buildBubbles() {
 
-    var nodes;
+    nodes = null;
+    group_nodes = null;
     var foci;
-    var students = Grouper.active_group['data'];
+    students = Grouper.active_group['data'];
+    students_copy=[];
+    //students_copy = students;
     var totalGroups = Grouper.active_group['filters']['group'].length;
+
+
+    for (var i=0; i<students.length; i++) {
+      students_copy.push(students[i]);
+    }
+
+    for (var i = 0; i < totalGroups; i++) {
+      students_copy.push({name:i,group:i});
+    };
 
      /**
      * Build bubbles.
@@ -11,13 +23,18 @@ function buildBubbles() {
     var student_dict = {}
     for (var i=0; i<students.length; i++) {
       student_dict[i] = students[i];
-        $('#bubbleContainer').append('<div class="bubble" student_id="' + i + '""><div class="bubble_text">' + 
+        $('#bubbleContainer').append('<div class="bubble" id="student_bubble" student_id="' + i + '""><div class="bubble_text">' + 
           ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
     }
     Grouper.active_group.map = student_dict;
     for (var i=0; i<students.length; i++) {
       $('.bubble')[i].setAttribute("student_id",i);
     }
+
+    for (var i = 0; i < totalGroups; i++) {
+      $('#bubbleContainer').append('<div class="group_bubble"><div class="bubble_text">' + 
+        ($("input[name='toggle']:checked").length > 0 ? i+1 : i+1) + '</div></div>');
+    };
 
     /* container */
     var radius = 50,
@@ -33,7 +50,7 @@ function buildBubbles() {
         .size([$("#bubbleContainer").width(), $("#bubbleContainer").height()]) // gravity field's size
         .charge(0)
         .gravity(0) 
-        .nodes(students) 
+        .nodes(students_copy) 
         .links([])
         .on("tick", tick)
         .start();
@@ -47,17 +64,15 @@ function buildBubbles() {
     });
     $(window).trigger('resize');
     
-    //EXPERIMENT
+    //hulls
     var hulls = []; 
     for (var i = totalGroups - 1; i >= 0; i--) {
       hulls.push(svg.append("path").attr("class", "hull").attr("group",totalGroups - i - 1));
     };
     /////////
 
-
-    /*Associate the divs with the node objects. */
-    nodes = vis.selectAll(".bubble")
-      .data(students)
+    nodes = vis.selectAll(".bubble, .group_bubble")
+      .data(students_copy)
       .attr({
         'id': function(d,i) {return 'node_' + i},
       })
@@ -77,6 +92,8 @@ function buildBubbles() {
       })
       .call(force.drag);
 
+    
+
     /* Start transition */
     vis.style("opacity", 1e-6)
         .transition()
@@ -91,9 +108,9 @@ function buildBubbles() {
       for (var i = 0; i<students.length; i++) {
         collide2(.5)(students[i]);
       }*/
-      var q = d3.geom.quadtree(students);
-            for (var i = 0; i<students.length; i++) {
-              q.visit(collide(students[i]))
+      var q = d3.geom.quadtree(students_copy);
+            for (var i = 0; i<students_copy.length; i++) {
+              q.visit(collide(students_copy[i]))
             }
       //nodes.each(collide2(.5));
        
@@ -116,8 +133,8 @@ function buildBubbles() {
       for (var i = totalGroups - 1; i >= 0; i--) {
         points.push([]);
       };
-      for (var i = students.length - 1; i >= 0; i--) {
-        points[students[i].group].push([students[i].px + radius/2,students[i].py + radius/2]);
+      for (var i = students_copy.length - 1; i >= 0; i--) {
+        points[students_copy[i].group].push([students_copy[i].px + radius/2,students_copy[i].py + radius/2]);
       };
       //redraw the hull
       redraw();
@@ -129,7 +146,17 @@ function buildBubbles() {
         'top': function(d,i) {
           return d.y + 'px';
         }
+      });/*
+      for (var i = 0; i < totalGroups; i--) {
+        nodes[students.length + i].style({
+        'left': function(d,i) {
+          return foci[i].x + 'px';
+        },
+        'top': function(d,i) {
+          return foci[i].y + 'px';
+        }
       });
+      };*/
 
 
     }
@@ -165,7 +192,7 @@ function buildBubbles() {
       };
     }
     function collide2(alpha) {
-      quadtree = d3.geom.quadtree(students);
+      quadtree = d3.geom.quadtree(students_copy);
       return function(d) {
         var r = radius + padding,
             nx1 = d.x - r,

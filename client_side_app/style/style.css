@@ -60,7 +60,7 @@
     background-color: white;
 }
 
-.bubble {
+.bubble,.group_bubble {
     opacity: .85; 
     position: absolute;
     text-align: center;
