@@ -524,12 +524,10 @@ $('#editModal').on('show.bs.modal', function () {
 		displayStudentInfo(student);
 		$(".glyphicon-chevron-left").click(function(){
 			id = (id - 1)%(parseInt(Grouper.active_group.data.length)-1);
-			console.log(id);
 			displayStudentInfo(Grouper.active_group.map[Math.abs(id)]);
 		});
 		$(".glyphicon-chevron-right").click(function(){
 			id = (id +1)%(parseInt(Grouper.active_group.data.length)-1);
-			console.log(id);
 			displayStudentInfo(Grouper.active_group.map[Math.abs(id)]);
 		});
     });
@@ -539,101 +537,37 @@ $('#editModal').on('show.bs.modal', function () {
 	$(document).on('mousedown', '.hull', function(){ return false; })
 	$(document).on('dblclick', '.hull', function(evt) {
 
-		var numFemales = 0;
-		var numMales = 0;
-		var num15 = 0;
-		var num16 = 0;
-		var num17 = 0;
-		var num18 = 0;
 
 		var studentList = '<table class="groupShow" style="width:100%"><tbody>';
 		var idGroup = parseInt($(evt.target).attr('group'));
-		var categories = Object.keys(Grouper.active_group.filters);
+		var categories = Grouper.active_group.settings.priorities;
 		var students = Grouper.active_group.data;
+		var groupStudents = []
 
 		studentList = studentList.concat(addCategories(categories));
 		
 		for (var j = students.length - 1; j >= 0; j--) {
 			if(students[j]['group']==idGroup){
-				if(students[j]['gender']=="M"){
-					numMales ++;
-				}
-				else{
-					numFemales ++;
-				}
-				if(students[j]['year']=="2015"){
-					num15 ++;
-				}
-				else if(students[j]['year']=="2016"){
-					num16 ++;
-				}
-				else if(students[j]['year']=="2017"){
-					num17 ++;
-				}
-				else{
-					num18 ++;
-				}
+				groupStudents.push(students[j]);
 				studentList = studentList.concat("<tr>");
 				studentList = studentList.concat(stringify(students[j], categories));
 				studentList = studentList.concat("</tr>");
 			}
 		}
-
-		$('#genderChart').highcharts({
-	        chart: {
-	            type: 'column'
-	        },
-	        title: {
-	            text: 'Male/Female Ratio',
-	            style: {
-	                fontSize: '15px'
-	            }
-	        },
-	        xAxis: {
-	            categories: ['Males', 'Females']
-	        },
-	        yAxis: {
-	            title: {
-	                text: 'Number of Students'
-	            }
-	        },
-	        legend: {
-	                    enabled: false
-	        },
-	        series: [{
-	            name: 'Group '+(idGroup+1),
-	            colorByPoint: true,
-	            data: [numMales, numFemales]
-	        }]
-    	});
-
-		$('#yearChart').highcharts({
-	        chart: {
-	            type: 'column'
-	        },
-	        title: {
-	            text: 'Graduation Year',
-	            style: {
-	                fontSize: '15px'
-	            }
-	        },
-	        xAxis: {
-	            categories: ['2015','2016','2017','2018']
-	        },
-	        yAxis: {
-	            title: {
-	                text: 'Number of Students'
-	            }
-	        },
-	        legend: {
-	                    enabled: false
-	        },
-	        series: [{
-	            name: 'Group '+(idGroup+1),
-	            colorByPoint: true,
-	            data: [num15,num16,num17,num18]
-	        }]
-    	});
+		var id ='';
+		var types = [];
+		for (var i = 0; i <= categories.length - 1; i++) {
+			var results = [];
+			id = categories[i]+'Chart';
+			$('#charts').append('<div id='+id+' class="charts"></div>');
+			types = Grouper.active_group.filters[categories[i]];
+			for (var  k = 0; k <= types.length - 1; k++) {
+				console.log("type: "+types[k]);
+				results.push(numOccurences(types[k], groupStudents, categories[i]));
+			};
+			console.log(results);
+			makeCharts(categories[i], id, types, results, idGroup);
+		};
 		$('#groupNumber').html(idGroup+1);
 		$('#groupStudents').html(studentList);
 		$("#groupModal").modal("show");
@@ -686,4 +620,38 @@ function displayStudentInfo(student){
     	} 		
   	}
 	$('#otherInfo').html(info);
+}
+function numOccurences(target, arr, cat){ 
+	return $.grep(arr, function (elem) {return elem[cat] === target;}).length;
+}
+function makeCharts(title, chartID, categoryTypes, result, idGroup ){
+	$('#'+chartID).highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: title,
+	            style: {
+	                fontSize: '15px'
+	            }
+	        },
+	        xAxis: {
+	        	type: 'category',
+	            categories: categoryTypes
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'Number of Students'
+	            }
+	        },
+	        legend: {
+	                    enabled: false
+	        },
+	        series: [{
+	            name: 'Group '+(idGroup+1),
+	            colorByPoint: true,
+	            data: result
+	        }]
+    	});
+
 }
