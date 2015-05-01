@@ -68,11 +68,17 @@
     vertical-align: middle;
 }
 
+.group_bubble {
+    pointer-events: none;
+}
+
 .group_bubble > .bubble_text {
     font-size: 17px;
     line-height: 20px;
     margin-top: 5px;
     font-weight: 400;
+    cursor: pointer;
+    pointer-events: none;
 }
 
 .bubble:hover{
