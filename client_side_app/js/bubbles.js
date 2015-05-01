@@ -33,7 +33,7 @@ function buildBubbles() {
 
     for (var i = 0; i < totalGroups; i++) {
       $('#bubbleContainer').append('<div class="group_bubble"><div class="bubble_text">' + 
-        ($("input[name='toggle']:checked").length > 0 ? i+1 : i+1) + '</div></div>');
+        'Group <br>' + (i+1) + '</div></div>');
     };
 
     /* container */
@@ -79,7 +79,7 @@ function buildBubbles() {
       .style({
         'width': radius + 'px',
         'height': radius + 'px',
-        'background-color': '#ccc',
+        'background-color': 'transparent',
         'border-radius': radius/2 + 'px',
         'font-size': '30px',
         'line-height': radius + 'px',

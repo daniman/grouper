@@ -6,8 +6,8 @@
 
 #buttons{
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 20px;
+    right: 20px;
     z-index: 10;
 }
 
@@ -51,20 +51,28 @@
 
 #bubbleContainer {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    height: calc(100% - 92px);
-    width: calc(100% - 308px);
+    bottom: 0px;
+    right: 0px;
+    height: calc(100% - 50px);
+    width: calc(100% - 250px);
     overflow: hidden;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
+    border: none;
     background-color: white;
 }
 
 .bubble,.group_bubble {
-    opacity: .85; 
+    /*opacity: .85; */
     position: absolute;
     text-align: center;
     vertical-align: middle;
+}
+
+.group_bubble > .bubble_text {
+    font-size: 17px;
+    line-height: 20px;
+    margin-top: 5px;
+    font-weight: 400;
 }
 
 .bubble:hover{
@@ -108,7 +116,7 @@
 
 .classlist {
     position: absolute;
-    left: 240px;
+    left: 200px;
     top: 5px;
 }
 
@@ -179,9 +187,12 @@
 
 #edit, #export {
     line-height: 1.42857143;
-    padding: 6px 12px;
+    padding: 6px 0px;
     font-size: 14px;
     font-weight: 400;
+    border-radius: 0px;
+    width: 60px;
+    text-align: center;
 }
 
 
@@ -216,10 +227,12 @@
 }
 
 #filterContainer {
-    height: calc(100% - 92px);
+    /*height: calc(100% - 92px);*/
+    height: calc(100% - 50px);
     width: 250px;
-    border: 1px solid #ccc;
-    margin: 20px;
+    border-right: 1px solid #ccc;
+    /*margin: 20px;*/
+    margin: 0px;
     padding: 0px 20px;
     background-color: white;
     overflow: scroll;
@@ -345,7 +358,8 @@ html,body {
     height:100%;
     padding:0;
     margin:0;
-    font-family: 'Source Sans Pro';
+    /*font-family: 'Source Sans Pro';*/
+    font-family: 'Oxygen';
     font-weight: 400;
     color: black;
     background-color: #f5f5f5;
@@ -409,12 +423,12 @@ input[type='radio'] {
     color: white;
 }
 
-/*body {
+body {
     background-image: url(../assets/img/mountains.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-color: white;
-}*/
+}
 
 #login_signup_toggle {
     color: white;
@@ -435,10 +449,10 @@ input[type='radio'] {
 }
 
 #loginContainer {
-    background-image: url(../assets/img/mountains.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-color: white;
+    /*background-image: url(../assets/img/mountains.png);*/
+    /*background-size: 100% 100%;*/
+    /*background-repeat: no-repeat;*/
+    /*background-color: white;*/
     padding: 5px 15px;
 
 /*    -webkit-filter: blur(5px);
@@ -478,6 +492,7 @@ input[type='radio'] {
     padding: 8px 12px;
     /*box-shadow: none;*/
     font-family: 'Oxygen';
+    font-size: 15px;
     color: white;
     background-color: #FF9800;
     border: 1px solid #FF9800;
@@ -501,10 +516,6 @@ input[type='radio'] {
     border: 1px solid #00BCD4;
     /*background-color: #4eccc3;*/
     /*border: 1px solid #4eccc3;*/
-}
-
-#login_button:focus {
-    outline: none;
 }
 
 #login_error_message {
@@ -546,6 +557,7 @@ input[type='radio'] {
 
 #logo {
     cursor: pointer;
+    text-shadow: 2px 2px 2px #444;
 }
 
 
@@ -575,13 +587,16 @@ input[type='radio'] {
     padding: 5px 15px;
     line-height: 40px;
     font-weight: 300;
-    color: #00BCD4;
-    /*border-bottom: 1px solid #ccc;*/
-    background-color: #424242;
+    color: #4ecdc4;
+    /*text-shadow: 3px 3px 4px #444;*/
+    background-color: #556270;
     /*background-color: transparent;*/
     font-family: 'Oxygen';
     text-transform: uppercase;
-    z-index: 100;
+}
+
+#navbar .dropdown li {
+    text-shadow: none;
 }
 
 #newGroupName {

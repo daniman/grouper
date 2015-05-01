@@ -5,15 +5,6 @@ $(document).ready(function() {
     function login(email, password) {
         Parse.User.logIn(email, password, {
               success: function(user) {
-                // $('#loginContainer').hide();
-                // $('#filterContainer').fadeIn();
-                // $('#bubbleContainer').fadeIn();
-                // $('.dropdown').fadeIn();
-
-                // Grouper.username = Parse.User.current().attributes.username;
-                // Grouper.groups = Parse.User.current().attributes.groups;
-                // $('#username_dropdown_label').html(Grouper.username + ' <b class="caret"></b>');
-
                 buildPage();
 
                 $('#login_email').val('');

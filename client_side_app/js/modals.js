@@ -595,7 +595,7 @@ var stringify = function(json, categories){
 		var key = categories[i];
 	  if (json.hasOwnProperty(key)) {
 	  	if(key=="group"){
-	  		dataString = dataString.concat('<td>'+(json[key]+1)+'</td>');
+	  		dataString = dataString.concat('<td>'+(parseInt(json[key])+1)+'</td>');
 	  	}
 	  	else{dataString = dataString.concat('<td>'+json[key]+'</td>');} 
 	  }

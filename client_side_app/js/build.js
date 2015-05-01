@@ -4,23 +4,19 @@ $(document).ready(function() {
 });
 
 var buildPage = function() {
+    $('#newUser').hide();
+    $('#bubbleContainer').hide();
+    $('#filterContainer').hide();
+    $('#filters').html('');
+        var buttons = $('#bubbleContainer').children('#buttons');
+$('#bubbleContainer').html(buttons);
 
     if (!Parse.User.current()) {
-        $('#newUser').hide();
-        $('#bubbleContainer').hide();
-        $('#filterContainer').hide();
-        $('.dropdown').hide();
+        $('#navbar').hide();
         $('#loginContainer').fadeIn();
     } else {
-        $('#newUser').hide();
-        $('#bubbleContainer').hide();
-        $('#filterContainer').hide();
-        $('.dropdown').fadeIn();
+        $('#navbar').show();
         $('#loginContainer').hide();
-
-        $('#filters').html('');
-        var buttons = $('#bubbleContainer').children('#buttons');
-        $('#bubbleContainer').html(buttons);
 
         $('.switch').children('input')[0].checked = false;
 
@@ -56,8 +52,8 @@ var buildPage = function() {
                             '</li>';
 
         if (Grouper.groups.length > 0) {
-            $('#bubbleContainer').fadeIn();
-            $('#filterContainer').fadeIn();
+            $('#bubbleContainer').show();
+            $('#filterContainer').show();
 
             $('#class_dropdown').html(groups_html);
             $('#group_dropdown_label').html(Grouper.active_group['name'] + ' <b class="caret"></b>');
