@@ -297,9 +297,6 @@ $(document).ready(function() {
 				}
 			})
 
-			// $('#class_dropdown').prepend('<li role="presentation"><a class="classlist_item" role="menuitem" tabindex="1" href="#">' + Grouper.active_group['name'] + '</a></li>');
-       		// $('a#group_dropdown_label').html(Grouper.active_group['name'] + ' <b class="caret"></b>');
-
 			buildPage();
 		}
 	})
@@ -537,6 +534,17 @@ $('#editModal').on('show.bs.modal', function () {
 			displayStudentInfo(Grouper.active_group.map[Math.abs(id)]);
 		});
     });
+
+	// listen to arrow keys for fast modal browsing
+    $(document).on('keyup', function(event) {
+    	if ($('#studentModal').is(':visible')) {
+    		if (event.which == 37) {
+				$(".glyphicon-chevron-left").click();
+			} else if (event.which == 39) {
+				$(".glyphicon-chevron-right").click();
+			}
+    	}
+	});
 
 	//displays the correct group information for the hull clicked
 
