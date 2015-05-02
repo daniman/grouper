@@ -8,8 +8,8 @@ var buildPage = function() {
     $('#bubbleContainer').hide();
     $('#filterContainer').hide();
     $('#filters').html('');
-        var buttons = $('#bubbleContainer').children('#buttons');
-$('#bubbleContainer').html(buttons);
+    var buttons = $('#bubbleContainer').children('#buttons');
+    $('#bubbleContainer').html(buttons);
 
     if (!Parse.User.current()) {
         $('#navbar').hide();
@@ -24,11 +24,14 @@ $('#bubbleContainer').html(buttons);
         Grouper.groups = Parse.User.current().attributes.groups;
         $('#username_dropdown_label').html(Grouper.username + ' <b class="caret"></b>');    
 
-        // TODO: set with localstorage
-        // Grouper.active_group = Grouper.groups.filter(function(obj) {
-        //     return obj.name == 'test';
-        // })[0];
-        Grouper.active_group = Grouper.groups[0];
+        var active = localStorage.getItem('active_group');
+        if (active) {
+            Grouper.active_group = Grouper.groups.filter(function(obj) {
+                return obj.name == active;
+            })[0];
+        } else { // user doesn't have cookie yet
+            Grouper.active_group = Grouper.groups[0];
+        }        
 
         Grouper.colors.color_scheme_pref = 'bright';
 
@@ -36,12 +39,19 @@ $('#bubbleContainer').html(buttons);
             document.location.href = 'index.html';
         });
 
+        console.log(Grouper.active_group['name']);
+
         /**
          * Build classes dropdown.
          */
         var groups_html = '';
         for (var i=0; i<Grouper.groups.length; i++) {
-            groups_html += '<li role="presentation"><a class="classlist_item" role="menuitem" tabindex="1" href="#">' + Grouper.groups[i].name + '</a></li>';
+            groups_html += '<li role="presentation">' +
+                                '<a class="classlist_item" role="menuitem" tabindex="1" href="#">' +
+                                    Grouper.groups[i].name +
+                                    (Grouper.groups[i]['name'] == Grouper.active_group['name'] ? '   <span class="glyphicon glyphicon-ok classlist_glyphicon" aria-hidden="true"></span>' : '' )
+                                '</a>' +
+                            '</li>';
         }
         groups_html += '<li role="presentation" class="divider"></li>' +
                             '<li role="presentation">' +

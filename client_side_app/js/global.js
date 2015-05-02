@@ -33,24 +33,24 @@ Grouper.colors = {
             '#795548' // brown
         ],
         light: [
-            '#FFD54F', // amber
-            '#4DD0E1', // cyan
-            '#E57373', // red
-            '#7986CB', // indigo
-            '#BA68C8', // deep purple
-            '#7986CB', // pink
-            '#81C784', // green
-            '#FFB74D', // orange
-            '#DCE775', // lime
-            '#DCE775', // deep orange
-            '#BA68C8', // purple
-            '#4FC3F7', // light blue
-            '#FFF176', // yellow
-            '#64B5F6', // blue
-            '#AED581', // light green
-            '#4DB6AC', // teal
-            '#90A4AE', // blue grey
-            '#A1887F' // brown
+            '#ffca28', // amber
+            '#4ecdc4', // cyan
+            '#ff6b6b', // red
+            '#5c6bc0', // indigo
+            '#7e57c2', // deep purple
+            '#ec407a', // pink
+            '#66bb6a', // green
+            '#f2b04d', // orange
+            '#c7f46f', // lime
+            '#ff7043', // deep orange
+            '#ab47bc', // purple
+            '#29b6f6', // light blue
+            '#ffee58', // yellow
+            '#42a5f5', // blue
+            '#9ccc65', // light green
+            '#26a69a', // teal
+            '#78909c', // blue grey
+            '#8d6e63' // brown
         ]
     }
 }

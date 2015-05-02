@@ -126,6 +126,13 @@
     top: 5px;
 }
 
+.classlist_glyphicon {
+    color: black !important;
+    margin-left: 5px;
+    top: 0px;
+    font-size: 10px !important;
+}
+
 .color_map {
     margin-bottom: 5px;
 }
@@ -676,9 +683,6 @@ ol.progtrckr li.progtrckr-todo:before {
     font-size: 1em;
     bottom: -1.8em;
 }
-
-
-
 
 .selected {
     box-shadow: 0 0 3px 2px #888888;
