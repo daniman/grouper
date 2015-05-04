@@ -14,6 +14,7 @@ var buildPage = function() {
 
     if (!Parse.User.current()) {
         $('#navbar').hide();
+        $('#login_error_message').html('');
         $('#loginContainer').fadeIn();
     } else {
         $('#navbar').show();
@@ -40,10 +41,6 @@ var buildPage = function() {
             document.location.href = 'index.html';
         });
 
-        // console.log(Grouper.active_group);
-        // console.log(Grouper.active_group['name']);
-
-        console.log(Grouper.groups);
         /**
          * Build classes dropdown.
          */

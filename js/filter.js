@@ -51,27 +51,20 @@ function buildFilters() {
         var student_dict = Grouper.active_group.map;
         if (event.target.checked) {            
             $('.bubble').each(function() {
-                var id = this.id.split('_')[1];
+                var id = this.getAttribute('student_id');
                 $(this).children().html(student_dict[id]['name'].split(' ').join('<br>'));
-                $(this).children().css({
-                    'font-size': '15px',
-                    'line-height': '15px',
-                    'font-weight': '400'
-                });
-                // Don't combine these, they're separate on purpose for timing
+                $(this).children().addClass('student_name');
                 $(this).children().css({
                     'margin-top': ($(this).height()-$(this).children().height())/2 + 'px'
                 });
             });
         } else {
             $('.bubble').each(function() {
-                var id = this.id.split('_')[1];
+                var id = this.getAttribute('student_id');
                 $(this).children().html(student_dict[id]['course_number']);
+                $(this).children().removeClass('student_name');
                 $('.bubble_text').css({
-                    'font-size': '30px',
                     'margin-top': ($(this).height()-$(this).children().height())/2 + 'px',
-                    'line-height': $('.bubble').height() + 'px',
-                    'font-weight': '300'
                 });
             });
         }

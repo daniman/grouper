@@ -100,10 +100,9 @@ $(document).ready(function() {
 	  						Grouper.group_setup.settings.labels[headers[index]]);
 		});
 	});
-	$("#edit_data_current_categories").on('keyup', 'input', function(e){
-		if(e.keyCode == 13)
-	    {
-	    	$("#edit_data_current_categories .ok a").trigger('click');
+	$("#edit_data_categories").on('keyup', 'input', function(e){
+		if(e.keyCode == 13) {
+	    	$(e.target).parent().children('.ok').children('a').click()
 	    }
 		
 	});
