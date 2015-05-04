@@ -231,44 +231,154 @@ $(document).ready(function() {
 	 * On modal build.
 	 */
 	$('#groupifyModal').on('show.bs.modal', function () {
-	  $('#prioritizeDataModal').modal('hide');
+	    $('#prioritizeDataModal').modal('hide');
+	    $('.numberOfGroupsInput').val(Grouper.group_setup.settings.group_by.num_groups);
+		$('.numberOfPeopleInput').val(Grouper.group_setup.settings.group_by.group_size);
+		$(".maxPeopleInput").click();
+
+		$(".maxGroupsInput").parent().children('input[type=number]')[0].max = Grouper.group_setup.data.length;
+		$(".maxPeopleInput").parent().children('input[type=number]')[0].max = Grouper.group_setup.data.length;
 	});
 
-	$(".maxPeople").click(function() {
-		$(".numberOfPeople").prop("disabled", false);
-		$(".numberOfPeople").val(Grouper.group_setup.settings.group_by.group_size);
-		$(".numberOfPeople").css({'color': 'black'});
-
-		$(".numberOfGroups").prop("disabled", true);
-		$(".numberOfGroups").css({'color': '#a3a3a3'});
-		Grouper.group_setup.settings.group_by.pref = 'num_groups';
+	$('#groupifyModal').on('hidden.bs.modal', function () {
+	    $('.edit_error_message').html('');
 	});
 
-	$(".maxGroups").click(function() {
-		$(".numberOfGroups").prop("disabled", false);
-		$(".numberOfGroups").val(Grouper.user_prefgroup_setup.settingserences.group_by.num_groups);
-		$(".numberOfGroups").css({'color': 'black'});
+	$('.glyphicon-plus.numberIncrementer').click(function(event) {
+		ClearSelection();
+		if ($(event.target).hasClass('inactive')) {
+			return false;
+		} else {
+			var input = $(event.target).parent().children('input[type=number]');
+			var num = parseInt(input.val());
 
-		$(".numberOfPeople").prop("disabled", true);
-		$(".numberOfPeople").css({'color': '#a3a3a3'});
+			var max;
+			var modalType = input[0].className.substr(input[0].className.length-4);
+			if (modalType == 'Edit') { // Edit Modal
+				max = Grouper.active_group.data.length;
+			} else if (modalType == 'nput') { // Input Modal
+				max = Grouper.group_setup.data.length;
+			}
+
+			if (num >= max) {
+				$('.edit_error_message').html(alertMessage('You cannot that many groups or people/group.'));
+			} else {
+				$(".edit_error_message").html('');
+				input.val(num+1);
+
+				if (input[0].className == 'numberOfPeopleInput') {
+					Grouper.group_setup.settings.group_by.group_size = input.val();
+				} else if (input[0].className == 'numberOfGroupsInput') {
+					Grouper.group_setup.settings.group_by.num_groups = input.val();
+				}  else if (input[0].className == 'numberOfPeopleEdit') {
+					Grouper.active_group.settings.group_by.group_size = input.val();
+				}  else if (input[0].className == 'numberOfGroupsEdit') {
+					Grouper.active_group.settings.group_by.num_groups = input.val();
+				}
+
+				Parse.User.current().save(
+		            {'groups': Grouper.groups }, 
+		            { error: function(obj, error) { console.log(error); }
+		        });
+			}
+		}
+	});
+
+	$('.glyphicon-minus.numberIncrementer').click(function(event) {
+		ClearSelection();
+		if ($(event.target).hasClass('inactive')) {
+			return false;
+		} else {
+			var input = $(event.target).parent().children('input[type=number]');
+			var num = parseInt(input.val())
+
+			if (num <= 1) {
+				$('.edit_error_message').html(alertMessage('You cannot have less than 1 group or 1 person/group.'));
+			} else {
+				$(".edit_error_message").html('');
+				input.val(num-1);
+
+				if (input[0].className == 'numberOfPeopleInput') {
+					Grouper.group_setup.settings.group_by.group_size = input.val();
+				} else if (input[0].className == 'numberOfGroupsInput') {
+					Grouper.group_setup.settings.group_by.num_groups = input.val();
+				}  else if (input[0].className == 'numberOfPeopleEdit') {
+					Grouper.active_group.settings.group_by.group_size = input.val();
+				}  else if (input[0].className == 'numberOfGroupsEdit') {
+					Grouper.active_group.settings.group_by.num_groups = input.val();
+				}
+
+				Parse.User.current().save(
+		            {'groups': Grouper.groups }, 
+		            { error: function(obj, error) { console.log(error); }
+		        });
+			}
+		}
+	})
+
+	$(".maxPeopleInput").click(function() {
+		console.log('max people');
+		$(".numberOfPeopleInput").prop("disabled", false);
+		$(".numberOfPeopleInput").val(Grouper.group_setup.settings.group_by.group_size);
+		$(".numberOfPeopleInput").css({'color': 'black'});
+
+		$(".numberOfGroupsInput").prop("disabled", true);
+		$(".numberOfGroupsInput").css({'color': '#a3a3a3'});
 		Grouper.group_setup.settings.group_by.pref = 'group_size';
+
+		$(".numberOfGroupsInput").parent().children('.glyphicon').addClass('inactive');
+		$(".numberOfPeopleInput").parent().children('.glyphicon').removeClass('inactive');
 	});
 
-	$('.numberOfPeople').keyup(function(key) {
-        if(key.keyCode < 48 || key.keyCode > 57){
-        	$(".inputError").html(alertMessage('You must enter a number.'));
+	$(".maxGroupsInput").click(function() {
+		console.log('max groups');
+		$(".numberOfGroupsInput").prop("disabled", false);
+		$(".numberOfGroupsInput").val(Grouper.group_setup.settings.group_by.num_groups);
+		$(".numberOfGroupsInput").css({'color': 'black'});
+
+		$(".numberOfPeopleInput").prop("disabled", true);
+		$(".numberOfPeopleInput").css({'color': '#a3a3a3'});
+		Grouper.group_setup.settings.group_by.pref = 'num_groups';
+
+		$(".numberOfGroupsInput").parent().children('.glyphicon').removeClass('inactive');
+		$(".numberOfPeopleInput").parent().children('.glyphicon').addClass('inactive');
+	});
+
+	$('.numberOfPeopleInput').keypress(function(key) {
+        if ((key.which < 48 || key.which > 57) && !(key.which > 36 && key.which < 41) && (key.which != 8)) {
         	return false;
-        } else {
-       		Grouper.group_setup.settings.group_by.group_size = parseInt($(this).val());
         }
     });
 
-	$('.numberOfGroups').keyup(function(key) {
-        if(key.keyCode < 48 || key.keyCode > 57){
-        	$(".inputError").html(alertMessage('You must enter a number.'));
-        	return false;
+    $('.numberOfPeopleInput').keyup(function(key) {
+    	if (!((key.which < 48 || key.which > 57) && !(key.which > 36 && key.which < 41) && (key.which != 8))) {
+        	if (parseInt($(this).val()) > $(this)[0].max) {
+       			$(".edit_error_message").html(alertMessage('You cannot have that many people per group.'));
+       		} else {
+       			$(".edit_error_message").html('');
+       			Grouper.group_setup.settings.group_by.group_size = parseInt($(this).val());
+       		}
         } else {
-       		Grouper.group_setup.settings.group_by.num_groups = parseInt($(this).val());
+        	$(".edit_error_message").html(alertMessage('You must enter a number.'));
+        }
+    });
+
+	$('.numberOfGroupsInput').keypress(function(key) {
+        if ((key.which < 48 || key.which > 57) && !(key.which > 36 && key.which < 41) && (key.which != 8)) {
+        	return false;
+        }
+    });
+
+    $('.numberOfGroupsInput').keyup(function(key) {
+        if (!((key.which < 48 || key.which > 57) && !(key.which > 36 && key.which < 41) && (key.which != 8))) {
+       		if (parseInt($(this).val()) > parseInt($(this)[0].max)) {
+       			$(".edit_error_message").html(alertMessage('You cannot have that many groups.'));
+       		} else {
+       			$(".edit_error_message").html('');
+       			Grouper.group_setup.settings.group_by.num_groups = parseInt($(this).val());
+       		}
+        } else {
+        	$(".edit_error_message").html(alertMessage('You must enter a number.'));
         }
     });
 
@@ -296,8 +406,23 @@ $(document).ready(function() {
 	})
 /********************************** Edit Modal **********************************/
 
-$('#editModal').on('show.bs.modal', function () {
+	$('#editModal').on('hidden.bs.modal', function () {
+	    $('.edit_error_message').html('');
+	});
+
+	$('#editModal').on('show.bs.modal', function () {
 		$("#editGroupName").val(Grouper.active_group.name);
+		$('.numberOfGroupsEdit').val(Grouper.active_group.settings.group_by.num_groups);
+		$('.numberOfPeopleEdit').val(Grouper.active_group.settings.group_by.group_size);
+
+		if (Grouper.active_group.settings.group_by.pref == 'num_groups') {
+			$(".maxGroupsEdit").click();
+		} else {
+			$(".maxPeopleEdit").click();
+		}
+
+		$(".maxGroupsEdit").parent().children('input[type=number]')[0].max = Grouper.active_group.data.length;
+		$(".maxPeopleEdit").parent().children('input[type=number]')[0].max = Grouper.active_group.data.length;
 
 		var headers = Grouper.active_group.settings.priorities;
 	    var headers_html = '';
@@ -429,6 +554,90 @@ $('#editModal').on('show.bs.modal', function () {
 					"</span>" + 
 					oldName);
 	});
+
+	$(".maxPeopleEdit").click(function() {
+		$(".numberOfPeopleEdit").prop("disabled", false);
+		$(".numberOfPeopleEdit").val(Grouper.active_group.settings.group_by.group_size);
+		$(".numberOfPeopleEdit").css({'color': 'black'});
+
+		$(".numberOfGroupsEdit").prop("disabled", true);
+		$(".numberOfGroupsEdit").css({'color': '#a3a3a3'});
+		Grouper.active_group.settings.group_by.pref = 'group_size';
+
+		$(".numberOfPeopleEdit").parent().children('.glyphicon').removeClass('inactive');
+		$(".numberOfGroupsEdit").parent().children('.glyphicon').addClass('inactive');
+
+		Parse.User.current().save(
+				{'groups': Grouper.groups }, 
+				{ error: function(obj, error) { console.log(error); }
+	        });
+	});
+
+	$(".maxGroupsEdit").click(function() {
+		$(".numberOfGroupsEdit").prop("disabled", false);
+		$(".numberOfGroupsEdit").val(Grouper.active_group.settings.group_by.num_groups);
+		$(".numberOfGroupsEdit").css({'color': 'black'});
+
+		$(".numberOfPeopleEdit").prop("disabled", true);
+		$(".numberOfPeopleEdit").css({'color': '#a3a3a3'});
+		Grouper.active_group.settings.group_by.pref = 'num_groups';
+
+		$(".numberOfPeopleEdit").parent().children('.glyphicon').addClass('inactive');
+		$(".numberOfGroupsEdit").parent().children('.glyphicon').removeClass('inactive');
+
+		Parse.User.current().save(
+				{'groups': Grouper.groups }, 
+				{ error: function(obj, error) { console.log(error); }
+	        });
+	});
+
+	$('.numberOfPeopleEdit').keypress(function(key) {
+        if ((key.which < 48 || key.which > 57) && !(key.which > 36 && key.which < 41) && (key.which != 8)) {
+        	return false;
+        }
+    });
+
+    $('.numberOfPeopleEdit').keyup(function(key) {
+    	if (!((key.which < 48 || key.which > 57) && !(key.which > 36 && key.which < 41) && (key.which != 8))) {
+        	if (parseInt($(this).val()) > $(this)[0].max) {
+       			$(".edit_error_message").html(alertMessage('You cannot have that many people per group.'));
+       		} else {
+       			$(".edit_error_message").html('');
+       			Grouper.active_group.settings.group_by.group_size = parseInt($(this).val());
+
+       			Parse.User.current().save(
+					{'groups': Grouper.groups }, 
+					{ error: function(obj, error) { console.log(error); }
+		        });
+       		}
+        } else {
+        	$(".edit_error_message").html(alertMessage('You must enter a number.'));
+        }
+    });
+
+	$('.numberOfGroupsEdit').keypress(function(key) {
+        if ((key.which < 48 || key.which > 57) && !(key.which > 36 && key.which < 41) && (key.which != 8)) {
+        	return false;
+        }
+    });
+
+    $('.numberOfGroupsEdit').keyup(function(key) {
+        if (!((key.which < 48 || key.which > 57) && !(key.which > 36 && key.which < 41) && (key.which != 8))) {
+       		if (parseInt($(this).val()) > parseInt($(this)[0].max)) {
+       			$(".edit_error_message").html(alertMessage('You cannot have that many groups.'));
+       		} else {
+       			$(".edit_error_message").html('');
+       			Grouper.active_group.settings.group_by.num_groups = parseInt($(this).val());
+
+       			Parse.User.current().save(
+					{'groups': Grouper.groups }, 
+					{ error: function(obj, error) { console.log(error); }
+		        });
+       		}
+        } else {
+        	$(".edit_error_message").html(alertMessage('You must enter a number.'));
+        }
+    });
 
 /********************************** Export Modal **********************************/
 

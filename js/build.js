@@ -31,6 +31,9 @@ var buildPage = function() {
             Grouper.active_group = Grouper.groups.filter(function(obj) {
                 return obj.name == active;
             })[0];
+            if (!Grouper.active_group) {
+                Grouper.active_group = Grouper.groups[0];
+            }
         } else { // user doesn't have cookie yet
             Grouper.active_group = Grouper.groups[0];
         }        
@@ -76,7 +79,7 @@ var buildPage = function() {
             buildFilters(Grouper.active_group, student_dict);
         } else {
             $('#newUser').show();
-            $('#newUserStart').show();
+            $('#newUserStart').fadeIn();
             $('#group_dropdown_label').hide();
         }
     }

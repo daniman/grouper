@@ -85,8 +85,8 @@ csvtools.upload = {
 		    priorities: labels,
 		    group_by: {
 		        pref: 'group_size',
-		        num_groups: '',
-		        group_size: '5'
+		        num_groups: '1',
+		        group_size: '1'
 		    }
 		};
 		

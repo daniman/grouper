@@ -91,6 +91,10 @@
 
 }
 
+#dropzone > h4 > .glyphicon-question-sign {
+    font-size: 15px;
+}
+
 .bubble_text {
     font-weight: 300;
 }
@@ -215,6 +219,11 @@
 
 .error_message {
     color: #F44336;
+}
+
+.edit_error_message {
+    color: #F44336;
+    margin-left: 20px;
 }
 
 #export:focus {
@@ -645,11 +654,11 @@ body {
     background-repeat: no-repeat;
     background-color: white;
 
-    -webkit-filter: blur(20px);
-    -moz-filter: blur(20px);
-    -o-filter: blur(20px);
-    -ms-filter: blur(20px);
-    filter: blur(20px);
+/*    -webkit-filter: blur(50px);
+    -moz-filter: blur(50px);
+    -o-filter: blur(50px);
+    -ms-filter: blur(50px);
+    filter: blur(50px);*/
 }
 
 @media (min-width: 840px) {
@@ -660,9 +669,9 @@ body {
         top: calc(15% + 50px);
         color: white;
         font-size: 40px;
-        left: 50%;
+        left: 30%;
         margin-left: -210px;
-        text-align: center;
+        text-align: left;
     }
 }
 
@@ -700,13 +709,40 @@ body {
     text-shadow: none;
 }
 
-.numberOfPeople, .numberOfGroups {
+.numberOfPeopleInput, .numberOfPeopleEdit, .numberOfGroupsInput, .numberOfGroupsEdit {
     margin-left: 20px;
+    width: 50px;
+    text-align: center;
 }
 
+.numberIncrementer {
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    top: -1px;
+    color: #444;
+}
 
+.glyphicon-plus.numberIncrementer:hover {
+    color: #00BCD4;
+}
 
+.glyphicon-minus.numberIncrementer:hover {
+    color: #FF9800;
+}
 
+.glyphicon-plus.numberIncrementer.inactive {
+    color: #cccccc;
+}
+
+.glyphicon-minus.numberIncrementer.inactive {
+    color: #cccccc;
+}
+
+.glyphicon.numberIncrementer.inactive:hover {
+    cursor: default;
+}
 
 ol.progtrckr{
       margin: 0;

@@ -119,7 +119,9 @@
 
             <h5 class="groupName"><strong>Name</strong> Your Class: <input type="text" id="newGroupName"></input></h5>
             <div id="dropzone">
-              <h4>Drag a CSV file here</h4>
+              <h4>Drag a CSV file here 
+                <!-- <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> -->
+              </h4>
               <p>or if you prefer...</p>
               <input type="file" id="file_select" name="fileselect" size="40">
               <div id="fileInfo"></div>
@@ -176,11 +178,7 @@
             <h4>Drag in order: </h4>
             <hr>
             <h5>More important to be diverse</h5>
-<!-- <<<<<<< HEAD -->
             <ul id="inputModalSortable"></ul>
-<!-- ======= -->
-            <!-- <ul id="sortable"></ul> -->
-<!-- >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893 -->
             <h5>Less important to be diverse</h5>
           </div>
 
@@ -206,23 +204,25 @@
           </div>
           <div class="modal-body">
             <h4>Please Select Groupification By:</h4>
-<!-- <<<<<<< HEAD -->
-            <div class="inputError"></div>
-            
-<!-- ======= -->
-            <!-- <div id="alert"><br></div> -->
-
-<!-- >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893 -->
+            <span class="edit_error_message"></span>
             <div id="groupifySelections">
               <form>
-                <input type="radio" name="max" class="maxPeople" checked> Max number of people in a group
-                <br>
-                <input type="number" class="numberOfPeople">
-                <br>
-                <br>
-                <input type="radio" name="max" class="maxGroups"> Max number of groups
-                <br>
-                <input type="number" class="numberOfGroups" disabled>
+                <div>
+                  <input type="radio" name="max" class="maxPeopleInput" checked> Max number of people in a group
+                  <br>
+                  <input type="number" class="numberOfPeopleInput" min="1">
+                  <span class="glyphicon glyphicon-plus numberIncrementer" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-minus numberIncrementer" aria-hidden="true"></span>
+                </div>
+                <!-- <br> -->
+                <!-- <br> -->
+                <div>
+                  <input type="radio" name="max" class="maxGroupsInput"> Max number of groups
+                  <br>
+                  <input type="number" class="numberOfGroupsInput" min="1" disabled>
+                  <span class="glyphicon glyphicon-plus numberIncrementer inactive" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-minus numberIncrementer inactive" aria-hidden="true"></span>
+                </div>
               </form>
             </div>
           </div>
@@ -313,18 +313,26 @@
             <br><input type="text" id="editGroupName"></input><br><br>
             <b style="font-size:110%">Edit priorities:</b>
             <br><ul id="edit_data_current_categories"></ul><br>
-            <b style="font-size:110%">Edit how groups are formed:</b>
+            <b style="font-size:110%">Edit how groups are formed:</b> <span class="edit_error_message"></span>
             <br>
             <div id="groupifySelections">
               <form>
-                <input type="radio" name="max" class="maxPeople" checked> Max number of people in a group
-                <br>
-                <input type="text" class="numberOfPeople">
-                <br>
-                <br>
-                <input type="radio" name="max" class="maxGroups"> Max number of groups
-                <br>
-                <input type="text" class="numberOfGroups" disabled>
+                <div>
+                  <input type="radio" name="max" class="maxPeopleEdit" checked> Max number of people in a group
+                  <br>
+                  <input type="number" min="1" class="numberOfPeopleEdit">
+                  <span class="glyphicon glyphicon-plus numberIncrementer" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-minus numberIncrementer" aria-hidden="true"></span>
+                <!-- <br> -->
+                </div>
+                <div>
+                <!-- <br> -->
+                  <input type="radio" name="max" class="maxGroupsEdit"> Max number of groups
+                  <br>
+                  <input type="number" min="1" class="numberOfGroupsEdit" disabled>
+                  <span class="glyphicon glyphicon-plus numberIncrementer inactive" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-minus numberIncrementer inactive" aria-hidden="true"></span>
+                </div>
               </form>
             </div>
             <br>
