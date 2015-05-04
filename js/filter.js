@@ -43,7 +43,7 @@ function buildFilters() {
         for (var i=0; i<categories.length; i++) {
             color_map += '<li>' +
                             '<div class="color_map_color" style="background-color: ' + Grouper.colors.get_color(event.target.value, categories[i], filters) + '"></div>' +
-                            capitalize(categories[i]) +
+                            '<span style="color:' + Grouper.colors.get_color(event.target.value, categories[i], filters) + '"> ' + capitalize(categories[i]) + '</span>' + 
                         '</li>';
         }
         $(this).parent().append(color_map);
