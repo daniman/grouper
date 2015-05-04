@@ -1,0 +1,372 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Grouper</title>
+    <link rel="icon" type="image/png" href="assets/img/fish_favicon.png" />
+    
+    <!-- Vendor -->
+    <script type="text/javascript" src="assets/vendor/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/jquery-ui-1.10.0.custom.min.js"></script>
+    <script type="text/javascript" src="assets/vendor/jquery.csv-0.71.js"></script>
+    <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.2-dist/css/bootstrap.min.css">
+    <script src="assets/vendor/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+    <link href="assets/vendor/css-toggle-switch-source/css/style.css" rel="stylesheet">
+    <script src="assets/vendor/d3.js"></script>
+    <script src="assets/vendor/parse.js"></script>
+    <!-- <script src="//www.parsecdn.com/js/parse-1.4.2.min.js"></script> -->
+    <script type="text/javascript" src="assets/vendor/Highcharts-4.1.5/js/highcharts.js"></script>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="js/global.js"></script>
+    <!-- <script type="text/javascript" src="js/data.js"></script> -->
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/bubbles.js"></script>
+    <script type="text/javascript" src="js/filter.js"></script>
+    <script type="text/javascript" src="js/build.js"></script>
+
+    <script type="text/javascript" src="js/csvtools.js"></script>
+    <script type="text/javascript" src="js/hexpac.js"></script>    
+    <script type="text/javascript" src="js/modals.js"></script>
+    <script type="text/javascript" src="js/dropdowns.js"></script>
+    <script type="text/javascript" src="js/dropzone.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="style/font.css" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+
+    <div id="navbar">
+      <span id="logo">
+        <!-- <img id="logoImg" src="assets/img/logo.png" height="26" width="50"> -->
+        Grouper.
+      </span>
+
+      <div class="classlist dropdown">
+        <a class="dropdown-toggle" id="group_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="main.html"></a>
+        <ul id="class_dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul>
+      </div>
+
+      <div class="username dropdown">
+        <a class="dropdown-toggle" id="username_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="/main.html"></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="usernameLabel">
+          <li id="logout_button" role="presentation"><a role="menuitem" tabindex="1" href="#">Logout</a></li>
+        </ul>
+      </div>
+
+      <img id="fishImg" src="assets/img/fish.png" height="35" width="58">
+    </div>
+
+    <div id="loginContainer">
+      <!-- <img id="fishImg" src="assets/img/fish.png" height="35" width="58"> -->
+      <div id="loginWrapper">
+        <span id="login_logo">Grouper.</span>
+        <div id="login_tagline">A simple solution to your group making needs.</div>
+        <div id="login_error_message"></div>
+        <input id="login_email" type="text" placeholder="Email"><br>
+        <input id="login_password" type="password" placeholder="Password"><br>
+        <button class="login" id="login_signup_button" type="button" >Login</button>
+        <a id="login_signup_toggle">Or Sign Up</a>
+      </div>
+    </div>
+
+    <div id="newUser"></div>
+    <div id="newUserStart">
+      <div>Welcome to <span class="logoName">Grouper.</span></div>
+      <div class="welcomeMessage">We can see that you have not started grouping any classes yet. Please <strong>click</strong> the button <strong>below</strong> to get started.</div>
+      <button type="button" class="btn btn-sm" id="new_user_import_button">Import a Class</button>
+    </div>
+
+    <div id="filterContainer">
+      <div class="filterTypeTitle">
+        Data Labels:
+      </div>
+      <div class="filterTypeContent">
+        Course Number  
+        <div class="switch">
+          <input id="cmn-toggle-6" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+          <label for="cmn-toggle-6"></label>
+        </div> 
+        Name
+      </div>
+
+      <div class="filterTypeTitle">
+        Data Filters:
+      </div>
+      <ul id="filters"></ul>
+    </div>
+ 
+    <div id = "bubbleContainer">
+      <div id="buttons">
+        <button id="edit" type="button" class="btn btn-sm mainButton" style="background-color: rgb(0, 188, 212);">Edit</button>
+        <button id="export" type="button" class="btn btn-md mainButton">Export</button>
+      </div>
+    </div>
+
+    <!-- Create Group - Step 1 Modal -->
+    <div class="modal" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Step 1: <i>Import Data</i></h4>
+          </div>
+          <div class="modal-body">
+            <div class="inputError"></div>
+
+            <h5 class="groupName"><strong>Name</strong> Your Class: <input type="text" id="newGroupName"></input></h5>
+            <div id="dropzone">
+              <h4>Drag a CSV file here</h4>
+              <p>or if you prefer...</p>
+              <input type="file" id="file_select" name="fileselect" size="40">
+              <div id="fileInfo"></div>
+            </div>
+            <div id="fileContent"></div>
+
+          </div>
+          <br>
+          <ol class="progtrckr" data-progtrckr-steps="4">
+                <li class="progtrckr-done">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
+            </ol>
+            <br>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-info inactive" id="importModalNext">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Data - Step 2 Modal -->
+    <div class="modal" id="editDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Step 2: <i>Edit Data Categories</i></h4>
+          </div>
+          <div class="modal-body">
+            <h5><strong>Edit</strong> your data category labels as you would like them to appear in Grouper. <strong>Remove</strong> categories that will not be relevant to your student groupings (ex. usually <i>name</i>).</h5>
+            <ul id="edit_data_categories"></ul>            
+          </div>
+          <ol class="progtrckr" data-progtrckr-steps="4">
+                <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-todo">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
+            </ol>
+            <br>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importModal">Back</button>
+            <button id="importModalNextButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#prioritizeDataModal">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prioritize Categories - Step 3 Modal -->
+    <div class="modal" id="prioritizeDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Step 3: <i>Prioritize Data Categories</i></h4>
+          </div>
+          <div class="modal-body">
+            <h4>Drag in order: </h4>
+            <hr>
+            <h5>More important to be diverse</h5>
+<!-- <<<<<<< HEAD -->
+            <ul id="inputModalSortable"></ul>
+<!-- ======= -->
+            <!-- <ul id="sortable"></ul> -->
+<!-- >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893 -->
+            <h5>Less important to be diverse</h5>
+          </div>
+
+          <ol class="progtrckr" data-progtrckr-steps="4">
+                <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-done">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
+            </ol>
+            <br>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editDataModal">Back</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#groupifyModal">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Groupify - Step 4 Modal -->
+    <div class="modal" id="groupifyModal" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Step 4: <i>Groupify</i></h4>
+          </div>
+          <div class="modal-body">
+            <h4>Please Select Groupification By:</h4>
+<!-- <<<<<<< HEAD -->
+            <div class="inputError"></div>
+            
+<!-- ======= -->
+            <!-- <div id="alert"><br></div> -->
+
+<!-- >>>>>>> a239c6f3b1bdee3aecb96a2b5e48893e1f1eb893 -->
+            <div id="groupifySelections">
+              <form>
+                <input type="radio" name="max" class="maxPeople" checked> Max number of people in a group
+                <br>
+                <input type="number" class="numberOfPeople">
+                <br>
+                <br>
+                <input type="radio" name="max" class="maxGroups"> Max number of groups
+                <br>
+                <input type="number" class="numberOfGroups" disabled>
+              </form>
+            </div>
+          </div>
+          <ol class="progtrckr" data-progtrckr-steps="4">
+                <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-done">Prioritize Data</li><li class="progtrckr-done">Groupify</li>
+            </ol>
+            <br>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#prioritizeDataModal">Back</button>
+            <!-- <a href="main.html" type="button" class="btn btn-info" id="groupifyButton">Groupify!</a> -->
+            <button type="button" class="btn btn-info" id="groupifyButton">Groupify!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student Modal -->
+    <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Student Information</h4>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xs-1"><span class='glyphicon glyphicon-chevron-left'></span></div>
+                <div class="col-xs-10">
+                  <div class="col-xs-1" id="studentImage"><img id="blankImage" class="img-rounded" src="assets/img/blank_person.jpg" height="110" width="110"></div>
+                  <div class="col-xs-11" id="studentData">
+                  <h3><span id="studentName"></span> - <span id="studentSex"></span></h3>
+                  <div id="otherInfo"></div>
+                  </div>
+                </div>
+                <div class="col-xs-1"><span class='glyphicon glyphicon-chevron-right'></span></div>
+              </div>
+              <br>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group Modal -->
+    <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Group Information</h4>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <h3 style="text-align: center">Group <span id="groupNumber">1</span></h3>
+              </div>
+              <div class="row" id="groupData">
+                  <h5><b>Number of students: </b><span id="groupNumStudents"> 5</span></h5>
+                  <div id="groupStudents"></div>
+                  <br>
+                  <h4>Graphical Displays</h4>
+                  <div id="charts"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Groupify Alg Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Edit Groupify Settings</h4>
+          </div>
+          
+          <div class="modal-body">
+            <b style="font-size:110%">Edit name:</b>
+            <br><input type="text" id="editGroupName"></input><br><br>
+            <b style="font-size:110%">Edit priorities:</b>
+            <br><ul id="edit_data_current_categories"></ul><br>
+            <b style="font-size:110%">Edit how groups are formed:</b>
+            <br>
+            <div id="groupifySelections">
+              <form>
+                <input type="radio" name="max" class="maxPeople" checked> Max number of people in a group
+                <br>
+                <input type="text" class="numberOfPeople">
+                <br>
+                <br>
+                <input type="radio" name="max" class="maxGroups"> Max number of groups
+                <br>
+                <input type="text" class="numberOfGroups" disabled>
+              </form>
+            </div>
+            <br>
+            <button id="delete_group" type="button" class="btn btn-md btn-danger">Delete Group</button>
+          </div>
+          <div class="modal-footer">
+            <button id="re_groupify" type="button" class="btn btn-info" data-dismiss="modal">Re-Groupify</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Export Groups</h4>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <h4>Preview your groups:</h4>
+              </div>
+              <div id="groupPreview"> 
+              </div>
+              <br>
+              <div>Select file format:<select class="selectpicker">
+                <option>.csv</option>
+                <!-- <option>.xlc</option> -->
+                <!-- <option>.pdf</option> -->
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!-- <button id="export_data" type="button" class="btn btn-warning" data-dismiss="modal">Export</button> -->
+            <a href="#" id="export_data" class="export btn btn-warning">Export</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
