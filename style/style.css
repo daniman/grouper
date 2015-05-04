@@ -143,9 +143,16 @@
 
 .color_map {
     margin-bottom: 5px;
+    padding-left: 25px;
 }
 
-
+.color_map_color {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 5px;
+}
 
 .dragover {
     background-color: #f5f5f5;
@@ -659,6 +666,7 @@ body {
     -o-filter: blur(50px);
     -ms-filter: blur(50px);
     filter: blur(50px);*/
+
 }
 
 @media (min-width: 840px) {

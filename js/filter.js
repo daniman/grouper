@@ -40,10 +40,12 @@ function buildFilters() {
         var color_map = '<ul class="color_map">'; 
         var categories = filters[event.target.value];
 
-        for (var i=0; i<categories.length-1; i++) {
-            color_map += '<span style="color: ' + Grouper.colors.get_color(event.target.value, categories[i], filters) + '">' + capitalize(categories[i]) + '</span>, ';
+        for (var i=0; i<categories.length; i++) {
+            color_map += '<li>' +
+                            '<div class="color_map_color" style="background-color: ' + Grouper.colors.get_color(event.target.value, categories[i], filters) + '"></div>' +
+                            capitalize(categories[i]) +
+                        '</li>';
         }
-        color_map += '<span style="color: ' + Grouper.colors.get_color(event.target.value, categories[categories.length-1], filters) + '">' + capitalize(categories[categories.length-1]) + '</span></ul>'
         $(this).parent().append(color_map);
     })
 
