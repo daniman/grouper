@@ -62,7 +62,15 @@ function buildBubbles() {
       foci = hexpac(totalGroups, radius*3, w, h);
       force.stop().start();
     });
-    $(window).trigger('resize');
+    // $(window).trigger('resize');
+
+      var h = $("#bubbleContainer").height();
+      var w = $("#bubbleContainer").width();
+      svg.attr("width", w).attr("height", h);
+      foci = hexpac(totalGroups, radius*3, w, h);
+      force.stop().start();
+
+    console.log(foci);
     
     //hulls
     var hulls = []; 

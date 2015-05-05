@@ -403,6 +403,8 @@ $(document).ready(function() {
 			Grouper.groups.unshift(Grouper.active_group);
 			Grouper.group_setup = {};
 
+			groupify(Grouper.active_group);
+
 			Parse.User.current().save(
 				{'groups': Grouper.groups }, 
 				{ error: function(obj, error) { console.log(error); }
@@ -486,6 +488,7 @@ $(document).ready(function() {
 		$('#editModal .btn').on('click', function(){
 			// console.log('Re-Groupifying');
 			Grouper.active_group.name = $("#editGroupName").val();
+			groupify(Grouper.active_group);
 			Parse.User.current().save(
 				{'groups': Grouper.groups }, 
 				{ error: function(obj, error) { console.log(error); }
@@ -647,7 +650,10 @@ $(document).ready(function() {
        			$(".edit_error_message").html(alertMessage('You cannot have that many people per group.'));
        		} else {
        			$(".edit_error_message").html('');
-       			Grouper.active_group.settings.group_by.group_size = parseInt($(this).val());
+       			var val = parseInt($(this).val());
+       			if (val) {
+       				Grouper.active_group.settings.group_by.group_size = val;
+       			}
 
        			Parse.User.current().save(
 					{'groups': Grouper.groups }, 
