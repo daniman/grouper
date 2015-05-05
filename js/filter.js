@@ -66,7 +66,8 @@ function buildFilters() {
                 $(this).children().html(student_dict[id]['course_number']);
                 $(this).children().removeClass('student_name');
                 $('.bubble_text').css({
-                    'margin-top': ($(this).height()-$(this).children().height())/2 + 'px',
+                    // 'margin-top': ($(this).height()-$(this).children().height())/2 + 'px',
+                    'margin-top': '0px'
                 });
             });
         }
