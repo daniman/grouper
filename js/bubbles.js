@@ -2,9 +2,12 @@ function buildBubbles() {
 
     nodes = null;
     group_nodes = null;
-    var foci;
+    force = null;
+    foci = hexpac(totalGroups, radius*3, $("#bubbleContainer").width(), $("#bubbleContainer").height());
+
     students = Grouper.active_group['data'];
     students_copy=[];
+    points = [];
     //students_copy = students;
     var totalGroups = Grouper.active_group['filters']['group'].length;
 
@@ -46,14 +49,20 @@ function buildBubbles() {
         .attr("height", $("#bubbleContainer").height());
 
     /* Force paramettring */
-    var force = d3.layout.force()
+    force = d3.layout.force()
         .size([$("#bubbleContainer").width(), $("#bubbleContainer").height()]) // gravity field's size
         .charge(0)
         .gravity(0) 
         .nodes(students_copy) 
         .links([])
-        .on("tick", tick)
-        .start();
+        .on("tick", tick);
+        // .start(); 
+
+    var h = $("#bubbleContainer").height();
+    var w = $("#bubbleContainer").width();
+    svg.attr("width", w).attr("height", h);
+    foci = hexpac(totalGroups, radius*3, w, h);
+    force.start();   
 
     $(window).resize(function(){
       var h = $("#bubbleContainer").height();
@@ -62,20 +71,14 @@ function buildBubbles() {
       foci = hexpac(totalGroups, radius*3, w, h);
       force.stop().start();
     });
-    // $(window).trigger('resize');
+    $(window).trigger('resize');
 
-      var h = $("#bubbleContainer").height();
-      var w = $("#bubbleContainer").width();
-      svg.attr("width", w).attr("height", h);
-      foci = hexpac(totalGroups, radius*3, w, h);
-      force.stop().start();
-
-    console.log(foci);
+    // console.log(foci);
     
     //hulls
-    var hulls = []; 
-    for (var i = totalGroups - 1; i >= 0; i--) {
-      hulls.push(svg.append("path").attr("class", "hull").attr("group",totalGroups - i - 1));
+    hulls = []; 
+    for (var i = Grouper.active_group['filters']['group'].length - 1; i >= 0; i--) {
+      hulls.push(svg.append("path").attr("class", "hull").attr("group",Grouper.active_group['filters']['group'].length - i - 1));
     };
     /////////
 
@@ -107,7 +110,6 @@ function buildBubbles() {
         .transition()
         .duration(1000)
         .style("opacity", 1);
-    points = [];
     function tick(e) {  
       //everything collide with everything else
       
@@ -138,7 +140,7 @@ function buildBubbles() {
         
       //remake the points list for the hull
       points = [];
-      for (var i = totalGroups - 1; i >= 0; i--) {
+      for (var i = Grouper.active_group['filters']['group'].length - 1; i >= 0; i--) {
         points.push([]);
       };
       for (var i = students_copy.length - 1; i >= 0; i--) {
@@ -171,6 +173,9 @@ function buildBubbles() {
     // Move nodes toward cluster focus.
     function gravity(alpha) {
       return function(d) {
+        // console.log(d);
+        // console.log(foci);
+        // console.log(foci[d.group]);
         d.y += (foci[d.group].y-(radius/2) - d.y) * alpha;
         d.x += (foci[d.group].x-(radius/2) - d.x) * alpha;
       };
@@ -479,7 +484,7 @@ function buildBubbles() {
 
 
     function redraw() {
-      for (var i = totalGroups - 1; i >= 0; i--) {
+      for (var i = Grouper.active_group['filters']['group'].length - 1; i >= 0; i--) {
         if(points[i].length >= 3){
           hulls[i].datum(d3.geom.hull(points[i])).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
         }else if(points[i].length === 2){
