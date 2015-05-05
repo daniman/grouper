@@ -57,7 +57,7 @@ function buildFilters() {
                 $(this).children().html(student_dict[id]['name'].split(' ').join('<br>'));
                 $(this).children().addClass('student_name');
                 $(this).children().css({
-                    // 'margin-top': ($(this).height()-$(this).children().height())/2 + 'px'
+                    'margin-top': ($(this).height()-$(this).children().height())/2 + 'px'
                 });
             });
         } else {

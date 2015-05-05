@@ -357,6 +357,11 @@ function buildBubbles() {
         student_dict[$(".selected").attr("student_id")].group = tmpGroup;
         $(".selected").removeClass("selected");
 
+        Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
+
         //unhookup second function
         $(".bubble").unbind("click");
         $(document).unbind("click", deselect);
@@ -458,6 +463,12 @@ function buildBubbles() {
 
       console.log("swapperoony");
       student_dict[bubble.attr("student_id")].group = focus;
+
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
+
       force.stop();
       force.start();
     }
