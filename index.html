@@ -309,16 +309,16 @@
           </div>
           
           <div class="modal-body">
-            <b style="font-size:110%">Edit Name:</b>
-            <br><input type="text" id="editGroupName"></input><br><br>
+            <b style="font-size:110%">Edit Name:</b><input type="text" id="editGroupName"></input><br><br>
             <b style="font-size:110%">Edit Labels:</b>
             <br>
             <div class="container-fluid">
               <div class="row">
-                <div class="col-md-6"><h5>Active</h5><ul id="edit_data_current_categories"></ul></div>
-                <div class="col-md-6"><h5>Inactive</h5><ul id="edit_data_current_categories_deleted"></ul></div>
+                <div class="col-md-6"><h5 style='font-style: italic; font-size: 110%;'>Active</h5><ul id="edit_data_current_categories"></ul></div>
+                <div class="col-md-6"><h5 style='font-style: italic; font-size: 110%;'>Inactive</h5><ul id="edit_data_current_categories_deleted"></ul></div>
               </div>
             </div>
+            <br>
             <b style="font-size:110%">Edit Group Sizing:</b> <span class="edit_error_message"></span>
             <br>
             <div id="groupifySelections">
@@ -342,9 +342,10 @@
               </form>
             </div>
             <br>
-            <button id="delete_group" type="button" class="btn btn-md btn-danger">Delete Group</button>
+            
           </div>
           <div class="modal-footer">
+            <button id="delete_group" type="button" class="btn btn-danger">Delete Group</button>
             <button id="re_groupify" type="button" class="btn btn-info" data-dismiss="modal">Re-Groupify</button>
           </div>
         </div>

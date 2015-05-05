@@ -744,23 +744,27 @@ $(document).ready(function() {
 
 
 	$("#delete_group").click(function(){
-		var groups;
+		if (confirm("Are you sure you want to delete this grouping? You will lose all group data for this class"))
+		{
+		    var groups;
 
-		groups = Grouper.groups.filter(function(obj) {
-			return obj != Grouper.active_group;
-		});
+			groups = Grouper.groups.filter(function(obj) {
+				return obj != Grouper.active_group;
+			});
 
-		console.log('ACTIVE GROUP: ' + Grouper.active_group['name']);
-		console.log(groups);
+			console.log('ACTIVE GROUP: ' + Grouper.active_group['name']);
+			console.log(groups);
 
-		Parse.User.current().save(
-			{'groups': groups }, 
-			{ error: function(obj, error) { console.log(error); }
-        });
+			Parse.User.current().save(
+				{'groups': groups }, 
+				{ error: function(obj, error) { console.log(error); }
+	        });
 
-		localStorage.removeItem('active_group');
-		$('#editModal').modal('hide');
-		buildPage();
+			localStorage.removeItem('active_group');
+			$('#editModal').modal('hide');
+			buildPage();
+		}
+		
 	});
 
 /********************************** Student/Group Modals **********************************/

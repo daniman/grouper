@@ -202,7 +202,8 @@
 
 #editGroupName{
     position: relative;
-    left: 25px;
+    left: 10px;
+    width: 82%;
 }
 
 #edit_data_categories li{
