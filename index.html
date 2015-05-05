@@ -288,7 +288,7 @@
                   <div id="groupStudents"></div>
                   <br>
                   <h4>Graphical Displays</h4>
-                  <div id="charts"></div>
+                  <div class="col-md-11" id="charts"></div>
               </div>
             </div>
           </div>
@@ -312,7 +312,13 @@
             <b style="font-size:110%">Edit Name:</b>
             <br><input type="text" id="editGroupName"></input><br><br>
             <b style="font-size:110%">Edit Labels:</b>
-            <br><ul id="edit_data_current_categories"></ul><br>
+            <br>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6"><h5>Active</h5><ul id="edit_data_current_categories"></ul></div>
+                <div class="col-md-6"><h5>Inactive</h5><ul id="edit_data_current_categories_deleted"></ul></div>
+              </div>
+            </div>
             <b style="font-size:110%">Edit Group Sizing:</b> <span class="edit_error_message"></span>
             <br>
             <div id="groupifySelections">

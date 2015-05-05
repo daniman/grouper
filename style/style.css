@@ -124,7 +124,6 @@
     margin-bottom: 5px;
 }
 .charts{
-    width: 50%;
     height: 200px;
 }
 
@@ -210,7 +209,6 @@
     font-size: 1.1em; 
     margin: 0 3px 3px;
     background-color: #F4F4F5;
-    width: 60%;
 }
 
 #edit, #export, .btn {
@@ -309,18 +307,18 @@
     font-size: 13px;
     color: rgb(0, 188, 212);
 }
-.glyphicon-pencil{
+.glyphicon-pencil {
     margin-right: 10px;
     font-size: 13px;
     color: #5F6364;
 }
 
-.glyphicon-pencil:hover, .glyphicon-remove:hover, .glyphicon-trash:hover{
+.glyphicon-pencil:hover, .glyphicon-remove:hover, .glyphicon-trash:hover, .add.glyphicon-plus:hover{
     cursor: pointer;
     color: #000000;
 }
 
-.glyphicon-remove, .glyphicon-trash{
+.glyphicon-remove, .glyphicon-trash, .add.glyphicon-plus{
     margin: 10px;
     font-size: 13px;
     color: #5F6364;
@@ -440,11 +438,10 @@ input[type='radio'] {
     cursor: pointer;
 }
 
-#inputModalSortable li { 
+#inputModalSortable li, #edit_data_current_categories li, #edit_data_current_categories_deleted li { 
     font-size: 1.2em; 
     margin: 0 3px 3px;
     background-color: #F4F4F5;
-    width: 60%;
 }
 
 #inputModalSortable li:hover {

@@ -189,6 +189,13 @@ $(document).ready(function() {
 					"</span>" + 
 					oldName);
 	});
+	$("#edit_data_categories").on('keyup', 'input', function(e){
+		if(e.keyCode == 13)
+	    {
+	    	$("#edit_data_categories .ok a").trigger('click');
+	    }
+		
+	});
 
 /********************************** Import Modal: STEP 3 **********************************/
 
@@ -431,6 +438,17 @@ $(document).ready(function() {
 	  	}
 		$('#edit_data_current_categories').html(headers_html);
 
+		var deleted = Object.keys(Grouper.active_group.filters).filter(function(obj) {
+						   if (Grouper.active_group.settings.priorities.indexOf(obj) < 0) {
+						      return obj
+						   }
+						});
+	    var deleted_html = '';
+	    for (var i=0; i<deleted.length; i++) {
+	  		deleted_html += "<li class='category'></li>";
+	  	}
+		$('#edit_data_current_categories_deleted').html(deleted_html);
+
 		$('#edit_data_current_categories .category').each(function(index, element) {
 			var headers = Grouper.active_group.settings.priorities;
 		  	element.setAttribute('value', headers[index]);
@@ -450,6 +468,20 @@ $(document).ready(function() {
 	  						Grouper.active_group.settings.labels[headers[index]]);
 
 		});
+		$('#edit_data_current_categories_deleted .category').each(function(index, element) {
+			var deleted = Object.keys(Grouper.active_group.filters).filter(function(obj) {
+						   if (Grouper.active_group.settings.priorities.indexOf(obj) < 0) {
+						      return obj
+						   }
+						});
+			element.setAttribute('value', deleted[index]);
+		  	$(element).html("<span class='addItem'>" +
+	  							"<a href='#'>" +
+	  								"<span class='glyphicon glyphicon-plus add'></span>" +
+	  							"</a>" +
+	  						"</span>" + 
+	  						Grouper.active_group.settings.labels[deleted[index]]);
+		});
 
 		$('#editModal .btn').on('click', function(){
 			// console.log('Re-Groupifying');
@@ -468,8 +500,20 @@ $(document).ready(function() {
     	$(this).parent().parent().fadeOut();
     	var val = $(this).parent().parent()[0].getAttribute('value');
     	// console.log(val);
+
     	var priorities = Grouper.active_group.settings.priorities;
     	priorities.splice(priorities.indexOf(val), 1);
+    	$("#editModal").trigger('show');
+	});
+
+	$("#edit_data_current_categories_deleted").on('click', '.addItem a', function(){
+    	$(this).parent().parent().fadeOut();
+    	var val = $(this).parent().parent()[0].getAttribute('value');
+    	// console.log(val);
+    	
+    	var priorities = Grouper.active_group.settings.priorities;
+    	priorities.push(val);
+    	$("#editModal").trigger('show');
 	});
 
 	$("#edit_data_current_categories").on('dblclick', '.category', function(event){
@@ -848,9 +892,16 @@ function numOccurences(target, arr, cat){
 	return $.grep(arr, function (elem) {return elem[cat] === target;}).length;
 }
 function makeCharts(title, chartID, categoryTypes, result, idGroup ){
+	
+
 	$('#'+chartID).highcharts({
         chart: {
-            type: 'column'
+            type: 'column',
+            events: {
+                load: function() {
+                    $(window).resize();
+                }
+            }
         },
         title: {
             text: title,
@@ -876,4 +927,5 @@ function makeCharts(title, chartID, categoryTypes, result, idGroup ){
             data: result
         }]
 	});
+	
 }
