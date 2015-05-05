@@ -100,7 +100,8 @@ function buildBubbles() {
         .duration(1000)
         .style("opacity", 1);
     points = [];
-    function tick(e) {  
+    function tick(e) { 
+      
       //everything collide with everything else
       
       //var q = d3.geom.quadtree(students);
@@ -457,7 +458,32 @@ function buildBubbles() {
     $(".bubble").dblclick(function(){
       $("#studentModal").modal("show");
     });
+    
+    start = function (){
+      node = svg.selectAll(".node")
+      node = node.data(force.nodes(), function(d) { return d.id;});
+      //node.enter().append("circle").attr("class", function(d) { return "node_" + d.id; }).attr("r", radius);
+      node.exit().remove(); 
+      force.start()
+    }
+    
+    deleteBubble = function(bubble){
+      $("#redo").remove();
+      $("#undo").remove();
+      $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
+      $("#undo").click(undo);
+      undoStack.push(["delete",bubble,student_dict[bubble.attr("student_id")].group]);
+      redoStack = [];
 
+      var id = bubble.attr("student_id");
+      students_copy = students_copy.filter(function(el){return el.index != id})
+      students = students.filter(function(el){return el.index != id})
+      bubble.remove()
+      start()
+
+    }
+
+    
 
     function redraw() {
       for (var i = totalGroups - 1; i >= 0; i--) {
