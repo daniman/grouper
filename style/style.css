@@ -11,6 +11,27 @@
     z-index: 10;
 }
 
+#help_tooltip {
+    font-size: 20px;
+    position: absolute;
+    top: 70px;
+    left: 270px;
+    color: #ccc;
+    /*background-color: orange;*/
+    z-index: 10;
+}
+
+#help_tooltip:hover {
+    color: #ff9800;
+}
+
+.tooltip-inner {
+    max-width: 270px;
+    /* If max-width does not work, try using width instead */
+    width: 270px;
+    text-align: left; 
+}
+
 .btn-info {
     background-color: #00BCD4 !important;
     border-color: #00BCD4 !important;

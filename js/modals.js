@@ -787,14 +787,28 @@ $(document).ready(function() {
 
 /********************************** Student/Group Modals **********************************/
 
-	$('.bubble').tooltip({'placement': 'top', 'delay': 1050});
+	// $('.bubble_text').tooltip({'placement': 'top', 'container':'body', 'html':'true'});
 	// $('.hull').tooltip({'placement': 'right', 'container':'body', 'html':'true', 'delay': 550});
 
-	$('.bubble').attr('data-toggle', 'tooltip');
-	$('.bubble').attr('data-origpinal-title', 'Double Click for Information');
+	// $('.bubble_text').attr('data-toggle', 'tooltip');
+	// $('.bubble_text').attr('data-origpinal-title', 'Double Click for Information');
 
 	// $('.hull').attr('data-toggle', 'tooltip');
 	// $('.hull').attr('data-original-title', 'Double Click for Information');
+
+	$('#help_tooltip').attr({
+		'data-toggle': 'tooltip',
+		'data-placement': 'bottom',
+		'data-html': true,
+		'title': '<span style="text-align: center;"><strong>Tips:</strong></span> <br /> ' +
+					'1. Double click circles for more information.<br .> ' +
+					'2. Double click hulls for more information.<br /> ' +
+					'3. Click two consecutive circles to swap them. <br />' +
+					'4. Drag circles to change group arrangements.'
+	});
+	$('#help_tooltip').tooltip();
+
+
 
 	//displays the correct student information for the bubble clicked
 	$(document).on('dblclick', '.bubble', function(evt){
