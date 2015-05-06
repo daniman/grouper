@@ -9,6 +9,7 @@ var buildPage = function() {
     $('#bubbleContainer').hide();
     $('#filterContainer').hide();
     $('#filters').html('');
+    $('#help_tooltip').hide();
     var buttons = $('#bubbleContainer').children('#buttons');
     $('#bubbleContainer').html(buttons);
 
@@ -77,6 +78,7 @@ var buildPage = function() {
              */
             var student_dict = buildBubbles(Grouper.active_group);
             buildFilters(Grouper.active_group, student_dict);
+            $('#help_tooltip').show();
             console.log('building page');
         } else {
             $('#newUser').show();
