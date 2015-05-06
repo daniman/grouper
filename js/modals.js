@@ -881,7 +881,7 @@ $(document).ready(function() {
 var addCategories = function(categories){
 	var headerString = "<tr>";
 	for (var k = 0; k < categories.length; k++) {
-		headerString = headerString.concat("<th>"+categories[k]+"</th>");
+		headerString = headerString.concat("<th>"+Grouper.active_group.settings.labels[categories[k]]+"</th>");
 	};
 	headerString = headerString.concat("</tr>");
 	return headerString;
