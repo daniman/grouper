@@ -235,7 +235,7 @@ function buildBubbles() {
       };
     }
     ////UNDO and REDO////
-    var undoStack = [];
+    undoStack = [];
     var redoStack = [];
     var undo = function(e){
       if(undoStack.length > 0){
@@ -250,7 +250,27 @@ function buildBubbles() {
         $("#redo").click(redo);
         var toBeUndone = undoStack.pop();
         console.log(toBeUndone);
-        if(toBeUndone[0]!=="drag"){
+        if(toBeUndone[0]==="drag"){
+          //drag redo
+          redoStack.push(["drag",toBeUndone[1],student_dict[toBeUndone[1].attr("student_id")].group]);
+          student_dict[toBeUndone[1].attr("student_id")].group = toBeUndone[2];
+          //get them to move
+          force.stop();
+          force.start();
+
+         
+
+        }else if(toBeUndone[0]==="delete"){
+          redoStack.push(toBeUndone);
+          var bubble = toBeUndone[1];
+          var id = bubble.attr("student_id");
+          students_copy.push(toBeUndone[3]);
+          students.push(toBeUndone[3]);
+          $("#bubbleContainer").append(bubble);
+          start();
+          Grouper.active_group.data = students;
+
+        }else{
           var tmpGroup = student_dict[toBeUndone[0].attr("student_id")].group;
           student_dict[toBeUndone[0].attr("student_id")].group = student_dict[toBeUndone[1].attr("student_id")].group;
           student_dict[toBeUndone[1].attr("student_id")].group = tmpGroup;
@@ -258,15 +278,12 @@ function buildBubbles() {
           //get them to move
           force.stop();
           force.start();
-        }else{
-          //drag redo
-          redoStack.push(["drag",toBeUndone[1],student_dict[toBeUndone[1].attr("student_id")].group]);
-          student_dict[toBeUndone[1].attr("student_id")].group = toBeUndone[2];
-          //get them to move
-          force.stop();
-          force.start();
         }
       }
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
     }
     var redo = function(e){
       if(redoStack.length > 0){
@@ -281,7 +298,24 @@ function buildBubbles() {
         }
         var toBeRedone = redoStack.pop();
         console.log(toBeRedone);
-        if(toBeRedone[0] !== "drag"){
+        if(toBeRedone[0] === "drag"){
+          //drag redo
+          undoStack.push([toBeRedone[0],toBeRedone[1],student_dict[toBeRedone[1].attr("student_id")].group]);
+          student_dict[toBeRedone[1].attr("student_id")].group = toBeRedone[2];
+          //get them to move
+          force.stop();
+          force.start();
+        }else if(toBeRedone[0]==="delete"){
+          undoStack.push(toBeRedone);
+          var bubble = toBeRedone[1];
+          var id = bubble.attr("student_id");
+
+          students_copy = students_copy.filter(function(el){return el.index != id});
+          students = students.filter(function(el){return el.index != id});
+          bubble.remove();
+          start();
+          Grouper.active_group.data = students;
+        }else{
           var tmpGroup = student_dict[toBeRedone[0].attr("student_id")].group;
           student_dict[toBeRedone[0].attr("student_id")].group = student_dict[toBeRedone[1].attr("student_id")].group;
           student_dict[toBeRedone[1].attr("student_id")].group = tmpGroup;
@@ -289,15 +323,14 @@ function buildBubbles() {
           //get them to move
           force.stop();
           force.start();
-        }else{
-          //drag redo
-          undoStack.push([toBeRedone[0],toBeRedone[1],student_dict[toBeRedone[1].attr("student_id")].group]);
-          student_dict[toBeRedone[1].attr("student_id")].group = toBeRedone[2];
-          //get them to move
-          force.stop();
-          force.start();
+
+          
         }
       }
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
     }
     $(window).keydown(function(e) {
       //modified from http://stackoverflow.com/questions/3902635/how-does-one-capture-a-macs-command-key-via-javascript
@@ -314,6 +347,21 @@ function buildBubbles() {
           
         }
         
+      }
+      else{
+        if((e.keyCode == 46 || e.keyCode == 8) && $(".selected").length > 0){
+          var bub = $(".selected")
+          bub.removeClass("selected");
+          //unhookup second function
+          $(".bubble").unbind("click");
+          $(document).unbind("click", deselect);
+          //hookup first function
+          $(".bubble").click(nothingSelected);
+
+          deleteBubble(bub);
+          e.preventDefault();
+
+        }
       }
     });
     ////SWAPPING STUFF////
@@ -343,6 +391,10 @@ function buildBubbles() {
       else{
         moveToGroup($(this),focus);
       }
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
     }
 
     var bubbleSelected = function(evt){
@@ -424,6 +476,10 @@ function buildBubbles() {
         evt.stopPropagation();
 
       }
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
       
     }
 
@@ -481,7 +537,55 @@ function buildBubbles() {
     $(".bubble").dblclick(function(){
       $("#studentModal").modal("show");
     });
+    
+    start = function (){
+      node = svg.selectAll(".node")
+      node = node.data(force.nodes(), function(d) { return d.id;});
+      node.enter().append("circle").attr("class", function(d) { return "node_" + d.id; });
+      node.exit().remove(); 
+      force.start()
+    }
+    
+    deleteBubble = function(bubble){
+      $("#redo").remove();
+      $("#undo").remove();
+      $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
+      $("#undo").click(undo);
+      var id = bubble.attr("student_id");
+      undoStack.push(["delete",bubble,student_dict[bubble.attr("student_id")].group,students.filter(function(el){return el.index == id})[0]]);
+      redoStack = [];
 
+      students_copy = students_copy.filter(function(el){return el.index != id})
+      students = students.filter(function(el){return el.index != id})
+      bubble.remove()
+      start()
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
+      Grouper.active_group.data = students;
+      return bubble;
+
+
+    }
+    /*
+    //unused
+    addBubble = function(bubble){
+      $("#redo").remove();
+      $("#undo").remove();
+      $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
+      $("#undo").click(undo);
+      redoStack.push(["delete",bubble,student_dict[bubble.attr("student_id")].group]);
+      redoStack = [];
+
+      var id = bubble.attr("student_id");
+      students_copy = students_copy.filter(function(el){return el.index != id})
+      students = students.filter(function(el){return el.index != id})
+      bubble.remove()
+      start()
+
+    }*/
+    
 
     function redraw() {
       for (var i = Grouper.active_group['filters']['group'].length - 1; i >= 0; i--) {

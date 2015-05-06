@@ -125,6 +125,7 @@
 }
 .charts{
     height: 200px;
+    width: 50%;
 }
 
 .classlist {
@@ -210,6 +211,7 @@
     font-size: 1.1em; 
     margin: 0 3px 3px;
     background-color: #F4F4F5;
+    width: 60%;
 }
 
 #edit, #export, .btn {
@@ -439,13 +441,19 @@ input[type='radio'] {
     cursor: pointer;
 }
 
-#inputModalSortable li, #edit_data_current_categories li, #edit_data_current_categories_deleted li { 
+#inputModalSortable li{
+    font-size: 1.2em; 
+    margin: 0 3px 3px;
+    background-color: #F4F4F5;
+    width: 60%;
+}
+#edit_data_current_categories li, #edit_data_current_categories_deleted li { 
     font-size: 1.2em; 
     margin: 0 3px 3px;
     background-color: #F4F4F5;
 }
 
-#inputModalSortable li:hover {
+#inputModalSortable li:hover, #edit_data_current_categories li:hover {
     cursor: pointer;
     outline: 2px solid #FF9800;
 }

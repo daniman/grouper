@@ -690,6 +690,17 @@ $(document).ready(function() {
         }
     });
 
+    //sortable list for priorities
+    $("#edit_data_current_categories").sortable({
+    	update: function(event) {
+    		var list = $('#edit_data_current_categories').children();
+    		list.each(function(index, element) {
+    			var value = $(element).text();
+    			Grouper.active_group.settings.priorities[index] = element.getAttribute('value');
+    		})
+    	}
+    });
+    $( "#edit_data_current_categories" ).disableSelection();
 /********************************** Export Modal **********************************/
 
 	$(document).on('click', '#export', function(){
@@ -907,12 +918,7 @@ function makeCharts(title, chartID, categoryTypes, result, idGroup ){
 
 	$('#'+chartID).highcharts({
         chart: {
-            type: 'column',
-            events: {
-                load: function() {
-                    $(window).resize();
-                }
-            }
+            type: 'column'
         },
         title: {
             text: title,
