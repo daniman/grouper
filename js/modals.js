@@ -410,6 +410,7 @@ $(document).ready(function() {
 				{ error: function(obj, error) { console.log(error); }
 	        });
 
+			localStorage.setItem('active_group', Grouper.active_group['name']);
 			buildPage();
 		}
 	})
@@ -775,11 +776,11 @@ $(document).ready(function() {
 
 /********************************** Student/Group Modals **********************************/
 
-	// $('.bubble').tooltip({'placement': 'top', 'delay': 1050});
+	$('.bubble').tooltip({'placement': 'top', 'delay': 1050});
 	// $('.hull').tooltip({'placement': 'right', 'container':'body', 'html':'true', 'delay': 550});
 
-	// $('.bubble').attr('data-toggle', 'tooltip');
-	// $('.bubble').attr('data-origpinal-title', 'Double Click for Information');
+	$('.bubble').attr('data-toggle', 'tooltip');
+	$('.bubble').attr('data-origpinal-title', 'Double Click for Information');
 
 	// $('.hull').attr('data-toggle', 'tooltip');
 	// $('.hull').attr('data-original-title', 'Double Click for Information');
