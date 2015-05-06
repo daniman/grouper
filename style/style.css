@@ -19,17 +19,19 @@
     color: #ccc;
     /*background-color: orange;*/
     z-index: 10;
+    transition: .5s;
 }
 
 #help_tooltip:hover {
     color: #ff9800;
+    transition: .5s;
 }
 
 .tooltip-inner {
     max-width: 270px;
     /* If max-width does not work, try using width instead */
     width: 270px;
-    text-align: left; 
+    text-align: left;
 }
 
 .btn-info {
