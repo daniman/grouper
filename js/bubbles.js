@@ -235,7 +235,7 @@ function buildBubbles() {
       };
     }
     ////UNDO and REDO////
-    var undoStack = [];
+    undoStack = [];
     var redoStack = [];
     var undo = function(e){
       if(undoStack.length > 0){
@@ -250,18 +250,29 @@ function buildBubbles() {
         $("#redo").click(redo);
         var toBeUndone = undoStack.pop();
         console.log(toBeUndone);
-        if(toBeUndone[0]!=="drag"){
+        if(toBeUndone[0]==="drag"){
+          //drag redo
+          redoStack.push(["drag",toBeUndone[1],student_dict[toBeUndone[1].attr("student_id")].group]);
+          student_dict[toBeUndone[1].attr("student_id")].group = toBeUndone[2];
+          //get them to move
+          force.stop();
+          force.start();
+
+         
+
+        }else if(toBeUndone[0]==="delete"){
+          redoStack.push(toBeUndone);
+          var bubble = toBeUndone[1];
+          var id = bubble.attr("student_id");
+          students_copy.push(toBeUndone[3]);
+          students.push(toBeUndone[3]);
+          $("#bubbleContainer").append(bubble);
+          start();
+        }else{
           var tmpGroup = student_dict[toBeUndone[0].attr("student_id")].group;
           student_dict[toBeUndone[0].attr("student_id")].group = student_dict[toBeUndone[1].attr("student_id")].group;
           student_dict[toBeUndone[1].attr("student_id")].group = tmpGroup;
           redoStack.push(toBeUndone);
-          //get them to move
-          force.stop();
-          force.start();
-        }else{
-          //drag redo
-          redoStack.push(["drag",toBeUndone[1],student_dict[toBeUndone[1].attr("student_id")].group]);
-          student_dict[toBeUndone[1].attr("student_id")].group = toBeUndone[2];
           //get them to move
           force.stop();
           force.start();
@@ -281,7 +292,23 @@ function buildBubbles() {
         }
         var toBeRedone = redoStack.pop();
         console.log(toBeRedone);
-        if(toBeRedone[0] !== "drag"){
+        if(toBeRedone[0] === "drag"){
+          //drag redo
+          undoStack.push([toBeRedone[0],toBeRedone[1],student_dict[toBeRedone[1].attr("student_id")].group]);
+          student_dict[toBeRedone[1].attr("student_id")].group = toBeRedone[2];
+          //get them to move
+          force.stop();
+          force.start();
+        }else if(toBeRedone[0]==="delete"){
+          undoStack.push(toBeRedone);
+          var bubble = toBeRedone[1];
+          var id = bubble.attr("student_id");
+
+          students_copy = students_copy.filter(function(el){return el.index != id});
+          students = students.filter(function(el){return el.index != id});
+          bubble.remove();
+          start();
+        }else{
           var tmpGroup = student_dict[toBeRedone[0].attr("student_id")].group;
           student_dict[toBeRedone[0].attr("student_id")].group = student_dict[toBeRedone[1].attr("student_id")].group;
           student_dict[toBeRedone[1].attr("student_id")].group = tmpGroup;
@@ -289,13 +316,8 @@ function buildBubbles() {
           //get them to move
           force.stop();
           force.start();
-        }else{
-          //drag redo
-          undoStack.push([toBeRedone[0],toBeRedone[1],student_dict[toBeRedone[1].attr("student_id")].group]);
-          student_dict[toBeRedone[1].attr("student_id")].group = toBeRedone[2];
-          //get them to move
-          force.stop();
-          force.start();
+
+          
         }
       }
     }
@@ -314,6 +336,21 @@ function buildBubbles() {
           
         }
         
+      }
+      else{
+        if((e.keyCode == 46 || e.keyCode == 8) && $(".selected").length > 0){
+          var bub = $(".selected")
+          bub.removeClass("selected");
+          //unhookup second function
+          $(".bubble").unbind("click");
+          $(document).unbind("click", deselect);
+          //hookup first function
+          $(".bubble").click(nothingSelected);
+
+          deleteBubble(bub);
+          e.preventDefault();
+
+        }
       }
     });
     ////SWAPPING STUFF////
@@ -485,7 +522,7 @@ function buildBubbles() {
     start = function (){
       node = svg.selectAll(".node")
       node = node.data(force.nodes(), function(d) { return d.id;});
-      //node.enter().append("circle").attr("class", function(d) { return "node_" + d.id; }).attr("r", radius);
+      node.enter().append("circle").attr("class", function(d) { return "node_" + d.id; });
       node.exit().remove(); 
       force.start()
     }
@@ -495,7 +532,23 @@ function buildBubbles() {
       $("#undo").remove();
       $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
       $("#undo").click(undo);
-      undoStack.push(["delete",bubble,student_dict[bubble.attr("student_id")].group]);
+      var id = bubble.attr("student_id");
+      undoStack.push(["delete",bubble,student_dict[bubble.attr("student_id")].group,students.filter(function(el){return el.index == id})[0]]);
+      redoStack = [];
+
+      students_copy = students_copy.filter(function(el){return el.index != id})
+      students = students.filter(function(el){return el.index != id})
+      bubble.remove()
+      start()
+      return bubble;
+
+    }
+    addBubble = function(bubble){
+      $("#redo").remove();
+      $("#undo").remove();
+      $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
+      $("#undo").click(undo);
+      redoStack.push(["delete",bubble,student_dict[bubble.attr("student_id")].group]);
       redoStack = [];
 
       var id = bubble.attr("student_id");
@@ -505,7 +558,6 @@ function buildBubbles() {
       start()
 
     }
-
     
 
     function redraw() {
