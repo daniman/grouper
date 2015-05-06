@@ -278,6 +278,10 @@ function buildBubbles() {
           force.start();
         }
       }
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
     }
     var redo = function(e){
       if(redoStack.length > 0){
@@ -320,6 +324,10 @@ function buildBubbles() {
           
         }
       }
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
     }
     $(window).keydown(function(e) {
       //modified from http://stackoverflow.com/questions/3902635/how-does-one-capture-a-macs-command-key-via-javascript
@@ -380,6 +388,10 @@ function buildBubbles() {
       else{
         moveToGroup($(this),focus);
       }
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
     }
 
     var bubbleSelected = function(evt){
@@ -461,6 +473,10 @@ function buildBubbles() {
         evt.stopPropagation();
 
       }
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
       
     }
 
@@ -540,9 +556,16 @@ function buildBubbles() {
       students = students.filter(function(el){return el.index != id})
       bubble.remove()
       start()
+      Parse.User.current().save(
+                {'groups': Grouper.groups }, 
+                { error: function(obj, error) { console.log(error); }
+            });
       return bubble;
 
+
     }
+    /*
+    //unused
     addBubble = function(bubble){
       $("#redo").remove();
       $("#undo").remove();
@@ -557,7 +580,7 @@ function buildBubbles() {
       bubble.remove()
       start()
 
-    }
+    }*/
     
 
     function redraw() {
