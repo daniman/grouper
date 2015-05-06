@@ -1,5 +1,7 @@
 function buildBubbles() {
-
+  $("#redo").remove();
+  $("#undo").remove();
+  $(window).unbind('keydown');
     nodes = null;
     group_nodes = null;
     force = null;
@@ -236,7 +238,7 @@ function buildBubbles() {
     }
     ////UNDO and REDO////
     undoStack = [];
-    var redoStack = [];
+    redoStack = [];
     var undo = function(e){
       if(undoStack.length > 0){
         //show redo, take away undo if it is length 0 
