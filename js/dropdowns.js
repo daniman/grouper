@@ -14,7 +14,11 @@ $(document).ready(function() {
 
         $('#undo').hide();
         $('#redo').hide();
-
+        /*
+        redoStack = [];
+        undoStack = [];
+        */
+    
         buildPage();
 
         $('.switch').children('input')[0].checked = false;
