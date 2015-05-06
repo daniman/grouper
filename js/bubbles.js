@@ -268,6 +268,8 @@ function buildBubbles() {
           students.push(toBeUndone[3]);
           $("#bubbleContainer").append(bubble);
           start();
+          Grouper.active_group.data = students;
+
         }else{
           var tmpGroup = student_dict[toBeUndone[0].attr("student_id")].group;
           student_dict[toBeUndone[0].attr("student_id")].group = student_dict[toBeUndone[1].attr("student_id")].group;
@@ -312,6 +314,7 @@ function buildBubbles() {
           students = students.filter(function(el){return el.index != id});
           bubble.remove();
           start();
+          Grouper.active_group.data = students;
         }else{
           var tmpGroup = student_dict[toBeRedone[0].attr("student_id")].group;
           student_dict[toBeRedone[0].attr("student_id")].group = student_dict[toBeRedone[1].attr("student_id")].group;
@@ -560,6 +563,7 @@ function buildBubbles() {
                 {'groups': Grouper.groups }, 
                 { error: function(obj, error) { console.log(error); }
             });
+      Grouper.active_group.data = students;
       return bubble;
 
 
