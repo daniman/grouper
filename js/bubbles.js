@@ -28,7 +28,9 @@ function buildBubbles() {
     var student_dict = {}
     for (var i=0; i<students.length; i++) {
       student_dict[i] = students[i];
-        $('#bubbleContainer').append('<div class="bubble" id="student_bubble" student_id="' + i + '""><div class="bubble_text">' + 
+        $('#bubbleContainer')
+
+        .append('<div class="bubble" id="student_bubble" student_id="' + i + '""><div class="bubble_text">' + 
           ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
     }
     Grouper.active_group.map = student_dict;
@@ -37,8 +39,9 @@ function buildBubbles() {
     }
 
     for (var i = 0; i < totalGroups; i++) {
-      $('#bubbleContainer').append('<div class="group_bubble"><div class="bubble_text">' + 
-        'Group <br>' + (i+1) + '</div></div>');
+      $('#bubbleContainer')
+      .append('<div class="group_bubble"><div class="bubble_text">' + 
+        GroupMapping[i] + '</div></div>');
     };
 
     /* container */
@@ -46,7 +49,7 @@ function buildBubbles() {
         padding = 6,
         vis = d3.select("body").select("#bubbleContainer");
 
-    var svg = d3.select("#bubbleContainer").append("svg")
+    var svg = d3.select("#bubbleSvg")
         .attr("width", $("#bubbleContainer").width())
         .attr("height", $("#bubbleContainer").height());
 
@@ -84,8 +87,16 @@ function buildBubbles() {
     };
     /////////
 
-    nodes = vis.selectAll(".bubble, .group_bubble")
+    vis.selectAll(".bubble, .group_bubble")
       .data(students_copy)
+
+    /*
+    vis
+      .selectAll(".bubble_text")
+      //.attr('class', "fancybox fancybox.iframe")
+      .attr("href", "accordion/battlecode2015/battlecode2015.html")
+    */
+    nodes = vis.selectAll(".bubble, .group_bubble")
       .attr({
         'id': function(d,i) {return 'node_' + i},
       })
@@ -102,9 +113,27 @@ function buildBubbles() {
         'top': function(d) {
           return d.y + radius + "px"; //y
         }
+        //'fill': url(#image)
       })
       .call(force.drag);
 
+    
+    vis.selectAll(".bubble")
+      .classed("fancybox fancybox.iframe", true)
+      .attr("href", function (d,i){
+        return d.link
+      })
+      .style({
+        'background': function (d,i){ return "url('" + d.img + "')" },
+        'background-size': 'contain'
+      })
+      
+      
+      /*
+      .on("click", function (d,i){
+        window.location = d.link
+      });
+*/
     
 
     /* Start transition */
@@ -282,10 +311,6 @@ function buildBubbles() {
           force.start();
         }
       }
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
     }
     var redo = function(e){
       if(redoStack.length > 0){
@@ -329,10 +354,6 @@ function buildBubbles() {
           
         }
       }
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
     }
     $(window).keydown(function(e) {
       //modified from http://stackoverflow.com/questions/3902635/how-does-one-capture-a-macs-command-key-via-javascript
@@ -393,10 +414,6 @@ function buildBubbles() {
       else{
         moveToGroup($(this),focus);
       }
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
     }
 
     var bubbleSelected = function(evt){
@@ -416,10 +433,6 @@ function buildBubbles() {
         student_dict[$(".selected").attr("student_id")].group = tmpGroup;
         $(".selected").removeClass("selected");
 
-        Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
 
         //unhookup second function
         $(".bubble").unbind("click");
@@ -478,11 +491,6 @@ function buildBubbles() {
         evt.stopPropagation();
 
       }
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
-      
     }
 
     var deselect = function(evt){
@@ -497,7 +505,7 @@ function buildBubbles() {
       $(".bubble").click(nothingSelected);
     }
 
-    $(".bubble").click(nothingSelected);
+    //$(".bubble").click(nothingSelected);
 
 
     var closestFocus = function(point){
@@ -527,10 +535,6 @@ function buildBubbles() {
       console.log("swapperoony");
       student_dict[bubble.attr("student_id")].group = focus;
 
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
 
       force.stop();
       force.start();
@@ -561,10 +565,6 @@ function buildBubbles() {
       students = students.filter(function(el){return el.index != id})
       bubble.remove()
       start()
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
       Grouper.active_group.data = students;
       return bubble;
 

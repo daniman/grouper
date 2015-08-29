@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+  	<link href="../../public/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link hef='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href="../fancyboxContent.css" rel="stylesheet">
+  </head>
+
+  <body>
+    
+    <div id="title">Battlecode 2014</div>
+    <div id="date">Programming Competition | 2014</div>
+
+    <hr>
+
+    <div class="message"><a href="http://www.battlecode.org/" target="_blank">Battlecode</a> is a programming competition held over <a href="http://web.mit.edu/iap/" target="_blank">IAP</a> (Independent Activities Period)-which is the entire month of January. A game in Battlecode pits two competitor programmed artificial intelligences against each other in a game of real time strategy.  2014's game was a really odd one, it had only 4 units and the object of the game was to herd cows and harvest milk from them until you had the win constant gallons of milk. This meant that the game was not incredibly deep but it did have some things that you had to do quite well in order to have a competitive bot.</div>
+
+        <div class="subtitle">PASTR placement</div>
+        <hr>
+        <div class="message">
+          One of the 4 robots you could build was called a PASTR and gathered milk much faster than soldiers did. But because it was ideal in most situations to just build one and herd cattle into it, it became very important that you analyzed the map and picked the highest cow density area to put your PASTR.  Algorithmically we did this using DP in O(width*height) time by rolling on and off rows and columns. We found the 10x10 square with the most cows within it and placed our PASTR in the middle of it. 
+        </div>
+
+        <div class="subtitle">Self-Destruct Micro</div>
+        <hr>
+        <div class="message">
+          Since there was only one fighting unit this year it became incredibly important to take advantage of every opportunity to do more complicated things with your units.  Soldiers had the ability to run in and self destruct in order to deal a lot of damage to everyone who was directly next to them.  We made use of this by having our soldiers simulate what would happen and how many people they would hit if they went in on a self destruct run, and if it was worth it they would go for it.
+        </div>
+
+        <div class="subtitle">Herding</div>
+        <hr>
+        <div class="message">
+          Herding was an interesting problem because there was a unit called the noise tower that had an incredibly long range and could shoot in a square and have cows in the area run away from the square it had shot. this meant that you had to push cows into your PASTR with your noise tower.  We tried a lot of different herding pattern and eventually came upon one which was ideal.
+        </div>
+
+
+    
+
+  </body>
+</html>
+

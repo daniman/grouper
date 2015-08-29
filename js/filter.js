@@ -1,5 +1,5 @@
 function buildFilters() {
-
+    debugger
     var students = Grouper.active_group['data'];
     var filters = Grouper.active_group['filters'];
     
@@ -29,6 +29,7 @@ function buildFilters() {
 
     $('.filter_cat').click(function(event) {
         var category = event.target.value;
+        debugger
         $('.bubble').each(function(i,bubble) {
             var attr = students[i][category];
             $(bubble).animate({
@@ -49,17 +50,18 @@ function buildFilters() {
         $(this).parent().append(color_map);
     })
 
-    $('.switch').on('click', function(event, state) {
-        var student_dict = Grouper.active_group.map;
-        if (event.target.checked) {            
-            $('.bubble').each(function() {
-                var id = this.getAttribute('student_id');
-                $(this).children().html(student_dict[id]['name'].split(' ').join('<br>'));
-                $(this).children().addClass('student_name');
-                $(this).children().css({
-                    'margin-top': ($(this).height()-$(this).children().height())/2 + 'px'
-                });
-            });
+    //$('.switch').on('click', function(event, state) {
+    var student_dict = Grouper.active_group.map;
+    //if (event.target.checked) {            
+    $('.bubble').each(function() {
+        var id = this.getAttribute('student_id');
+        $(this).children().html(student_dict[id]['name'].split(' ').join('<br>'));
+        $(this).children().addClass('student_name');
+        $(this).children().css({
+            'margin-top': ($(this).height()-$(this).children().height())/2 + 'px'
+        });
+    });
+        /*
         } else {
             $('.bubble').each(function() {
                 var id = this.getAttribute('student_id');
@@ -71,7 +73,8 @@ function buildFilters() {
                 });
             });
         }
-    });
+        */
+    //});
     
     /**
      * Set the active filter to be the one who ahs the highest priority.

@@ -1,0 +1,199 @@
+/**
+#262626 dark grey
+#969e9b light grey
+#d29708 pumpkin
+#e14d23 red
+#e98221 orange
+#87c309 green
+#09c3b3 blue
+**/
+
+body {
+	background-color: #1f1f1f;
+	color: white;
+	font-family: 'Lato', sans-serif;
+	font-weight: 200;
+}
+
+#updated {
+	position: absolute;
+	color: #676767;
+	font-size: 15px;
+	text-align: center;
+	left: 50%;
+	width: 200px;
+	margin-left: -100px;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #09c3b3;
+}
+
+.blue {
+	color: #09c3b3;
+}
+
+.white {
+	color: white;
+}
+
+.glyphicon-music {
+	font-size: 40px;
+	color: #1f1f1f;
+	position: static;
+}
+
+#pacman {
+	font-size: 40px;
+	color: white;
+}
+
+#musicHolder {
+	height: 40px;
+	overflow: hidden;
+}
+
+#linkTable {
+	margin-top: 20px;
+	margin-right: 10px;
+	float: right;
+}
+
+#linkTable tr td{
+	padding-right: 8px;
+}
+
+#header {
+	font-size: 80px;
+	font-weight: 300;
+}
+
+#subheader {
+	font-size: 16px;
+	color: #c0c4c3;
+}
+
+#headerHolder {
+	padding-top: 20px;
+	text-align: center;
+}
+
+.message {
+	font-size: 18px;
+	text-align: center;
+	padding-bottom: 50px;
+}
+
+.emphasized {
+	color: #09c3b3;
+	font-size: 19px;
+}
+
+#resume {
+	font-size: 40px;
+	padding-left: 15px;
+	padding-top: 5px;
+	color: white;
+	text-decoration: none;
+}
+
+#resume:hover, #resume:focus {
+	color: #d29708;
+}
+
+.socialMediaLink {
+	padding: 2px;
+	border: 2px solid white;
+	border-radius: 15px;
+	background-color: #1f1f1f;
+	margin-right: 2px;
+}
+
+#linkedin .socialMediaLink:hover,
+#linkedin .socialMediaLink:focus {
+	border: 4px solid #0E76A8;
+	background-color: #0E76A8;
+}
+
+#facebook .socialMediaLink:hover,
+#facebook .socialMediaLink:focus {
+	border: 4px solid #3B5998;
+	background-color: #3B5998;
+}
+
+#github .socialMediaLink:hover,
+#github .socialMediaLink:focus {
+	border: 4px solid #FFAE19;
+	background-color: #FFAE19;
+}
+
+#bitbucket .socialMediaLink:hover,
+#bitbucket .socialMediaLink:focus {
+	border: 4px solid #053145;
+	background-color: #053145;
+}
+
+#travel .socialMediaLink:hover,
+#travel .socialMediaLink:focus {
+	border: 4px solid #87c309;
+	background-color: #87c309;
+}
+
+
+
+.accordian {
+	width: 1128px;
+	height: 320px;
+	overflow: hidden;
+	margin: 100px auto;
+	margin-top: 50px;
+	margin-bottom: 30px;
+	box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.35);
+
+}
+
+.accordian ul {
+	width: 2000px;
+	margin: 0; 
+	padding: 0;
+}
+
+.accordian li {
+	position: relative;
+	display: block;
+	width: 112px;
+	float: left;
+	border-left: 1px solid #262626;
+	
+	box-shadow: 0 0 25px 10px rgba(0, 0, 0, 0.5);
+	transition: all 0.5s;
+}
+
+.accordian ul:hover li {
+	width: 89px;
+}
+
+.accordian ul li:hover {
+	width: 320px;
+}
+
+.accordian li img {
+	display: block;
+}
+
+.image_title {
+	background: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 640px;
+}
+
+.image_title a {
+	color: white;
+	display: block;
+	text-decoration: none;
+	padding: 20px;
+	font-size: 16px;
+}

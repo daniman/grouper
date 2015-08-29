@@ -5,6 +5,16 @@ Grouper.groups = [];
 Grouper.active_group = {};
 Grouper.group_setup = {}; // for holding variables while you set up a group in the modal
 
+GroupMapping = {
+    '0': "Me!",
+    '1': "Battlecode",
+    '2': "Internship Work",
+    '3': "Projects",
+    '4': "Interests",
+    '5': "Social Media"
+}
+
+
 Grouper.colors = {
     get_color: function(category, attr, filters) {
         var color_pool = Grouper['colors']['color_schemes'][Grouper['colors']['color_scheme_pref']];

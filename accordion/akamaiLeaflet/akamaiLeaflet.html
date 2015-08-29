@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+  	<link href="../../public/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link hef='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href="../fancyboxContent.css" rel="stylesheet">
+  </head>
+
+  <body>
+    
+    <div id="title">Akamai Leaflet Map</div>
+    <div id="date">Akamai Internship | 2014</div>
+
+    <hr>
+
+    <div class="message">Over the summer in 2014 I interned at Akamai http://www.akamai.com/ working on data visualiztion.  I was particularly interested in this internship because I already had experience in data visualization from my Game Lab project and was hoping to get some experience in it in terms of web dev. My internship consisted of working in a team of 4 designing and programming visualizations for the 28 screens in Akamai's NOCC http://www.akamai.com/html/technology/nocc.html .  My dataset for this was Akamai's maintenance data on their servers in terms of software, maintenance fixes, ongoing problems, etc.
+
+    We created a </div>
+
+        <div class="subtitle">Installs</div>
+        <hr>
+        <div class="message">
+          I originally came to Leaflet because I knew we would need to use it quite a lot and I didn't want to be restricted on user usage limits.  Since it was open-source there would obviously be no limits. It also turned out to be quite useful that it was open-source because many times during the summer I had to go source diving for a solution to my problem.  It was also easy to use whatever tilesets you wanted-which was quite good because I found a tileset that would be perfect early in the summer.  Leaflet was also great because it had good compatibility with chloropleth maps (maps colored along boundaries based on some data), so compatible, in fact, that there's a <a href="http://leafletjs.com/examples/choropleth.html" target="_blank">tutorial</a> on the main website of making a chloropleth.
+        </div>
+
+        <div class="subtitle">Chloropleth Map</div>
+        <hr>
+        <div class="message">
+          After watching how the engineers in the NOCC worked I thought of a new metric that would pretty closely match their decisionmaking of which maintenance tickets to attend to first.  This metric involved using the capacity of the surrounding geographical area of a ticket and the priority of the ticket.  I thought about using a heatmap for this but unfortunately heatmaps often become (population maps)LINKXKCD.  For this reason I decided to go with a normalized chloropleth.
+          Used a chloropleth because heatmaps inevitably become population maps a la xkcd.  
+          Divided by total capacity because in order to normalize and make sure that when a country was losing a lot of capacity to a ticket, it was shown as a big problem.
+        </div>
+
+        <div class="subtitle">Markers for Tickets, Maintenances</div>
+        <hr>
+        <div class="message">
+          I had a lot of browser compatibility issues because I wanted to make it work well on laptops and on the huge screens in the NOCC. This meant that the markers on the map had to resize properly depending on your resolution.  Unfortunately the normal Leaflet way of doing this didnt work well for the extremely strange browser in the NOCC.  I ended up having to look through the leaflet source code to find what line was probably the offender and change it in our downloaded version of leaflet.
+        </div>
+
+
+    
+
+  </body>
+</html>
+

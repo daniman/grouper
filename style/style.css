@@ -89,6 +89,15 @@
     position: absolute;
     text-align: center;
     vertical-align: middle;
+
+    /*
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    */
+    background-repeat: no-repeat;
+    /*background: url(../accordion/akamaiD3/thumbnail.png);*/
+    background-size: contain;
 }
 
 .group_bubble {

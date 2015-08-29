@@ -1,434 +1,135 @@
 /********************************** Dummy Data **********************************/
 
 // TODO: upload this from the modals
-fa14_students = [{   
-    name: 'Catwoman',
-    course_number: 16,
-    gender: 'F',
-    year: '2016',
-    group: 6,
-    sports_team: 'villain',
-}, {
-    name: 'Mystique',
-    course_number: 6,
-    gender: 'F',
-    year: '2016',
-    group: 6,
-    sports_team: 'villain',
-}, {
-    name: 'Bane',
-    course_number: 6,
-    gender: 'M',
-    year: '2016',
-    group: 6,
-    sports_team: 'villain',
-}, {
-    name: 'The Riddler',
-    course_number: 16,
-    gender: 'M',
-    year: '2016',
-    group: 6,
-    sports_team: 'villain',
-}, {
-    name: 'Sandman',
-    course_number: 2,
-    gender: 'M',
-    year: '2016',
-    group: 6,
-    sports_team: 'villain',
-}, {
-    name: 'Joker',
-    course_number: 2,
-    gender: 'M',
-    year: '2015',
-    group: 5,
-    sports_team: 'villain',
-}, {
-    name: 'Doctor Doom',
-    course_number: 6,
-    gender: 'M',
-    year: '2015',
-    group: 5,
-    sports_team: 'villain',
-}, {
-    name: 'Lex Luther',
-    course_number: 1,
-    gender: 'M',
-    year: '2016',
-    group: 5,
-    sports_team: 'villain',
-}, {
-    name: 'Galactus',
-    course_number: 16,
-    gender: 'M',
-    year: '2016',
-    group: 5,
-    sports_team: 'villain',
-}, {
-    name: 'Loki',
-    course_number: 6,
-    gender: 'M',
-    year: '2015',
-    group: 5,
-    sports_team: 'villain',
-}, {
-    name: 'Ironman',
-    course_number: 7,
-    gender: 'M',
-    year: '2016',
-    group: 4,
-    sports_team: 'hero',
-}, {
-    name: 'Aquaman',
-    course_number: 8,
-    gender: 'M',
-    year: '2016',
-    group: 4,
-    sports_team: 'hero',
-}, {
-    name: 'Hercules',
-    course_number: 22,
-    gender: 'M',
-    year: '2015',
-    group: 4,
-    sports_team: 'hero',
-}, {
-    name: 'Wolverine',
-    course_number: 2,
-    gender: 'M',
-    year: '2016',
-    group: 4,
-    sports_team: 'hero',
-}, {
-    name: 'Magneto',
-    course_number: 2,
-    gender: 'M',
-    year: '2016',
-    group: 4,
-    sports_team: 'villain',
-}, {
-    name: 'Thor',
-    course_number: 20,
-    gender: 'M',
-    year: '2016',
-    group: 3,
-    sports_team: 'hero',
-}, {
-    name: 'Hal Jordan',
-    course_number: 16,
-    gender: 'M',
-    year: '2017',
-    group: 3,
-    sports_team: 'hero',
-}, {
-    name: 'Wonder Woman',
-    course_number: 6,
-    gender: 'F',
-    year: '2016',
-    group: 3,
-    sports_team: 'hero',
-}, {
-    name: 'Captain America',
-    course_number: 6,
-    gender: 'M',
-    year: '2018',
-    group: 3,
-    sports_team: 'hero',
-}, {
-    name: 'Hulk',
-    course_number: 7,
-    gender: 'M',
-    year: '2016',
-    group: 3,
-    sports_team: 'hero',
-}, {
-    name: 'Dale',
-    course_number: 6,
-    gender: 'M',
-    year: '2016',
-    group: 2,
-    sports_team: 'disney',
-}, {
-    name: 'Batman',
-    course_number: 3,
-    gender: 'M',
-    year: '2016',
-    group: 2,
-    sports_team: 'hero',
-}, {
-    name: 'Robin',
-    course_number: 9,
-    gender: 'M',
-    year: '2016',
-    group: 2,
-    sports_team: 'hero',
-}, {
-    name: 'Superman',
-    course_number: 18,
-    gender: 'M',
-    year: '2015',
-    group: 2,
-    sports_team: 'hero',
-}, {
-    name: 'Spiderman',
-    course_number: 16,
-    gender: 'M',
-    year: '2016',
-    group: 2,
-    sports_team: 'hero',
-}, {
-    name: 'Pluto',
-    course_number: 6,
-    gender: 'M',
-    year: '2016',
-    group: 1,
-    sports_team: 'disney',
-}, {
-    name: 'Scrooge Matt',
-    course_number: 2,
-    gender: 'M',
-    year: '2017',
-    group: 1,
-    sports_team: 'disney',
-}, {
-    name: 'Tom',
-    course_number: 2,
-    gender: 'M',
-    year: '2018',
-    group: 1,
-    sports_team: 'disney',
-}, {
-    name: 'Jerry',
-    course_number: 5,
-    gender: 'M',
-    year: '2016',
-    group: 1,
-    sports_team: 'disney',
-}, {
-    name: 'Chip',
-    course_number: 10,
-    gender: 'M',
-    year: '2015',
-    group: 1,
-    sports_team: 'disney',
-}, {
-    name: 'Mickey Mouse',
-    course_number: 6,
-    gender: 'M',
-    year: '2016',
-    group: 0,
-    sports_team: 'disney',
-}, {
-    name: 'Minnie Mouse',
-    course_number: 6,
-    gender: 'F',
-    year: '2015',
-    group: 0,
-    sports_team: 'disney',
-}, {
-    name: 'Donald Duck',
-    course_number: 2,
-    gender: 'M',
-    year: '2015',
-    group: 0,
-    sports_team: 'disney',
-}, {
-    name: 'Daisy Duck',
-    course_number: 3,
-    gender: 'F',
-    year: '2016',
-    group: 0,
-    sports_team: 'disney',
-}, {
-    name: 'Goofy',
-    course_number: 1,
-    gender: 'M',
-    year: '2017',
-    group: 0,
-    sports_team: 'disney',
-}];
-
-fa13_students = [{
-    name: 'Joker',
-    course_number: 2,
-    gender: 'M',
-    group: 5,
-    sports_team: 'villain',
-}, {
-    name: 'Doctor Doom',
-    course_number: 6,
-    gender: 'M',
-    group: 5,
-    sports_team: 'villain',
-}, {
-    name: 'Lex Luther',
-    course_number: 1,
-    gender: 'M',
-    group: 5,
-    sports_team: 'villain',
-}, {
-    name: 'Galactus',
-    course_number: 16,
-    gender: 'M',
-    group: 5,
-    sports_team: 'villain',
-}, {
-    name: 'Loki',
-    course_number: 6,
-    gender: 'M',
-    group: 5,
-    sports_team: 'villain',
-}, {
-    name: 'Ironman',
-    course_number: 7,
-    gender: 'M',
-    group: 4,
-    sports_team: 'hero',
-}, {
-    name: 'Aquaman',
-    course_number: 8,
-    gender: 'M',
-    group: 4,
-    sports_team: 'hero',
-}, {
-    name: 'Hercules',
-    course_number: 22,
-    gender: 'M',
-    group: 4,
-    sports_team: 'hero',
-}, {
-    name: 'Wolverine',
-    course_number: 2,
-    gender: 'M',
-    group: 4,
-    sports_team: 'hero',
-}, {
-    name: 'Magneto',
-    course_number: 2,
-    gender: 'M',
-    group: 4,
-    sports_team: 'villain',
-}, {
-    name: 'Thor',
-    course_number: 20,
-    gender: 'M',
-    group: 3,
-    sports_team: 'hero',
-}, {
-    name: 'Hal Jordan',
-    course_number: 16,
-    gender: 'M',
-    group: 3,
-    sports_team: 'hero',
-}, {
-    name: 'Wonder Woman',
-    course_number: 6,
-    gender: 'F',
-    group: 3,
-    sports_team: 'hero',
-}, {
-    name: 'Captain America',
-    course_number: 6,
-    gender: 'M',
-    group: 3,
-    sports_team: 'hero',
-}, {
-    name: 'Hulk',
-    course_number: 7,
-    gender: 'M',
-    group: 3,
-    sports_team: 'hero',
-}, {
-    name: 'Dale',
-    course_number: 6,
-    gender: 'M',
-    group: 2,
-    sports_team: 'disney',
-}, {
-    name: 'Batman',
-    course_number: 3,
-    gender: 'M',
-    group: 2,
-    sports_team: 'hero',
-}, {
-    name: 'Robin',
-    course_number: 9,
-    gender: 'M',
-    group: 2,
-    sports_team: 'hero',
-}, {
-    name: 'Superman',
-    course_number: 18,
-    gender: 'M',
-    group: 2,
-    sports_team: 'hero',
-}, {
-    name: 'Spiderman',
-    course_number: 16,
-    gender: 'M',
-    group: 2,
-    sports_team: 'hero',
-}, {
-    name: 'Pluto',
-    course_number: 6,
-    gender: 'M',
-    group: 1,
-    sports_team: 'disney',
-}, {
-    name: 'Scrooge Matt',
-    course_number: 2,
-    gender: 'M',
-    group: 1,
-    sports_team: 'disney',
-}, {
-    name: 'Tom',
-    course_number: 2,
-    gender: 'M',
-    group: 1,
-    sports_team: 'disney',
-}, {
-    name: 'Jerry',
-    course_number: 5,
-    gender: 'M',
-    group: 1,
-    sports_team: 'disney',
-}, {
-    name: 'Chip',
-    course_number: 10,
-    gender: 'M',
-    group: 1,
-    sports_team: 'disney',
-}, {
-    name: 'Mickey Mouse',
-    course_number: 6,
-    gender: 'M',
-    group: 0,
-    sports_team: 'disney',
-}, {
-    name: 'Minnie Mouse',
-    course_number: 6,
-    gender: 'F',
-    group: 0,
-    sports_team: 'disney',
-}, {
-    name: 'Donald Duck',
-    course_number: 2,
-    gender: 'M',
-    group: 0,
-    sports_team: 'disney',
-}, {
-    name: 'Daisy Duck',
-    course_number: 3,
-    gender: 'F',
-    group: 0,
-    sports_team: 'disney',
-}, {
-    name: 'Goofy',
-    course_number: 1,
-    gender: 'M',
-    group: 0,
-    sports_team: 'disney',
-}];
+fa14_students = 
+[
+    {
+        "name": "Resume",
+        "group": "0",
+        "link": "resume.pdf",
+        "img": "resume.pdf"
+    },
+    {
+        "name": "About me",
+        "group": "0",
+        "link": "accordion/aboutMe/aboutMe.html",
+        "img": "accordion/aboutMe/thumbnail.png"
+    },
+    {
+        "name": "2013 Battlecode",
+        "group": "1",
+        "link": "accordion/battlecode2013/battlecode2013.html",
+        "img": "accordion/battlecode2013/thumbnail.png"
+    },
+    {
+        "name": "2014 Battlecode",
+        "group": "1",
+        "link": "accordion/battlecode2014/battlecode2014.html",
+        "img": "accordion/battlecode2014/thumbnail.png"
+    },
+    {
+        "name": "2015 Battlecode",
+        "group": "1",
+        "link": "accordion/battlecode2015/battlecode2015.html",
+        "img": "accordion/battlecode2015/thumbnail.png"
+    },
+    {
+        "name": "Akamai Leaflet",
+        "group": "2",
+        "link": "accordion/akamaiLeaflet/akamaiLeaflet.html",
+        "img": "resume.pdf"
+    },
+    {
+        "name": "Akamai D3",
+        "group": "2",
+        "link": "accordion/akamaiD3/akamaiD3.html",
+        "img": "accordion/akamaiD3/thumbnail.png"
+    },
+    {
+        "name": "Addepar Ember Charts",
+        "group": "2",
+        "link": "resume.pdf",
+        "img": "resume.pdf"
+    },
+    {
+        "name": "P(arty)set",
+        "group": "3",
+        "link": "accordion/partyset/partyset.html",
+        "img": "accordion/partyset/thumbnail.png"
+    },
+    {
+        "name": "Grouper",
+        "group": "3",
+        "link": "resume.pdf",
+        "img": "resume.pdf"
+    },
+    {
+        "name": "MIT Overseer",
+        "group": "3",
+        "link": "accordion/gameLab/gameLab.html",
+        "img": "accordion/gameLab/NewDeniedRightSize1.gif"
+    },
+    {
+        "name": "Cello",
+        "group": "4",
+        "link": "resume.pdf",
+        "img": "resume.pdf"
+    },
+    {
+        "name": "Melee",
+        "group": "4",
+        "link": "resume.pdf",
+        "img": "resume.pdf"
+    },
+    {
+        "name": "Starcraft 2",
+        "group": "4",
+        "link": "resume.pdf",
+        "img": "resume.pdf"
+    },
+    {
+        "name": "Hearthstone",
+        "group": "4",
+        "link": "resume.pdf",
+        "img": "resume.pdf"
+    },
+    {
+        "name": "Github",
+        "group": "5",
+        "link": "resume.pdf",
+        "img": "images/sociallinks/github.png"
+    },
+    {
+        "name": "Quora",
+        "group": "5",
+        "link": "resume.pdf",
+        "img": "images/sociallinks/quora.png"
+    },
+    {
+        "name": "Facebook",
+        "group": "5",
+        "link": "resume.pdf",
+        "img": "images/sociallinks/facebook.png"
+    },
+    {
+        "name": "8tracks",
+        "group": "5",
+        "link": "resume.pdf",
+        "img": "images/sociallinks/8tracksWhite.png"
+    },
+    {
+        "name": "Spotify",
+        "group": "5",
+        "link": "resume.pdf",
+        "img": "images/sociallinks/spotify.png"
+    },
+    {
+        "name": "Linked in",
+        "group": "5",
+        "link": "resume.pdf",
+        "img": "images/sociallinks/linkedin.png"
+    }
+]
 
 /********************************** Dummy Data Setup **********************************/
 
@@ -437,13 +138,9 @@ Grouper.groups.push({
     settings: {
         labels: {
             name: 'Name',
-            course_number: 'Course Number',
-            gender: 'Gender',
-            year: 'Year',
-            group: 'Group',
-            sports_team: 'Sports Team'
+            group: 'Group'
         },
-        priorities: ['course_number', 'gender', 'year', 'sports_team'],
+        priorities: ['group'],
         group_by: {
             pref: 'num_groups',
             num_groups: '7',
@@ -459,13 +156,9 @@ Grouper.groups.push({
     settings: {
         labels: {
             name: 'Name',
-            course_number: 'Course Number',
-            gender: 'Gender',
-            year: 'Year',
-            group: 'Group',
-            sports_team: 'Sports Team'
+            group: 'Group'
         },
-        priorities: ['course_number', 'gender', 'year', 'sports_team'],
+        priorities: ['group'],
         group_by: {
             pref: 'num_groups',
             num_groups: '7',
@@ -481,20 +174,16 @@ Grouper.groups.push({
     settings: {
         labels: {
             name: 'Name',
-            course_number: 'Course Number',
-            gender: 'Gender',
-            group: 'Group',
-            sports_team: 'Sports Team'
+            group: 'Group'
         },
-        priorities: ['course_number', 'gender', 'sports_team'],
+        priorities: ['group'],
         group_by: {
             pref: 'num_groups',
-            num_groups: '7',
-            group_size: ''
+            group: 'Group'
         }
     },
-    data: fa13_students,
-    filters: buildFilterObject(fa13_students)
+    data: fa14_students,
+    filters: buildFilterObject(fa14_students)
 });
 
 
@@ -505,7 +194,7 @@ function buildFilterObject(data) {
     var parameters = {};
     var filters = Object.keys(data[0]);
     for (var i=0; i<filters.length; i++) {
-            parameters[filters[i]] = [];
+        parameters[filters[i]] = [];
     }
     for (var i=0; i<data.length; i++) {
         for (var j=0; j<filters.length; j++) {
