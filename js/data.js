@@ -6,8 +6,8 @@ fa14_students =
     {
         "name": "Resume",
         "group": "0",
-        "link": "resume.pdf",
-        "img": "resume.pdf"
+        "link": "accordion/resume/resume.pdf",
+        "img": "accordion/resume/smallthumbnail.png"
     },
     {
         "name": "About me",
@@ -37,7 +37,7 @@ fa14_students =
         "name": "Akamai Leaflet",
         "group": "2",
         "link": "accordion/akamaiLeaflet/akamaiLeaflet.html",
-        "img": "resume.pdf"
+        "img": "accordion/akamaiLeaflet/thumbnail.png"
     },
     {
         "name": "Akamai D3",
@@ -48,8 +48,8 @@ fa14_students =
     {
         "name": "Addepar Ember Charts",
         "group": "2",
-        "link": "resume.pdf",
-        "img": "resume.pdf"
+        "link": "",
+        "img": ""
     },
     {
         "name": "P(arty)set",
@@ -60,8 +60,8 @@ fa14_students =
     {
         "name": "Grouper",
         "group": "3",
-        "link": "resume.pdf",
-        "img": "resume.pdf"
+        "link": "",
+        "img": ""
     },
     {
         "name": "MIT Overseer",
@@ -72,61 +72,61 @@ fa14_students =
     {
         "name": "Cello",
         "group": "4",
-        "link": "resume.pdf",
-        "img": "resume.pdf"
+        "link": "",
+        "img": ""
     },
     {
         "name": "Melee",
         "group": "4",
-        "link": "resume.pdf",
-        "img": "resume.pdf"
+        "link": "",
+        "img": "accordion/melee/thumbnail.png"
     },
     {
         "name": "Starcraft 2",
         "group": "4",
-        "link": "resume.pdf",
-        "img": "resume.pdf"
+        "link": "",
+        "img": "accordion/starcraft2/thumbnail.png"
     },
     {
         "name": "Hearthstone",
         "group": "4",
-        "link": "resume.pdf",
-        "img": "resume.pdf"
+        "link": "",
+        "img": "accordion/hearthstone/thumbnail.png"
     },
     {
         "name": "Github",
         "group": "5",
-        "link": "resume.pdf",
+        "link": "",
         "img": "images/sociallinks/github.png"
     },
     {
         "name": "Quora",
         "group": "5",
-        "link": "resume.pdf",
+        "link": "",
         "img": "images/sociallinks/quora.png"
     },
     {
         "name": "Facebook",
         "group": "5",
-        "link": "resume.pdf",
+        "link": "",
         "img": "images/sociallinks/facebook.png"
     },
     {
         "name": "8tracks",
         "group": "5",
-        "link": "resume.pdf",
+        "link": "",
         "img": "images/sociallinks/8tracksWhite.png"
     },
     {
         "name": "Spotify",
         "group": "5",
-        "link": "resume.pdf",
+        "link": "",
         "img": "images/sociallinks/spotify.png"
     },
     {
         "name": "Linked in",
         "group": "5",
-        "link": "resume.pdf",
+        "link": "",
         "img": "images/sociallinks/linkedin.png"
     }
 ]

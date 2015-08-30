@@ -29,9 +29,8 @@ function buildBubbles() {
     for (var i=0; i<students.length; i++) {
       student_dict[i] = students[i];
         $('#bubbleContainer')
-
-        .append('<div class="bubble" id="student_bubble" student_id="' + i + '""><div class="bubble_text">' + 
-          ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
+        //students[i]['name']
+        .append('<div class="bubble" id="student_bubble" student_id="' + i + '""><div class="bubble_text"></div></div>');
     }
     Grouper.active_group.map = student_dict;
     for (var i=0; i<students.length; i++) {
@@ -45,11 +44,11 @@ function buildBubbles() {
     };
 
     /* container */
-    var radius = 50,
+    var radius = 100,
         padding = 6,
         vis = d3.select("body").select("#bubbleContainer");
 
-    var svg = d3.select("#bubbleSvg")
+    var svg = d3.select("#bubbleContainer").append("svg")
         .attr("width", $("#bubbleContainer").width())
         .attr("height", $("#bubbleContainer").height());
 
@@ -83,20 +82,17 @@ function buildBubbles() {
     //hulls
     hulls = []; 
     for (var i = Grouper.active_group['filters']['group'].length - 1; i >= 0; i--) {
-      hulls.push(svg.append("path").attr("class", "hull").attr("group",Grouper.active_group['filters']['group'].length - i - 1));
+      hulls.push(
+        svg.append("path")
+          .attr("class", "hull")
+          .attr("group",Grouper.active_group['filters']['group'].length - i - 1)
+      );
     };
     /////////
 
-    vis.selectAll(".bubble, .group_bubble")
-      .data(students_copy)
 
-    /*
-    vis
-      .selectAll(".bubble_text")
-      //.attr('class', "fancybox fancybox.iframe")
-      .attr("href", "accordion/battlecode2015/battlecode2015.html")
-    */
     nodes = vis.selectAll(".bubble, .group_bubble")
+      .data(students_copy)
       .attr({
         'id': function(d,i) {return 'node_' + i},
       })
@@ -105,21 +101,35 @@ function buildBubbles() {
         'height': radius + 'px',
         'background-color': 'transparent',
         'border-radius': radius/2 + 'px',
-        'font-size': '30px',
-        'line-height': radius + 'px',
+        //'font-size': '30px',
+        //'line-height': radius + 'px',
         'left': function(d) {
           return d.x + radius + "px"; //x
         },
         'top': function(d) {
           return d.y + radius + "px"; //y
         }
-        //'fill': url(#image)
       })
       .call(force.drag);
 
-    
+    vis.selectAll(".bubble > .bubble_text")
+      .data(students)
+      .html(function(d,i){
+        if(d.img === "")
+          return d.name
+        else
+          return ""
+      })
+
     vis.selectAll(".bubble")
-      .classed("fancybox fancybox.iframe", true)
+      .classed("fancybox fancybox.iframe", function (d,i){
+        if(d.link.indexOf("accordion") !== -1){
+          return true
+        }
+        else{
+          return false
+        }
+      })
       .attr("href", function (d,i){
         return d.link
       })
@@ -127,7 +137,17 @@ function buildBubbles() {
         'background': function (d,i){ return "url('" + d.img + "')" },
         'background-size': 'contain'
       })
-      
+      .attr('data-toggle', function (d,i){
+        if(d.img !== ""){
+          return "tooltip"
+        }
+        else{
+          return  
+        }
+      })
+      .attr('data-original-title', function (d,i){
+        return d.name
+      });
       
       /*
       .on("click", function (d,i){

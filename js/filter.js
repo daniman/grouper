@@ -29,8 +29,8 @@ function buildFilters() {
 
     $('.filter_cat').click(function(event) {
         var category = event.target.value;
-        debugger
         $('.bubble').each(function(i,bubble) {
+            debugger
             var attr = students[i][category];
             $(bubble).animate({
                 'background-color': Grouper.colors.get_color(category, attr, filters)
@@ -53,13 +53,13 @@ function buildFilters() {
     //$('.switch').on('click', function(event, state) {
     var student_dict = Grouper.active_group.map;
     //if (event.target.checked) {            
-    $('.bubble').each(function() {
+    $('.bubble, .group_bubble').each(function() {
         var id = this.getAttribute('student_id');
-        $(this).children().html(student_dict[id]['name'].split(' ').join('<br>'));
-        $(this).children().addClass('student_name');
+        
         $(this).children().css({
             'margin-top': ($(this).height()-$(this).children().height())/2 + 'px'
         });
+
     });
         /*
         } else {

@@ -8,7 +8,7 @@ Grouper.group_setup = {}; // for holding variables while you set up a group in t
 GroupMapping = {
     '0': "Me!",
     '1': "Battlecode",
-    '2': "Internship Work",
+    '2': "Internships",
     '3': "Projects",
     '4': "Interests",
     '5': "Social Media"
@@ -17,6 +17,7 @@ GroupMapping = {
 
 Grouper.colors = {
     get_color: function(category, attr, filters) {
+        debugger
         var color_pool = Grouper['colors']['color_schemes'][Grouper['colors']['color_scheme_pref']];
         return color_pool[filters[category].indexOf(attr) % color_pool.length];
     },

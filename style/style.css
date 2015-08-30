@@ -20,6 +20,10 @@
     /*background-color: orange;*/
     z-index: 10;
     transition: .5s;
+
+    max-width: 270px;
+    /* If max-width does not work, try using width instead */
+    width: 270px;
 }
 
 #help_tooltip:hover {
@@ -28,9 +32,6 @@
 }
 
 .tooltip-inner {
-    max-width: 270px;
-    /* If max-width does not work, try using width instead */
-    width: 270px;
     text-align: left;
 }
 
@@ -104,14 +105,20 @@
     pointer-events: none;
 }
 
+
 .group_bubble > .bubble_text {
+    /*
     font-size: 17px !important;
     line-height: 20px !important;
     margin-top: 5px !important;
-    font-weight: 400 !important;
+    */
+    font-size: 20px !important;
+    line-height: 20px !important;
+    font-weight: 600 !important;
     cursor: pointer !important;
     pointer-events: none !important;
 }
+
 
 .bubble:hover{
     cursor: pointer;
@@ -137,10 +144,10 @@
 
 }
 
-.bubble_text.student_name {
-    font-size: 15px !important;
-    line-height: 15px !important;
-    font-weight: 400 !important;
+.bubble > .bubble_text {
+    font-size: 17px !important;
+    line-height: 17px !important;
+    font-weight: 300 !important;
 }
 
 #canvas {
@@ -433,7 +440,7 @@ html,body {
 
 
 .hull {
-  stroke-width: 80px;
+  stroke-width: 130px;
   stroke-linejoin: round;
   opacity: 0.5;
   transition: 1s;
