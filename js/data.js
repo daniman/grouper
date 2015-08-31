@@ -124,7 +124,7 @@ fa14_students =
         "img": "images/sociallinks/spotify.png"
     },
     {
-        "name": "Linked in",
+        "name": "LinkedIn",
         "group": "5",
         "link": "https://linkedin.com/in/mohrn",
         "img": "images/sociallinks/linkedin.png"

@@ -116,7 +116,9 @@ function buildBubbles() {
     vis.selectAll(".bubble")
       .append('a')
         .attr("href", function (d,i){
-          return d.link
+          if(d.link !== ""){
+            return d.link
+          }
         })
         .style({
           'border-radius': radius/2 + 'px'
