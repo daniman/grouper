@@ -78,19 +78,19 @@ fa14_students =
     {
         "name": "Melee",
         "group": "4",
-        "link": "",
+        "link": "accordion/melee/melee.html",
         "img": "accordion/melee/thumbnail.png"
     },
     {
         "name": "Starcraft 2",
         "group": "4",
-        "link": "",
+        "link": "accordion/starcraft2/starcraft2.html",
         "img": "accordion/starcraft2/thumbnail.png"
     },
     {
         "name": "Hearthstone",
         "group": "4",
-        "link": "",
+        "link": "accordion/hearthstone/hearthstone.html",
         "img": "accordion/hearthstone/thumbnail.png"
     },
     {
