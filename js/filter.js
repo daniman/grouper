@@ -1,5 +1,4 @@
 function buildFilters() {
-    debugger
     var students = Grouper.active_group['data'];
     var filters = Grouper.active_group['filters'];
     
@@ -15,6 +14,7 @@ function buildFilters() {
     /**
      * Build filter HTML menu.
      */
+     /*
     var filters_list = Grouper.active_group.settings['priorities'];
     for (var i=0; i<filters_list.length; i++) {
         if (filters_list[i]) {
@@ -26,41 +26,7 @@ function buildFilters() {
                 '</li>');
         }
     }
-
-    $('.filter_cat').click(function(event) {
-        var category = event.target.value;
-        $('.bubble').each(function(i,bubble) {
-            debugger
-            var attr = students[i][category];
-            $(bubble).animate({
-                'background-color': Grouper.colors.get_color(category, attr, filters)
-            }, 1000);
-        })
-
-        $('.color_map').remove();
-        var color_map = '<ul class="color_map">'; 
-        var categories = filters[event.target.value];
-
-        for (var i=0; i<categories.length; i++) {
-            color_map += '<li>' +
-                            '<div class="color_map_color" style="background-color: ' + Grouper.colors.get_color(event.target.value, categories[i], filters) + '"></div>' +
-                            '<span style="color:' + Grouper.colors.get_color(event.target.value, categories[i], filters) + '"> ' + capitalize(categories[i]) + '</span>' + 
-                        '</li>';
-        }
-        $(this).parent().append(color_map);
-    })
-
-    //$('.switch').on('click', function(event, state) {
-    var student_dict = Grouper.active_group.map;
-    //if (event.target.checked) {            
-    $('.bubble, .group_bubble').each(function() {
-        var id = this.getAttribute('student_id');
-        
-        $(this).children().css({
-            'margin-top': ($(this).height()-$(this).children().height())/2 + 'px'
-        });
-
-    });
+    */
         /*
         } else {
             $('.bubble').each(function() {
@@ -79,6 +45,5 @@ function buildFilters() {
     /**
      * Set the active filter to be the one who ahs the highest priority.
      */
-    $('input[value="' + Grouper.active_group.settings.priorities[0] + '"').click();
 
 };

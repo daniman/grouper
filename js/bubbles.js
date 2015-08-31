@@ -30,7 +30,7 @@ function buildBubbles() {
       student_dict[i] = students[i];
         $('#bubbleContainer')
         //students[i]['name']
-        .append('<div class="bubble" id="student_bubble" student_id="' + i + '""><div class="bubble_text"></div></div>');
+        .append('<div class="bubble" id="student_bubble" student_id="' + i + '"><div class="bubble_text"></div></div>');
     }
     Grouper.active_group.map = student_dict;
     for (var i=0; i<students.length; i++) {
@@ -91,6 +91,7 @@ function buildBubbles() {
     /////////
 
 
+
     nodes = vis.selectAll(".bubble, .group_bubble")
       .data(students_copy)
       .attr({
@@ -112,6 +113,16 @@ function buildBubbles() {
       })
       .call(force.drag);
 
+    vis.selectAll(".bubble")
+      .append('a')
+        .attr("href", function (d,i){
+          return d.link
+        })
+        .style({
+          'border-radius': radius/2 + 'px'
+        })
+        
+
     vis.selectAll(".bubble > .bubble_text")
       .data(students)
       .html(function(d,i){
@@ -123,12 +134,7 @@ function buildBubbles() {
 
     vis.selectAll(".bubble")
       .classed("fancybox fancybox.iframe", function (d,i){
-        if(d.link.indexOf("accordion") !== -1){
-          return true
-        }
-        else{
-          return false
-        }
+        return d.link.indexOf("accordion") !== -1 && d.link.indexOf("resume") === -1
       })
       .attr("href", function (d,i){
         return d.link
@@ -138,7 +144,7 @@ function buildBubbles() {
         'background-size': 'contain'
       })
       .attr('data-toggle', function (d,i){
-        if(d.img !== ""){
+        if(d.img !== ""/* && d.group !== "5"*/){
           return "tooltip"
         }
         else{
@@ -154,8 +160,22 @@ function buildBubbles() {
         window.location = d.link
       });
 */
+    //stuff moved from filters.js
+    var filters = Grouper.active_group['filters'];
+    var category = "group"
+    $('.bubble').each(function(i,bubble) {
+        var attr = students[i][category];
+        $(bubble).animate({
+            'background-color': Grouper.colors.get_color(category, attr, filters)
+        }, 1000);
+    })
     
-
+    vis.selectAll('.bubble_text')
+      .style({
+        'margin-top': function (d,i){
+          return ($(this).parents().height() - $(this).height())/2 + 'px'
+        }
+      })
     /* Start transition */
     vis.style("opacity", 1e-6)
         .transition()

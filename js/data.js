@@ -6,7 +6,7 @@ fa14_students =
     {
         "name": "Resume",
         "group": "0",
-        "link": "accordion/resume/resume.pdf",
+        "link": "resume.pdf",
         "img": "accordion/resume/smallthumbnail.png"
     },
     {
@@ -96,37 +96,37 @@ fa14_students =
     {
         "name": "Github",
         "group": "5",
-        "link": "",
+        "link": "https://github.com/NicholasMohr",
         "img": "images/sociallinks/github.png"
     },
     {
         "name": "Quora",
         "group": "5",
-        "link": "",
+        "link": "http://www.quora.com/Nick-Mohr",
         "img": "images/sociallinks/quora.png"
     },
     {
         "name": "Facebook",
         "group": "5",
-        "link": "",
+        "link": "https://www.facebook.com/nicketh",
         "img": "images/sociallinks/facebook.png"
     },
     {
         "name": "8tracks",
         "group": "5",
-        "link": "",
+        "link": "http://8tracks.com/nicketh",
         "img": "images/sociallinks/8tracksWhite.png"
     },
     {
         "name": "Spotify",
         "group": "5",
-        "link": "",
+        "link": "https://play.spotify.com/user/nicketh1",
         "img": "images/sociallinks/spotify.png"
     },
     {
         "name": "Linked in",
         "group": "5",
-        "link": "",
+        "link": "https://linkedin.com/in/mohrn",
         "img": "images/sociallinks/linkedin.png"
     }
 ]

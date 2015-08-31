@@ -14,10 +14,12 @@ GroupMapping = {
     '5': "Social Media"
 }
 
+SocialMediaColorMapping = {
+    
+}
 
 Grouper.colors = {
     get_color: function(category, attr, filters) {
-        debugger
         var color_pool = Grouper['colors']['color_schemes'][Grouper['colors']['color_scheme_pref']];
         return color_pool[filters[category].indexOf(attr) % color_pool.length];
     },

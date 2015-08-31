@@ -14,16 +14,25 @@
 #help_tooltip {
     font-size: 20px;
     position: absolute;
+    /*
     top: 70px;
     left: 270px;
+    */
+    top: 20px;
+    left: 20px;
     color: #ccc;
     /*background-color: orange;*/
     z-index: 10;
     transition: .5s;
 
+
+}
+
+/*this is the tooltip of the help thing*/
+.tooltip.bottom .tooltip-inner {
     max-width: 270px;
     /* If max-width does not work, try using width instead */
-    width: 270px;
+    width: 270px;  
 }
 
 #help_tooltip:hover {
@@ -33,6 +42,7 @@
 
 .tooltip-inner {
     text-align: left;
+
 }
 
 .btn-info {
@@ -77,8 +87,10 @@
     position: absolute;
     bottom: 0px;
     right: 0px;
-    height: calc(100% - 50px);
-    width: calc(100% - 250px);
+    /*height: calc(100% - 50px);
+    width: calc(100% - 250px);*/
+    height: 100%;
+    width: 100%;
     overflow: hidden;
     /*border: 1px solid #ccc;*/
     border: none;
@@ -119,6 +131,13 @@
     pointer-events: none !important;
 }
 
+.bubble a {
+    position:absolute;
+    height:100%;
+    width:100%;
+    top:0;
+    display: block;
+}
 
 .bubble:hover{
     cursor: pointer;
@@ -435,7 +454,6 @@ html,body {
     /*font-family: 'Oxygen';*/
     font-weight: 400;
     color: black;
-    background-color: #f5f5f5;
 }
 
 
@@ -500,13 +518,15 @@ input[type='radio'] {
 .welcome {
     color: white;
 }
-
+/*
 body {
+
     background-image: url(../assets/img/mountains.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-color: white;f
+    background-color: white;
 }
+*/
 
 #login_signup_toggle {
     color: white;
@@ -658,7 +678,7 @@ body {
 }
 
 
-
+/*
 #navbar {
     font-size: 30px;
     width: 100%;
@@ -666,13 +686,11 @@ body {
     line-height: 40px;
     font-weight: 300;
     color: #00BCD4;
-    /*text-shadow: 3px 3px 4px #444;*/
     background-color: #556270;
-    /*background-color: transparent;*/
     font-family: 'Oxygen';
     text-transform: uppercase;
-    /*z-index: 100;*/
 }
+*/
 
 #navbar .dropdown li {
     text-shadow: none;

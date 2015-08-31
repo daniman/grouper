@@ -11,6 +11,5 @@ $(document).ready(function() {
 					'4. Drag circles to change group arrangements.'
 	});
 	$('#help_tooltip').tooltip();
-	debugger
 	$('.bubble[data-toggle="tooltip"]').tooltip({'placement': 'top'});
 });
