@@ -163,6 +163,7 @@ function buildBubbles() {
       });
 */
     //stuff moved from filters.js
+    /*
     var filters = Grouper.active_group['filters'];
     var category = "group"
     $('.bubble').each(function(i,bubble) {
@@ -171,6 +172,24 @@ function buildBubbles() {
             'background-color': Grouper.colors.get_color(category, attr, filters)
         }, 1000);
     })
+    */
+    
+    vis.selectAll('.bubble')
+      .style('background-color', 'white')//this should really be transparent... not sure why it's not working
+      .transition()
+      .duration(3000)
+      .style(
+        'background-color', function(d,i){
+          if(d.color){
+            return d.color
+          }
+          else{
+            return Grouper.colors.get_color("group", d.group, Grouper.active_group['filters'])
+          }
+        }
+      );
+    
+
     
     vis.selectAll('.bubble_text')
       .style({
@@ -181,7 +200,7 @@ function buildBubbles() {
     /* Start transition */
     vis.style("opacity", 1e-6)
         .transition()
-        .duration(1000)
+        .duration(3000)
         .style("opacity", 1);
     function tick(e) {  
       //everything collide with everything else

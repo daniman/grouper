@@ -94,40 +94,46 @@ fa14_students =
         "img": "accordion/hearthstone/thumbnail.png"
     },
     {
-        "name": "Github",
+        "name": "GitHub",
         "group": "5",
         "link": "https://github.com/NicholasMohr",
-        "img": "images/sociallinks/github.png"
+        "img": "images/sociallinks/github.png",
+        "color": "#9cdaf1"
     },
     {
         "name": "Quora",
         "group": "5",
         "link": "http://www.quora.com/Nick-Mohr",
-        "img": "images/sociallinks/quora.png"
+        "img": "images/sociallinks/quora.png",
+        "color": "#A82400"
     },
     {
         "name": "Facebook",
         "group": "5",
         "link": "https://www.facebook.com/nicketh",
-        "img": "images/sociallinks/facebook.png"
+        "img": "images/sociallinks/facebook.png",
+        "color": "#3B5998"
     },
     {
         "name": "8tracks",
         "group": "5",
         "link": "http://8tracks.com/nicketh",
-        "img": "images/sociallinks/8tracksWhite.png"
+        "img": "images/sociallinks/8tracksWhite.png",
+        "color": "#253d61"
     },
     {
         "name": "Spotify",
         "group": "5",
         "link": "https://play.spotify.com/user/nicketh1",
-        "img": "images/sociallinks/spotify.png"
+        "img": "images/sociallinks/spotify.png",
+        "color": "#b4d600"
     },
     {
         "name": "LinkedIn",
         "group": "5",
         "link": "https://linkedin.com/in/mohrn",
-        "img": "images/sociallinks/linkedin.png"
+        "img": "images/sociallinks/linkedin.png",
+        "color": "#0177b5"
     }
 ]
 
