@@ -48,7 +48,7 @@ fa14_students =
     {
         "name": "Addepar Ember Charts",
         "group": "2",
-        "link": "",
+        "link": "accordion/addepar/addepar.html",
         "img": ""
     },
     {
@@ -60,7 +60,7 @@ fa14_students =
     {
         "name": "Grouper",
         "group": "3",
-        "link": "",
+        "link": "accordion/grouper/grouper.html",
         "img": ""
     },
     {
@@ -72,7 +72,7 @@ fa14_students =
     {
         "name": "Cello",
         "group": "4",
-        "link": "",
+        "link": "accordion/cello/cello.html",
         "img": ""
     },
     {
