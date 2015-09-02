@@ -2,6 +2,7 @@ function buildBubbles() {
   $("#redo").remove();
   $("#undo").remove();
   $(window).unbind('keydown');
+  var play = false;
     nodes = null;
     group_nodes = null;
     force = null;
@@ -566,7 +567,11 @@ function buildBubbles() {
       $(".bubble").click(nothingSelected);
     }
 
+    //this starts out our bubbles
     //$(".bubble").click(nothingSelected);
+
+    //instead we're going to put the first listener on our checkbox
+    $("#play").click(togglePlay);
 
 
     var closestFocus = function(point){
@@ -631,6 +636,45 @@ function buildBubbles() {
 
 
     }
+
+    function togglePlay(evt){
+      debugger
+      if(play){
+        //turn off play
+        deselect();
+        $(".bubble").unbind("click");
+
+        vis.selectAll(".bubble")
+          .classed("fancybox fancybox.iframe", function (d,i){
+            return d.link.indexOf("content") !== -1 && d.link.indexOf("resume") === -1
+          })
+          .attr("href", function (d,i){
+            return d.link
+          })
+
+        vis.selectAll(".bubble a")
+          .attr("href", function (d,i){
+            if(d.link !== ""){
+              return d.link
+            }
+          })
+        play = false
+      }else {
+        //turn on play
+        $(".bubble").click(nothingSelected);
+
+        vis.selectAll(".bubble")
+          .classed("fancybox fancybox.iframe", function (d,i){
+            return false
+          })
+          .attr("href", null)
+
+        vis.selectAll(".bubble a")
+          .attr("href", null)
+        play = true
+      }
+    }
+
     /*
     //unused
     addBubble = function(bubble){
