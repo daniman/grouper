@@ -7,91 +7,91 @@ fa14_students =
         "name": "Resume",
         "group": "0",
         "link": "resume.pdf",
-        "img": "accordion/resume/smallthumbnail.png"
+        "img": "content/resume/smallthumbnail.png"
     },
     {
         "name": "About me",
         "group": "0",
-        "link": "accordion/aboutMe/aboutMe.html",
-        "img": "accordion/aboutMe/thumbnail.png"
+        "link": "content/aboutMe/aboutMe.html",
+        "img": "content/aboutMe/thumbnail.png"
     },
     {
         "name": "2013 Battlecode",
         "group": "1",
-        "link": "accordion/battlecode2013/battlecode2013.html",
-        "img": "accordion/battlecode2013/thumbnail.png"
+        "link": "content/battlecode2013/battlecode2013.html",
+        "img": "content/battlecode2013/thumbnail.png"
     },
     {
         "name": "2014 Battlecode",
         "group": "1",
-        "link": "accordion/battlecode2014/battlecode2014.html",
-        "img": "accordion/battlecode2014/thumbnail.png"
+        "link": "content/battlecode2014/battlecode2014.html",
+        "img": "content/battlecode2014/thumbnail.png"
     },
     {
         "name": "2015 Battlecode",
         "group": "1",
-        "link": "accordion/battlecode2015/battlecode2015.html",
-        "img": "accordion/battlecode2015/thumbnail.png"
+        "link": "content/battlecode2015/battlecode2015.html",
+        "img": "content/battlecode2015/thumbnail.png"
     },
     {
         "name": "Akamai Leaflet",
         "group": "2",
-        "link": "accordion/akamaiLeaflet/akamaiLeaflet.html",
-        "img": "accordion/akamaiLeaflet/thumbnail.png"
+        "link": "content/akamaiLeaflet/akamaiLeaflet.html",
+        "img": "content/akamaiLeaflet/thumbnail.png"
     },
     {
         "name": "Akamai D3",
         "group": "2",
-        "link": "accordion/akamaiD3/akamaiD3.html",
-        "img": "accordion/akamaiD3/thumbnail.png"
+        "link": "content/akamaiD3/akamaiD3.html",
+        "img": "content/akamaiD3/thumbnail.png"
     },
     {
         "name": "Addepar Ember Charts",
         "group": "2",
-        "link": "accordion/addepar/addepar.html",
+        "link": "content/addepar/addepar.html",
         "img": ""
     },
     {
         "name": "P(arty)set",
         "group": "3",
-        "link": "accordion/partyset/partyset.html",
-        "img": "accordion/partyset/thumbnail.png"
+        "link": "content/partyset/partyset.html",
+        "img": "content/partyset/thumbnail.png"
     },
     {
         "name": "Grouper",
         "group": "3",
-        "link": "accordion/grouper/grouper.html",
+        "link": "content/grouper/grouper.html",
         "img": ""
     },
     {
         "name": "MIT Overseer",
         "group": "3",
-        "link": "accordion/gameLab/gameLab.html",
-        "img": "accordion/gameLab/NewDeniedRightSize1.gif"
+        "link": "content/gameLab/gameLab.html",
+        "img": "content/gameLab/NewDeniedRightSize1.gif"
     },
     {
         "name": "Cello",
         "group": "4",
-        "link": "accordion/cello/cello.html",
+        "link": "content/cello/cello.html",
         "img": ""
     },
     {
         "name": "Melee",
         "group": "4",
-        "link": "accordion/melee/melee.html",
-        "img": "accordion/melee/thumbnail.png"
+        "link": "content/melee/melee.html",
+        "img": "content/melee/thumbnail.png"
     },
     {
         "name": "Starcraft 2",
         "group": "4",
-        "link": "accordion/starcraft2/starcraft2.html",
-        "img": "accordion/starcraft2/thumbnail.png"
+        "link": "content/starcraft2/starcraft2.html",
+        "img": "content/starcraft2/thumbnail.png"
     },
     {
         "name": "Hearthstone",
         "group": "4",
-        "link": "accordion/hearthstone/hearthstone.html",
-        "img": "accordion/hearthstone/thumbnail.png"
+        "link": "content/hearthstone/hearthstone.html",
+        "img": "content/hearthstone/thumbnail.png"
     },
     {
         "name": "GitHub",

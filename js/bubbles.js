@@ -136,7 +136,7 @@ function buildBubbles() {
 
     vis.selectAll(".bubble")
       .classed("fancybox fancybox.iframe", function (d,i){
-        return d.link.indexOf("accordion") !== -1 && d.link.indexOf("resume") === -1
+        return d.link.indexOf("content") !== -1 && d.link.indexOf("resume") === -1
       })
       .attr("href", function (d,i){
         return d.link
