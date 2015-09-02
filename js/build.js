@@ -88,7 +88,7 @@ var buildPage = function() {
          */
     var student_dict = buildBubbles(Grouper.active_group);
     buildFilters(Grouper.active_group, student_dict);
-    $('#help_tooltip').show();
+    //$('#help_tooltip').show();
     console.log('building page');
         /*
         } else {

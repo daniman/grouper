@@ -342,7 +342,6 @@ function buildBubbles() {
         $("#buttons").prepend("<a id=redo class='btn'>redo</a>");
         $("#redo").click(redo);
         var toBeUndone = undoStack.pop();
-        console.log(toBeUndone);
         if(toBeUndone[0]==="drag"){
           //drag redo
           redoStack.push(["drag",toBeUndone[1],student_dict[toBeUndone[1].attr("student_id")].group]);
@@ -386,7 +385,6 @@ function buildBubbles() {
           $("#redo").click(redo);
         }
         var toBeRedone = redoStack.pop();
-        console.log(toBeRedone);
         if(toBeRedone[0] === "drag"){
           //drag redo
           undoStack.push([toBeRedone[0],toBeRedone[1],student_dict[toBeRedone[1].attr("student_id")].group]);
@@ -422,14 +420,11 @@ function buildBubbles() {
       if(e.metaKey){
         //shift+z
         if (e.keyCode == 90 && e.shiftKey) {
-          console.log("redo");
           redo(e)
         }
         //z
         else if (e.keyCode == 90) {
           undo(e)
-          console.log("undo");
-          
         }
         
       }
@@ -454,7 +449,6 @@ function buildBubbles() {
     //TODO: Make it so that when you drag something it doesn't interpret it as clicked
 
     var nothingSelected = function(evt){
-      console.log(evt);
       var point = {'x':evt.pageX - $("#bubbleContainer").position().left
       , 'y':evt.pageY - $("#bubbleContainer").position().top};
       var focus = closestFocus(point);
@@ -479,7 +473,6 @@ function buildBubbles() {
     }
 
     var bubbleSelected = function(evt){
-      console.log("bubbleSelected");
       if(student_dict[$(this).attr("student_id")].group !== student_dict[$(".selected").attr("student_id")].group){
         //display undo, undisplay redo
         $("#redo").remove();
@@ -533,7 +526,6 @@ function buildBubbles() {
       }else{
         
 
-        console.log("got here");
         $(".selected").removeClass("selected");
 
         var point = {'x':evt.pageX - $("#bubbleContainer").position().left
@@ -556,7 +548,6 @@ function buildBubbles() {
     }
 
     var deselect = function(evt){
-      console.log("deselect");
       $(".selected").removeClass("selected");
       //unhookup second function
 
@@ -598,7 +589,6 @@ function buildBubbles() {
       undoStack.push(["drag",bubble,student_dict[bubble.attr("student_id")].group]);
       redoStack = [];
 
-      console.log("swapperoony");
       student_dict[bubble.attr("student_id")].group = focus;
 
 
@@ -638,7 +628,6 @@ function buildBubbles() {
     }
 
     function togglePlay(evt){
-      debugger
       if(play){
         //turn off play
         deselect();
@@ -658,6 +647,8 @@ function buildBubbles() {
               return d.link
             }
           })
+
+        $('#help_tooltip').hide()
         play = false
       }else {
         //turn on play
@@ -671,6 +662,9 @@ function buildBubbles() {
 
         vis.selectAll(".bubble a")
           .attr("href", null)
+        
+        $('#help_tooltip').show()
+
         play = true
       }
     }
