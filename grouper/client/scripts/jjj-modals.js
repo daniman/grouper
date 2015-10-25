@@ -804,7 +804,8 @@ $(document).ready(function() {
 					'1. Double click circles for more information.<br .> ' +
 					'2. Double click hulls for more information.<br /> ' +
 					'3. Click two consecutive circles to swap them. <br />' +
-					'4. Drag circles to change group arrangements.'
+					'4. Drag circles to change group arrangements. <br />' +
+					'5. Click backspace on selected circle to remove it.'
 	});
 	$('#help_tooltip').tooltip();
 

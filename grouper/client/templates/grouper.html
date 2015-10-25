@@ -1,68 +1,7 @@
-<!doctype html>
-<html>
+<template name="grouper">
 
-<head>
-    <meta charset="utf-8" />
-    <title>Grouper</title>
-    <link rel="icon" type="image/png" href="assets/img/fish_favicon.png" />
-    
-    <!-- Vendor -->
-    <script type="text/javascript" src="assets/vendor/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="assets/vendor/jquery-ui-1.10.0.custom.min.js"></script>
-    <script type="text/javascript" src="assets/vendor/jquery.csv-0.71.js"></script>
-    <link rel="stylesheet" href="assets/vendor/bootstrap-3.3.2-dist/css/bootstrap.min.css">
-    <script src="assets/vendor/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
-    <link href="assets/vendor/css-toggle-switch-source/css/style.css" rel="stylesheet">
-    <script src="assets/vendor/d3.js"></script>
-    <script src="assets/vendor/parse.js"></script>
-    <!-- <script src="//www.parsecdn.com/js/parse-1.4.2.min.js"></script> -->
-    <script type="text/javascript" src="assets/vendor/Highcharts-4.1.5/js/highcharts.js"></script>
-
-    <!-- Scripts -->
-    <script type="text/javascript" src="js/global.js"></script>
-    <script type="text/javascript" src="js/algorithm.js"></script>
-    <!-- <script type="text/javascript" src="js/data.js"></script> -->
-    <script type="text/javascript" src="js/login.js"></script>
-    <script type="text/javascript" src="js/bubbles.js"></script>
-    <script type="text/javascript" src="js/filter.js"></script>
-    <script type="text/javascript" src="js/build.js"></script>
-
-    <script type="text/javascript" src="js/csvtools.js"></script>
-    <script type="text/javascript" src="js/hexpac.js"></script>    
-    <script type="text/javascript" src="js/modals.js"></script>
-    <script type="text/javascript" src="js/dropdowns.js"></script>
-    <script type="text/javascript" src="js/dropzone.js"></script>
-
-    <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="style/font.css" />
-    <link rel="stylesheet" type="text/css" href="style/style.css" />
-</head>
-
-<body>
-
-    <div id="navbar">
-      <span id="logo">
-        <!-- <img id="logoImg" src="assets/img/logo.png" height="26" width="50"> -->
-        Grouper.
-      </span>
-
-      <div class="classlist dropdown">
-        <a class="dropdown-toggle" id="group_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="main.html"></a>
-        <ul id="class_dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul>
-      </div>
-
-      <div class="username dropdown">
-        <a class="dropdown-toggle" id="username_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="/main.html"></a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="usernameLabel">
-          <li id="logout_button" role="presentation"><a role="menuitem" tabindex="1" href="#">Logout</a></li>
-        </ul>
-      </div>
-
+    <!-- <div id="loginContainer">
       <img id="fishImg" src="assets/img/fish.png" height="35" width="58">
-    </div>
-
-    <div id="loginContainer">
-      <!-- <img id="fishImg" src="assets/img/fish.png" height="35" width="58"> -->
       <div id="loginWrapper">
         <span id="login_logo">Grouper.</span>
         <div id="login_tagline">A simple solution to your group making needs.</div>
@@ -72,42 +11,18 @@
         <button class="login" id="login_signup_button" type="button" >Login</button>
         <a id="login_signup_toggle">Or Sign Up</a>
       </div>
-    </div>
+    </div> -->
 
-    <div id="newUser"></div>
+    <!-- <div id="newUser"></div>
     <div id="newUserStart">
       <div>Welcome to <span class="logoName">Grouper.</span></div>
       <div class="welcomeMessage">We can see that you have not started grouping any classes yet. Please <strong>click</strong> the button <strong>below</strong> to get started.</div>
       <button type="button" class="btn btn-sm" id="new_user_import_button">Import a Class</button>
-    </div>
+    </div> -->
 
-    <div id="filterContainer">
-      <div class="filterTypeTitle">
-        Data Labels:
-      </div>
-      <div class="filterTypeContent">
-        Course Number  
-        <div class="switch">
-          <input id="cmn-toggle-6" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
-          <label for="cmn-toggle-6"></label>
-        </div> 
-        Name
-      </div>
-
-      <div class="filterTypeTitle">
-        Data Filters:
-      </div>
-      <ul id="filters"></ul>
-    </div>
-
-    <div id="help_tooltip"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></div>
+    {{> filters}}
  
-    <div id="bubbleContainer">
-      <div id="buttons">
-        <button id="edit" type="button" class="btn btn-sm mainButton" style="background-color: rgb(0, 188, 212);">Edit</button>
-        <button id="export" type="button" class="btn btn-md mainButton">Export</button>
-      </div>
-    </div>
+    {{> bubbles}}
 
     <!-- Create Group - Step 1 Modal -->
     <div class="modal" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -120,7 +35,7 @@
           <div class="modal-body">
             <div class="inputError"></div>
 
-            <h5 class="groupName"><strong>Name</strong> Your Class: <input type="text" id="newGroupName"></input></h5>
+            <h5 class="groupName"><strong>Name</strong> Your Class: <input type="text" id="newGroupName"></h5>
             <div id="dropzone">
               <h4>Drag a CSV file here 
                 <!-- <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> -->
@@ -312,7 +227,7 @@
           </div>
           
           <div class="modal-body">
-            <b style="font-size:110%">Edit Name:</b><input type="text" id="editGroupName"></input><br><br>
+            <b style="font-size:110%">Edit Name:</b><input type="text" id="editGroupName"><br><br>
             <b style="font-size:110%">Edit Labels:</b>
             <br>
             <div class="container-fluid">
@@ -386,5 +301,4 @@
         </div>
       </div>
     </div>
-</body>
-</html>
+</template>

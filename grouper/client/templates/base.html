@@ -1,0 +1,27 @@
+<head>
+    <meta charset="utf-8" />
+    <title>Grouper</title>
+    <link rel="icon" type="image/png" href="img/fish_favicon.png" />
+    
+    <!-- Vendor -->
+    <!-- <script type="text/javascript" src="assets/vendor/jquery-ui-1.10.0.custom.min.js"></script> -->
+    <!-- <script type="text/javascript" src="assets/vendor/jquery.csv-0.71.js"></script> -->
+    <!-- <link href="assets/vendor/css-toggle-switch-source/css/style.css" rel="stylesheet"> -->
+    <script src="vendor/d3.js"></script>
+    <!-- <script src="vendor/parse.js"></script> -->
+    <!-- <script src="//www.parsecdn.com/js/parse-1.4.2.min.js"></script> -->
+    <!-- <script type="text/javascript" src="assets/vendor/Highcharts-4.1.5/js/highcharts.js"></script> -->
+</head>
+
+<body>
+  {{> navbar}}
+
+  {{#if currentUser}}
+    {{> grouper}}
+  {{/if}}
+</body>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>

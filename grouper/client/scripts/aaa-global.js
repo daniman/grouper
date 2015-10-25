@@ -1,4 +1,5 @@
-var Grouper = {};
+Grouper = {};
+console.log('loaded meee');
 
 Grouper.username = '';
 Grouper.groups = [];
