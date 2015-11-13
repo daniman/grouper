@@ -1,4 +1,4 @@
-function hexpac(clusters, cluster_diameter, width, height) {
+hexpac = function(clusters, cluster_diameter, width, height) {
     var a = clusters;
     var cluster_padding = cluster_diameter/2;
 

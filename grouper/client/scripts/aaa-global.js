@@ -1,5 +1,4 @@
 Grouper = {};
-console.log('loaded meee');
 
 Grouper.username = '';
 Grouper.groups = [];
@@ -8,10 +7,9 @@ Grouper.group_setup = {}; // for holding variables while you set up a group in t
 
 Grouper.colors = {
     get_color: function(category, attr, filters) {
-        var color_pool = Grouper['colors']['color_schemes'][Grouper['colors']['color_scheme_pref']];
+        var color_pool = Grouper['colors']['color_schemes']['bright'];
         return color_pool[filters[category].indexOf(attr) % color_pool.length];
     },
-    color_scheme_pref: 'bright',
     color_schemes: {
         bright: [
             '#FFC107', // amber
@@ -32,26 +30,6 @@ Grouper.colors = {
             '#009688', // teal
             '#607D8B', // blue grey
             '#795548' // brown
-        ],
-        light: [
-            '#ffca28', // amber
-            '#4ecdc4', // cyan
-            '#ff6b6b', // red
-            '#5c6bc0', // indigo
-            '#7e57c2', // deep purple
-            '#ec407a', // pink
-            '#66bb6a', // green
-            '#f2b04d', // orange
-            '#c7f46f', // lime
-            '#ff7043', // deep orange
-            '#ab47bc', // purple
-            '#29b6f6', // light blue
-            '#ffee58', // yellow
-            '#42a5f5', // blue
-            '#9ccc65', // light green
-            '#26a69a', // teal
-            '#78909c', // blue grey
-            '#8d6e63' // brown
         ]
     }
 }

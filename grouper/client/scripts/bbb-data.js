@@ -432,76 +432,10 @@ fa13_students = [{
 
 /********************************** Dummy Data Setup **********************************/
 
-Grouper.groups.push({
-    name: 'my_class_fa14',
-    settings: {
-        labels: {
-            name: 'Name',
-            course_number: 'Course Number',
-            gender: 'Gender',
-            year: 'Year',
-            group: 'Group',
-            sports_team: 'Sports Team'
-        },
-        priorities: ['course_number', 'gender', 'year', 'sports_team'],
-        group_by: {
-            pref: 'num_groups',
-            num_groups: '7',
-            group_size: ''
-        }
-    },
-    data: fa14_students,
-    filters: buildFilterObject(fa14_students)
-});
-
-Grouper.groups.push({
-    name: 'my_class_spr14',
-    settings: {
-        labels: {
-            name: 'Name',
-            course_number: 'Course Number',
-            gender: 'Gender',
-            year: 'Year',
-            group: 'Group',
-            sports_team: 'Sports Team'
-        },
-        priorities: ['course_number', 'gender', 'year', 'sports_team'],
-        group_by: {
-            pref: 'num_groups',
-            num_groups: '7',
-            group_size: ''
-        }
-    },
-    data: fa14_students,
-    filters: buildFilterObject(fa14_students)
-});
-
-Grouper.groups.push({
-    name: 'my_class_fa13',
-    settings: {
-        labels: {
-            name: 'Name',
-            course_number: 'Course Number',
-            gender: 'Gender',
-            group: 'Group',
-            sports_team: 'Sports Team'
-        },
-        priorities: ['course_number', 'gender', 'sports_team'],
-        group_by: {
-            pref: 'num_groups',
-            num_groups: '7',
-            group_size: ''
-        }
-    },
-    data: fa13_students,
-    filters: buildFilterObject(fa13_students)
-});
-
-
 /**
  * Build parameters object.
  */
-function buildFilterObject(data) {
+buildFilterObject = function(data) {
     var parameters = {};
     var filters = Object.keys(data[0]);
     for (var i=0; i<filters.length; i++) {

@@ -1,20 +1,29 @@
 <template name="filters">
     <div id="filterContainer">
       <div class="filterTypeTitle">
-        Data Labels:
-      </div>
-      <div class="filterTypeContent">
-        Course Number  
-        <div class="switch">
-          <input id="cmn-toggle-6" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
-          <label for="cmn-toggle-6"></label>
-        </div> 
-        Name
+        Labels:
+        <select name="labels" id="labels">
+          {{#each filters}}
+            <option value="{{this.label}}" selected="{{this.label_selected}}">{{this.label}}</option>
+          {{/each}}
+        </select>
       </div>
 
       <div class="filterTypeTitle">
-        Data Filters:
+        Color Filters:
       </div>
-      <ul id="filters"></ul>
+      <ul id="filters">
+        {{#each filters}}
+          <li>
+            <input id="{{this.label}}_filter" class="filter_cat" type="radio" name="filters" value="{{this.index}}_{{this.label}}" checked="{{this.color_selected}}">
+            <label class="filter_cat_label" for="{{this.label}}_filter">
+                {{this.label}}
+            </label><br>
+            {{#if this.selected}}
+              {{this.color_map}}
+            {{/if}}
+          </li>
+        {{/each}}
+      </ul>
     </div>
 </template>

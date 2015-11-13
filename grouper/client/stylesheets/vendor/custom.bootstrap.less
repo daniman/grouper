@@ -746,6 +746,396 @@ th {
 
 
 
+// @import "bootstrap/less/buttons.less"
+//
+// Buttons
+// --------------------------------------------------
+
+
+// Base styles
+// --------------------------------------------------
+
+.btn {
+  display: inline-block;
+  margin-bottom: 0; // For input.btn
+  font-weight: @btn-font-weight;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+  border: 1px solid transparent;
+  white-space: nowrap;
+  .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @btn-border-radius-base);
+  .user-select(none);
+
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      .tab-focus();
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &.focus {
+    color: @btn-default-color;
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active {
+    outline: 0;
+    background-image: none;
+    .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: @cursor-disabled;
+    .opacity(.65);
+    .box-shadow(none);
+  }
+
+  a& {
+    &.disabled,
+    fieldset[disabled] & {
+      pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
+    }
+  }
+}
+
+
+// Alternate buttons
+// --------------------------------------------------
+
+.btn-default {
+  .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
+}
+.btn-primary {
+  .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+}
+// Success appears as green
+.btn-success {
+  .button-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
+}
+// Info appears as blue-green
+.btn-info {
+  .button-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
+}
+// Warning appears as orange
+.btn-warning {
+  .button-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
+}
+// Danger and error appear as red
+.btn-danger {
+  .button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
+}
+
+
+// Link buttons
+// -------------------------
+
+// Make a button look and behave like a link
+.btn-link {
+  color: @link-color;
+  font-weight: normal;
+  border-radius: 0;
+
+  &,
+  &:active,
+  &.active,
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: transparent;
+    .box-shadow(none);
+  }
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: transparent;
+  }
+  &:hover,
+  &:focus {
+    color: @link-hover-color;
+    text-decoration: @link-hover-decoration;
+    background-color: transparent;
+  }
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus {
+      color: @btn-link-disabled-color;
+      text-decoration: none;
+    }
+  }
+}
+
+
+// Button Sizes
+// --------------------------------------------------
+
+.btn-lg {
+  // line-height: ensure even-numbered height of button next to large input
+  .button-size(@padding-large-vertical; @padding-large-horizontal; @font-size-large; @line-height-large; @btn-border-radius-large);
+}
+.btn-sm {
+  // line-height: ensure proper height of button next to small input
+  .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @btn-border-radius-small);
+}
+.btn-xs {
+  .button-size(@padding-xs-vertical; @padding-xs-horizontal; @font-size-small; @line-height-small; @btn-border-radius-small);
+}
+
+
+// Block button
+// --------------------------------------------------
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+// Vertically space out multiple block buttons
+.btn-block + .btn-block {
+  margin-top: 5px;
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.btn-block {
+    width: 100%;
+  }
+}
+
+
+
+// @import "bootstrap/less/dropdowns.less"
+//
+// Dropdown menus
+// --------------------------------------------------
+
+
+// Dropdown arrow/caret
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top:   @caret-width-base dashed;
+  border-top:   @caret-width-base solid ~"\9"; // IE8
+  border-right: @caret-width-base solid transparent;
+  border-left:  @caret-width-base solid transparent;
+}
+
+// The dropdown wrapper (div)
+.dropup,
+.dropdown {
+  position: relative;
+}
+
+// Prevent the focus on the dropdown toggle when closing dropdowns
+.dropdown-toggle:focus {
+  outline: 0;
+}
+
+// The dropdown menu (ul)
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: @zindex-dropdown;
+  display: none; // none by default, but block on "open" of the menu
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0; // override default ul
+  list-style: none;
+  font-size: @font-size-base;
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  background-color: @dropdown-bg;
+  border: 1px solid @dropdown-fallback-border; // IE8 fallback
+  border: 1px solid @dropdown-border;
+  border-radius: @border-radius-base;
+  .box-shadow(0 6px 12px rgba(0,0,0,.175));
+  background-clip: padding-box;
+
+  // Aligns the dropdown menu to right
+  //
+  // Deprecated as of 3.1.0 in favor of `.dropdown-menu-[dir]`
+  &.pull-right {
+    right: 0;
+    left: auto;
+  }
+
+  // Dividers (basically an hr) within the dropdown
+  .divider {
+    .nav-divider(@dropdown-divider-bg);
+  }
+
+  // Links within the dropdown menu
+  > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: @line-height-base;
+    color: @dropdown-link-color;
+    white-space: nowrap; // prevent links from randomly breaking onto new lines
+  }
+}
+
+// Hover/Focus state
+.dropdown-menu > li > a {
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: @dropdown-link-hover-color;
+    background-color: @dropdown-link-hover-bg;
+  }
+}
+
+// Active state
+.dropdown-menu > .active > a {
+  &,
+  &:hover,
+  &:focus {
+    color: @dropdown-link-active-color;
+    text-decoration: none;
+    outline: 0;
+    background-color: @dropdown-link-active-bg;
+  }
+}
+
+// Disabled state
+//
+// Gray out text and ensure the hover/focus state remains gray
+
+.dropdown-menu > .disabled > a {
+  &,
+  &:hover,
+  &:focus {
+    color: @dropdown-link-disabled-color;
+  }
+
+  // Nuke hover/focus effects
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    background-color: transparent;
+    background-image: none; // Remove CSS gradient
+    .reset-filter();
+    cursor: @cursor-disabled;
+  }
+}
+
+// Open state for the dropdown
+.open {
+  // Show the menu
+  > .dropdown-menu {
+    display: block;
+  }
+
+  // Remove the outline when :focus is triggered
+  > a {
+    outline: 0;
+  }
+}
+
+// Menu positioning
+//
+// Add extra class to `.dropdown-menu` to flip the alignment of the dropdown
+// menu with the parent.
+.dropdown-menu-right {
+  left: auto; // Reset the default from `.dropdown-menu`
+  right: 0;
+}
+// With v3, we enabled auto-flipping if you have a dropdown within a right
+// aligned nav component. To enable the undoing of that, we provide an override
+// to restore the default dropdown menu alignment.
+//
+// This is only for left-aligning a dropdown menu within a `.navbar-right` or
+// `.pull-right` nav component.
+.dropdown-menu-left {
+  left: 0;
+  right: auto;
+}
+
+// Dropdown section headers
+.dropdown-header {
+  display: block;
+  padding: 3px 20px;
+  font-size: @font-size-small;
+  line-height: @line-height-base;
+  color: @dropdown-header-color;
+  white-space: nowrap; // as with > li > a
+}
+
+// Backdrop to catch body clicks on mobile, etc.
+.dropdown-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: (@zindex-dropdown - 10);
+}
+
+// Right aligned dropdowns
+.pull-right > .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+// Allow for dropdowns to go bottom up (aka, dropup-menu)
+//
+// Just add .dropup after the standard .dropdown class and you're set, bro.
+// TODO: abstract this so that the navbar fixed styles are not placed here?
+
+.dropup,
+.navbar-fixed-bottom .dropdown {
+  // Reverse the caret
+  .caret {
+    border-top: 0;
+    border-bottom: @caret-width-base dashed;
+    border-bottom: @caret-width-base solid ~"\9"; // IE8
+    content: "";
+  }
+  // Different positioning for bottom up menu
+  .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 2px;
+  }
+}
+
+
+// Component alignment
+//
+// Reiterate per navbar.less and the modified component alignment there.
+
+@media (min-width: @grid-float-breakpoint) {
+  .navbar-right {
+    .dropdown-menu {
+      .dropdown-menu-right();
+    }
+    // Necessary for overrides of the default right aligned menu.
+    // Will remove come v4 in all likelihood.
+    .dropdown-menu-left {
+      .dropdown-menu-left();
+    }
+  }
+}
+
+
+
 // @import "bootstrap/less/modals.less"
 //
 // Modals
@@ -1000,5 +1390,140 @@ th {
     margin-top: -@tooltip-arrow-width;
     border-width: 0 @tooltip-arrow-width @tooltip-arrow-width;
     border-bottom-color: @tooltip-arrow-color;
+  }
+}
+
+
+
+// @import "bootstrap/less/popovers.less"
+//
+// Popovers
+// --------------------------------------------------
+
+
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: @zindex-popover;
+  display: none;
+  max-width: @popover-max-width;
+  padding: 1px;
+  // Our parent element can be arbitrary since popovers are by default inserted as a sibling of their target element.
+  // So reset our font and text properties to avoid inheriting weird values.
+  .reset-text();
+  font-size: @font-size-base;
+
+  background-color: @popover-bg;
+  background-clip: padding-box;
+  border: 1px solid @popover-fallback-border-color;
+  border: 1px solid @popover-border-color;
+  border-radius: @border-radius-large;
+  .box-shadow(0 5px 10px rgba(0,0,0,.2));
+
+  // Offset the popover to account for the popover arrow
+  &.top     { margin-top: -@popover-arrow-width; }
+  &.right   { margin-left: @popover-arrow-width; }
+  &.bottom  { margin-top: @popover-arrow-width; }
+  &.left    { margin-left: -@popover-arrow-width; }
+}
+
+.popover-title {
+  margin: 0; // reset heading margin
+  padding: 8px 14px;
+  font-size: @font-size-base;
+  background-color: @popover-title-bg;
+  border-bottom: 1px solid darken(@popover-title-bg, 5%);
+  border-radius: (@border-radius-large - 1) (@border-radius-large - 1) 0 0;
+}
+
+.popover-content {
+  padding: 9px 14px;
+}
+
+// Arrows
+//
+// .arrow is outer, .arrow:after is inner
+
+.popover > .arrow {
+  &,
+  &:after {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+  }
+}
+.popover > .arrow {
+  border-width: @popover-arrow-outer-width;
+}
+.popover > .arrow:after {
+  border-width: @popover-arrow-width;
+  content: "";
+}
+
+.popover {
+  &.top > .arrow {
+    left: 50%;
+    margin-left: -@popover-arrow-outer-width;
+    border-bottom-width: 0;
+    border-top-color: @popover-arrow-outer-fallback-color; // IE8 fallback
+    border-top-color: @popover-arrow-outer-color;
+    bottom: -@popover-arrow-outer-width;
+    &:after {
+      content: " ";
+      bottom: 1px;
+      margin-left: -@popover-arrow-width;
+      border-bottom-width: 0;
+      border-top-color: @popover-arrow-color;
+    }
+  }
+  &.right > .arrow {
+    top: 50%;
+    left: -@popover-arrow-outer-width;
+    margin-top: -@popover-arrow-outer-width;
+    border-left-width: 0;
+    border-right-color: @popover-arrow-outer-fallback-color; // IE8 fallback
+    border-right-color: @popover-arrow-outer-color;
+    &:after {
+      content: " ";
+      left: 1px;
+      bottom: -@popover-arrow-width;
+      border-left-width: 0;
+      border-right-color: @popover-arrow-color;
+    }
+  }
+  &.bottom > .arrow {
+    left: 50%;
+    margin-left: -@popover-arrow-outer-width;
+    border-top-width: 0;
+    border-bottom-color: @popover-arrow-outer-fallback-color; // IE8 fallback
+    border-bottom-color: @popover-arrow-outer-color;
+    top: -@popover-arrow-outer-width;
+    &:after {
+      content: " ";
+      top: 1px;
+      margin-left: -@popover-arrow-width;
+      border-top-width: 0;
+      border-bottom-color: @popover-arrow-color;
+    }
+  }
+
+  &.left > .arrow {
+    top: 50%;
+    right: -@popover-arrow-outer-width;
+    margin-top: -@popover-arrow-outer-width;
+    border-right-width: 0;
+    border-left-color: @popover-arrow-outer-fallback-color; // IE8 fallback
+    border-left-color: @popover-arrow-outer-color;
+    &:after {
+      content: " ";
+      right: 1px;
+      border-right-width: 0;
+      border-left-color: @popover-arrow-color;
+      bottom: -@popover-arrow-width;
+    }
   }
 }

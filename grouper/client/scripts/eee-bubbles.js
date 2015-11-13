@@ -1,22 +1,21 @@
-function buildBubbles() {
+buildBubbles = function() {
   $("#redo").remove();
   $("#undo").remove();
+
   $(window).unbind('keydown');
     nodes = null;
     group_nodes = null;
     force = null;
-    foci = hexpac(totalGroups, radius*3, $("#bubbleContainer").width(), $("#bubbleContainer").height());
 
-    students = Grouper.active_group['data'];
-    students_copy=[];
+    activeGroup = Classes.findOne({_id: Session.get('active')});
+
+    students = activeGroup['data'].slice();
+    students_copy = activeGroup['data'].slice();
     points = [];
-    //students_copy = students;
-    var totalGroups = Grouper.active_group['filters']['group'].length;
 
-
-    for (var i=0; i<students.length; i++) {
-      students_copy.push(students[i]);
-    }
+    var filters = activeGroup['filters'];
+    var totalGroups = filters['group'].length;
+    foci = hexpac(totalGroups, radius*3, $("#bubbleContainer").width(), $("#bubbleContainer").height());
 
     for (var i = 0; i < totalGroups; i++) {
       students_copy.push({name:i,group:i});
@@ -27,11 +26,10 @@ function buildBubbles() {
      */
     var student_dict = {}
     for (var i=0; i<students.length; i++) {
-      student_dict[i] = students[i];
-        $('#bubbleContainer').append('<div class="bubble" id="student_bubble" student_id="' + i + '""><div class="bubble_text">' + 
-          ($("input[name='toggle']:checked").length > 0 ? students[i]['name'] : students[i]['course_number']) + '</div></div>');
+      student_dict[i] = activeGroup['data'][i];
+        $('#bubbleContainer').append('<div class="bubble" id="student_bubble" student_id="' + i + '""><div class="bubble_text"></div></div>');
     }
-    Grouper.active_group.map = student_dict;
+    // activeGroup.map = student_dict;
     for (var i=0; i<students.length; i++) {
       $('.bubble')[i].setAttribute("student_id",i);
     }
@@ -75,12 +73,13 @@ function buildBubbles() {
     });
     $(window).trigger('resize');
 
-    // console.log(foci);
+    // console.log(activeGroup);
+    // console.log(students);
     
     //hulls
     hulls = []; 
-    for (var i = Grouper.active_group['filters']['group'].length - 1; i >= 0; i--) {
-      hulls.push(svg.append("path").attr("class", "hull").attr("group",Grouper.active_group['filters']['group'].length - i - 1));
+    for (var i = filters['group'].length - 1; i >= 0; i--) {
+      hulls.push(svg.append("path").attr("class", "hull").attr("group",filters['group'].length - i - 1));
     };
     /////////
 
@@ -142,7 +141,7 @@ function buildBubbles() {
         
       //remake the points list for the hull
       points = [];
-      for (var i = Grouper.active_group['filters']['group'].length - 1; i >= 0; i--) {
+      for (var i = filters['group'].length - 1; i >= 0; i--) {
         points.push([]);
       };
       for (var i = students_copy.length - 1; i >= 0; i--) {
@@ -251,7 +250,6 @@ function buildBubbles() {
         $("#buttons").prepend("<a id=redo class='btn'>redo</a>");
         $("#redo").click(redo);
         var toBeUndone = undoStack.pop();
-        console.log(toBeUndone);
         if(toBeUndone[0]==="drag"){
           //drag redo
           redoStack.push(["drag",toBeUndone[1],student_dict[toBeUndone[1].attr("student_id")].group]);
@@ -270,7 +268,7 @@ function buildBubbles() {
           students.push(toBeUndone[3]);
           $("#bubbleContainer").append(bubble);
           start();
-          Grouper.active_group.data = students;
+          activeGroup.data = students;
 
         }else{
           var tmpGroup = student_dict[toBeUndone[0].attr("student_id")].group;
@@ -281,11 +279,17 @@ function buildBubbles() {
           force.stop();
           force.start();
         }
+
+      ///-----------------------------------------///
+        Meteor.call('moveBubble', {
+          bubble_index: toBeUndone[1].attr("student_id"),
+          class_id: Session.get('active'),
+          new_group: student_dict[toBeUndone[1].attr("student_id")].group
+        });
+      ///-----------------------------------------///
+
       }
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
+
     }
     var redo = function(e){
       if(redoStack.length > 0){
@@ -316,7 +320,7 @@ function buildBubbles() {
           students = students.filter(function(el){return el.index != id});
           bubble.remove();
           start();
-          Grouper.active_group.data = students;
+          activeGroup.data = students;
         }else{
           var tmpGroup = student_dict[toBeRedone[0].attr("student_id")].group;
           student_dict[toBeRedone[0].attr("student_id")].group = student_dict[toBeRedone[1].attr("student_id")].group;
@@ -328,11 +332,17 @@ function buildBubbles() {
 
           
         }
+
+      ///-----------------------------------------///
+        Meteor.call('moveBubble', {
+          bubble_index: toBeRedone[1].attr("student_id"),
+          class_id: Session.get('active'),
+          new_group: student_dict[toBeRedone[1].attr("student_id")].group
+        });
+      ///-----------------------------------------///
+
       }
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
+
     }
     $(window).keydown(function(e) {
       //modified from http://stackoverflow.com/questions/3902635/how-does-one-capture-a-macs-command-key-via-javascript
@@ -371,7 +381,7 @@ function buildBubbles() {
     //TODO: Make it so that when you drag something it doesn't interpret it as clicked
 
     var nothingSelected = function(evt){
-      console.log(evt);
+      // console.log(evt);
       var point = {'x':evt.pageX - $("#bubbleContainer").position().left
       , 'y':evt.pageY - $("#bubbleContainer").position().top};
       var focus = closestFocus(point);
@@ -393,10 +403,6 @@ function buildBubbles() {
       else{
         moveToGroup($(this),focus);
       }
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
     }
 
     var bubbleSelected = function(evt){
@@ -416,10 +422,13 @@ function buildBubbles() {
         student_dict[$(".selected").attr("student_id")].group = tmpGroup;
         $(".selected").removeClass("selected");
 
-        Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
+    ///-----------------------------------------///
+      Meteor.call('moveBubble', {
+        bubble_index: $(".selected").attr("student_id"),
+        class_id: Session.get('active'),
+        new_group: student_dict[$(".selected").attr("student_id")].group
+      });
+    ///-----------------------------------------///
 
         //unhookup second function
         $(".bubble").unbind("click");
@@ -478,10 +487,15 @@ function buildBubbles() {
         evt.stopPropagation();
 
       }
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
+
+    // DON'T THINK THIS IS NECESSARY??
+    // ///-----------------------------------------///
+    //   Meteor.call('moveBubble', {
+    //     class_id: Session.get('active'),
+    //     bubble_data: Classes.findOne({_id: Session.get('active')})['data'][$(".selected").attr("student_id")],
+    //     new_group: student_dict[$(".selected").attr("student_id")].group
+    //   });
+    // ///-----------------------------------------///
       
     }
 
@@ -524,13 +538,16 @@ function buildBubbles() {
       undoStack.push(["drag",bubble,student_dict[bubble.attr("student_id")].group]);
       redoStack = [];
 
-      console.log("swapperoony");
-      student_dict[bubble.attr("student_id")].group = focus;
+      var updated_student = student_dict[bubble.attr("student_id")];
+      updated_student.group = focus;
 
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
+    ///-----------------------------------------///
+      Meteor.call('moveBubble', {
+        class_id: Session.get('active'),
+        bubble_index: bubble.attr('student_id'),
+        new_group: focus
+      });
+    ///-----------------------------------------///
 
       force.stop();
       force.start();
@@ -565,7 +582,7 @@ function buildBubbles() {
                 {'groups': Grouper.groups }, 
                 { error: function(obj, error) { console.log(error); }
             });
-      Grouper.active_group.data = students;
+      activeGroup.data = students;
       return bubble;
 
 
@@ -590,7 +607,7 @@ function buildBubbles() {
     
 
     function redraw() {
-      for (var i = Grouper.active_group['filters']['group'].length - 1; i >= 0; i--) {
+      for (var i = filters['group'].length - 1; i >= 0; i--) {
         if(points[i].length >= 3){
           hulls[i].datum(d3.geom.hull(points[i])).attr("d", function(d) { return "M" + d.join("L") + "Z"; });
         }else if(points[i].length === 2){

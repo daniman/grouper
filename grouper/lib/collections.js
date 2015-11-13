@@ -1,0 +1,1 @@
+Classes = new Mongo.Collection("classes");

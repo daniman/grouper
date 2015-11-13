@@ -10,10 +10,10 @@
     "grid"                 : false,
     "tables"               : false,
     "forms"                : false,
-    "buttons"              : false,
+    "buttons"              : true,
 
     "component-animations" : false,
-    "dropdowns"            : false,
+    "dropdowns"            : true,
     "button-groups"        : false,
     "input-groups"         : false,
     "navs"                 : false,
@@ -37,7 +37,7 @@
 
     "modals"               : true,
     "tooltip"              : true,
-    "popovers"             : false,
+    "popovers"             : true,
     "carousel"             : false,
 
     "affix"                : false,

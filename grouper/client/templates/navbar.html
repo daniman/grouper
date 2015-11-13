@@ -5,12 +5,34 @@
     </span>
 
     <div class="classlist dropdown">
-      <a class="dropdown-toggle" id="group_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="main.html"></a>
-      <ul id="class_dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul>
+      <a class="dropdown-toggle" id="group_dropdown_label" role="button" data-toggle="dropdown" data-target="#" href="main.html">
+        {{activeClass}}
+        <span class="glyphicon glyphicon-menu-down"></span>
+      </a>
+      <ul id="class_dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        {{#each classlist}}
+          <li role="presentation">
+            <a class="classlist_item" role="menuitem" tabindex="1" href="#" value="{{this.name}}">
+              {{this.name}}
+              {{#if this.active}}
+                <span class="glyphicon glyphicon-pushpin"></span>
+              {{/if}}
+            </a>
+          </li>
+        {{/each}}
+
+        <li role="presentation" class="divider"></li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="1" href="#" id="importButtonLabel">
+            Add New Class <button type="button" class="btn btn-sm" id="importButton">+</button>
+          </a>
+        </li>
+
+      </ul>
     </div>
       
-    {{> loginButtons}}
-
     <img id="fishImg" src="img/fish.png" height="35" width="58">
+
+    {{> loginButtons}}
   </div>
 </template>
