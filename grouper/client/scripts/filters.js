@@ -1,8 +1,6 @@
 Template.filters.helpers({
   filters: function() {
     var group = Classes.findOne({_id: Session.get('active')});
-    console.log(group['name']);
-    console.log('group changed?');
     var color_map = '';
 
     var filters = group.settings.priorities.map(function(item, index) {

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+ $(document).ready(function() {
 
 	/**
 	 * Remove input error messages between modal transitions.
@@ -421,6 +421,7 @@ $(document).ready(function() {
 	});
 
 	$('#editModal').on('show.bs.modal', function () {
+		console.log('hi??');
 		$("#editGroupName").val(Grouper.active_group.name);
 		$('.numberOfGroupsEdit').val(Grouper.active_group.settings.group_by.num_groups);
 		$('.numberOfPeopleEdit').val(Grouper.active_group.settings.group_by.group_size);

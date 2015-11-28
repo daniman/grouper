@@ -1,6 +1,4 @@
 function groupify(group) {
-    console.log(group);
-
     var num_groups;
     if (group.settings.group_by.pref == 'num_groups') {
         num_groups = group.settings.group_by['num_groups'];
@@ -21,15 +19,8 @@ function groupify(group) {
         }
     }
 
-    console.log('num_groups: ' + num_groups);
-
     group.filters['group'] = [];
     for (var i=0; i<num_groups; i++) {
         group.filters['group'][i] = i;
     }
-
-    console.log(group.filters['group']);
-
-    console.log(group);
-
 }

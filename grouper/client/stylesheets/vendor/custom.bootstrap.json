@@ -7,9 +7,9 @@
     "scaffolding"          : false,
     "type"                 : false,
     "code"                 : false,
-    "grid"                 : false,
+    "grid"                 : true,
     "tables"               : false,
-    "forms"                : false,
+    "forms"                : true,
     "buttons"              : true,
 
     "component-animations" : false,
@@ -33,7 +33,7 @@
     "panels"               : false,
     "responsive-embed"     : false,
     "wells"                : false,
-    "close"                : false,
+    "close"                : true,
 
     "modals"               : true,
     "tooltip"              : true,

@@ -1,0 +1,87 @@
+<template name="editModal">
+    
+    <!-- Edit Groupify Alg Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Edit Groupify Settings</h4>
+          </div>
+          
+          <div class="modal-body">
+            <b>Edit Name:</b><input type="text" id="editGroupName" value="{{data.name}}">
+
+            <b>Edit Labels:</b>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-6">
+                    Active
+                    <ul id="edit_data_current_categories">
+                        
+                        {{#each data.active}}
+                            <li class='category'>
+
+                                <span class='clearitem'>"
+                                    <a href='#'>
+                                        <span class='glyphicon glyphicon-trash'></span>
+                                    </a>
+                                </span>
+                                <span class='edit'>
+                                    <a href='#'>
+                                        <span class='glyphicon glyphicon-pencil'></span>
+                                    </a>
+                                </span> 
+                                {{this}}
+
+
+
+
+
+
+
+
+                            </li>
+                        {{/each}}
+
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    Inactive
+                    <ul id="edit_data_current_categories_deleted"></ul>
+                </div>
+              </div>
+            </div>
+
+            <br>
+            <b style="font-size:110%">Edit Group Sizing:</b> <span class="edit_error_message"></span>
+            <br>
+            <div id="groupifySelections">
+              <form>
+                <div>
+                  <input type="radio" name="max" class="maxPeopleEdit" checked> Max number of people in a group
+                  <br>
+                  <input type="number" min="1" class="numberOfPeopleEdit">
+                  <span class="glyphicon glyphicon-plus numberIncrementer" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-minus numberIncrementer" aria-hidden="true"></span>
+                </div>
+                <div>
+                  <input type="radio" name="max" class="maxGroupsEdit"> Max number of groups
+                  <br>
+                  <input type="number" min="1" class="numberOfGroupsEdit" disabled>
+                  <span class="glyphicon glyphicon-plus numberIncrementer inactive" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-minus numberIncrementer inactive" aria-hidden="true"></span>
+                </div>
+              </form>
+            </div>            
+          </div>
+
+          <div class="modal-footer">
+            <button id="delete_group" type="button" class="btn btn-danger">Delete Group</button>
+            <button id="re_groupify" type="button" class="btn btn-info" data-dismiss="modal">Re-Groupify</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</template>
