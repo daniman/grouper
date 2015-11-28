@@ -421,152 +421,21 @@
 	});
 
 	$('#editModal').on('show.bs.modal', function () {
-		console.log('hi??');
-		$("#editGroupName").val(Grouper.active_group.name);
 		$('.numberOfGroupsEdit').val(Grouper.active_group.settings.group_by.num_groups);
 		$('.numberOfPeopleEdit').val(Grouper.active_group.settings.group_by.group_size);
 
-		if (Grouper.active_group.settings.group_by.pref == 'num_groups') {
-			$(".maxGroupsEdit").click();
-		} else {
-			$(".maxPeopleEdit").click();
-		}
+		// if (Grouper.active_group.settings.group_by.pref == 'num_groups') {
+		// 	$(".maxGroupsEdit").click();
+		// } else {
+		// 	$(".maxPeopleEdit").click();
+		// }
 
 		$(".maxGroupsEdit").parent().children('input[type=number]')[0].max = Grouper.active_group.data.length;
 		$(".maxPeopleEdit").parent().children('input[type=number]')[0].max = Grouper.active_group.data.length;
-
-		var headers = Grouper.active_group.settings.priorities;
-	    var headers_html = '';
-	    for (var i=0; i<headers.length; i++) {
-	  		headers_html += "<li class='category'></li>";
-	  	}
-		$('#edit_data_current_categories').html(headers_html);
-
-		var deleted = Object.keys(Grouper.active_group.filters).filter(function(obj) {
-						   if (Grouper.active_group.settings.priorities.indexOf(obj) < 0) {
-						      return obj
-						   }
-						});
-	    var deleted_html = '';
-	    for (var i=0; i<deleted.length; i++) {
-	  		deleted_html += "<li class='category'></li>";
-	  	}
-		$('#edit_data_current_categories_deleted').html(deleted_html);
-
-		$('#edit_data_current_categories .category').each(function(index, element) {
-			var headers = Grouper.active_group.settings.priorities;
-		  	element.setAttribute('value', headers[index]);
-		  	// console.log("index: "+index);
-		  	// console.log("headers: "+headers);
-		  	// console.log(Grouper.active_group.settings.labels[headers[index]]);
-		  	$(element).html("<span class='clearitem'>" +
-	  							"<a href='#'>" +
-	  								"<span class='glyphicon glyphicon-trash'></span>" +
-	  							"</a>" +
-	  						"</span>" +
-	  						"<span class='edit'>" +
-	  							"<a href='#'>" +
-	  								"<span class='glyphicon glyphicon-pencil'></span>" +
-	  							"</a>" +
-	  						"</span>" + 
-	  						Grouper.active_group.settings.labels[headers[index]]);
-
-		});
-		$('#edit_data_current_categories_deleted .category').each(function(index, element) {
-			var deleted = Object.keys(Grouper.active_group.filters).filter(function(obj) {
-						   if (Grouper.active_group.settings.priorities.indexOf(obj) < 0) {
-						      return obj
-						   }
-						});
-			element.setAttribute('value', deleted[index]);
-		  	$(element).html("<span class='addItem'>" +
-	  							"<a href='#'>" +
-	  								"<span class='glyphicon glyphicon-plus add'></span>" +
-	  							"</a>" +
-	  						"</span>" + 
-	  						Grouper.active_group.settings.labels[deleted[index]]);
-		});
-
-		$('#editModal .btn').on('click', function(){
-			// console.log('Re-Groupifying');
-			Grouper.active_group.name = $("#editGroupName").val();
-			groupify(Grouper.active_group);
-			Parse.User.current().save(
-				{'groups': Grouper.groups }, 
-				{ error: function(obj, error) { console.log(error); }
-	        });
-			buildPage();
-		});
-
 	});
 
-	var oldName = '';
-	$("#edit_data_current_categories").on('click', '.clearitem a', function(){
-    	$(this).parent().parent().fadeOut();
-    	var val = $(this).parent().parent()[0].getAttribute('value');
-    	// console.log(val);
-
-    	var priorities = Grouper.active_group.settings.priorities;
-    	priorities.splice(priorities.indexOf(val), 1);
-    	$("#editModal").trigger('show');
-	});
-
-	$("#edit_data_current_categories_deleted").on('click', '.addItem a', function(){
-    	$(this).parent().parent().fadeOut();
-    	var val = $(this).parent().parent()[0].getAttribute('value');
-    	// console.log(val);
-    	
-    	var priorities = Grouper.active_group.settings.priorities;
-    	priorities.push(val);
-    	$("#editModal").trigger('show');
-	});
-
-	$("#edit_data_current_categories").on('dblclick', '.category', function(event){
-		// event.stopPropagation();
-		ClearSelection();
-
-		var headers = Grouper.active_group.settings.priorities;
-		oldName = $(this).text();
-		var index = headers.indexOf(oldName);
-
-		var parent = $(this);
-    	parent.html("<span class='cancel'>" +
-						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-remove'></span>" +
-						"</a>" +
-					"</span>" +
-					"<span class='ok'>" +
-						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-ok'></span>" +
-						"</a>" +
-					"</span>" + 
-					'<input type="text" text='+oldName+'>');
-    	parent.children('input').val(oldName);
-
-	});
-
-	$("#edit_data_current_categories").on('click', '.edit a', function(event){
-		var headers = Grouper.active_group.settings.priorities;
-		oldName = $(this).parent().parent().text();
-		var index = headers.indexOf(oldName);
-
-		var parent = $(this).parent().parent();
-    	parent.html("<span class='cancel'>" +
-						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-remove'></span>" +
-						"</a>" +
-					"</span>" +
-					"<span class='ok'>" +
-						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-ok'></span>" +
-						"</a>" +
-					"</span>" + 
-					'<input class="editText" type="text" text='+oldName+'>');
-    	parent.children('input').val(oldName);
-    	// console.log(parent[0].getAttribute('value'));
 
 
-	});
 	$("#edit_data_current_categories").on('keyup', 'input', function(e){
 		if(e.keyCode == 13)
 	    {
@@ -574,35 +443,7 @@
 	    }
 		
 	});
-	$("#edit_data_current_categories").on('click', '.ok a', function(){
-		var newName = $(this).parent().siblings('input').val();
-		var value = $(this).parent().parent()[0].getAttribute('value');
-		Grouper.active_group.settings.labels[value] = newName;
-		$(this).parent().parent().html("<span class='clearitem'>" +
-						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-trash'></span>" +
-						"</a>" +
-					"</span>" +
-					"<span class='edit'>" +
-						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-pencil'></span>" +
-						"</a>" +
-					"</span>" + 
-					newName);
-	});
-	$("#edit_data_current_categories").on('click', '.cancel a', function(){
-		$(this).parent().parent().html("<span class='clearitem'>" +
-						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-trash'></span>" +
-						"</a>" +
-					"</span>" +
-					"<span class='edit'>" +
-						"<a href='#'>" +
-							"<span class='glyphicon glyphicon-pencil'></span>" +
-						"</a>" +
-					"</span>" + 
-					oldName);
-	});
+
 
 	$(".maxPeopleEdit").click(function() {
 		$(".numberOfPeopleEdit").prop("disabled", false);
@@ -691,17 +532,7 @@
         }
     });
 
-    //sortable list for priorities
-    $("#edit_data_current_categories").sortable({
-    	update: function(event) {
-    		var list = $('#edit_data_current_categories').children();
-    		list.each(function(index, element) {
-    			var value = $(element).text();
-    			Grouper.active_group.settings.priorities[index] = element.getAttribute('value');
-    		})
-    	}
-    });
-    $( "#edit_data_current_categories" ).disableSelection();
+
 /********************************** Export Modal **********************************/
 
 	$(document).on('click', '#export', function(){

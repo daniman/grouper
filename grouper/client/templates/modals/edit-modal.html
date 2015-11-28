@@ -1,0 +1,83 @@
+<template name="editModal">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Edit Groupify Settings</h4>
+          </div>
+          
+          <div class="modal-body">
+            <b>Edit Name:</b><input type="text" id="editGroupName" value="{{data.name}}">
+
+            <b>Edit Labels:</b>
+            <div class="edit-col-container">
+              <div class="edit-col">
+                <div class="edit-col-title">Active</div>
+                <ul id="edit_data_current_categories">
+                    {{#each data.active}}
+                        <li class='category' value="{{this.data}}">
+                            {{#if this.edit}}
+                                <span class='cancelItem'>
+                                    <span class='glyphicon glyphicon-remove'></span>
+                                </span>
+                                <span class='okItem'>
+                                   <span class='glyphicon glyphicon-ok'></span>
+                                </span>
+                                <input class="editText" type="text" value='{{this.data}}' autofocus>
+                            {{else}}
+                                <span class='clearItem'>
+                                    <span class='glyphicon glyphicon-trash'></span>
+                                </span>
+                                <span class='editItem' index='{{this.index}}'>
+                                    <span class='glyphicon glyphicon-pencil'></span>
+                                </span>
+                                {{this.data}}
+                            {{/if}}
+                        </li>
+                    {{/each}}
+                </ul>
+              </div>
+              <div class="edit-col">
+                <div class="edit-col-title">Inactive</div>
+                <ul id="edit_data_current_categories_deleted">
+                    {{#each data.deleted}}
+                        <li class='category' value="{{this}}">
+                            <span class='addItem'>
+                                <span class='glyphicon glyphicon-plus add'></span>
+                            </span>
+                            {{this}}
+                        </li>
+                    {{/each}}
+                </ul>
+              </div>
+            </div>
+
+            <b>Edit Group Sizing:</b><span class="edit_error_message"></span>
+            <div class="edit-col-container">
+                <div class="edit-col">
+                  <input type="radio" name="max" class="maxPeopleEdit" checked> Max People per Group
+                  <br>
+                  <input type="number" min="1" class="numberOfPeopleEdit">
+                  <span class="glyphicon glyphicon-plus numberIncrementer" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-minus numberIncrementer" aria-hidden="true"></span>
+                </div>
+                <div class="edit-col">
+                  <input type="radio" name="max" class="maxGroupsEdit"> Max No. Groups
+                  <br>
+                  <input type="number" min="1" class="numberOfGroupsEdit" disabled>
+                  <span class="glyphicon glyphicon-plus numberIncrementer inactive" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-minus numberIncrementer inactive" aria-hidden="true"></span>
+                </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button id="delete_group" type="button" class="btn btn-danger">Delete Group</button>
+            <button id="reGroupify" type="button" class="btn btn-info" data-dismiss="modal">Re-Groupify</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</template>

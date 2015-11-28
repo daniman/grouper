@@ -14,6 +14,18 @@ if (Meteor.isServer) {
         Classes.update({
             _id: class_id
         }, {$set: {filters: filters}});
+    },
+
+    'updateName': function(class_id, newName) {
+        Classes.update({
+            _id: class_id
+        }, {$set: {name: newName}});
+    },
+
+    'updatePriorities': function(class_id, newPriorities) {
+        Classes.update({
+            _id: class_id
+        }, {$set: {'settings.priorities': newPriorities}})
     }
 
   });
