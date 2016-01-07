@@ -1,4 +1,4 @@
-Template.navbar.helpers({
+Template.dropDown.helpers({
   activeClass: function() {
     return Classes.findOne({_id: Session.get('active')})['name'];
   },
@@ -16,7 +16,7 @@ Template.navbar.helpers({
   }
 });
 
-Template.navbar.events({
+Template.dropDown.events({
   'click .classlist_item': function(event) {
     var name = $(event.target).attr('value');
     Session.set('active', Classes.findOne({name: name})['_id']);
