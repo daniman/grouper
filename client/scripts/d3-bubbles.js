@@ -127,7 +127,7 @@ hexpac = function(clusters, cluster_diameter, width, height) {
     }
 }
 
-
+student_dict = {}
 buildBubbles = function() {
   $("#redo").remove();
   $("#undo").remove();
@@ -155,7 +155,6 @@ buildBubbles = function() {
      /**
      * Build bubbles.
      */
-    var student_dict = {}
     for (var i=0; i<students.length; i++) {
       student_dict[i] = activeGroup['data'][i];
         $('#bubbleContainer').append('<div class="bubble" id="student_bubble" student_id="' + i + '""><div class="bubble_text"></div></div>');

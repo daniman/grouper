@@ -1,0 +1,34 @@
+<template name="step1Modal">
+    <div class="modal" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Step 1: <i>Import Data</i></h4>
+          </div>
+
+          <div class="modal-body">
+            <div>Name Your Class: <input type="text" id="groupName" value="{{className}}"></div>
+
+            <div id="dropzone">
+              <div>Drag a CSV file here</div>
+              <p><i>or if you prefer...</i></p>
+              <input type="file" id="file_select" name="fileselect" size="40">
+              <div id="fileInfo">
+                {{fileInfo}}
+              </div>
+            </div>
+          </div>
+
+          <ol class="progtrckr" data-progtrckr-steps="4">
+            <li class="progtrckr-done">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
+          </ol>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-info inactive" id="importModalNext">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>

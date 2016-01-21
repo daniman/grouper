@@ -8,7 +8,7 @@
     "type"                 : false,
     "code"                 : false,
     "grid"                 : true,
-    "tables"               : false,
+    "tables"               : true,
     "forms"                : true,
     "buttons"              : true,
 

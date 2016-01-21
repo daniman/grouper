@@ -27,8 +27,9 @@ Template.filters.helpers({
       }
 
       return {
-        'label': item,
+        'label': group['settings']['labels'][item],
         'index': index,
+        'data': item,
         'color_selected': Session.equals('color_index', index), //default to selecting first in list
         'label_selected': Session.equals('label_index', index), //default to selecting second in list
         'color_map': Spacebars.SafeString(color_map)

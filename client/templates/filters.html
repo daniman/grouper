@@ -4,7 +4,7 @@
         Labels:
         <select name="labels" id="labels">
           {{#each filters}}
-            <option value="{{this.label}}" selected="{{this.label_selected}}">{{this.label}}</option>
+            <option value="{{this.data}}" selected="{{this.label_selected}}">{{this.label}}</option>
           {{/each}}
         </select>
       </div>
@@ -15,8 +15,8 @@
       <ul id="filters">
         {{#each filters}}
           <li>
-            <input id="{{this.label}}_filter" class="filter_cat" type="radio" name="filters" value="{{this.index}}_{{this.label}}" checked="{{this.color_selected}}">
-            <label class="filter_cat_label" for="{{this.label}}_filter">
+            <input id="{{this.data}}_filter" class="filter_cat" type="radio" name="filters" value="{{this.index}}_{{this.data}}" checked="{{this.color_selected}}">
+            <label class="filter_cat_label" for="{{this.data}}_filter">
                 {{this.label}}
             </label><br>
             {{#if this.color_selected}}

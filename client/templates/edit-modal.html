@@ -24,7 +24,7 @@
                                 <span class='okItem'>
                                    <span class='glyphicon glyphicon-ok'></span>
                                 </span>
-                                <input class="editText" type="text" value='{{this.data}}' autofocus>
+                                <input class="editText" type="text" value='{{this.label}}' autofocus>
                             {{else}}
                                 <span class='clearItem'>
                                     <span class='glyphicon glyphicon-trash'></span>
@@ -32,7 +32,7 @@
                                 <span class='editItem' index='{{this.index}}'>
                                     <span class='glyphicon glyphicon-pencil'></span>
                                 </span>
-                                {{this.data}}
+                                {{this.label}}
                             {{/if}}
                         </li>
                     {{/each}}
@@ -42,11 +42,11 @@
                 <div class="edit-col-title">Inactive</div>
                 <ul id="edit_data_current_categories_deleted">
                     {{#each data.deleted}}
-                        <li class='category' value="{{this}}">
+                        <li class='category' value="{{this.data}}">
                             <span class='addItem'>
                                 <span class='glyphicon glyphicon-plus add'></span>
                             </span>
-                            {{this}}
+                            {{this.label}}
                         </li>
                     {{/each}}
                 </ul>
@@ -54,20 +54,25 @@
             </div>
 
             <b>Edit Group Sizing:</b><span class="edit_error_message"></span>
-            <div class="edit-col-container">
+            <div class="edit-col-container sizesInput">
                 <div class="edit-col">
-                  <input type="radio" name="max" class="maxPeopleEdit" checked> Max People per Group
-                  <br>
-                  <input type="number" min="1" class="numberOfPeopleEdit">
-                  <span class="glyphicon glyphicon-plus numberIncrementer" aria-hidden="true"></span>
-                  <span class="glyphicon glyphicon-minus numberIncrementer" aria-hidden="true"></span>
+                    <div class="sizesLabel">Group By</div>
+                    <div class="sizesChoose">
+                        <input type="radio" id="people" name="max" class="sizesSelect" value="people" checked="{{data.sizes.people_selected}}"><label for="people">People per Group</label>
+                        <br>
+                        <input type="radio" id="groups" name="max" class="sizesSelect" value="groups" checked="{{data.sizes.groups_selected}}"><label for="groups">No. Groups</label>
+                    </div>
                 </div>
                 <div class="edit-col">
-                  <input type="radio" name="max" class="maxGroupsEdit"> Max No. Groups
-                  <br>
-                  <input type="number" min="1" class="numberOfGroupsEdit" disabled>
-                  <span class="glyphicon glyphicon-plus numberIncrementer inactive" aria-hidden="true"></span>
-                  <span class="glyphicon glyphicon-minus numberIncrementer inactive" aria-hidden="true"></span>
+                    {{#if data.sizes.people_selected}}
+                        <div class="sizesLabel">Max Number of People per Group</div>
+                        <input type="number" min="1" class="sizesEdit" value="{{data.sizes.people}}">
+                    {{else}}
+                        <div class="sizesLabel">Max Number of Groups</div>
+                        <input type="number" min="1" class="sizesEdit" value="{{data.sizes.groups}}">
+                    {{/if}}
+                    <span class="glyphicon glyphicon-plus numInc" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-minus numInc" aria-hidden="true"></span>
                 </div>
             </div>
           </div>
@@ -79,5 +84,4 @@
         </div>
       </div>
     </div>
-
 </template>
