@@ -24,6 +24,27 @@ Meteor.methods({
     Classes.update({
       _id: class_id
     }, {$set: {'settings.priorities': newPriorities}})
+  },
+
+  'updateLabels': function(class_id, newLabels) {
+      Classes.update({
+          _id: class_id
+      }, {$set: {'settings.labels': newLabels}});
+  },
+
+  'updateSizesPref': function(class_id, newPref) {
+      Classes.update({
+          _id: class_id
+      }, {$set: {'settings.sizes.pref': newPref}})
+  },
+
+  'updateSize': function(class_id, newSize) {
+      var pref = Classes.findOne({_id: class_id})['settings']['sizes']['pref'];
+      var obj = {};
+      obj['settings.sizes.' + pref] = newSize;
+      Classes.update({
+          _id: class_id
+      }, {$set: obj});
   }
 
 });
