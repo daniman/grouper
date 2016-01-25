@@ -11,7 +11,5 @@ Tracker.autorun(function(){
   if (!Session.get('label_index')) Session.set('label_index', 1);
   if (!Session.get('bubble_index')) Session.set('bubble_index', 0);
   if (!Session.get('hull_index')) Session.set('hull_index', 0);
-  if (!Session.get('import_class')) Session.set('import_class', {
-      'name': 'hello world'
-    });
+
 });

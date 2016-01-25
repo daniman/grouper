@@ -1,0 +1,35 @@
+<template name="thirdStep">
+  <div class="modal" id="importThirdStep" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h3 class="modal-title">Step 3: <i>Prioritize Data Categories</i></h3>
+        </div>
+
+        <div class="modal-body">
+          <strong>Drag</strong> your data categories in order of diversity importance:<br><br>
+          <div><u>More diverse</u></div>
+          <ul id="prioritizeCategories">
+            {{#each priorities}}
+              <li class='category' value='{{this.key}}'>
+                {{this.value}}
+              </li>
+            {{/each}}
+          </ul>
+          <div><u>Less diverse</u></div>
+        </div>
+
+        <ol class="progtrckr" data-progtrckr-steps="4">
+          <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-done">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
+        </ol>
+
+        <div class="modal-footer">
+          <button type="button" id="third-back" class="btn btn-default">Back</button>
+          <button type="button" id="third-next" class="btn btn-info">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>

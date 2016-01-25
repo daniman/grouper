@@ -13,21 +13,18 @@
     text-decoration: underline;
 }
 
-#edit_data_categories li{
-    font-size: 1.1em; 
-    margin: 0 3px 3px;
-    background-color: #F4F4F5;
-    width: 60%;
-}
-
-#edit_data_current_categories, #edit_data_current_categories_deleted {
+#edit_data_current_categories, #edit_data_current_categories_deleted,
+#prioritizeCategories,
+#edit_data_categories, #edit_data_categories_deleted {
     margin: 0;
     padding: 0 10px 0 0;
 
     li {
-        margin: 3px 10%;
+        margin: 3px 0px 3px 10px;
+        padding-left: 10px;
         background-color: #F4F4F5;
-        width: 80%;
+        line-height: 26px;
+        vertical-align: middle;
     }
 }
 
@@ -41,7 +38,8 @@
     margin-left: 0px;
 }
 
-#inputModalSortable li:hover, #edit_data_current_categories li:hover {
+#prioritizeCategories li:hover,
+#edit_data_current_categories li:hover {
     cursor: move;
     background-color: #dcdcdc;
     transition: .25s;

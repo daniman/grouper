@@ -24,3 +24,6 @@ nemo64:bootstrap
 iron:router
 mrt:jquery-ui
 d3js:d3
+harrison:papa-parse
+reactive-var
+reactive-dict

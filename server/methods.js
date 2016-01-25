@@ -45,6 +45,20 @@ Meteor.methods({
       Classes.update({
           _id: class_id
       }, {$set: obj});
+  },
+
+  'insertClass': function(user_id, classObj) {
+    var classId = Classes.insert(classObj);
+
+    Meteor.users.update({
+      _id: user_id
+    }, {
+      $push: {
+        'profile.classes': classId
+      }
+    });
+
+    return classId;
   }
 
 });

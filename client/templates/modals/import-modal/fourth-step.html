@@ -1,0 +1,47 @@
+<template name="fourthStep">
+  <div class="modal" id="importFourthStep" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h3 class="modal-title" id="myModalLabel">Step 4: <i>Groupify</i></h3>
+        </div>
+
+        <div class="modal-body">
+          <div><strong>Select</strong> Groupification By:<br><br></div>
+          <div class="edit-col-container">
+            <div class="edit-col">
+              <div class="sizesLabel">Group By</div>
+              <div class="sizesChoose">
+                <input type="radio" id="people" name="max" value="people" checked="{{people}}"><label for="people">No. People per Group</label><br>
+                <input type="radio" id="groups" name="max" value="groups" checked="{{groups}}"><label for="groups">No. Groups</label>
+              </div>
+            </div>
+            <div class="edit-col">
+              {{#if people}}
+                <div class="sizesLabel">Max Number of People per Group</div>
+                <input type="number" min="1" class="sizesEdit" pref="people" value="{{sizes.people}}">
+              {{else}}
+                <div class="sizesLabel">Max Number of Groups</div>
+                <input type="number" min="1" class="sizesEdit" pref="groups" value="{{sizes.groups}}">
+              {{/if}}
+                <span class="glyphicon glyphicon-plus numInc" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-minus numInc" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+
+        <ol class="progtrckr" data-progtrckr-steps="4">
+          <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-done">Prioritize Data</li><li class="progtrckr-done">Groupify</li>
+        </ol>
+
+        <div class="modal-footer">
+          <button type="button" id="fourth-back" class="btn btn-default">Back</button>
+          <button type="button" id="fourth-next" class="btn btn-info">Groupfy!</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>

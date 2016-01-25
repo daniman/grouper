@@ -1,6 +1,8 @@
 Template.editModal.onRendered(function() {
     $("#edit_data_current_categories").sortable({
-        update: function(event, ui) {}
+        update: function(event, ui) {
+            // $("#edit_data_current_categories").sortable('cancel');
+        }
     });
 });
 
@@ -109,4 +111,3 @@ Template.editModal.events({
         $('.sizesEdit').val(size-1);
     }
 });
-

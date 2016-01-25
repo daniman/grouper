@@ -1,0 +1,55 @@
+<template name="secondStep">
+  <div class="modal" id="importSecondStep" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h3 class="modal-title">Step 2: <i>Edit Data Categories</i></h3>
+        </div>
+
+        <div class="modal-body">
+          <strong>Edit</strong> your data category labels as you would like them to appear in Grouper. <strong>Deactivate</strong> categories that are not relevant to group sorting (ex. <i>Name</i>).<br><br>
+
+          <div class="edit-col-container">
+            <div class="edit-col">
+              <div class="edit-col-title">Active</div>
+              <ul id="edit_data_categories">
+                {{#each active}}
+                  <li class='category'>
+                    <span class='cancelItem' value='{{this.key}}'>
+                        <span class='glyphicon glyphicon-remove'></span>
+                    </span>
+                    <input class="editText" type="text" value='{{this.value}}' placeholder='{{this.key}}' autofocus>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+            <div class="edit-col">
+              <div class="edit-col-title">Inactive</div>
+              <ul id="edit_data_categories">
+                {{#each inactive}}
+                  <li class='category'>
+                    <span class='addItem' value='{{this.key}}'>
+                      <span class='glyphicon glyphicon-plus add'></span>
+                    </span>
+                    <input class="editText" type="text" value='{{this.value}}' placeholder='{{this.key}}'>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <ol class="progtrckr" data-progtrckr-steps="4">
+          <li class="progtrckr-done">Import Data</li><li class="progtrckr-done">Edit Data</li><li class="progtrckr-todo">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
+        </ol>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="second-back">Back</button>
+          <button type="button" class="btn btn-info" id="second-next">Next</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
