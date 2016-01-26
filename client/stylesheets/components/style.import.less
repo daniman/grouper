@@ -21,10 +21,6 @@ div {
     transition: .5s;
 }
 
-.glyphicon.glyphicon-share {
-    padding: 4px 3px 6px 7px;
-}
-
 .help-icon {
     margin-right: 5px;
     cursor: pointer;
@@ -36,6 +32,12 @@ div {
     vertical-align: top;
     margin-top: 3px;
     cursor: pointer;
+    transition: .5s;
+
+    &:hover {
+        color: #8BC34A;
+        transition: .5s;
+    }
 }
 
 .undo-redo.disabled {
@@ -52,6 +54,8 @@ div {
     color: #fff;
     margin-left: 5px;
     cursor: pointer;
+    transition: .5s;
+    display: inline-block;
 }
 
 .help-icon:hover {
@@ -60,17 +64,17 @@ div {
 }
 
 #share:hover {
-    color: #673AB7; // purple
+    background-color: #673AB7; // purple
     transition: .5s;
 }
 
 #edit:hover {
-    color: #00BCD4; // blue
+    background-color: #00BCD4; // blue
     transition: .5s;
 }
 
 #export:hover {
-    color: #FF9800; // orange
+    background-color: #FF9800; // orange
     transition: .5s;
 }
 
