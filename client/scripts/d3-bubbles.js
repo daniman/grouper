@@ -683,10 +683,6 @@ buildBubbles = function() {
       force.stop();
       force.start();
     }
-
-    $(".bubble").dblclick(function(){
-      $("#studentModal").modal("show");
-    });
     
     start = function (){
       node = svg.selectAll(".node")

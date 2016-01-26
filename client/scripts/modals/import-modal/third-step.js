@@ -14,19 +14,6 @@ Template.thirdStep.onRendered(function() {
     });
 });
 
-
-Template.thirdStep.events({
-  'click #third-back': function(e, t) {
-    $('#importThirdStep').modal('hide');
-    $('#importSecondStep').modal('show');
-  },
-
-  'click #third-next': function(e, t) {
-    $('#importThirdStep').modal('hide');
-    $('#importFourthStep').modal('show');
-  },
-});
-
 Template.thirdStep.helpers({
   'priorities': function() {
     var settingsObj = Template.instance().data.state.get('settings');

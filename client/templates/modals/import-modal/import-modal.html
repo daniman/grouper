@@ -1,6 +1,19 @@
 <template name="importModal">
-    {{> firstStep state=state}}
-    {{> secondStep state=state}}
-    {{> thirdStep state=state}}
-    {{> fourthStep state=state}}
+    <div class="modal" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          {{#if step 1}}
+            {{> firstStep state=state}}
+          {{else}} {{#if step 2}}
+            {{> secondStep state=state}}
+          {{else}} {{#if step 3}}
+            {{> thirdStep state=state}}
+          {{else}} {{#if step 4}}
+            {{> fourthStep state=state}}
+          {{/if}}{{/if}}{{/if}}{{/if}}
+
+        </div>
+      </div>
+    </div>
 </template>

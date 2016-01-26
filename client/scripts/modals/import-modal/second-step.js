@@ -1,14 +1,4 @@
 Template.secondStep.events({
-  'click #second-back': function(e, t) {
-    $('#importSecondStep').modal('hide');
-    $('#importFirstStep').modal('show');
-  },
-
-  'click #second-next': function(e, t) {
-    $('#importSecondStep').modal('hide');
-    $('#importThirdStep').modal('show');
-  },
-
   'keyup .editText': function(e, t) {
     var settingsObj = t.data.state.get('settings');
     settingsObj.labels[e.target.placeholder] = e.target.value;

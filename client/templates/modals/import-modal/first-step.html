@@ -1,32 +1,36 @@
 <template name="firstStep">
-    <div class="modal" id="importFirstStep" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h3 class="modal-title">Step 1: <i>Import Data</i></h3>
-          </div>
 
-          <div class="modal-body">
-            <div>Name Your Class: <input type="text" id="groupName" value="{{name}}"></div>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="import-modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Step 1:</strong> <i>Import Data</i>
+  </div>
 
-            <div id="dropzone">
-              <div>Drag a CSV file here</div>
-              <p><i>or if you prefer...</i></p>
-              <input type="file" id="file_select" name="fileselect" size="40">
-              <div id="fileInfo"></div>
-            </div>
-          </div>
+  <div class="modal-body">
+    <div>Name Your Class: <input type="text" id="groupName" value="{{name}}"></div>
 
-          <ol class="progtrckr" data-progtrckr-steps="4">
-            <li class="progtrckr-done">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
-          </ol>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-info inactive" id="first-next">Next</button>
-          </div>
+    <div id="dropzone">
+      <div>Drag a CSV file here</div>
+      <p><i>or if you prefer...</i></p>
+      <input type="file" id="file_select" name="fileselect" size="40">
+      {{#if filename}}
+        <div>
+          <strong>{{filename.name}}</strong> ({{filename.type}}) - {{filename.size}}, last modified: {{filename.modified}}
         </div>
-      </div>
+      {{/if}}
     </div>
+  </div>
+
+  <ol class="progtrckr" data-progtrckr-steps="4">
+    <li class="progtrckr-done">Import Data</li><li class="progtrckr-todo">Edit Data</li><li class="progtrckr-todo">Prioritize Data</li><li class="progtrckr-todo">Groupify</li>
+  </ol>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" id="import-close">Close</button>
+    {{#if filename}}
+      <button type="button" class="btn btn-info" id="import-next">Next</button>
+    {{else}}
+      <button type="button" class="btn btn-info inactive" id="import-next">Next</button>
+    {{/if}}
+  </div>
+
 </template>

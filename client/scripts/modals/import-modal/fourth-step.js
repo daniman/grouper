@@ -1,25 +1,4 @@
 Template.fourthStep.events({
-  'click #fourth-back': function(e, t) {
-    $('#importFourthStep').modal('hide');
-    $('#importThirdStep').modal('show');
-  },
-
-  'click #fourth-next': function(e, t) {
-    $('#importFourthStep').modal('hide');
-
-    var group = {};
-    group['data'] = t.data.state.get('data');
-    group['filters'] = t.data.state.get('filters');
-    group['settings'] = t.data.state.get('settings');
-    group['name'] = t.data.state.get('name');
-
-    var groupified = helpers.groupify(group);
-
-    var newClassId = Meteor.call('insertClass', Meteor.userId(), groupified);
-    Session.set('active', newClassId);
-    t.data.state = new ReactiveDict();
-  },
-
   'click #groups': function(e, t) {
     var settingsObj = t.data.state.get('settings');
     settingsObj.sizes.pref = 'groups';
@@ -42,11 +21,15 @@ Template.fourthStep.events({
   'click .numInc.glyphicon-plus': function(e, t) {
     var size = parseInt($('.sizesEdit').val());
     $('.sizesEdit').val(size+1);
+    $('.sizesEdit').trigger('change');
+    //TODO: there's something very buggy going on here, maybe related to multiple .sizesEdit on page
   },
 
   'click .numInc.glyphicon-minus': function(e, t) {
     var size = parseInt($('.sizesEdit').val());
-    $('.sizesEdit').val(size-1)
+    $('.sizesEdit').val(size-1);
+    $('.sizesEdit').trigger('change');
+    //TODO: there's something very buggy going on here
   }
 });
 
@@ -56,13 +39,8 @@ Template.fourthStep.helpers({
     if (settingsObj) return settingsObj.sizes;
   },
 
-  people: function() {
+  pref: function(pref) {
     var settingsObj = Template.instance().data.state.get('settings');
-    if (settingsObj) return settingsObj.sizes.pref === 'people';
-  },
-
-  groups: function() {
-    var settingsObj = Template.instance().data.state.get('settings');
-    if (settingsObj) return settingsObj.sizes.pref === 'groups';
+    if (settingsObj) return settingsObj.sizes.pref === pref; 
   }
 });

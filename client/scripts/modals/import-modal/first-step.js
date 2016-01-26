@@ -19,7 +19,7 @@ Template.firstStep.events({
 
     Papa.parse(files[0], {
       header: true,
-      complete: function(results, file) {
+      complete: function(results) {
         // TODO: run the magic grouping algorithm
         t.data.state.set('data', results.data);
 
@@ -29,12 +29,14 @@ Template.firstStep.events({
         t.data.state.set('settings', helpers.defaultSettings(filters));
 
         var file = files[0];
-        var filenameHTML = "<p><strong>" + file.name + "</strong>" +
-        " (" + file.type +") - " + helpers.bytesToSize(file.size, 2) +
-        ", last modified: " + file.lastModifiedDate.toLocaleDateString();
-        $('#fileInfo').html(filenameHTML); // TODO: unsafe, XSS vulnerable
+        t.data.state.set('file', {
+          'name': file.name,
+          'type': file.type,
+          'size': helpers.bytesToSize(file.size, 2),
+          'modified': file.lastModifiedDate.toLocaleDateString()
+        });
 
-        $('#first-next').removeClass('inactive');
+        $('#import-next').removeClass('inactive');
         if (!t.data.state.get('name')) {
           t.data.state.set('name', file.name);
         };
@@ -43,18 +45,20 @@ Template.firstStep.events({
         console.log(err); // TODO: proper error handling
       }
     });
-  },
-
-  'click #first-next': function(e, t) {
-    if (!$('#first-next').hasClass('inactive')) {
-      $('#importFirstStep').modal('hide');
-      $('#importSecondStep').modal('show');
-    }
   }
 });
 
 Template.firstStep.helpers({
   name: function() {
     return Template.instance().data.state.get('name');
+  },
+
+  filename: function() {
+    var file = Template.instance().data.state.get('file');
+    if (file) {
+      return file;
+    } else {
+      return false;
+    }
   }
 });

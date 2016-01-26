@@ -1,7 +1,4 @@
 <template name="fourthStep">
-  <div class="modal" id="importFourthStep" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -14,12 +11,12 @@
             <div class="edit-col">
               <div class="sizesLabel">Group By</div>
               <div class="sizesChoose">
-                <input type="radio" id="people" name="max" value="people" checked="{{people}}"><label for="people">No. People per Group</label><br>
-                <input type="radio" id="groups" name="max" value="groups" checked="{{groups}}"><label for="groups">No. Groups</label>
+                <input type="radio" id="people" name="max" value="people" checked="{{pref 'people'}}"><label for="people">No. People per Group</label><br>
+                <input type="radio" id="groups" name="max" value="groups" checked="{{pref 'groups'}}"><label for="groups">No. Groups</label>
               </div>
             </div>
             <div class="edit-col">
-              {{#if people}}
+              {{#if pref 'people'}}
                 <div class="sizesLabel">Max Number of People per Group</div>
                 <input type="number" min="1" class="sizesEdit" pref="people" value="{{sizes.people}}">
               {{else}}
@@ -37,11 +34,8 @@
         </ol>
 
         <div class="modal-footer">
-          <button type="button" id="fourth-back" class="btn btn-default">Back</button>
-          <button type="button" id="fourth-next" class="btn btn-info">Groupfy!</button>
+          <button type="button" class="btn btn-default" id="import-back">Back</button>
+          <button type="button" class="btn btn-info" id="import-finish">Groupfy!</button>
         </div>
 
-      </div>
-    </div>
-  </div>
 </template>
