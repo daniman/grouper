@@ -23,36 +23,28 @@ Template.secondStep.events({
 Template.secondStep.helpers({
   'active': function() {
     var settingsObj = Template.instance().data.state.get('settings');
-    if (settingsObj) {
-      var labelsObj = settingsObj['labels'];
-      return settingsObj['priorities'].map(function(key) {
-        return {
-          'key': key,
-          'value': labelsObj[key]
-        };
-      });
-    } else {
-      return []; // no new class yet
-    }
+    var labelsObj = settingsObj['labels'];
+    return settingsObj['priorities'].map(function(key) {
+      return {
+        'key': key,
+        'value': labelsObj[key]
+      };
+    });
   },
 
   'inactive': function() {
     var settingsObj = Template.instance().data.state.get('settings');
-    if (settingsObj) {
-      var labelsObj = settingsObj['labels'];
-      var inactiveLabels = Object.keys(labelsObj).filter(function(key) {
-        if (settingsObj['priorities'].indexOf(key) < 0) {
-          return key;
-        }
-      });
-      return inactiveLabels.map(function(key) {
-        return {
-          'key': key,
-          'value': labelsObj[key]
-        };
-      });
-    } else {
-      return []; // no new class yet
-    }
+    var labelsObj = settingsObj['labels'];
+    var inactiveLabels = Object.keys(labelsObj).filter(function(key) {
+      if (settingsObj['priorities'].indexOf(key) < 0) {
+        return key;
+      }
+    });
+    return inactiveLabels.map(function(key) {
+      return {
+        'key': key,
+        'value': labelsObj[key]
+      };
+    });
   }
 });

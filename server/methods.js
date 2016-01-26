@@ -49,16 +49,26 @@ Meteor.methods({
 
   'insertClass': function(user_id, classObj) {
     var classId = Classes.insert(classObj);
-
     Meteor.users.update({
       _id: user_id
     }, {
-      $push: {
-        'profile.classes': classId
-      }
+      $push: {'profile.classes': classId}
     });
 
     return classId;
-  }
+  },
 
+  'deleteClass': function(user_id, class_id) {
+    console.log('delete class called');
+
+    Classes.remove({
+      _id: class_id
+    });
+
+    Meteor.users.update({
+      'profile.classes': {$in: [class_id]}
+    }, {
+      $pull: {'profile.classes': class_id}
+    });
+  }
 });

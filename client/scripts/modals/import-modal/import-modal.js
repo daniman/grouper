@@ -1,7 +1,7 @@
 Template.importModal.created = function() {
   this.state = new ReactiveDict();
   this.step = new ReactiveVar(1);
-}
+};
 
 Template.importModal.helpers({
   state: function() {
@@ -36,8 +36,10 @@ Template.importModal.events({
     group['name'] = t.state.get('name');
 
     var groupified = helpers.groupify(group);
-    var newClassId = Meteor.call('insertClass', Meteor.userId(), groupified);
-    Session.set('active', newClassId);
+    Meteor.call('insertClass', Meteor.userId(), groupified, function(err, data) {
+      if (err) console.log(err);
+      if (!err) Session.set('active', data);
+    });
 
     $('#importModal').modal('hide');
   }

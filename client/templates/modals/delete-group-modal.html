@@ -1,0 +1,29 @@
+<template name="deleteGroupModal">
+    <div class="modal fade" id="deleteGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="modal-title">Are you ABSOLUTELY sure?</div>
+          </div>
+          
+          <div class="modal-body">
+            <div class="danger-alert">Unexpected bad things will happen if you don't read this!</div>
+
+            <div class="danger-paragraph">This action <strong>CANNOT</strong> be undone. This will permanently delete <strong>{{name}}</strong> for you and anyone you share this class with.</div>
+
+            <div class="danger-paragraph">Please type in the name of the class to confirm.</div>
+            <div class="input-group danger-paragraph"><input type="text" id="confirm-class" class="form-control"></div>
+          </div>
+
+          <div class="modal-footer">
+            {{#if confirmed}}
+                <button type="button" class="btn btn-danger" id="delete-group-final">I understand the consequences. Delete this class.</button>
+            {{else}}
+                <button type="button" class="btn btn-danger disabled">I understand the consequences. Delete this class.</button>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+</template>

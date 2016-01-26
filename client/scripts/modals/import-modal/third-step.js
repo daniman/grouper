@@ -17,16 +17,12 @@ Template.thirdStep.onRendered(function() {
 Template.thirdStep.helpers({
   'priorities': function() {
     var settingsObj = Template.instance().data.state.get('settings');
-    if (settingsObj) {
-      var labelsObj = settingsObj['labels'];
-      return settingsObj['priorities'].map(function(key) {
-        return {
-          'key': key,
-          'value': labelsObj[key]
-        };
-      });
-    } else {
-      return []; // no new class yet
-    }
+    var labelsObj = settingsObj['labels'];
+    return settingsObj['priorities'].map(function(key) {
+      return {
+        'key': key,
+        'value': labelsObj[key]
+      };
+    });
   }
 });

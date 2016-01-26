@@ -4,7 +4,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Edit Groupify Settings</h4>
+            <div class="modal-title">Edit Groupify Settings</div>
           </div>
           
           <div class="modal-body">
@@ -41,7 +41,7 @@
               <div class="edit-col">
                 <div class="edit-col-title">Inactive</div>
                 <ul id="edit_data_current_categories_deleted">
-                    {{#each data.deleted}}
+                    {{#each data.inactive}}
                         <li class='category' value="{{this.data}}">
                             <span class='addItem'>
                                 <span class='glyphicon glyphicon-plus add'></span>

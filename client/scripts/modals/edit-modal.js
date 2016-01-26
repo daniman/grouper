@@ -1,41 +1,35 @@
 Template.editModal.onRendered(function() {
-    $("#edit_data_current_categories").sortable({
-        update: function(event, ui) {
-            // $("#edit_data_current_categories").sortable('cancel');
-        }
-    });
+    $("#edit_data_current_categories").sortable();
 });
 
 Template.editModal.helpers({
     data: function() {
         var  curr = Classes.findOne({_id: Session.get('active')});
-        var deleted = Object.keys(curr['filters']).filter(function(fil) {
-           if (curr['settings']['priorities'].indexOf(fil) < 0) {
-              return fil
-           }
+        var inactive = Object.keys(curr['filters']).filter(function(fil) {
+           if (curr['settings']['priorities'].indexOf(fil) < 0) {return fil;}
         });
 
         return {
-            name: curr['name'],
-            active: curr['settings']['priorities'].map(function(elem, i) {
+            name: curr.name,
+            active: curr.settings['priorities'].map(function(elem, i) {
                 return {
                     edit: Session.equals('temp_edit_index', i),
                     data: elem,
                     index: i,
-                    label: curr['settings']['labels'][elem]
+                    label: curr.settings['labels'][elem]
                 }
             }),
-            deleted: deleted.map(function(elem, i) {
+            inactive: inactive.map(function(elem, i) {
                 return {
                     data: elem,
-                    label: curr['settings']['labels'][elem]
+                    label: curr.settings['labels'][elem]
                 }
             }),
             sizes: {
-                people: curr['settings']['sizes']['people'],
-                groups: curr['settings']['sizes']['groups'],
-                people_selected: curr['settings']['sizes']['pref'] === 'people',
-                groups_selected: curr['settings']['sizes']['pref'] === 'groups'
+                people: curr.settings['sizes']['people'],
+                groups: curr.settings['sizes']['groups'],
+                people_selected: curr.settings['sizes']['pref'] === 'people',
+                groups_selected: curr.settings['sizes']['pref'] === 'groups'
             }
         }
     }
