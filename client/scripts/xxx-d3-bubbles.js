@@ -512,9 +512,8 @@ buildBubbles = function() {
     //TODO: Make it so that when you drag something it doesn't interpret it as clicked
 
     var nothingSelected = function(evt){
-      // console.log(evt);
-      var point = {'x':evt.pageX - $("#bubbleContainer").position().left
-      , 'y':evt.pageY - $("#bubbleContainer").position().top};
+      var point = {'x':evt.pageX - $("#bubble-canvas").position().left
+      , 'y':evt.pageY - $("#bubble-canvas").position().top};
       var focus = closestFocus(point);
 
       if(focus == student_dict[$(this).attr("student_id")].group){
@@ -588,8 +587,8 @@ buildBubbles = function() {
         $(".bubble").click(nothingSelected);
         evt.stopPropagation();
 
-        var point = {'x':evt.pageX - $("#bubbleContainer").position().left
-        , 'y':evt.pageY - $("#bubbleContainer").position().top};
+        var point = {'x':evt.pageX - $("#bubble-canvas").position().left
+        , 'y':evt.pageY - $("#bubble-canvas").position().top};
         var focus = closestFocus(point);
 
         if(focus != student_dict[$(this).attr("student_id")].group){
@@ -601,8 +600,8 @@ buildBubbles = function() {
         console.log("got here");
         $(".selected").removeClass("selected");
 
-        var point = {'x':evt.pageX - $("#bubbleContainer").position().left
-        , 'y':evt.pageY - $("#bubbleContainer").position().top};
+        var point = {'x':evt.pageX - $("#bubble-canvas").position().left
+        , 'y':evt.pageY - $("#bubble-canvas").position().top};
         var focus = closestFocus(point);
         if(focus != student_dict[$(this).attr("student_id")].group){
           moveToGroup($(this),focus);

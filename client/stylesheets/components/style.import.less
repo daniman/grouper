@@ -7,19 +7,42 @@ div {
     margin-bottom: 0px;
 }
 
-#help_tooltip {
+#bubble-canvas {
+    position: relative;
+}
+
+.bubble-glypicon {
     font-size: 20px;
-    position: absolute;
-    top: 70px;
-    left: 270px;
-    color: #ccc;
-    /*background-color: orange;*/
+    color: #bbb;
     z-index: 10;
+    transition: .5s;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+#help-tooltip {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+}
+
+#help-tooltip:hover span {
+    color: #F44336; // red
     transition: .5s;
 }
 
-#help_tooltip:hover {
-    color: #ff9800;
+#share:hover {
+    color: #673AB7; // purple
+    transition: .5s;
+}
+
+#edit:hover {
+    color: #00BCD4; // blue
+    transition: .5s;
+}
+
+#export:hover {
+    color: #FF9800; // orange
     transition: .5s;
 }
 
@@ -146,8 +169,6 @@ div {
     text-decoration: none;
 }
 
-
-
 #dropzone {
     width: 100%;
     height: 200px;
@@ -174,16 +195,15 @@ div {
     width: 82%;
 }
 
-#edit, #export, .btn {
-    line-height: 1.42857143;
-    padding: 6px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    border-radius: 3px;
-    /*width: 60px;*/
-    text-align: center;
-}
-
+// #edit, #export, .btn {
+//     line-height: 1.42857143;
+//     padding: 6px 12px;
+//     font-size: 14px;
+//     font-weight: 400;
+//     border-radius: 3px;
+//     /*width: 60px;*/
+//     text-align: center;
+// }
 
 .error_message {
     color: #F44336;

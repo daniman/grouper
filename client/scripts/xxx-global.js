@@ -1,10 +1,5 @@
 Grouper = {};
 
-Grouper.username = '';
-Grouper.groups = [];
-Grouper.active_group = {};
-Grouper.group_setup = {}; // for holding variables while you set up a group in the modal
-
 Grouper.colors = {
     get_color: function(category, attr, filters) {
         var color_pool = Grouper['colors']['color_schemes']['bright'];
