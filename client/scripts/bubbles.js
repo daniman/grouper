@@ -1,5 +1,5 @@
 Template.bubbles.onRendered(function() {
-  $('#help-tooltip').attr({
+  $('.help-icon').attr({
     'data-toggle': 'tooltip',
     'data-placement': 'bottom',
     'data-html': true,
@@ -10,7 +10,8 @@ Template.bubbles.onRendered(function() {
           '4. Drag circles to change group arrangements. <br />' +
           '5. Click backspace on selected circle to remove them.'
   });
-  $('#help-tooltip').tooltip();
+  $('.help-icon').tooltip();
+  $('[data-toggle="tooltip"]').tooltip();
 
   buildGroup();
 

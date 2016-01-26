@@ -129,8 +129,6 @@ hexpac = function(clusters, cluster_diameter, width, height) {
 
 student_dict = {}
 buildBubbles = function() {
-  $("#redo").remove();
-  $("#undo").remove();
   $('#bubbleContainer').html('');
 
   $(window).unbind('keydown');
@@ -366,32 +364,43 @@ buildBubbles = function() {
         });
       };
     }
+
     ////UNDO and REDO////
     undoStack = [];
     redoStack = [];
+
+    /*
+     * Execute an Undo, Update Undo/Redo buttons, Update DB for Undo
+     */
     var undo = function(e){
-      if(undoStack.length > 0){
-        //show redo, take away undo if it is length 0 
-        $("#redo").remove();
-        $("#undo").remove();
-        if(undoStack.length > 1){
-          $("#buttons").prepend("<a id=undo class='btn btn-md'>undo</a>");
-          $("#undo").click(undo);
+      console.log('undo');
+      console.log(undoStack);
+      if(undoStack.length > 0) {
+        /* Show Redo, Take away Undo if it's length is 0 */
+        $('#redo').removeClass('disabled');
+        if (! $._data($('#redo')[0], 'events').click) {
+          $("#redo").bind('click.grouper', redo);
         }
-        $("#buttons").prepend("<a id=redo class='btn'>redo</a>");
-        $("#redo").click(redo);
+        if(undoStack.length > 1) {
+          $('#undo').removeClass('disabled');
+          if (! $._data($('#undo')[0], 'events').click) {
+            $("#undo").bind('click.grouper', undo);
+          }
+        } else {
+          $('#undo').addClass('disabled');
+          $('#undo').unbind('click.grouper');
+        }        
+
+        /* Execute Undo */
         var toBeUndone = undoStack.pop();
-        if(toBeUndone[0]==="drag"){
+        if (toBeUndone[0]==="drag") {
           //drag redo
           redoStack.push(["drag",toBeUndone[1],student_dict[toBeUndone[1].attr("student_id")].group]);
           student_dict[toBeUndone[1].attr("student_id")].group = toBeUndone[2];
           //get them to move
           force.stop();
           force.start();
-
-         
-
-        }else if(toBeUndone[0]==="delete"){
+        } else if (toBeUndone[0]==="delete") {
           redoStack.push(toBeUndone);
           var bubble = toBeUndone[1];
           var id = bubble.attr("student_id");
@@ -400,8 +409,7 @@ buildBubbles = function() {
           $("#bubbleContainer").append(bubble);
           start();
           activeGroup.data = students;
-
-        }else{
+        } else {
           var tmpGroup = student_dict[toBeUndone[0].attr("student_id")].group;
           student_dict[toBeUndone[0].attr("student_id")].group = student_dict[toBeUndone[1].attr("student_id")].group;
           student_dict[toBeUndone[1].attr("student_id")].group = tmpGroup;
@@ -411,30 +419,39 @@ buildBubbles = function() {
           force.start();
         }
 
-      ///-----------------------------------------///
+        /* Store Undo in DB */
         Meteor.call('moveBubble', {
           bubble_index: toBeUndone[1].attr("student_id"),
           class_id: Session.get('active'),
           new_group: student_dict[toBeUndone[1].attr("student_id")].group
         });
-      ///-----------------------------------------///
-
       }
-
     }
+
+    /*
+     * Execute an Redo, Update Undo/Redo buttons, Update DB for Redo
+     */
     var redo = function(e){
+      console.log('redo');
+      console.log(redoStack);
       if(redoStack.length > 0){
-        //show undo, take away redo if it is length 0 
-        $("#redo").remove();
-        $("#undo").remove();
-        $("#buttons").prepend("<a id=undo class='btn btn-md'>undo</a>");
-        $("#undo").click(undo);
-        if(redoStack.length > 1){
-          $("#buttons").prepend("<a id=redo class='btn'>redo</a>");
-          $("#redo").click(redo);
+        /* Show Undo, Take away Redo if it's length is 0 */
+        $('#undo').removeClass('disabled');
+        if (! $._data($('#undo')[0], 'events').click) {
+          $("#undo").bind('click.grouper', undo);
         }
+        if(redoStack.length > 1) {
+          $('#redo').removeClass('disabled');
+          if (! $._data($('#redo')[0], 'events').click) {
+            $("#redo").bind('click.grouper', redo);
+          }
+        } else {
+          $('#redo').addClass('disabled');
+          $('#redo').unbind('click.grouper');
+        }
+
+        /* Execute Redo */
         var toBeRedone = redoStack.pop();
-        console.log(toBeRedone);
         if(toBeRedone[0] === "drag"){
           //drag redo
           undoStack.push([toBeRedone[0],toBeRedone[1],student_dict[toBeRedone[1].attr("student_id")].group]);
@@ -459,39 +476,29 @@ buildBubbles = function() {
           undoStack.push(toBeRedone);
           //get them to move
           force.stop();
-          force.start();
-
-          
+          force.start();          
         }
 
-      ///-----------------------------------------///
+        /* Store Redo in DB */
         Meteor.call('moveBubble', {
           bubble_index: toBeRedone[1].attr("student_id"),
           class_id: Session.get('active'),
           new_group: student_dict[toBeRedone[1].attr("student_id")].group
         });
-      ///-----------------------------------------///
-
       }
-
     }
+
+    /*
+     * Key Listeners for Undo, Redo, and Delete
+     */
     $(window).keydown(function(e) {
-      //modified from http://stackoverflow.com/questions/3902635/how-does-one-capture-a-macs-command-key-via-javascript
-      if(e.metaKey){
-        //shift+z
-        if (e.keyCode == 90 && e.shiftKey) {
-          console.log("redo");
+      if (e.metaKey) {
+        if (e.keyCode == 90 && e.shiftKey) { //shift+z
           redo(e)
-        }
-        //z
-        else if (e.keyCode == 90) {
-          undo(e)
-          console.log("undo");
-          
-        }
-        
-      }
-      else{
+        } else if (e.keyCode == 90) { //z
+          undo(e)          
+        } 
+      } else {
         if((e.keyCode == 46 || e.keyCode == 8) && $(".selected").length > 0){
           var bub = $(".selected")
           bub.removeClass("selected");
@@ -500,49 +507,51 @@ buildBubbles = function() {
           $(document).unbind("click", deselect);
           //hookup first function
           $(".bubble").click(nothingSelected);
-
           deleteBubble(bub);
           e.preventDefault();
-
         }
       }
     });
-    ////SWAPPING STUFF////
 
-    //TODO: Make it so that when you drag something it doesn't interpret it as clicked
+    /////////////////////////////////////////////////////// -- SWAPPING STUFF -- ///////////////////////////////////////////////////////
 
     var nothingSelected = function(evt){
-      var point = {'x':evt.pageX - $("#bubble-canvas").position().left
-      , 'y':evt.pageY - $("#bubble-canvas").position().top};
+      var point = {
+        'x':evt.pageX - $("#bubble-canvas").position().left,
+        'y':evt.pageY - $("#bubble-canvas").position().top
+      };
       var focus = closestFocus(point);
 
-      if(focus == student_dict[$(this).attr("student_id")].group){
-        //if just clicking
-        //add selected class
+      if (focus == student_dict[$(this).attr("student_id")].group) {
+        //if just clicking -> add selected class
         $(this).addClass("selected");
+
         //add listener to click on everything else for swap
         $(".bubble").unbind("click");
         $(".bubble").click(bubbleSelected);
         evt.stopPropagation();
+
         //add listener to click on background to deselect
         $(document).click(deselect);
         
         force.stop();
         force.start();
-      }
-      else{
+      } else {
         moveToGroup($(this),focus);
       }
     }
 
     var bubbleSelected = function(evt){
-      console.log("bubbleSelected");
-      if(student_dict[$(this).attr("student_id")].group !== student_dict[$(".selected").attr("student_id")].group){
+      console.log("bubble selected");
+      if (student_dict[$(this).attr("student_id")].group !== student_dict[$(".selected").attr("student_id")].group) { // bubble swap
+        console.log('bubble swap');
         //display undo, undisplay redo
-        $("#redo").remove();
-        $("#undo").remove();
-        $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
-        $("#undo").click(undo);
+        $("#redo").addClass('disabled');
+        $('#undo').removeClass('disabled');
+        if (! $._data($('#undo')[0], 'events').click) {
+          $("#undo").bind('click.grouper', undo);
+        }
+
         undoStack.push([$(this),$(".selected")]);
         redoStack = [];
 
@@ -618,7 +627,7 @@ buildBubbles = function() {
 
       }
 
-    // DON'T THINK THIS IS NECESSARY??
+    // DON'T THINK THIS IS NECESSARY?
     // ///-----------------------------------------///
     //   Meteor.call('moveBubble', {
     //     class_id: Session.get('active'),
@@ -661,23 +670,26 @@ buildBubbles = function() {
     }
 
     var moveToGroup = function(bubble, focus){
-      $("#redo").remove();
-      $("#undo").remove();
-      $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
-      $("#undo").click(undo);
+      console.log('bubble moved to group');
+      // show undo, hide redo
+      $("#redo").addClass('disabled');
+      // $('#redo').unbind('click.grouper');
+      $('#undo').removeClass('disabled');
+      if (! $._data($('#undo')[0], 'events').click) {
+        $("#undo").bind('click.grouper', undo);
+      }
+
       undoStack.push(["drag",bubble,student_dict[bubble.attr("student_id")].group]);
       redoStack = [];
 
       var updated_student = student_dict[bubble.attr("student_id")];
       updated_student.group = focus;
 
-    ///-----------------------------------------///
       Meteor.call('moveBubble', {
         class_id: Session.get('active'),
         bubble_index: bubble.attr('student_id'),
         new_group: focus
       });
-    ///-----------------------------------------///
 
       force.stop();
       force.start();
@@ -691,11 +703,15 @@ buildBubbles = function() {
       force.start()
     }
     
+    // TODO: update the undo/redo for this function
     deleteBubble = function(bubble){
-      $("#redo").remove();
-      $("#undo").remove();
-      $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
-      $("#undo").click(undo);
+      $("#redo").addClass('disabled');
+      $("#undo").addClass('disabled');
+      // $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
+      $('#undo').removeClass('disabled');
+      if (! $._data($('#undo')[0], 'events').click) {
+        $("#undo").bind('click.grouper', undo);
+      }
       var id = bubble.attr("student_id");
       undoStack.push(["delete",bubble,student_dict[bubble.attr("student_id")].group,students.filter(function(el){return el.index == id})[0]]);
       redoStack = [];
@@ -710,16 +726,15 @@ buildBubbles = function() {
             });
       activeGroup.data = students;
       return bubble;
-
-
     }
+
     /*
     //unused
     addBubble = function(bubble){
       $("#redo").remove();
       $("#undo").remove();
       $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
-      $("#undo").click(undo);
+      if (!$('#undo').hasClass('disabled')) $("#undo").click(undo);
       redoStack.push(["delete",bubble,student_dict[bubble.attr("student_id")].group]);
       redoStack = [];
 

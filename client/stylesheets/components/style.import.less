@@ -11,22 +11,50 @@ div {
     position: relative;
 }
 
-.bubble-glypicon {
-    font-size: 20px;
-    color: #bbb;
-    z-index: 10;
-    transition: .5s;
-    cursor: pointer;
-    margin-left: 5px;
-}
-
 #help-tooltip {
     position: absolute;
-    top: 15px;
-    left: 10px;
+    top: 20px;
+    left: 20px;
+    font-size: 20px;
+    color: #666;
+    z-index: 10;
+    transition: .5s;
 }
 
-#help-tooltip:hover span {
+.glyphicon.glyphicon-share {
+    padding: 4px 3px 6px 7px;
+}
+
+.help-icon {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.undo-redo {
+    margin-right: 8px;
+    font-size: 16px;
+    vertical-align: top;
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.undo-redo.disabled {
+    color: #ddd;
+    cursor: default;
+    pointer-events: none;
+}
+
+.action-icon {
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #666;
+    color: #fff;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.help-icon:hover {
     color: #F44336; // red
     transition: .5s;
 }
@@ -46,10 +74,8 @@ div {
     transition: .5s;
 }
 
-.tooltip-inner {
-    max-width: 270px;
-    /* If max-width does not work, try using width instead */
-    width: 270px;
+.help-icon + .tooltip .tooltip-inner {
+    width: 300px;
     text-align: left;
 }
 
