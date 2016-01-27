@@ -133,6 +133,12 @@ buildBubbles = function() {
   var nodes = null;
   var group_nodes = null;
   var force = null;
+  var undoStack = [];
+  var redoStack = [];
+  $('#undo').unbind('click.grouper');
+  $('#redo').unbind('click.grouper');
+  $('#undo').addClass('disabled');
+  $('#redo').addClass('disabled');
 
   var activeGroup = Classes.findOne({_id: Session.get('active')});
 
@@ -364,15 +370,13 @@ buildBubbles = function() {
     }
 
     ////UNDO and REDO////
-    undoStack = [];
-    redoStack = [];
 
     /*
      * Execute an Undo, Update Undo/Redo buttons, Update DB for Undo
      */
     var undo = function(e){
-      console.log('undo');
-      console.log(undoStack);
+      // console.log('undo');
+      // console.log(undoStack);
       if(undoStack.length > 0) {
         /* Show Redo, Take away Undo if it's length is 0 */
         $('#redo').removeClass('disabled');
@@ -430,8 +434,8 @@ buildBubbles = function() {
      * Execute an Redo, Update Undo/Redo buttons, Update DB for Redo
      */
     var redo = function(e){
-      console.log('redo');
-      console.log(redoStack);
+      // console.log('redo');
+      // console.log(redoStack);
       if(redoStack.length > 0){
         /* Show Undo, Take away Redo if it's length is 0 */
         $('#undo').removeClass('disabled');
@@ -805,7 +809,7 @@ buildBubbles = function() {
 
 
 
-    
+
 
     return student_dict;
 
