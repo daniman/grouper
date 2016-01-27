@@ -36,9 +36,14 @@ Template.importModal.events({
     group['name'] = t.state.get('name');
 
     var groupified = helpers.groupify(group);
-    Meteor.call('insertClass', Meteor.userId(), groupified, function(err, data) {
+    Meteor.call('insertClass', Meteor.userId(), groupified, function(err, classId) {
       if (err) console.log(err);
-      if (!err) Session.set('active', data);
+      if (!err) {
+        Session.set('active', classId);
+        var group = Classes.findOne({_id: classId});
+        Blaze.remove(Blaze.getView(document.getElementById('bubbleContainer')));
+        Blaze.renderWithData(Template.bubbles, group, document.getElementById('bubble-canvas'));
+      };
     });
 
     $('#importModal').modal('hide');

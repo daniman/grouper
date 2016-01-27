@@ -127,24 +127,22 @@ hexpac = function(clusters, cluster_diameter, width, height) {
     }
 }
 
-student_dict = {}
 buildBubbles = function() {
-  $('#bubbleContainer').html('');
-
   $(window).unbind('keydown');
-    nodes = null;
-    group_nodes = null;
-    force = null;
+  var student_dict = {}
+  var nodes = null;
+  var group_nodes = null;
+  var force = null;
 
-    activeGroup = Classes.findOne({_id: Session.get('active')});
+  var activeGroup = Classes.findOne({_id: Session.get('active')});
 
-    students = activeGroup['data'].slice();
-    students_copy = activeGroup['data'].slice();
-    points = [];
+  var students = activeGroup['data'].slice();
+  var students_copy = activeGroup['data'].slice();
+  var points = [];
 
-    var filters = activeGroup['filters'];
-    var totalGroups = filters['group'].length;
-    foci = hexpac(totalGroups, radius*3, $("#bubbleContainer").width(), $("#bubbleContainer").height());
+  var filters = activeGroup['filters'];
+  var totalGroups = filters['group'].length;
+  var foci = hexpac(totalGroups, radius*3, $("#bubbleContainer").width(), $("#bubbleContainer").height());
 
     for (var i = 0; i < totalGroups; i++) {
       students_copy.push({name:i,group:i});
@@ -206,7 +204,7 @@ buildBubbles = function() {
     // console.log(students);
     
     //hulls
-    hulls = []; 
+    var hulls = []; 
     for (var i = filters['group'].length - 1; i >= 0; i--) {
       hulls.push(svg.append("path").attr("class", "hull").attr("group",filters['group'].length - i - 1));
     };
@@ -772,6 +770,42 @@ buildBubbles = function() {
         hulls[i].attr("stroke", '#8d8d8d')
       };
     }
+
+
+
+
+
+  /** TODO: shell function to complete a later time **/
+  Classes.find({
+    _id: Session.get('active')
+  }).observe({
+    added: function(group) {
+      console.log(group);
+    },
+    changed: function(newGroup, oldGroup) {
+      if (Session.get('active') == newGroup._id) {
+        for (var student in newGroup.data) {
+          if (newGroup.data[student].group !== oldGroup.data[student].group) {
+            student_dict[student].group = newGroup.data[student].group;
+            force.start();
+            // force.stop();
+          }
+        }
+      }
+    },
+    removed: function(group) {
+      console.log(group);
+    }
+  });
+
+
+
+
+
+
+
+
+    
 
     return student_dict;
 

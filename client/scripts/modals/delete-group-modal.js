@@ -16,7 +16,12 @@ Template.deleteGroupModal.events({
         Meteor.call('deleteClass', Meteor.userId(), Session.get('active'), function() {
             $('#deleteGroupModal').modal('hide');
             $('#editModal').modal('hide');
-            Session.set('active', Meteor.user().profile.classes[0]);
+
+            var classId = Meteor.user().profile.classes[0];
+            Session.set('active', classId);
+            var group = Classes.findOne({_id: classId});
+            Blaze.remove(Blaze.getView(document.getElementById('bubbleContainer')));
+            Blaze.renderWithData(Template.bubbles, group, document.getElementById('bubble-canvas'));
         });
     }
 });

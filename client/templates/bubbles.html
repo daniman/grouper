@@ -1,7 +1,5 @@
-<template name="bubbles">
+<template name="editPanel">
   <div id="bubble-canvas">
-    <div id="bubbleContainer"></div>
-
     <div id="help-tooltip">
       <span class="help-icon glyphicon glyphicon-question-sign" aria-hidden="true"></span>
       <span id="undo" class="undo-redo glyphicon glyphicon-backward disabled" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Undo"></span>
@@ -14,7 +12,7 @@
       </div>
       <div id="share" class="action-icon">
         <div class="action-icon-label">Share</div>
-        <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
       </div>
       <div id="edit" class="action-icon">
         <div class="action-icon-label">Edit</div>
@@ -22,4 +20,8 @@
       </div>
     </div>
   </div>
+</template>
+
+<template name="bubbles">
+  <div id="bubbleContainer"></div>
 </template>

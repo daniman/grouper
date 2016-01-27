@@ -1,4 +1,4 @@
-Template.bubbles.onRendered(function() {
+Template.editPanel.onRendered(function() {
   $('.help-icon').attr({
     'data-toggle': 'tooltip',
     'data-placement': 'bottom',
@@ -12,33 +12,15 @@ Template.bubbles.onRendered(function() {
   });
   $('.help-icon').tooltip();
   $('[data-toggle="tooltip"]').tooltip();
-
-  buildGroup();
-
-  /** TODO: shell function to complete a later time **/
-  Classes.find({}).observe({
-    added: function(group) {
-      console.log(group);
-    },
-    changed: function(newGroup, oldGroup) {
-      if (Session.get('active') == newGroup._id) {
-        for (var student in newGroup.data) {
-          if (newGroup.data[student].group !== oldGroup.data[student].group) {
-            student_dict[student].group = newGroup.data[student].group;
-            force.start();
-            // force.stop();
-          }
-        }
-      }
-    },
-    removed: function(group) {
-      console.log(group);
-    }
-  });
 });
 
-buildGroup = function() {
-    var group = Classes.findOne({_id: Session.get('active')});
+Template.bubbles.onRendered(function() {
+  var group = Template.instance().data;
+  // console.log(Template.instance());
+  buildGroup(group);
+});
+
+buildGroup = function(group) {
     buildBubbles(group);
     var students = group['data'];
     var filters = group['filters'];

@@ -1,3 +1,8 @@
+Template.dropDown.onRendered(function() {
+  var group = Classes.findOne({_id: Session.get('active')});
+  Blaze.renderWithData(Template.bubbles, group, document.getElementById('bubble-canvas'));
+});
+
 Template.dropDown.helpers({
   activeClass: function() {
     return Classes.findOne({_id: Session.get('active')})['name'];
@@ -19,10 +24,13 @@ Template.dropDown.helpers({
 Template.dropDown.events({
   'click .classlist_item': function(event) {
     var name = $(event.target).attr('value');
-    Session.set('active', Classes.findOne({name: name})['_id']);
+    var group = Classes.findOne({name: name});
+    Session.set('active', group['_id']);
     Session.set('color_index', 0);
     Session.set('label_index', 1);
-    buildGroup();
+
+    Blaze.remove(Blaze.getView(document.getElementById('bubbleContainer')));
+    Blaze.renderWithData(Template.bubbles, group, document.getElementById('bubble-canvas'));
   },
 
   'click .classlist .dropdown-menu': function(event) {
