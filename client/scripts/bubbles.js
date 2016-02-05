@@ -20,12 +20,14 @@ Template.editPanel.events({
       $('#resize').removeClass('glyphicon-resize-full');
       $('#resize').addClass('glyphicon-resize-small');
 
-      $('#bubble-canvas').animate({
+      $('#bubble-canvas').css({
         'height': '100%',
         'width': '100%'
-      }, 1000, function() {
-        $(window).trigger('resize');
       });
+      setTimeout(function() {
+        $(window).trigger('resize');
+      }, 1000);
+      $('#filterContainer').css('display', 'block');
       $('#filterContainer').css('display', 'none');
     } else {
       $('#resize').removeClass('glyphicon-resize-small');
@@ -33,8 +35,7 @@ Template.editPanel.events({
 
       $('#bubble-canvas').css({
         'height': 'calc(100% - 50px)',
-        'width': 'calc(100% - 250px)',
-        'transition': '1s'
+        'width': 'calc(100% - 250px)'
       });
       setTimeout(function() {
         $(window).trigger('resize');

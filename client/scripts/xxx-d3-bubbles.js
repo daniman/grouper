@@ -227,7 +227,6 @@ buildBubbles = function() {
         'background-color': 'transparent',
         'border-radius': radius/2 + 'px',
         'font-size': '30px',
-        'line-height': radius + 'px',
         'left': function(d) {
           return d.x + radius + "px"; //x
         },
