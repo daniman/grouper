@@ -84,6 +84,10 @@ helpers = {
     for (var i=0; i<groups; i++) {
       group.filters['group'][i] = i;
     }
+
+
+
+    console.log(group);
     return group;
   }
 };

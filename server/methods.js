@@ -8,6 +8,11 @@ Meteor.methods({
     }, {$set: update});
   },
 
+  'deleteBubble': function(data) {
+    var update = 'data.' + data.bubble_index;
+    Classes.update({_id: data.class_id}, {$pull: {'data': data.bubble_info}});
+  },
+
   'saveFilters': function(class_id, filters) {
     Classes.update({
       _id: class_id

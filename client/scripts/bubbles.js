@@ -67,4 +67,8 @@ buildGroup = function(group) {
     $('.bubble .bubble_text').each(function(i, bubble) {
       $(bubble).html(students[i][label]);
     });
+
+    // var curr = Classes.findOne({_id: Session.get('active')});
+    // var filter = curr.settings.priorities[Session.get('filter_index')];
+    // var categories = curr.filters[filter];
 }

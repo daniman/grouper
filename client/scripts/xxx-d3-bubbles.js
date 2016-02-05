@@ -226,8 +226,6 @@ buildBubbles = function() {
         'height': radius + 'px',
         'background-color': 'transparent',
         'border-radius': radius/2 + 'px',
-        'font-size': '30px',
-        'line-height': radius + 'px',
         'left': function(d) {
           return d.x + radius + "px"; //x
         },
@@ -501,6 +499,7 @@ buildBubbles = function() {
           undo(e)          
         } 
       } else {
+        e.preventDefault();
         if((e.keyCode == 46 || e.keyCode == 8) && $(".selected").length > 0){
           var bub = $(".selected")
           bub.removeClass("selected");
@@ -510,7 +509,7 @@ buildBubbles = function() {
           //hookup first function
           $(".bubble").click(nothingSelected);
           deleteBubble(bub);
-          e.preventDefault();
+
         }
       }
     });
@@ -709,24 +708,28 @@ buildBubbles = function() {
     deleteBubble = function(bubble){
       $("#redo").addClass('disabled');
       $("#undo").addClass('disabled');
-      // $("#buttons").prepend("<a id=undo class='btn'>undo</a>");
       $('#undo').removeClass('disabled');
       if (! $._data($('#undo')[0], 'events').click) {
         $("#undo").bind('click.grouper', undo);
       }
       var id = bubble.attr("student_id");
+      console.log('deleted id is ' + id);
       undoStack.push(["delete",bubble,student_dict[bubble.attr("student_id")].group,students.filter(function(el){return el.index == id})[0]]);
       redoStack = [];
 
       students_copy = students_copy.filter(function(el){return el.index != id})
       students = students.filter(function(el){return el.index != id})
       bubble.remove()
-      start()
-      Parse.User.current().save(
-                {'groups': Grouper.groups }, 
-                { error: function(obj, error) { console.log(error); }
-            });
+      // start()
+
       activeGroup.data = students;
+
+      var data = {
+        bubble_index: id,
+        class_id: Session.get('active'),
+        bubble_info: Classes.findOne({_id: Session.get('active')}).data[id] 
+      }
+      Meteor.call('deleteBubble', data);
       return bubble;
     }
 
@@ -784,21 +787,64 @@ buildBubbles = function() {
     _id: Session.get('active')
   }).observe({
     added: function(group) {
-      console.log(group);
+      // console.log(group);
     },
     changed: function(newGroup, oldGroup) {
+      var sortBy = Object.keys(newGroup)[0];
+      newGroup.data.sort(function compare(a,b) {
+        if (a[sortBy] < b[sortBy])
+          return -1;
+        else if (a[sortBy] > b[sortBy])
+          return 1;
+        else 
+          return 0;
+      });
+      oldGroup.data.sort(function compare(a,b) {
+        if (a[sortBy] < b[sortBy])
+          return -1;
+        else if (a[sortBy] > b[sortBy])
+          return 1;
+        else 
+          return 0;
+      });
+
       if (Session.get('active') == newGroup._id) {
-        for (var student in newGroup.data) {
-          if (newGroup.data[student].group !== oldGroup.data[student].group) {
-            student_dict[student].group = newGroup.data[student].group;
-            force.start();
-            // force.stop();
+        if (newGroup.data.length == oldGroup.data.length) {
+          for (var student in newGroup.data) {
+            if (newGroup.data[student].group !== oldGroup.data[student].group) {
+              student_dict[student].group = newGroup.data[student].group;
+              force.start();
+              // force.stop();
+            }
+          }        
+        } else { // a bubble was deleted!?
+          var deletedIndex = -1;
+          console.log(newGroup.data.length);
+          for (var i=0; i<newGroup.data.length; i++) {
+            if (JSON.stringify(newGroup.data[i]) != JSON.stringify(oldGroup.data[i])) {
+              console.log(newGroup.data[i]);
+              console.log(oldGroup.data[i]);
+              deletedIndex = i;
+            } else {
+              deletedIndex = oldGroup.data.length;
+            }
           }
+          console.log("I think the deleted index is " + deletedIndex);
+
+          students_copy = students_copy.filter(function(el){return el.index != deletedIndex});
+          console.log(students_copy.length);
+          console.log(students_copy);
+          students = students.filter(function(el){return el.index != deletedIndex});
+          console.log(students.length);
+          console.log($('#node_' + deletedIndex));
+          $('#node_' + deletedIndex).remove();
+          activeGroup.data = students;
+
         }
       }
     },
     removed: function(group) {
-      console.log(group);
+      // console.log(group);
     }
   });
 
