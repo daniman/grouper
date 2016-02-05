@@ -14,6 +14,36 @@ Template.editPanel.onRendered(function() {
   $('[data-toggle="tooltip"]').tooltip();
 });
 
+Template.editPanel.events({
+  'click #resize': function(event) {
+    if ($('#resize').hasClass('glyphicon-resize-full')) {
+      $('#resize').removeClass('glyphicon-resize-full');
+      $('#resize').addClass('glyphicon-resize-small');
+
+      $('#bubble-canvas').animate({
+        'height': '100%',
+        'width': '100%'
+      }, 1000, function() {
+        $(window).trigger('resize');
+      });
+      $('#filterContainer').css('display', 'none');
+    } else {
+      $('#resize').removeClass('glyphicon-resize-small');
+      $('#resize').addClass('glyphicon-resize-full');
+
+      $('#bubble-canvas').css({
+        'height': 'calc(100% - 50px)',
+        'width': 'calc(100% - 250px)',
+        'transition': '1s'
+      });
+      setTimeout(function() {
+        $(window).trigger('resize');
+      }, 1000);
+      $('#filterContainer').css('display', 'block');
+    }
+  }
+})
+
 Template.bubbles.onRendered(function() {
   var group = Template.instance().data;
   // console.log(Template.instance());
